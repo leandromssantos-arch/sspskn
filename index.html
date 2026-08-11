@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#111827">
+<title>SSPSKN</title>
+<style>
+:root{--bg:#f3f4f6;--card:#fff;--ink:#111827;--muted:#6b7280;--line:#e5e7eb;--accent:#2563eb;--green:#059669;--red:#dc2626}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--ink)}
+header{background:#111827;color:#fff;padding:18px 16px 14px;position:sticky;top:0;z-index:5}
+header h1{font-size:22px;margin:0 0 3px}header p{margin:0;color:#cbd5e1;font-size:13px}
+main{max-width:760px;margin:auto;padding:12px 12px 90px}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:flex;z-index:10;padding-bottom:env(safe-area-inset-bottom)}
+nav button{flex:1;border:0;background:none;padding:10px 3px;font-size:11px;color:var(--muted)}nav button.active{color:var(--accent);font-weight:700}
+nav span{display:block;font-size:20px;margin-bottom:2px}
+.tab{display:none}.tab.active{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px;margin-bottom:12px;box-shadow:0 2px 8px #00000008}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.stat{padding:13px;border:1px solid var(--line);border-radius:13px}.stat b{font-size:23px;display:block}.stat small{color:var(--muted)}
+button,.btn{border:0;border-radius:11px;padding:11px 14px;background:var(--accent);color:#fff;font-weight:700;font-size:14px;cursor:pointer}
+button.secondary{background:#e5e7eb;color:#111827}.row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1}
+input,select{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:10px;background:#fff;font-size:16px}
+label{font-size:12px;color:var(--muted);display:block;margin:8px 0 4px}
+.ball{display:inline-flex;width:35px;height:35px;border-radius:50%;align-items:center;justify-content:center;background:#eef2ff;color:#1e3a8a;font-weight:800;margin:3px}.trevo{background:#ecfdf5;color:#047857}
+.result{border-bottom:1px solid var(--line);padding:11px 0}.result:last-child{border:0}.result .date{font-size:12px;color:var(--muted)}
+.mini{font-size:12px;color:var(--muted)}.ok{color:var(--green);font-weight:700}.warn{color:#b45309;font-weight:700}
+.bar{height:10px;background:#e5e7eb;border-radius:10px;overflow:hidden;margin-top:5px}.bar i{display:block;height:100%;background:var(--accent)}
+.number-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:5px}.number-grid button{padding:7px 0;background:#f3f4f6;color:#111827;border:1px solid #ddd}.number-grid button.sel{background:var(--accent);color:white}.number-grid button.hot{box-shadow:inset 0 0 0 2px #f59e0b}
+.game{padding:10px;border:1px solid var(--line);border-radius:12px;margin:8px 0}.game strong{display:block;margin-bottom:5px}
+.alert{padding:10px 12px;border-radius:10px;background:#eff6ff;color:#1e40af;font-size:13px;margin-bottom:10px}
+footer{text-align:center;color:var(--muted);font-size:11px;padding:15px}
+@media(min-width:600px){.grid{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<header><h1>SSPSKN</h1><p>Resultados • estatísticas • conferência • combinações</p></header>
+<main>
+<section id="dashboard" class="tab active">
+ <div class="card">
+  <div class="alert" id="status">Carregando resultado mais recente…</div>
+  <div class="grid" id="stats"></div>
+ </div>
+ <div class="card"><h3>Último concurso</h3><div id="latest"></div></div>
+ <div class="card"><h3>Mais frequentes</h3><div id="freq"></div></div>
+ <div class="card"><h3>Mais atrasados</h3><div id="delay"></div></div>
+</section>
+
+<section id="historico" class="tab">
+ <div class="card"><h3>Histórico</h3><div class="row">
+  <button onclick="loadHistory(50)">Carregar 50 últimos</button>
+  <button class="secondary" onclick="loadHistory(380)">Carregar histórico completo</button>
+ </div><p class="mini" id="histStatus"></p></div>
+ <div class="card" id="historyList"></div>
+</section>
+
+<section id="jogos" class="tab">
+ <div class="card"><h3>Cadastrar jogo</h3>
+  <p class="mini">Escolha 6 números e 2 trevos.</p>
+  <label>Números</label><div class="number-grid" id="numGrid"></div>
+  <label>Trevos</label><div class="number-grid" id="trevoGrid" style="grid-template-columns:repeat(6,1fr)"></div>
+  <div class="row" style="margin-top:10px"><button onclick="saveGame()">Salvar jogo</button><button class="secondary" onclick="clearPick()">Limpar</button></div>
+ </div>
+ <div class="card"><h3>Meus jogos</h3><div id="games"></div></div>
+</section>
+
+<section id="gerador" class="tab">
+ <div class="card"><h3>Gerador inteligente</h3>
+  <p class="mini">Usa frequência, atraso, equilíbrio par/ímpar e distribuição. Não prevê o sorteio.</p>
+  <label>Quantidade de jogos</label><input id="qty" type="number" min="1" max="50" value="10">
+  <label>Perfil</label><select id="profile"><option value="balance">Equilibrado</option><option value="freq">Mais frequentes</option><option value="delay">Mais atrasados</option><option value="mixed">Misto</option></select>
+  <button style="width:100%;margin-top:10px" onclick="generate()">Gerar jogos</button>
+  <div id="generated"></div>
+ </div>
+</section>
+
+<section id="config" class="tab">
+ <div class="card"><h3>Dados</h3>
+  <p class="mini">Os dados ficam salvos neste iPhone/navegador.</p>
+  <div class="row"><button onclick="exportData()">Exportar backup</button><button class="secondary" onclick="document.getElementById('file').click()">Importar</button></div>
+  <input id="file" type="file" accept=".json" style="display:none" onchange="importData(event)">
+  <button class="secondary" style="width:100%;margin-top:10px" onclick="if(confirm('Apagar todos os dados locais?')){localStorage.clear();location.reload()}">Apagar dados locais</button>
+ </div>
+ <div class="card"><h3>Fonte</h3><p class="mini">O sistema tenta consultar primeiro o serviço de resultados da CAIXA e usa uma API pública de resultados como alternativa.</p></div>
+</section>
+</main>
+<nav>
+<button class="active" onclick="tab('dashboard',this)"><span>📊</span>Resumo</button>
+<button onclick="tab('historico',this)"><span>🗂️</span>Histórico</button>
+<button onclick="tab('jogos',this)"><span>🎟️</span>Meus jogos</button>
+<button onclick="tab('gerador',this)"><span>✨</span>Gerador</button>
+<button onclick="tab('config',this)"><span>⚙️</span>Dados</button>
+</nav>
+
+<script>
+const KEY='milionaria_pro_v1';
+let db=JSON.parse(localStorage.getItem(KEY)||'{"results":[],"games":[]}');
+let pickN=[],pickT=[];
+
+function save(){localStorage.setItem(KEY,JSON.stringify(db))}
+function tab(id,el){document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));el.classList.add('active');if(id==='jogos')renderGames();if(id==='historico')renderHistory()}
+function balls(ns,cls=''){return ns.map(n=>`<span class="ball ${cls}">${String(n).padStart(2,'0')}</span>`).join('')}
+function normalize(x){
+ let nums=x.listaDezenas||x.dezenas||x.numeros||[];
+ let trevos=x.trevosSorteados||x.trevos||[];
+ let num=Number(x.numero||x.concurso);
+ return {numero:num,data:x.dataApuracao||x.data||'',numeros:nums.map(Number).sort((a,b)=>a-b),trevos:trevos.map(Number).sort((a,b)=>a-b),premio:x.valorEstimadoProximoConcurso||0};
+}
+async function fetchJSON(url){let r=await fetch(url,{cache:'no-store'});if(!r.ok)throw Error(r.status);return r.json()}
+async function getContest(n){
+ let urls=[`https://servicebus2.caixa.gov.br/portaldeloterias/api/maismilionaria/${n}`,`https://api.guidi.dev.br/loteria/maismilionaria/${n}`];
+ for(const u of urls){try{return normalize(await fetchJSON(u))}catch(e){}}
+ throw Error('Não foi possível consultar o concurso '+n)
+}
+async function updateLatest(){
+ try{
+  let x=normalize(await fetchJSON('https://servicebus2.caixa.gov.br/portaldeloterias/api/maismilionaria'));
+  db.results=db.results.filter(r=>r.numero!==x.numero);db.results.push(x);db.results.sort((a,b)=>a.numero-b.numero);save();
+  document.getElementById('status').innerHTML=`<b>Atualizado:</b> concurso ${x.numero} • ${x.data}`;
+ }catch(e){
+  document.getElementById('status').innerHTML='Não consegui atualizar pela internet. Se você já tiver o histórico salvo, ele continuará disponível.';
+ }
+ renderAll()
+}
+async function loadHistory(count){
+ let latest=db.results.length?Math.max(...db.results.map(x=>x.numero)):379;
+ try{let x=normalize(await fetchJSON('https://servicebus2.caixa.gov.br/portaldeloterias/api/maismilionaria'));latest=x.numero;db.results.push(x)}catch(e){}
+ let first=Math.max(1,latest-count+1), list=[];
+ for(let start=latest;start>=first;start-=8){
+  let batch=[];for(let n=start;n>=Math.max(first,start-7);n--)batch.push(n);
+  const out=await Promise.all(batch.map(n=>getContest(n).catch(()=>null)));
+  list.push(...out.filter(Boolean));
+  document.getElementById('histStatus').textContent=`Consultando… ${Math.min(latest-first+1,list.length)}/${latest-first+1}`;
+ }
+ const map=new Map(db.results.map(x=>[x.numero,x]));list.forEach(x=>map.set(x.numero,x));db.results=[...map.values()].sort((a,b)=>a.numero-b.numero);save();
+ document.getElementById('histStatus').textContent=`Concluído: ${db.results.length} concursos salvos.`;
+ renderAll()
+}
+function analysis(){
+ let rs=db.results, freq=Array(51).fill(0), last=Array(51).fill(0), tf=Array(7).fill(0);
+ rs.forEach((r,i)=>{r.numeros.forEach(n=>{freq[n]++;last[n]=i+1});r.trevos.forEach(t=>tf[t]++)});
+ let total=rs.length;
+ let f=[...Array(50)].map((_,i)=>({n:i+1,f:freq[i+1],delay:total-last[i+1]}));
+ return {f,tf,total}
+}
+function renderAll(){
+ let rs=db.results;if(!rs.length)return;
+ let a=analysis(), latest=rs[rs.length-1], f=a.f.slice().sort((x,y)=>y.f-x.f), d=a.f.slice().sort((x,y)=>y.delay-x.delay);
+ document.getElementById('stats').innerHTML=`<div class=stat><b>${latest.numero}</b><small>Último concurso</small></div><div class=stat><b>${a.total}</b><small>Concursos salvos</small></div><div class=stat><b>${f[0].n}</b><small>Mais frequente</small></div><div class=stat><b>${d[0].n}</b><small>Mais atrasado</small></div>`;
+ document.getElementById('latest').innerHTML=`<div class=mini>Concurso ${latest.numero} • ${latest.data}</div><div>${balls(latest.numeros)}</div><div>${balls(latest.trevos,'trevo')}</div>`;
+ document.getElementById('freq').innerHTML=f.slice(0,10).map(x=>`<div><b>${String(x.n).padStart(2,'0')}</b> — ${x.f} vezes<div class=bar><i style="width:${Math.round(x.f/f[0].f*100)}%"></i></div></div>`).join('');
+ document.getElementById('delay').innerHTML=d.slice(0,10).map(x=>`<span class=ball>${String(x.n).padStart(2,'0')}</span> <span class=mini>${x.delay} concurso(s)</span>`).join('');
+ renderHistory()
+}
+function renderHistory(){
+ let box=document.getElementById('historyList');if(!db.results.length){box.innerHTML='<p class=mini>Nenhum concurso salvo. Toque em “Carregar 50 últimos”.</p>';return}
+ box.innerHTML=db.results.slice().reverse().slice(0,100).map(r=>`<div class=result><b>#${r.numero}</b> <span class=date>${r.data}</span><br>${balls(r.numeros)} ${balls(r.trevos,'trevo')}</div>`).join('')
+}
+function initPick(){
+ let ng=document.getElementById('numGrid');ng.innerHTML='';for(let n=1;n<=50;n++){let b=document.createElement('button');b.textContent=String(n).padStart(2,'0');b.onclick=()=>togglePick(n,'n',b);ng.appendChild(b)}
+ let tg=document.getElementById('trevoGrid');tg.innerHTML='';for(let n=1;n<=6;n++){let b=document.createElement('button');b.textContent=n;b.onclick=()=>togglePick(n,'t',b);tg.appendChild(b)}
+}
+function togglePick(n,type,b){let a=type==='n'?pickN:pickT,max=type==='n'?6:2;if(a.includes(n)){a.splice(a.indexOf(n),1);b.classList.remove('sel')}else if(a.length<max){a.push(n);b.classList.add('sel')}}
+function clearPick(){pickN=[];pickT=[];document.querySelectorAll('.number-grid button').forEach(b=>b.classList.remove('sel'))}
+function saveGame(){if(pickN.length!==6||pickT.length!==2){alert('Selecione 6 números e 2 trevos.');return}db.games.push({numeros:[...pickN].sort((a,b)=>a-b),trevos:[...pickT].sort((a,b)=>a-b)});save();clearPick();renderGames()}
+function renderGames(){let el=document.getElementById('games');if(!db.games.length){el.innerHTML='<p class=mini>Nenhum jogo cadastrado.</p>';return}el.innerHTML=db.games.map((g,i)=>`<div class=game><strong>Jogo ${i+1}</strong>${balls(g.numeros)} ${balls(g.trevos,'trevo')}<br><button class=secondary onclick="checkGame(${i})">Conferir no último</button> <button class=secondary onclick="db.games.splice(${i},1);save();renderGames()">Excluir</button></div>`).join('')}
+function checkGame(i){let r=db.results[db.results.length-1],g=db.games[i];if(!r){alert('Atualize os resultados primeiro.');return}let n=g.numeros.filter(x=>r.numeros.includes(x)).length,t=g.trevos.filter(x=>r.trevos.includes(x)).length;alert(`Concurso ${r.numero}\\n${n} números + ${t} trevos acertados.`)}
+function weightedPick(items,count){let out=[];while(out.length<count){let total=items.reduce((s,x)=>s+x.w,0),z=Math.random()*total,c=0;for(let x of items){c+=x.w;if(z<=c){if(!out.includes(x.n)){out.push(x.n);break}}}}return out}
+function generate(){
+ let a=analysis();if(!a.total){alert('Carregue o histórico primeiro.');return}
+ let prof=document.getElementById('profile').value,q=Math.min(50,Math.max(1,+document.getElementById('qty').value||10)),out=[];
+ for(let k=0;k<q;k++){
+  let items=a.f.map(x=>{let w=1;if(prof==='freq')w=1+x.f*2;if(prof==='delay')w=1+x.delay*2;if(prof==='mixed')w=1+x.f+x.delay*1.5;if(prof==='balance')w=1+Math.max(0,8-Math.abs(x.delay-5))+x.f*.2;return {n:x.n,w}});
+  let nums=weightedPick(items,6).sort((a,b)=>a-b);
+  let odd=nums.filter(n=>n%2).length;if(odd<2||odd>4){k--;continue}
+  let trevos=weightedPick(a.tf.slice(1).map((f,i)=>({n:i+1,w:1+f*1.5})),2).sort((a,b)=>a-b);
+  out.push({numeros:nums,trevos});
+ }
+ document.getElementById('generated').innerHTML=out.map((g,i)=>`<div class=game><strong>Jogo ${i+1}</strong>${balls(g.numeros)} ${balls(g.trevos,'trevo')}<br><button onclick='db.games.push(${JSON.stringify(g)});save();renderGames()'>Salvar</button></div>`).join('');
+}
+function exportData(){let a=new Blob([JSON.stringify(db,null,2)],{type:'application/json'}),u=URL.createObjectURL(a),x=document.createElement('a');x.href=u;x.download='mais-milionaria-backup.json';x.click();URL.revokeObjectURL(u)}
+function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{db=JSON.parse(r.result);save();renderAll();alert('Backup importado.')}catch(_){alert('Arquivo inválido.')}};r.readAsText(f)}
+initPick();renderAll();updateLatest();
+</script>
+</body></html>

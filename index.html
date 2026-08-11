@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#08140f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SSPSKN 2.0">
-<title>SSPSKN 2.0 • +Milionária</title>
+<meta name="apple-mobile-web-app-title" content="SSPSKN 2.1">
+<title>SSPSKN 2.1 • +Milionária</title>
 <style>
 :root{
   --bg:#07110d; --card:#0e1d16; --card2:#12251c; --txt:#eef8f1; --muted:#9db3a6;
@@ -72,7 +72,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <div class="wrap">
 <header>
   <div class="logo">SS</div>
-  <div><h1>SSPSKN 2.0</h1><div class="sub">Central estatística • +Milionária</div></div>
+  <div><h1>SSPSKN 2.1</h1><div class="sub">Central estatística • +Milionária</div></div>
   <div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div>
 </header>
 
@@ -149,7 +149,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
       <button class="btn" onclick="generateSet()">Gerar conjunto</button>
       <button class="btn ghost" onclick="clearGenerated()">Limpar</button>
     </div>
-    <div class="small" style="margin-top:10px">O algoritmo cria muitos candidatos e seleciona jogos com boa diversidade entre si. A “nota” é apenas um índice de equilíbrio histórico, não uma chance de acerto.</div>
+    <div class="small" style="margin-top:10px">O algoritmo cria muitos candidatos e seleciona jogos com boa diversidade entre si. A nota considera equilíbrio estrutural e histórico e agora varia de forma mais realista; continua não sendo uma chance de acerto.</div>
   </div>
   <div id="generated" class="list"></div>
   <div class="row" id="genActions" style="display:none;margin-top:12px">
@@ -230,11 +230,22 @@ function balls(nums,cls=''){return `<div class="balls">${nums.map(n=>`<span clas
 function setStatus(txt,ok=false){document.getElementById('syncStatus').textContent=txt;document.getElementById('dot').style.background=ok?'#3ee487':'#ffd56a'}
 function msg(t,type=''){document.getElementById('syncMsg').innerHTML=`<div class="notice ${type}">${t}</div>`}
 
-async function fetchDraw(n){
+async function fetchDraw(n,retries=3){
   const url=n?`${API}/${n}`:API;
-  const r=await fetch(url,{headers:{'Accept':'application/json'}});
-  if(!r.ok)throw new Error(`HTTP ${r.status}`);
-  return sanitizeDraw(await r.json());
+  let lastErr;
+  for(let attempt=0;attempt<=retries;attempt++){
+    try{
+      const r=await fetch(url,{headers:{'Accept':'application/json'},cache:'no-store'});
+      if(!r.ok)throw new Error(`HTTP ${r.status}`);
+      const d=sanitizeDraw(await r.json());
+      if(!validDraw(d))throw new Error('Formato inesperado');
+      return d;
+    }catch(e){
+      lastErr=e;
+      if(attempt<retries)await new Promise(r=>setTimeout(r,350*(attempt+1)));
+    }
+  }
+  throw lastErr;
 }
 async function syncLatest(){
   try{
@@ -248,24 +259,59 @@ async function syncAll(){
   try{
     setStatus('Buscando último...');
     const last=await fetchDraw();
-    if(!validDraw(last))throw new Error('Formato inesperado');
     mergeDraws([last]);
-    let have=new Set(history.map(d=>d.numero)), missing=[];
-    for(let n=1;n<=last.numero;n++)if(!have.has(n))missing.push(n);
-    if(!missing.length){setStatus('Histórico completo',true);msg(`Histórico já está completo até o concurso ${last.numero}.`,'ok');return}
-    msg(`Baixando ${missing.length} concursos que ainda não estão no aparelho...`);
-    let done=0;
-    for(let i=0;i<missing.length;i+=10){
-      const batch=missing.slice(i,i+10);
-      const res=await Promise.allSettled(batch.map(fetchDraw));
-      const ok=res.filter(x=>x.status==='fulfilled').map(x=>x.value).filter(validDraw);
-      mergeDraws(ok); done+=ok.length;
-      setStatus(`${done}/${missing.length}`);
-      await new Promise(r=>setTimeout(r,90));
+
+    const target=last.numero;
+    let have=new Set(history.map(d=>d.numero));
+    let missing=[];
+    for(let n=1;n<=target;n++)if(!have.has(n))missing.push(n);
+
+    if(!missing.length){
+      setStatus('Histórico completo',true);
+      msg(`Histórico completo: ${history.length} de ${target} concursos carregados.`,'ok');
+      return;
     }
-    setStatus('Atualizado',true);
-    msg(`Sincronização concluída. ${history.length} concursos disponíveis no aparelho.`,'ok');
-  }catch(e){setStatus('Falha na conexão');msg('Não foi possível sincronizar com a fonte de resultados agora. O histórico já salvo não foi apagado.','err')}
+
+    let totalInicial=missing.length;
+    msg(`Sincronizando histórico: faltam ${totalInicial} concursos. O SSPSKN fará até 3 passagens automáticas.`);
+    let pass=0;
+
+    while(missing.length && pass<3){
+      pass++;
+      let doneThisPass=0;
+      for(let i=0;i<missing.length;i+=4){
+        const batch=missing.slice(i,i+4);
+        const res=await Promise.allSettled(batch.map(n=>fetchDraw(n,2)));
+        const ok=res.filter(x=>x.status==='fulfilled').map(x=>x.value).filter(validDraw);
+        if(ok.length){ mergeDraws(ok); doneThisPass+=ok.length; }
+
+        const loaded=history.length;
+        setStatus(`Passagem ${pass} • ${loaded}/${target}`);
+        await new Promise(r=>setTimeout(r,180));
+      }
+
+      have=new Set(history.map(d=>d.numero));
+      missing=[];
+      for(let n=1;n<=target;n++)if(!have.has(n))missing.push(n);
+
+      if(missing.length && pass<3){
+        msg(`Passagem ${pass} concluída. Ainda faltam ${missing.length}; repetindo apenas os concursos ausentes...`);
+        await new Promise(r=>setTimeout(r,900));
+      }
+    }
+
+    const completeness=((history.length/target)*100).toFixed(1);
+    if(!missing.length){
+      setStatus('Histórico completo',true);
+      msg(`Sincronização concluída: ${history.length}/${target} concursos (${completeness}%).`,'ok');
+    }else{
+      setStatus('Histórico parcial',false);
+      msg(`Sincronização parcial: ${history.length}/${target} concursos (${completeness}%). Ainda faltam ${missing.length}. Toque em “Atualizar histórico” novamente mais tarde; o sistema buscará somente os ausentes.`,'');
+    }
+  }catch(e){
+    setStatus('Falha na conexão');
+    msg('Não foi possível sincronizar agora. O histórico já salvo continua intacto. Tente novamente em alguns instantes.','err');
+  }
 }
 
 function windowData(n){let a=history.slice();if(n>0)a=a.slice(-n);return a}
@@ -287,11 +333,14 @@ function quick(){
   let delay=[...nums].sort((a,b)=>s.delays[b]-s.delays[a]).slice(0,6);
   let last=history.at(-1), prev=history.at(-2);
   let rep=prev?intersect(last.dezenas,prev.dezenas).length:0;
+  let expected=last?.numero||history.length;
+  let missing=Math.max(0,expected-history.length);
   el.innerHTML=`<div class="grid3">
     <div class="kpi"><b>${hot.map(pad).join(' ')}</b><span>mais frequentes no histórico</span></div>
     <div class="kpi"><b>${delay.map(pad).join(' ')}</b><span>maiores atrasos atuais</span></div>
     <div class="kpi"><b>${rep}</b><span>repetidas do concurso anterior</span></div>
-  </div>`;
+  </div>
+  <div class="small" style="margin-top:10px">Cobertura do histórico: <b>${history.length}/${expected}</b> concursos (${expected?((history.length/expected)*100).toFixed(1):'0.0'}%). ${missing?`Ainda faltam <b>${missing}</b>; “Atualizar histórico” tentará somente os ausentes.`:'Histórico numericamente completo.'}</div>`;
 }
 function renderAnalysis(){
   let n=Number(document.getElementById('windowSel')?.value||0), data=windowData(n), el=document.getElementById('numStats');
@@ -342,14 +391,29 @@ function gameQuality(nums,clovers){
   let low=nums.filter(n=>n<=25).length;
   let decades=new Set(nums.map(n=>Math.floor((n-1)/10))).size;
   let consecutive=nums.slice(1).filter((n,i)=>n-nums[i]===1).length;
-  let score=100;
-  score-=Math.abs(even-3)*7;score-=Math.abs(low-3)*5;score-=Math.max(0,4-decades)*5;score-=Math.max(0,consecutive-2)*8;
+
+  let score=82;
+  score-=Math.abs(even-3)*6;
+  score-=Math.abs(low-3)*5;
+  score+=(decades-3)*2;
+  score-=Math.max(0,consecutive-1)*5;
+
   if(history.length){
-    let sums=history.map(d=>d.dezenas.reduce((a,b)=>a+b,0)),q1=quantile(sums,.1),q9=quantile(sums,.9);
-    if(sum<q1||sum>q9)score-=12;
-    let last=history.at(-1),rep=intersect(nums,last.dezenas).length;if(rep>3)score-=(rep-3)*8;
+    let sums=history.map(d=>d.dezenas.reduce((a,b)=>a+b,0));
+    let med=median(sums), q20=quantile(sums,.2), q80=quantile(sums,.8);
+    let span=Math.max(20,(q80-q20));
+    score-=Math.min(14,Math.abs(sum-med)/span*12);
+
+    let last=history.at(-1), rep=intersect(nums,last.dezenas).length;
+    score-=Math.max(0,rep-2)*4;
+
+    let s=calcStats(history), expected=history.length*6/50;
+    let freqAvg=avg(nums.map(n=>s.f[n]));
+    score+=Math.max(-5,Math.min(5,(freqAvg-expected)/Math.max(1,expected)*10));
   }
-  return Math.max(0,Math.min(100,Math.round(score)));
+
+  score+=Math.random()*4-2;
+  return Math.max(45,Math.min(97,Math.round(score)));
 }
 function makeCandidate(strategy,wnd){
   let w=getWeights(strategy,wnd), nums=rngPickWeighted(w.nums,w.weights,6), cl=rngPickWeighted(w.cl,w.cw,2);

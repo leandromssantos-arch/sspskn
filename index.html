@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#08140f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SSPSKN 3.1 TARGET 4+2">
-<title>SSPSKN 3.1 TARGET 4+2 • +Milionária</title>
+<meta name="apple-mobile-web-app-title" content="SSPSKN 3.2 VALIDATION ENGINE">
+<title>SSPSKN 3.2 VALIDATION ENGINE • +Milionária</title>
 <style>
 :root{
   --bg:#07110d; --card:#0e1d16; --card2:#12251c; --txt:#eef8f1; --muted:#9db3a6;
@@ -73,7 +73,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <div class="wrap">
 <header>
   <div class="logo">SS</div>
-  <div><h1>SSPSKN 3.1 TARGET 4+2</h1><div class="sub">Central estatística • +Milionária</div></div>
+  <div><h1>SSPSKN 3.2 VALIDATION ENGINE</h1><div class="sub">Central estatística • +Milionária</div></div>
   <div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div>
 </header>
 
@@ -509,38 +509,117 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
   <div id="btResults"></div>
 </section>
 
+
 <section id="target42" class="page">
   <div class="card">
-    <h2>TARGET 4+2 • Coverage Ultra</h2>
-    <div class="small">Otimiza uma carteira de apostas simples para ampliar a quantidade de quartetos distintos cobertos e equilibrar os 15 pares possíveis de trevos. O score é de cobertura, não probabilidade de previsão.</div>
-    <div class="row" style="margin-top:12px">
-      <div class="field"><label>Jogos</label><input id="t42Count" type="number" min="1" max="200" value="84"></div>
-      <div class="field"><label>Candidatos por jogo</label><select id="t42Candidates"><option>200</option><option selected>600</option><option>1200</option></select></div>
-      <div class="field"><label>Motor</label><select id="t42Mode"><option value="coverage" selected>Coverage uniforme</option><option value="signal">Sinal histórico experimental</option><option value="meta">Meta-Selector conservador</option><option value="random">Shadow Random</option></select></div>
+    <h2>TARGET 4+2 • Validation Engine 3.2</h2>
+    <div class="small">
+      Gera carteiras de 6+2 com foco em cobertura de quartetos e compara o resultado contra controles aleatórios de mesmo tamanho.
+      <b>Score, cobertura e desempenho histórico não são probabilidade de previsão.</b>
     </div>
-    <div class="row" style="margin-top:12px"><button class="btn" onclick="runTarget42()">Gerar TARGET 4+2</button><button class="btn secondary" onclick="runTarget42MonteCarlo()">Monte Carlo</button><button class="btn ghost" onclick="clearTarget42()">Limpar</button></div>
+
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Jogos</label><input id="t42Count" type="number" min="1" max="300" value="84"></div>
+      <div class="field"><label>Candidatos por jogo</label><select id="t42Candidates"><option>200</option><option selected>600</option><option>1200</option><option>2000</option></select></div>
+      <div class="field"><label>Motor</label><select id="t42Mode">
+        <option value="coverage" selected>Coverage uniforme</option>
+        <option value="signal">Sinal histórico experimental</option>
+        <option value="meta">Meta-Selector conservador</option>
+        <option value="random">Shadow Random</option>
+      </select></div>
+    </div>
+
+    <div class="row" style="margin-top:12px">
+      <button class="btn" onclick="runTarget42()">Gerar TARGET 4+2</button>
+      <button class="btn ghost" onclick="clearTarget42()">Limpar</button>
+    </div>
     <div id="t42Summary" style="margin-top:12px"></div>
   </div>
+
   <div id="t42List" class="list"></div>
-  <div id="t42MC"></div>
 
   <div class="card">
-    <h2>PRETEST ENGINE 3.1</h2>
-    <div class="small">Registro experimental de pré-teste/pós-teste e regime físico. Dados desconhecidos permanecem desconhecidos e nunca recebem peso preditivo automaticamente.</div>
+    <h2>Monte Carlo ampliado</h2>
+    <div class="small">
+      Mede a chance simulada de pelo menos uma aposta da carteira atingir cada faixa e compara com várias carteiras Shadow Random.
+      O intervalo de confiança é aproximado de 95%.
+    </div>
     <div class="row" style="margin-top:12px">
-      <div class="field"><label>Concurso</label><input id="ptContest" type="number"></div>
+      <div class="field"><label>Simulações</label><select id="t42MCSims">
+        <option value="10000">10 mil</option><option value="50000" selected>50 mil</option>
+        <option value="100000">100 mil</option><option value="250000">250 mil</option>
+        <option value="500000">500 mil</option><option value="1000000">1 milhão</option>
+      </select></div>
+      <div class="field"><label>Shadows independentes</label><select id="t42Shadows">
+        <option>1</option><option selected>5</option><option>10</option><option>20</option>
+      </select></div>
+      <div class="field"><label>Seed</label><input id="t42Seed" type="number" value="320814"></div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn secondary" onclick="runTarget42MonteCarlo32()">Executar Monte Carlo</button>
+      <button class="btn ghost" onclick="clearTarget42MC()">Limpar Monte Carlo</button>
+    </div>
+    <div id="t42MCProgress" class="small" style="margin-top:10px"></div>
+    <div id="t42MC"></div>
+  </div>
+
+  <div class="card">
+    <h2>Walk-forward TARGET × Shadow</h2>
+    <div class="small">
+      Para cada concurso de teste, o TARGET usa somente concursos anteriores. O controle usa o mesmo número de apostas.
+      Isso reduz vazamento do futuro, mas não elimina incerteza estatística.
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Treino mínimo</label><select id="t42WFTrain"><option>80</option><option selected>120</option><option>160</option><option>200</option></select></div>
+      <div class="field"><label>Concursos de teste</label><select id="t42WFTests"><option>40</option><option selected>80</option><option>120</option><option value="9999">máximo</option></select></div>
+      <div class="field"><label>Jogos por concurso</label><select id="t42WFGames"><option>10</option><option selected>20</option><option>40</option><option>84</option></select></div>
+      <div class="field"><label>Motor testado</label><select id="t42WFMode">
+        <option value="coverage">Coverage uniforme</option>
+        <option value="signal" selected>Sinal histórico</option>
+        <option value="meta">Meta-Selector</option>
+      </select></div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn secondary" onclick="runTarget42WalkForward32()">Executar walk-forward</button>
+      <button class="btn ghost" onclick="clearTarget42WF()">Limpar</button>
+    </div>
+    <div id="t42WFProgress" class="small" style="margin-top:10px"></div>
+    <div id="t42WFResult"></div>
+  </div>
+
+  <div class="card">
+    <h2>Registro de Experimentos</h2>
+    <div class="small">
+      Cada Monte Carlo e walk-forward é registrado com horário e parâmetros. Isso ajuda a evitar escolher retrospectivamente somente testes favoráveis.
+    </div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn secondary" onclick="renderT42Experiments()">Atualizar registro</button>
+      <button class="btn ghost" onclick="exportT42Experiments()">Exportar JSON</button>
+      <button class="btn danger" onclick="clearT42Experiments()">Apagar registro</button>
+    </div>
+    <div id="t42Experiments" class="list" style="margin-top:12px"></div>
+  </div>
+
+  <div class="card">
+    <h2>PRETEST ENGINE 3.2</h2>
+    <div class="small">
+      Registro experimental de pré-teste/pós-teste e regime físico. <b>Preencha apenas dados reais com fonte pública.</b>
+      Campos vazios ou desconhecidos permanecem desconhecidos e nunca recebem peso preditivo automaticamente.
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Concurso</label><input id="ptContest" type="number" placeholder="Ex.: 381"></div>
       <div class="field"><label>Tipo</label><select id="ptType"><option value="pre">Pré-teste</option><option value="official">Oficial</option><option value="post">Pós-teste</option></select></div>
       <div class="field"><label>Máquina</label><input id="ptMachine" placeholder="desconhecida"></div>
       <div class="field"><label>Ball set</label><input id="ptBallset" placeholder="desconhecido"></div>
     </div>
     <div class="row" style="margin-top:10px">
-      <div class="field"><label>6 dezenas observadas</label><input id="ptNums" placeholder="01 08 17 31 42 49"></div>
-      <div class="field"><label>2 trevos</label><input id="ptStars" placeholder="2 5"></div>
+      <div class="field"><label>6 dezenas observadas</label><input id="ptNums" placeholder="Exemplo de formato: 01 08 17 31 42 49"></div>
+      <div class="field"><label>2 trevos</label><input id="ptStars" placeholder="Exemplo de formato: 2 5"></div>
     </div>
     <div class="row" style="margin-top:10px">
       <div class="field"><label>Status</label><select id="ptStatus"><option value="unknown">desconhecido</option><option value="pass">aprovado</option><option value="fail">reprovado</option></select></div>
-      <div class="field"><label>Incidente/troca</label><input id="ptIncident" placeholder="nenhum / descrição"></div>
-      <div class="field"><label>Fonte pública</label><input id="ptSource" placeholder="vídeo, relatório..."></div>
+      <div class="field"><label>Incidente/troca</label><input id="ptIncident" placeholder="Deixe vazio se não houver informação"></div>
+      <div class="field"><label>Fonte pública</label><input id="ptSource" placeholder="Vídeo oficial, relatório, edital..."></div>
     </div>
     <button class="btn secondary" style="margin-top:12px" onclick="savePretest()">Salvar registro</button>
     <div id="ptAudit" style="margin-top:12px"></div>
@@ -549,8 +628,11 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 
   <div class="card">
     <h2>Ledger de Integridade</h2>
-    <div class="small">Cria uma impressão digital local do histórico atual para detectar alterações silenciosas entre versões/importações.</div>
-    <div class="row" style="margin-top:12px"><button class="btn secondary" onclick="makeLedger()">Gerar fingerprint</button><button class="btn ghost" onclick="export31()">Exportar dados 3.1</button></div>
+    <div class="small">Cria SHA-256 local do histórico atual para detectar alterações silenciosas entre importações/versões.</div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn secondary" onclick="makeLedger()">Gerar fingerprint</button>
+      <button class="btn ghost" onclick="export31()">Exportar backup 3.2</button>
+    </div>
     <div id="ledger31" class="small" style="margin-top:10px"></div>
   </div>
 </section>
@@ -1763,73 +1845,181 @@ function clearScience(){
 }
 
 
+
 let target42Portfolio=[];
 let pretestRecords=load('sspskn_pretest31',[]);
-function store31(){localStorage.setItem('sspskn_pretest31',JSON.stringify(pretestRecords))}
+let t42Experiments=load('sspskn_t42experiments32',[]);
+function store31(){
+  localStorage.setItem('sspskn_pretest31',JSON.stringify(pretestRecords));
+  localStorage.setItem('sspskn_t42experiments32',JSON.stringify(t42Experiments));
+}
 function cN(n,k){if(k<0||k>n)return 0;k=Math.min(k,n-k);let r=1;for(let i=1;i<=k;i++)r=r*(n-k+i)/i;return r}
-function sample31(arr,k){let a=[...arr];for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a.slice(0,k).sort((x,y)=>x-y)}
 function q4(a){let z=[];for(let i=0;i<3;i++)for(let j=i+1;j<4;j++)for(let k=j+1;k<5;k++)for(let l=k+1;l<6;l++)z.push([a[i],a[j],a[k],a[l]].join('-'));return z}
+
+/* deterministic PRNG for reproducible validation */
+function mulberry32(seed){let a=seed>>>0;return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return ((t^t>>>14)>>>0)/4294967296}}
+function sampleR(arr,k,rng=Math.random){let a=[...arr];for(let i=a.length-1;i>0;i--){let j=Math.floor(rng()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a.slice(0,k).sort((x,y)=>x-y)}
 function t42Weights(data){
- let f=Array(51).fill(0);data.slice(-120).forEach(d=>d.dezenas.forEach(n=>f[n]++));
- let e=Math.max(1,Math.min(120,data.length)*6/50),w=Array(51).fill(1);
- for(let n=1;n<=50;n++)w[n]=Math.max(.5,1+.06*((f[n]-e)/Math.sqrt(e*.88)));
- return w
+  let f=Array(51).fill(0),h=data.slice(-120);
+  h.forEach(d=>d.dezenas.forEach(n=>f[n]++));
+  let e=Math.max(1,h.length*6/50),w=Array(51).fill(1);
+  for(let n=1;n<=50;n++){let z=(f[n]-e)/Math.sqrt(Math.max(.0001,h.length*(6/50)*(44/50)));w[n]=Math.max(.45,1+.06*z)}
+  return w
 }
-function weighted6(w){
- let pool=[...Array(50)].map((_,i)=>({n:i+1,w:w?Math.max(.01,w[i+1]):1})),out=[];
- while(out.length<6){let total=pool.reduce((a,x)=>a+x.w,0),r=Math.random()*total,i=0;for(;i<pool.length;i++){r-=pool[i].w;if(r<=0)break}i=Math.min(i,pool.length-1);out.push(pool[i].n);pool.splice(i,1)}
- return out.sort((a,b)=>a-b)
+function weighted6(w,rng=Math.random){
+  let pool=[...Array(50)].map((_,i)=>({n:i+1,w:w?Math.max(.01,w[i+1]):1})),out=[];
+  while(out.length<6){
+    let total=pool.reduce((a,x)=>a+x.w,0),r=rng()*total,i=0;
+    for(;i<pool.length;i++){r-=pool[i].w;if(r<=0)break}
+    i=Math.min(i,pool.length-1);out.push(pool[i].n);pool.splice(i,1)
+  }
+  return out.sort((a,b)=>a-b)
 }
-function buildT42(count,mode,data=history){
- let seen=new Set(),out=[],pairs={};for(let a=1;a<=6;a++)for(let b=a+1;b<=6;b++)pairs[a+'-'+b]=0;
- let useSignal=(mode==='signal'||(mode==='meta'&&data.length>=120)),w=useSignal?t42Weights(data):null,cands=Number(document.getElementById('t42Candidates')?.value||600);
- for(let t=0;t<count;t++){
-   let best=null,score=-1e9;
-   if(mode==='random'){best={nums:sample31([...Array(50)].map((_,i)=>i+1),6)}}
-   else for(let c=0;c<cands;c++){let ns=weighted6(w),gain=q4(ns).filter(x=>!seen.has(x)).length,pen=out.reduce((p,g)=>{let ov=intersect(ns,g.nums).length;return p+(ov>=4?(ov-3)*8:0)},0),sc=gain*10-pen+Math.random()*.001;if(sc>score){score=sc;best={nums:ns}}}
-   q4(best.nums).forEach(x=>seen.add(x));
-   let min=Math.min(...Object.values(pairs)),opts=Object.keys(pairs).filter(k=>pairs[k]===min),pk=opts[Math.floor(Math.random()*opts.length)];pairs[pk]++;
-   out.push({nums:best.nums,cl:pk.split('-').map(Number),score:gameQuality(best.nums,pk.split('-').map(Number),data)})
- }
- return out
+function buildT42(count,mode,data=history,rng=Math.random){
+  let seen=new Set(),out=[],pairs={};for(let a=1;a<=6;a++)for(let b=a+1;b<=6;b++)pairs[a+'-'+b]=0;
+  let useSignal=(mode==='signal'||(mode==='meta'&&data.length>=120)),w=useSignal?t42Weights(data):null;
+  let cands=Number(document.getElementById('t42Candidates')?.value||600);
+  for(let t=0;t<count;t++){
+    let best=null,score=-1e9;
+    if(mode==='random'){best={nums:sampleR([...Array(50)].map((_,i)=>i+1),6,rng)}}
+    else{
+      for(let c=0;c<cands;c++){
+        let ns=weighted6(w,rng),gain=q4(ns).filter(x=>!seen.has(x)).length;
+        let pen=out.reduce((p,g)=>{let ov=intersect(ns,g.nums).length;return p+(ov>=4?(ov-3)*8:0)},0);
+        let sc=gain*10-pen+rng()*.001;
+        if(sc>score){score=sc;best={nums:ns}}
+      }
+    }
+    q4(best.nums).forEach(x=>seen.add(x));
+    let min=Math.min(...Object.values(pairs)),opts=Object.keys(pairs).filter(k=>pairs[k]===min),pk=opts[Math.floor(rng()*opts.length)];pairs[pk]++;
+    out.push({nums:best.nums,cl:pk.split('-').map(Number),score:gameQuality(best.nums,pk.split('-').map(Number),data)})
+  }
+  return out
 }
-function t42Metrics(p){let q=new Set(),ov=0,pc={};for(let a=1;a<=6;a++)for(let b=a+1;b<=6;b++)pc[a+'-'+b]=0;p.forEach((g,i)=>{q4(g.nums).forEach(x=>q.add(x));pc[g.cl.join('-')]++;for(let j=0;j<i;j++)if(intersect(g.nums,p[j].nums).length>=4)ov++});return{q:q.size,cov:q.size/cN(50,4),ov,pairs:Object.values(pc).filter(x=>x>0).length}}
+function t42Metrics(p){
+  let q=new Set(),ov=0,pc={};for(let a=1;a<=6;a++)for(let b=a+1;b<=6;b++)pc[a+'-'+b]=0;
+  p.forEach((g,i)=>{q4(g.nums).forEach(x=>q.add(x));pc[g.cl.join('-')]++;for(let j=0;j<i;j++)if(intersect(g.nums,p[j].nums).length>=4)ov++});
+  return{q:q.size,cov:q.size/cN(50,4),ov,pairs:Object.values(pc).filter(x=>x>0).length}
+}
 function runTarget42(){
- let n=Math.max(1,Math.min(200,Number(document.getElementById('t42Count').value)||84)),mode=document.getElementById('t42Mode').value;
- target42Portfolio=buildT42(n,mode);let m=t42Metrics(target42Portfolio);
- document.getElementById('t42Summary').innerHTML=`<div class="grid"><div class="kpi"><b>${m.q}</b><span>quartetos únicos</span></div><div class="kpi"><b>${(m.cov*100).toFixed(4)}%</b><span>C(50,4) coberto</span></div><div class="kpi"><b>${m.ov}</b><span>pares de jogos com overlap ≥4</span></div><div class="kpi"><b>${m.pairs}/15</b><span>pares de trevos usados</span></div></div><div class="notice ok" style="margin-top:10px">Motor: <b>${mode}</b>. Probabilidade real não é o score interno; cobertura não significa previsão.</div>`;
- document.getElementById('t42List').innerHTML=target42Portfolio.map((g,i)=>`<div class="game"><div class="gamehead"><b>TARGET ${i+1}</b><span class="score">cobertura</span></div>${balls(g.nums)}<div style="height:7px"></div>${balls(g.cl,'clover')}</div>`).join('')
+  let n=Math.max(1,Math.min(300,Number(document.getElementById('t42Count').value)||84)),mode=document.getElementById('t42Mode').value;
+  target42Portfolio=buildT42(n,mode);
+  let m=t42Metrics(target42Portfolio);
+  document.getElementById('t42Summary').innerHTML=`<div class="grid"><div class="kpi"><b>${m.q}</b><span>quartetos únicos</span></div><div class="kpi"><b>${(m.cov*100).toFixed(4)}%</b><span>C(50,4) coberto</span></div><div class="kpi"><b>${m.ov}</b><span>pares com overlap ≥4</span></div><div class="kpi"><b>${m.pairs}/15</b><span>pares de trevos usados</span></div></div><div class="notice ok" style="margin-top:10px">Motor: <b>${mode}</b>. Cobertura não significa previsão.</div>`;
+  document.getElementById('t42List').innerHTML=target42Portfolio.map((g,i)=>`<div class="game"><div class="gamehead"><b>TARGET ${i+1}</b><span class="score">cobertura</span></div>${balls(g.nums)}<div style="height:7px"></div>${balls(g.cl,'clover')}</div>`).join('')
 }
-function clearTarget42(){target42Portfolio=[];document.getElementById('t42Summary').innerHTML='';document.getElementById('t42List').innerHTML='';document.getElementById('t42MC').innerHTML=''}
-function best42(p,d){let best=[0,0];p.forEach(g=>{let a=intersect(g.nums,d.dezenas).length,t=intersect(g.cl,d.trevos).length;if(t>best[1]||(t===best[1]&&a>best[0]))best=[a,t]});return best}
-function runTarget42MonteCarlo(){
- if(!target42Portfolio.length){alert('Gere o TARGET 4+2 primeiro.');return}
- let shadow=buildT42(target42Portfolio.length,'random'),N=10000,A=0,B=0;
- for(let i=0;i<N;i++){let d={dezenas:sample31([...Array(50)].map((_,i)=>i+1),6),trevos:sample31([1,2,3,4,5,6],2)},a=best42(target42Portfolio,d),b=best42(shadow,d);if(a[0]>=4&&a[1]===2)A++;if(b[0]>=4&&b[1]===2)B++}
- document.getElementById('t42MC').innerHTML=`<div class="card"><h2>Shadow Random • 10.000 simulações</h2><div class="grid"><div class="kpi"><b>${(A/N*100).toFixed(3)}%</b><span>TARGET ≥4+2</span></div><div class="kpi"><b>${(B/N*100).toFixed(3)}%</b><span>Shadow ≥4+2</span></div></div><div class="small" style="margin-top:10px">Diferenças pequenas podem ser apenas ruído de simulação. O controle usa o mesmo número de apostas.</div></div>`
+function clearTarget42(){target42Portfolio=[];document.getElementById('t42Summary').innerHTML='';document.getElementById('t42List').innerHTML='';clearTarget42MC()}
+function tierFlags32(p,d){
+  let f={p22:0,p32:0,p42:0,p52:0,p62:0};
+  for(const g of p){
+    let a=intersect(g.nums,d.dezenas).length,t=intersect(g.cl,d.trevos).length;
+    if(t===2){if(a>=2)f.p22=1;if(a>=3)f.p32=1;if(a>=4)f.p42=1;if(a>=5)f.p52=1;if(a>=6)f.p62=1}
+  }
+  return f
 }
+function wilson32(x,n){
+  if(!n)return[0,0];let z=1.96,p=x/n,den=1+z*z/n,ctr=(p+z*z/(2*n))/den,half=z*Math.sqrt((p*(1-p)+z*z/(4*n))/n)/den;return[Math.max(0,ctr-half),Math.min(1,ctr+half)]
+}
+function fmtP32(p){return (p*100).toFixed(p<.001?5:3)+'%'}
+function recordT42Experiment(type,params,result){
+  t42Experiments.unshift({type,at:new Date().toISOString(),params,result});
+  t42Experiments=t42Experiments.slice(0,100);store31();renderT42Experiments()
+}
+function clearTarget42MC(){document.getElementById('t42MC').innerHTML='';document.getElementById('t42MCProgress').textContent=''}
+async function runTarget42MonteCarlo32(){
+  if(!target42Portfolio.length){alert('Gere o TARGET 4+2 primeiro.');return}
+  const N=Number(document.getElementById('t42MCSims').value||50000);
+  const S=Math.max(1,Number(document.getElementById('t42Shadows').value||5));
+  const seed=Number(document.getElementById('t42Seed').value||320814);
+  const mode=document.getElementById('t42Mode').value;
+  const prog=document.getElementById('t42MCProgress'); prog.textContent='Preparando controles aleatórios...';
+  await new Promise(r=>setTimeout(r,20));
+  const keys=['p22','p32','p42','p52','p62'],labels={'p22':'≥2+2','p32':'≥3+2','p42':'≥4+2','p52':'≥5+2','p62':'6+2'};
+  let ta=Object.fromEntries(keys.map(k=>[k,0])), sh=Object.fromEntries(keys.map(k=>[k,Array(S).fill(0)]));
+  let shadowPorts=[];
+  for(let j=0;j<S;j++)shadowPorts.push(buildT42(target42Portfolio.length,'random',history,mulberry32(seed+1009*j+17)));
+  let rng=mulberry32(seed);
+  const universe=[...Array(50)].map((_,i)=>i+1);
+  for(let i=0;i<N;i++){
+    let d={dezenas:sampleR(universe,6,rng),trevos:sampleR([1,2,3,4,5,6],2,rng)};
+    let ft=tierFlags32(target42Portfolio,d);keys.forEach(k=>ta[k]+=ft[k]);
+    for(let j=0;j<S;j++){let fs=tierFlags32(shadowPorts[j],d);keys.forEach(k=>sh[k][j]+=fs[k])}
+    if(i>0 && i%25000===0){prog.textContent=`Simulando ${i.toLocaleString('pt-BR')} / ${N.toLocaleString('pt-BR')}...`;await new Promise(r=>setTimeout(r,0))}
+  }
+  let rows='',summary={};
+  keys.forEach(k=>{
+    let pt=ta[k]/N,ci=wilson32(ta[k],N),vals=sh[k].map(x=>x/N),ps=vals.reduce((a,b)=>a+b,0)/vals.length;
+    let sd=vals.length>1?Math.sqrt(vals.reduce((a,b)=>a+(b-ps)**2,0)/(vals.length-1)):0;
+    let delta=pt-ps,rel=ps?delta/ps:0;
+    rows+=`<tr><td>${labels[k]}</td><td>${fmtP32(pt)}<br><span class="tiny">IC95 ${fmtP32(ci[0])}–${fmtP32(ci[1])}</span></td><td>${fmtP32(ps)}<br><span class="tiny">DP shadows ${fmtP32(sd)}</span></td><td class="${delta>0?'ok':''}">${delta>=0?'+':''}${(delta*100).toFixed(4)} p.p.<br><span class="tiny">${rel>=0?'+':''}${(rel*100).toFixed(1)}%</span></td></tr>`;
+    summary[k]={target:pt,ci,shadowMean:ps,shadowSD:sd,delta,relative:rel}
+  });
+  document.getElementById('t42MC').innerHTML=`<div class="card"><h2>Resultado Monte Carlo</h2><div class="scrollx"><table><thead><tr><th>Faixa</th><th>TARGET</th><th>Shadow média (${S})</th><th>Diferença</th></tr></thead><tbody>${rows}</tbody></table></div><div class="notice" style="margin-top:10px">Uma diferença positiva só é evidência útil se permanecer estável ao trocar seed, aumentar N e repetir fora da amostra. Não é garantia de vantagem futura.</div></div>`;
+  prog.textContent=`Concluído: ${N.toLocaleString('pt-BR')} sorteios × ${S} Shadows.`;
+  recordT42Experiment('monte_carlo',{N,S,seed,mode,games:target42Portfolio.length},summary)
+}
+function bestHit32(p,d){
+  let best=[0,0];
+  for(const g of p){let a=intersect(g.nums,d.dezenas).length,t=intersect(g.cl,d.trevos).length;if(t>best[1]||(t===best[1]&&a>best[0]))best=[a,t]}
+  return best
+}
+function clearTarget42WF(){document.getElementById('t42WFProgress').textContent='';document.getElementById('t42WFResult').innerHTML=''}
+async function runTarget42WalkForward32(){
+  let train=Number(document.getElementById('t42WFTrain').value||120),testsReq=Number(document.getElementById('t42WFTests').value||80),games=Number(document.getElementById('t42WFGames').value||20),mode=document.getElementById('t42WFMode').value;
+  if(history.length<=train){document.getElementById('t42WFResult').innerHTML='<div class="notice err">Histórico insuficiente para esse treino mínimo.</div>';return}
+  let start=Math.max(train,testsReq>=9999?train:history.length-testsReq),prog=document.getElementById('t42WFProgress');
+  let tiers=['p22','p32','p42','p52','p62'],T=Object.fromEntries(tiers.map(k=>[k,0])),R=Object.fromEntries(tiers.map(k=>[k,0])),n=0;
+  await new Promise(r=>setTimeout(r,20));
+  for(let i=start;i<history.length;i++){
+    let past=history.slice(0,i),draw=history[i],rngT=mulberry32(320000+i),rngR=mulberry32(910000+i);
+    let tp=buildT42(games,mode,past,rngT),rp=buildT42(games,'random',past,rngR);
+    let tf=tierFlags32(tp,draw),rf=tierFlags32(rp,draw);tiers.forEach(k=>{T[k]+=tf[k];R[k]+=rf[k]});n++;
+    if(n%10===0){prog.textContent=`Walk-forward ${n}/${history.length-start}...`;await new Promise(r=>setTimeout(r,0))}
+  }
+  let labels={'p22':'≥2+2','p32':'≥3+2','p42':'≥4+2','p52':'≥5+2','p62':'6+2'},rows='',result={};
+  tiers.forEach(k=>{
+    let a=T[k]/n,b=R[k]/n,d=a-b;
+    rows+=`<tr><td>${labels[k]}</td><td>${T[k]}/${n} (${fmtP32(a)})</td><td>${R[k]}/${n} (${fmtP32(b)})</td><td>${d>=0?'+':''}${(d*100).toFixed(3)} p.p.</td></tr>`;
+    result[k]={target:T[k],shadow:R[k],tests:n,delta:d}
+  });
+  document.getElementById('t42WFResult').innerHTML=`<div class="card"><h2>Resultado walk-forward</h2><div class="scrollx"><table><thead><tr><th>Faixa</th><th>TARGET</th><th>Shadow</th><th>Δ</th></tr></thead><tbody>${rows}</tbody></table></div><div class="small" style="margin-top:10px">Treino mínimo: ${train} • motor: ${mode} • ${games} jogos por concurso. Eventos 4+2/5+2/6+2 podem ser raros demais em apenas ${n} concursos para conclusão robusta.</div></div>`;
+  prog.textContent=`Concluído: ${n} concursos fora da amostra.`;
+  recordT42Experiment('walk_forward',{train,tests:n,games,mode},result)
+}
+function renderT42Experiments(){
+  let el=document.getElementById('t42Experiments');if(!el)return;
+  if(!t42Experiments.length){el.innerHTML='<div class="small">Nenhum experimento registrado ainda.</div>';return}
+  el.innerHTML=t42Experiments.slice(0,20).map((x,i)=>`<div class="game"><div class="gamehead"><b>${x.type==='monte_carlo'?'Monte Carlo':'Walk-forward'} #${t42Experiments.length-i}</b><span class="score">${new Date(x.at).toLocaleString('pt-BR')}</span></div><div class="small mono">${JSON.stringify(x.params)}</div></div>`).join('')
+}
+function exportT42Experiments(){
+  let blob=new Blob([JSON.stringify(t42Experiments,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='SSPSKN_3.2_experimentos.json';a.click();URL.revokeObjectURL(a.href)
+}
+function clearT42Experiments(){if(confirm('Apagar todo o registro de experimentos TARGET 4+2?')){t42Experiments=[];store31();renderT42Experiments()}}
+
 function savePretest(){
- let nums=parseNums(document.getElementById('ptNums').value,1,50),cl=parseNums(document.getElementById('ptStars').value,1,6);
- let r={contest:Number(document.getElementById('ptContest').value)||null,type:document.getElementById('ptType').value,machine:document.getElementById('ptMachine').value.trim()||'desconhecida',ballset:document.getElementById('ptBallset').value.trim()||'desconhecido',nums,cl,status:document.getElementById('ptStatus').value,incident:document.getElementById('ptIncident').value.trim(),source:document.getElementById('ptSource').value.trim(),created:new Date().toISOString()};
- pretestRecords.push(r);store31();renderPretests()
+  let nums=parseNums(document.getElementById('ptNums').value,1,50),cl=parseNums(document.getElementById('ptStars').value,1,6);
+  if(nums.length && nums.length!==6){alert('Para registrar dezenas, informe exatamente 6 números.');return}
+  if(cl.length && cl.length!==2){alert('Para registrar trevos, informe exatamente 2.');return}
+  let r={contest:Number(document.getElementById('ptContest').value)||null,type:document.getElementById('ptType').value,machine:document.getElementById('ptMachine').value.trim()||'desconhecida',ballset:document.getElementById('ptBallset').value.trim()||'desconhecido',nums,cl,status:document.getElementById('ptStatus').value,incident:document.getElementById('ptIncident').value.trim(),source:document.getElementById('ptSource').value.trim(),created:new Date().toISOString()};
+  pretestRecords.push(r);store31();renderPretests()
 }
 function renderPretests(){
- let el=document.getElementById('ptList');if(!el)return;
- el.innerHTML=pretestRecords.slice().reverse().map((r,i)=>`<div class="game"><div class="gamehead"><b>Concurso ${r.contest??'—'} • ${r.type}</b><span class="score">${r.status}</span></div><div class="small">Máquina: ${r.machine} • conjunto: ${r.ballset}${r.incident?' • incidente: '+r.incident:''}</div>${r.nums.length?balls(r.nums):''}${r.cl.length?'<div style="height:7px"></div>'+balls(r.cl,'clover'):''}</div>`).join('');
- let grouped={};pretestRecords.forEach(r=>(grouped[r.contest]??=[]).push(r));let vals=[];
- Object.values(grouped).forEach(a=>{let pre=a.filter(x=>x.type==='pre'&&x.status!=='fail').at(-1),off=a.find(x=>x.type==='official');if(pre&&off&&pre.nums.length===6&&off.nums.length===6)vals.push(intersect(pre.nums,off.nums).length)});
- document.getElementById('ptAudit').innerHTML=vals.length?`<div class="notice">Concursos comparáveis: <b>${vals.length}</b> • sobreposição média último pré-teste→oficial: <b>${avg(vals).toFixed(3)}</b> dezena(s). Expectativa uniforme aproximada: <b>0,720</b>. Trate como auditoria exploratória.</div>`:'<div class="small">Ainda não há pares pré-teste/oficial suficientes para auditoria.</div>'
+  let el=document.getElementById('ptList');if(!el)return;
+  el.innerHTML=pretestRecords.slice().reverse().map(r=>`<div class="game"><div class="gamehead"><b>Concurso ${r.contest??'—'} • ${r.type}</b><span class="score">${r.status}</span></div><div class="small">Máquina: ${r.machine} • conjunto: ${r.ballset}${r.incident?' • incidente: '+r.incident:''}${r.source?' • fonte: '+r.source:''}</div>${r.nums.length?balls(r.nums):''}${r.cl.length?'<div style="height:7px"></div>'+balls(r.cl,'clover'):''}</div>`).join('');
+  let grouped={};pretestRecords.forEach(r=>(grouped[r.contest]??=[]).push(r));let vals=[];
+  Object.values(grouped).forEach(a=>{let pre=a.filter(x=>x.type==='pre'&&x.status!=='fail').at(-1),off=a.find(x=>x.type==='official');if(pre&&off&&pre.nums.length===6&&off.nums.length===6)vals.push(intersect(pre.nums,off.nums).length)});
+  document.getElementById('ptAudit').innerHTML=vals.length?`<div class="notice">Concursos comparáveis: <b>${vals.length}</b> • sobreposição média último pré-teste→oficial: <b>${avg(vals).toFixed(3)}</b> dezena(s). Expectativa uniforme: <b>0,720</b>. Auditoria exploratória apenas.</div>`:'<div class="small">Ainda não há pares pré-teste/oficial suficientes para auditoria.</div>'
 }
 async function makeLedger(){
- let raw=JSON.stringify(history),buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(raw)),hex=[...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
- localStorage.setItem('sspskn_ledger31',JSON.stringify({at:new Date().toISOString(),count:history.length,hash:hex}));
- document.getElementById('ledger31').innerHTML=`Concursos: <b>${history.length}</b><br>SHA-256: <span class="mono">${hex}</span>`
+  let raw=JSON.stringify(history),buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(raw)),hex=[...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
+  localStorage.setItem('sspskn_ledger31',JSON.stringify({at:new Date().toISOString(),count:history.length,hash:hex}));
+  document.getElementById('ledger31').innerHTML=`Concursos: <b>${history.length}</b><br>SHA-256: <span class="mono">${hex}</span>`
 }
 function export31(){
- let data={app:'SSPSKN 3.1 TARGET 4+2',exported:new Date().toISOString(),history,saved,prospective,equipmentRecords,pretestRecords,scienceState};
- let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='SSPSKN_3.1_backup.json';a.click();URL.revokeObjectURL(a.href)
+  let data={app:'SSPSKN 3.2 VALIDATION ENGINE',exported:new Date().toISOString(),history,saved,prospective,equipmentRecords,pretestRecords,scienceState,t42Experiments};
+  let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='SSPSKN_3.2_backup.json';a.click();URL.revokeObjectURL(a.href)
 }
-setTimeout(renderPretests,0);
+setTimeout(()=>{renderPretests();renderT42Experiments()},0);
 
 function refresh(){
   let last=history.at(-1);

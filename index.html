@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#08140f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SSPSKN 2.7 ULTRA">
-<title>SSPSKN 2.7 ULTRA • +Milionária</title>
+<meta name="apple-mobile-web-app-title" content="SSPSKN 2.8 SCIENCE">
+<title>SSPSKN 2.8 SCIENCE • +Milionária</title>
 <style>
 :root{
   --bg:#07110d; --card:#0e1d16; --card2:#12251c; --txt:#eef8f1; --muted:#9db3a6;
@@ -73,7 +73,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <div class="wrap">
 <header>
   <div class="logo">SS</div>
-  <div><h1>SSPSKN 2.7 ULTRA</h1><div class="sub">Central estatística • +Milionária</div></div>
+  <div><h1>SSPSKN 2.8 SCIENCE</h1><div class="sub">Central estatística • +Milionária</div></div>
   <div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div>
 </header>
 
@@ -162,7 +162,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 
 <section id="portfolio" class="page">
   <div class="card">
-    <h2>Motor de Portfólio 2.7</h2>
+    <h2>Motor de Portfólio 2.8</h2>
     <div class="small">
       Monte apostas compostas da +Milionária de <b>6+2 até 12+6</b>.
       O custo é calculado pelo número de apostas simples equivalentes:
@@ -356,7 +356,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 
 <section id="ultra" class="page">
   <div class="card">
-    <h2>Motor Evolutivo ULTRA 2.7</h2>
+    <h2>Motor Evolutivo ULTRA 2.8</h2>
     <div class="small">
       Otimização multiobjetivo de portfólios da +Milionária. O motor compara cobertura, sobreposição,
       distribuição dos trevos e estabilidade entre seeds. Nenhum resultado é tratado como previsão
@@ -407,6 +407,58 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
     <div id="evidenceDashboard" style="margin-top:12px"></div>
   </div>
 </section>
+
+<section id="science" class="page">
+  <div class="card">
+    <h2>Validação Científica 2.8</h2>
+    <div class="small">
+      Compara o candidato ULTRA contra milhares de portfólios aleatórios de mesmo orçamento,
+      em múltiplas janelas walk-forward. Calcula diferença média, intervalo de confiança,
+      p-valor por permutação e estabilidade temporal.
+    </div>
+
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Concursos por janela</label><select id="scWindow"><option>40</option><option selected>80</option><option>120</option></select></div>
+      <div class="field"><label>Nº de janelas</label><select id="scBlocks"><option>2</option><option selected>3</option><option>4</option></select></div>
+    </div>
+
+    <div class="row" style="margin-top:10px">
+      <div class="field"><label>Baselines aleatórias</label><select id="scBaselines"><option>500</option><option selected>2000</option><option>5000</option></select></div>
+      <div class="field"><label>Permutações</label><select id="scPerms"><option>1000</option><option selected>5000</option><option>10000</option></select></div>
+    </div>
+
+    <div class="row" style="margin-top:10px">
+      <div class="field"><label>Métrica principal</label><select id="scMetric">
+        <option value="p3" selected>≥3+2</option>
+        <option value="p4">≥4+2</option>
+        <option value="p5">≥5+2</option>
+        <option value="balanced">Score combinado</option>
+      </select></div>
+      <div class="field"><label>Orçamento</label><input id="scBudget" type="number" value="504" min="6" step="6"></div>
+    </div>
+
+    <div class="row" style="margin-top:12px">
+      <button class="btn" onclick="runScienceValidation()">Executar validação</button>
+      <button class="btn secondary" onclick="runTemporalStability()">Estabilidade temporal</button>
+      <button class="btn ghost" onclick="clearScience()">Limpar</button>
+    </div>
+    <div id="scProgress" class="small" style="margin-top:10px"></div>
+  </div>
+
+  <div id="scResult"></div>
+  <div id="scStability"></div>
+
+  <div class="card">
+    <h2>Regra de aprovação automática</h2>
+    <div class="small">
+      O candidato só recebe selo de aprovação quando: vantagem média &gt; 0,
+      IC95% totalmente acima de zero, p &lt; 0,05, resultado positivo em pelo menos 2/3 das janelas
+      e nenhum bloco mostra reversão forte contra o aleatório.
+    </div>
+    <div id="scVerdict" style="margin-top:10px"></div>
+  </div>
+</section>
+
 <section id="checker" class="page">
   <div class="card">
     <h2>Conferir aposta</h2>
@@ -433,7 +485,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 
 <section id="backtest" class="page">
   <div class="card">
-    <h2>Motor de Evidência 2.7</h2>
+    <h2>Motor de Evidência 2.8</h2>
     <div class="small">Validação walk-forward sem olhar o futuro. O SSPSKN compara cada estratégia com um controle aleatório, repete a geração com sementes reproduzíveis e calcula intervalo de confiança e teste de permutação para reduzir falsos sinais.</div>
     <div class="row" style="margin-top:12px">
       <div class="field"><label>Concursos a testar</label><select id="btDraws"><option>50</option><option selected>100</option><option>200</option><option value="0">Máximo possível</option></select></div>
@@ -480,6 +532,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <button class="tab" data-page="antidiv"><span class="ico">◇</span>Anti-divisão</button>
 <button class="tab" data-page="lab"><span class="ico">Σ</span>Laboratório</button>
 <button class="tab" data-page="ultra"><span class="ico">⚙</span>ULTRA</button>
+<button class="tab" data-page="science"><span class="ico">Δ</span>Ciência</button>
 <button class="tab" data-page="checker"><span class="ico">✓</span>Conferir</button>
 <button class="tab" data-page="backtest"><span class="ico">⌁</span>Evidência</button>
 <button class="tab" data-page="saved"><span class="ico">★</span>Salvos</button>
@@ -494,9 +547,10 @@ let portfolio=[];
 let prospective=load('sspskn_prospective',[]);
 let equipmentRecords=load('sspskn_equipment',[]);
 let ultraState=load('sspskn_ultra',{});
+let scienceState=load('sspskn_science',{});
 
 function load(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}}
-function store(){localStorage.setItem('sspskn_history',JSON.stringify(history));localStorage.setItem('sspskn_saved',JSON.stringify(saved));localStorage.setItem('sspskn_prospective',JSON.stringify(prospective));localStorage.setItem('sspskn_equipment',JSON.stringify(equipmentRecords))}
+function store(){localStorage.setItem('sspskn_history',JSON.stringify(history));localStorage.setItem('sspskn_saved',JSON.stringify(saved));localStorage.setItem('sspskn_prospective',JSON.stringify(prospective));localStorage.setItem('sspskn_equipment',JSON.stringify(equipmentRecords));localStorage.setItem('sspskn_science',JSON.stringify(scienceState))}
 const pad=n=>String(n).padStart(2,'0');
 const uniq=a=>[...new Set(a)];
 const intersect=(a,b)=>a.filter(x=>b.includes(x));
@@ -1525,6 +1579,140 @@ function clearUltra(){
   document.getElementById('ulResult').innerHTML='';
   document.getElementById('ulPareto').textContent='Execute o Motor ULTRA.';
   document.getElementById('ulProgress').textContent='';
+}
+
+function scienceMetricFromHit(x,metric){
+  if(metric==='p3')return x.counts['3+2']>0?1:0;
+  if(metric==='p4')return x.counts['4+2']>0?1:0;
+  if(metric==='p5')return x.counts['5+2']>0?1:0;
+  return (x.counts['3+2']>0?1:0)+(x.counts['4+2']>0?3:0)+(x.counts['5+2']>0?8:0)+(x.jack>0?30:0);
+}
+function scienceCandidateTickets(budget){
+  let count=Math.floor(budget/6);
+  if(ultraState?.best?.tickets?.length===count)return ultraState.best.tickets.map(t=>({nums:[...t.nums],cl:[...t.cl]}));
+  let rnd=seededRandom(284011);
+  return ultraUniquePortfolio(count,rnd);
+}
+function scienceRandomPortfolio(count,seed){
+  return ultraUniquePortfolio(count,seededRandom(seed));
+}
+function scienceCI95(arr){
+  if(!arr.length)return [0,0];
+  let m=avg(arr),sd=sampleSD(arr),se=sd/Math.sqrt(arr.length),d=1.96*se;
+  return [m-d,m+d];
+}
+function sciencePermutationP(diffs,iters,seed=28501){
+  if(!diffs.length)return 1;
+  let obs=Math.abs(avg(diffs)),rnd=seededRandom(seed),ge=0;
+  for(let k=0;k<iters;k++){
+    let s=0;
+    for(let i=0;i<diffs.length;i++)s+=diffs[i]*(rnd()<.5?-1:1);
+    if(Math.abs(s/diffs.length)>=obs-1e-12)ge++;
+  }
+  return (ge+1)/(iters+1);
+}
+async function runScienceValidation(){
+  const windowN=Number(document.getElementById('scWindow').value||80),
+        blocks=Number(document.getElementById('scBlocks').value||3),
+        baselines=Number(document.getElementById('scBaselines').value||2000),
+        perms=Number(document.getElementById('scPerms').value||5000),
+        metric=document.getElementById('scMetric').value,
+        budget=Math.max(6,Number(document.getElementById('scBudget').value||504)),
+        count=Math.floor(budget/6),
+        prog=document.getElementById('scProgress'),
+        out=document.getElementById('scResult'),
+        verdict=document.getElementById('scVerdict');
+
+  if(history.length<windowN*blocks){
+    out.innerHTML='<div class="card notice err">Histórico insuficiente para o número de janelas selecionado.</div>';return;
+  }
+
+  let cand=scienceCandidateTickets(budget), allDiffs=[], blockRows=[], positiveBlocks=0;
+  let start=history.length-windowN*blocks;
+
+  for(let b=0;b<blocks;b++){
+    let data=history.slice(start+b*windowN,start+(b+1)*windowN);
+    let candVals=data.map(d=>scienceMetricFromHit(scoreSimulationPortfolio(cand,d),metric));
+    let candMean=avg(candVals);
+
+    let baseMeans=[];
+    for(let r=0;r<baselines;r++){
+      let rp=scienceRandomPortfolio(count, 900000+b*100003+r*97+count);
+      let vals=data.map(d=>scienceMetricFromHit(scoreSimulationPortfolio(rp,d),metric));
+      baseMeans.push(avg(vals));
+      if((r+1)%250===0){prog.textContent=`Janela ${b+1}/${blocks} • baseline ${r+1}/${baselines}`;await new Promise(res=>setTimeout(res,0))}
+    }
+    let baseMean=avg(baseMeans),diff=candMean-baseMean;
+    if(diff>0)positiveBlocks++;
+    // paired proxy against mean baseline per contest via fresh controls
+    let diffs=[];
+    for(let i=0;i<data.length;i++){
+      let d=data[i],cVal=candVals[i],bs=[];
+      for(let r=0;r<50;r++){
+        let rp=scienceRandomPortfolio(count, 7000000+b*100000+i*100+r);
+        bs.push(scienceMetricFromHit(scoreSimulationPortfolio(rp,d),metric));
+      }
+      diffs.push(cVal-avg(bs));
+    }
+    allDiffs.push(...diffs);
+    let ci=scienceCI95(diffs),p=sciencePermutationP(diffs,Math.min(perms,5000),81000+b);
+    blockRows.push({b:b+1,from:data[0].numero,to:data.at(-1).numero,cand:candMean,base:baseMean,diff,ci,p});
+  }
+
+  let globalDiff=avg(allDiffs),gci=scienceCI95(allDiffs),gp=sciencePermutationP(allDiffs,perms,123456);
+  let approved=globalDiff>0 && gci[0]>0 && gp<.05 && positiveBlocks>=Math.ceil(blocks*2/3) && blockRows.every(x=>x.diff>-0.05);
+
+  scienceState={windowN,blocks,baselines,metric,budget,globalDiff,gci,gp,positiveBlocks,approved,blockRows,created:new Date().toISOString()};
+  try{localStorage.setItem('sspskn_science',JSON.stringify(scienceState))}catch(e){}
+
+  out.innerHTML=`<div class="card"><h2>Baseline aleatória por orçamento igual</h2>
+    <div class="notice ${approved?'ok':'evidence-warn'}"><b>${approved?'Candidato aprovado nesta bateria':'Candidato não aprovado nesta bateria'}</b><br>
+      Diferença média global: <b>${globalDiff>=0?'+':''}${globalDiff.toFixed(4)}</b> • IC95% <b>[${gci[0].toFixed(4)}, ${gci[1].toFixed(4)}]</b> • p=<b>${gp.toFixed(4)}</b>.
+    </div>
+    <div class="scrollx" style="margin-top:10px"><table><thead><tr><th>Janela</th><th>Concursos</th><th>Candidato</th><th>Aleatório</th><th>Δ</th><th>p</th></tr></thead><tbody>
+    ${blockRows.map(x=>`<tr><td>${x.b}</td><td>${x.from}–${x.to}</td><td>${x.cand.toFixed(4)}</td><td>${x.base.toFixed(4)}</td><td>${x.diff>=0?'+':''}${x.diff.toFixed(4)}</td><td>${x.p.toFixed(3)}</td></tr>`).join('')}
+    </tbody></table></div>
+  </div>`;
+
+  verdict.innerHTML=`<div class="notice ${approved?'ok':'evidence-warn'}"><b>${approved?'APROVADO':'REPROVADO / INCONCLUSIVO'}</b><br>
+    Janelas positivas: <b>${positiveBlocks}/${blocks}</b>. A aprovação aqui não significa garantia futura; apenas indica que o candidato venceu o controle dentro dos critérios definidos.
+  </div>`;
+  prog.textContent='Validação científica concluída.';
+}
+async function runTemporalStability(){
+  const windowN=Number(document.getElementById('scWindow').value||80),
+        blocks=Number(document.getElementById('scBlocks').value||3),
+        budget=Math.max(6,Number(document.getElementById('scBudget').value||504)),
+        count=Math.floor(budget/6),
+        el=document.getElementById('scStability');
+  if(history.length<windowN*blocks){el.innerHTML='<div class="card notice err">Histórico insuficiente.</div>';return}
+  let start=history.length-windowN*blocks,rows=[];
+  for(let b=0;b<blocks;b++){
+    let data=history.slice(start+b*windowN,start+(b+1)*windowN),rnd=seededRandom(99000+b),cand=scienceCandidateTickets(budget);
+    let c3=0,b3=0,c4=0,b4=0;
+    let rp=scienceRandomPortfolio(count,44000+b);
+    data.forEach(d=>{
+      let c=scoreSimulationPortfolio(cand,d),r=scoreSimulationPortfolio(rp,d);
+      if(c.counts['3+2']>0)c3++;if(r.counts['3+2']>0)b3++;
+      if(c.counts['4+2']>0)c4++;if(r.counts['4+2']>0)b4++;
+    });
+    rows.push({b:b+1,from:data[0].numero,to:data.at(-1).numero,c3:c3/data.length,b3:b3/data.length,c4:c4/data.length,b4:b4/data.length});
+  }
+  let stable3=rows.filter(x=>x.c3>x.b3).length,stable4=rows.filter(x=>x.c4>x.b4).length;
+  el.innerHTML=`<div class="card"><h2>Estabilidade temporal</h2>
+    <div class="notice ${(stable3>=Math.ceil(blocks*2/3)||stable4>=Math.ceil(blocks*2/3))?'ok':'evidence-warn'}">
+      ≥3+2 melhor que o controle em <b>${stable3}/${blocks}</b> janelas • ≥4+2 melhor em <b>${stable4}/${blocks}</b>.
+    </div>
+    <div class="scrollx" style="margin-top:10px"><table><thead><tr><th>Janela</th><th>Concursos</th><th>Cand ≥3+2</th><th>Rand ≥3+2</th><th>Cand ≥4+2</th><th>Rand ≥4+2</th></tr></thead><tbody>
+      ${rows.map(x=>`<tr><td>${x.b}</td><td>${x.from}–${x.to}</td><td>${(x.c3*100).toFixed(1)}%</td><td>${(x.b3*100).toFixed(1)}%</td><td>${(x.c4*100).toFixed(1)}%</td><td>${(x.b4*100).toFixed(1)}%</td></tr>`).join('')}
+    </tbody></table></div>
+  </div>`;
+}
+function clearScience(){
+  document.getElementById('scResult').innerHTML='';
+  document.getElementById('scStability').innerHTML='';
+  document.getElementById('scVerdict').innerHTML='';
+  document.getElementById('scProgress').textContent='';
 }
 
 function refresh(){

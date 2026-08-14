@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#08140f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SSPSKN 2.6 MAX">
-<title>SSPSKN 2.6 MAX • +Milionária</title>
+<meta name="apple-mobile-web-app-title" content="SSPSKN 2.7 ULTRA">
+<title>SSPSKN 2.7 ULTRA • +Milionária</title>
 <style>
 :root{
   --bg:#07110d; --card:#0e1d16; --card2:#12251c; --txt:#eef8f1; --muted:#9db3a6;
@@ -73,7 +73,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <div class="wrap">
 <header>
   <div class="logo">SS</div>
-  <div><h1>SSPSKN 2.6 MAX</h1><div class="sub">Central estatística • +Milionária</div></div>
+  <div><h1>SSPSKN 2.7 ULTRA</h1><div class="sub">Central estatística • +Milionária</div></div>
   <div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div>
 </header>
 
@@ -101,7 +101,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
   </div>
 
   <div class="notice">
-    O SSPSKN usa o histórico para testar hipóteses, medir evidência e organizar cobertura. O Motor de Portfólio compara apostas de 6+2 a 12+6 pelo custo e pelas combinações simples equivalentes. A versão 2.6 MAX também inclui motores de Valor Esperado, Regimes, Anti-Divisão, Laboratório Monte Carlo, Registro Prospectivo e Registro de Equipamento. Ele <b>não prevê sorteios com garantia</b>; qualquer vantagem observada precisa sobreviver a validação fora da amostra.
+    O SSPSKN usa o histórico para testar hipóteses, medir evidência e organizar cobertura. O Motor de Portfólio compara apostas de 6+2 a 12+6 pelo custo e pelas combinações simples equivalentes. A versão 2.7 ULTRA também inclui motores de Valor Esperado, Regimes, Anti-Divisão, Laboratório Monte Carlo, Registro Prospectivo e Registro de Equipamento. Ele <b>não prevê sorteios com garantia</b>; qualquer vantagem observada precisa sobreviver a validação fora da amostra.
   </div>
 </section>
 
@@ -162,7 +162,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 
 <section id="portfolio" class="page">
   <div class="card">
-    <h2>Motor de Portfólio 2.6</h2>
+    <h2>Motor de Portfólio 2.7</h2>
     <div class="small">
       Monte apostas compostas da +Milionária de <b>6+2 até 12+6</b>.
       O custo é calculado pelo número de apostas simples equivalentes:
@@ -294,7 +294,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 
 <section id="lab" class="page">
   <div class="card">
-    <h2>Laboratório SSPSKN 2.6</h2>
+    <h2>Laboratório SSPSKN 2.7</h2>
     <div class="small">
       Central de comparação de arquiteturas sob <b>o mesmo orçamento</b>. O laboratório confronta apostas simples e compostas,
       cobertura ampla, núcleo concentrado e híbrido por simulação Monte Carlo reproduzível.
@@ -353,6 +353,60 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
   </div>
 </section>
 
+
+<section id="ultra" class="page">
+  <div class="card">
+    <h2>Motor Evolutivo ULTRA 2.7</h2>
+    <div class="small">
+      Otimização multiobjetivo de portfólios da +Milionária. O motor compara cobertura, sobreposição,
+      distribuição dos trevos e estabilidade entre seeds. Nenhum resultado é tratado como previsão
+      sem validação walk-forward.
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Orçamento (R$)</label><input id="ulBudget" type="number" value="504" min="6" step="6"></div>
+      <div class="field"><label>População</label><select id="ulPop"><option>30</option><option selected>60</option><option>100</option></select></div>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <div class="field"><label>Gerações</label><select id="ulGen"><option>10</option><option selected>25</option><option>50</option></select></div>
+      <div class="field"><label>Seeds automáticas</label><select id="ulSeeds"><option>5</option><option selected>10</option><option>20</option></select></div>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <div class="field"><label>Janela walk-forward</label><select id="ulWF"><option>50</option><option selected>100</option><option>150</option></select></div>
+      <div class="field"><label>Concursos walk-forward</label><select id="ulContests"><option>40</option><option selected>80</option><option>120</option></select></div>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <div class="field"><label>Objetivo principal</label><select id="ulObj">
+        <option value="coverage">Cobertura</option>
+        <option value="tier">Faixas intermediárias</option>
+        <option value="balanced" selected>Equilibrado</option>
+        <option value="jackpot">6+2</option>
+      </select></div>
+      <div class="field"><label>Arquitetura-base</label><select id="ulArch">
+        <option value="simple" selected>6+2 diversificada</option>
+        <option value="hybrid">Híbrida 8+2 + 6+2</option>
+        <option value="portfolio">Portfólio adaptativo</option>
+      </select></div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn" onclick="runUltraOptimizer()">Executar ULTRA</button>
+      <button class="btn secondary" onclick="runUltraWalkForward()">Walk-forward</button>
+      <button class="btn ghost" onclick="clearUltra()">Limpar</button>
+    </div>
+    <div id="ulProgress" class="small" style="margin-top:10px"></div>
+  </div>
+  <div id="ulResult"></div>
+  <div class="card">
+    <h2>Fronteira de Pareto</h2>
+    <div class="small">Mostra candidatos que equilibram cobertura, faixas intermediárias, trevos e baixa sobreposição.</div>
+    <div id="ulPareto" class="small" style="margin-top:10px">Execute o Motor ULTRA.</div>
+  </div>
+  <div class="card">
+    <h2>Painel de Evidência Integrada</h2>
+    <div class="small">Consolida histórico, estabilidade do ULTRA, walk-forward e registro prospectivo.</div>
+    <button class="btn secondary" style="margin-top:12px" onclick="renderEvidenceDashboard()">Atualizar painel</button>
+    <div id="evidenceDashboard" style="margin-top:12px"></div>
+  </div>
+</section>
 <section id="checker" class="page">
   <div class="card">
     <h2>Conferir aposta</h2>
@@ -379,7 +433,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 
 <section id="backtest" class="page">
   <div class="card">
-    <h2>Motor de Evidência 2.6</h2>
+    <h2>Motor de Evidência 2.7</h2>
     <div class="small">Validação walk-forward sem olhar o futuro. O SSPSKN compara cada estratégia com um controle aleatório, repete a geração com sementes reproduzíveis e calcula intervalo de confiança e teste de permutação para reduzir falsos sinais.</div>
     <div class="row" style="margin-top:12px">
       <div class="field"><label>Concursos a testar</label><select id="btDraws"><option>50</option><option selected>100</option><option>200</option><option value="0">Máximo possível</option></select></div>
@@ -425,6 +479,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <button class="tab" data-page="regime"><span class="ico">≈</span>Regimes</button>
 <button class="tab" data-page="antidiv"><span class="ico">◇</span>Anti-divisão</button>
 <button class="tab" data-page="lab"><span class="ico">Σ</span>Laboratório</button>
+<button class="tab" data-page="ultra"><span class="ico">⚙</span>ULTRA</button>
 <button class="tab" data-page="checker"><span class="ico">✓</span>Conferir</button>
 <button class="tab" data-page="backtest"><span class="ico">⌁</span>Evidência</button>
 <button class="tab" data-page="saved"><span class="ico">★</span>Salvos</button>
@@ -438,6 +493,7 @@ let generated=[];
 let portfolio=[];
 let prospective=load('sspskn_prospective',[]);
 let equipmentRecords=load('sspskn_equipment',[]);
+let ultraState=load('sspskn_ultra',{});
 
 function load(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}}
 function store(){localStorage.setItem('sspskn_history',JSON.stringify(history));localStorage.setItem('sspskn_saved',JSON.stringify(saved));localStorage.setItem('sspskn_prospective',JSON.stringify(prospective));localStorage.setItem('sspskn_equipment',JSON.stringify(equipmentRecords))}
@@ -1316,6 +1372,159 @@ function renderEquipmentRecords(){
   let el=document.getElementById('eqList');if(!el)return;
   if(!equipmentRecords.length){el.innerHTML='<div class="small">Nenhum registro de equipamento salvo.</div>';return}
   el.innerHTML=equipmentRecords.slice().reverse().slice(0,20).map(x=>`<div class="game"><div class="gamehead"><b>Concurso ${x.contest}</b><span class="score">${x.machine||'máquina não informada'}</span></div><div class="small">Bolas/lote: <b>${x.ballset||'—'}</b><br>${x.note||''}</div></div>`).join('');
+}
+
+function ultraUniquePortfolio(count,rnd){
+  let seen=new Set(),out=[];
+  while(out.length<count){
+    let t=randomSimpleTicket(rnd),k=t.nums.join('-')+'|'+t.cl.join('-');
+    if(!seen.has(k)){seen.add(k);out.push(t)}
+  }
+  return out;
+}
+function ultraOverlap(tickets){
+  if(tickets.length<2)return 0;
+  let s=0,n=0;
+  for(let i=0;i<tickets.length;i++)for(let j=i+1;j<tickets.length;j++){s+=intersect(tickets[i].nums,tickets[j].nums).length;n++}
+  return s/n;
+}
+function ultraDiversity(tickets){
+  let ns=new Set(),ps=new Set();
+  tickets.forEach(t=>{t.nums.forEach(n=>ns.add(n));ps.add([...t.cl].sort((a,b)=>a-b).join('-'))});
+  return {nums:ns.size,pairs:ps.size};
+}
+function ultraMutate(tickets,rnd){
+  let out=tickets.map(t=>({nums:[...t.nums],cl:[...t.cl]}));
+  let idx=Math.floor(rnd()*out.length);
+  if(rnd()<.8){
+    let used=new Set(out[idx].nums),pos=Math.floor(rnd()*6),v;
+    do{v=1+Math.floor(rnd()*50)}while(used.has(v));
+    out[idx].nums[pos]=v;out[idx].nums.sort((a,b)=>a-b);
+  }else{
+    let used=new Set(out[idx].cl),pos=Math.floor(rnd()*2),v;
+    do{v=1+Math.floor(rnd()*6)}while(used.has(v));
+    out[idx].cl[pos]=v;out[idx].cl.sort((a,b)=>a-b);
+  }
+  return out;
+}
+function ultraScore(tickets,draws,obj){
+  let p3=0,p4=0,p5=0,p6=0,multi=0;
+  draws.forEach(draw=>{
+    let x=scoreSimulationPortfolio(tickets,draw);
+    if(x.counts['3+2']>0)p3++;
+    if(x.counts['4+2']>0)p4++;
+    if(x.counts['5+2']>0)p5++;
+    if(x.jack>0)p6++;
+    multi+=x.counts['3+2'];
+  });
+  let n=draws.length||1, ev={p3:p3/n,p4:p4/n,p5:p5/n,p6:p6/n,multi:multi/n};
+  let d=ultraDiversity(tickets),ov=ultraOverlap(tickets);
+  let score=obj==='jackpot'?ev.p6*20000+ev.p5*800+ev.p4*80:
+            obj==='tier'?ev.p3*20+ev.p4*180+ev.p5*1000+ev.multi*6:
+            obj==='coverage'?ev.p3*40+ev.p4*150+ev.p5*600+d.nums*.05+d.pairs*.1-ov*.5:
+            ev.p3*30+ev.p4*160+ev.p5*700+ev.p6*7000+ev.multi*4+d.pairs*.08-ov*.5;
+  return {ev,d,ov,score};
+}
+function ultraDraws(count,rnd){
+  let out=[];
+  for(let i=0;i<count;i++)out.push({
+    dezenas:randomWeightedSubset([...Array(50)].map((_,k)=>k+1),Array(50).fill(1),6,rnd),
+    trevos:randomWeightedSubset([1,2,3,4,5,6],Array(6).fill(1),2,rnd)
+  });
+  return out;
+}
+async function runUltraOptimizer(){
+  const budget=Math.max(6,Number(document.getElementById('ulBudget').value||504)),
+        pop=Number(document.getElementById('ulPop').value||60),
+        gens=Number(document.getElementById('ulGen').value||25),
+        seeds=Number(document.getElementById('ulSeeds').value||10),
+        obj=document.getElementById('ulObj').value,
+        count=Math.floor(budget/6),
+        prog=document.getElementById('ulProgress'),
+        out=document.getElementById('ulResult');
+  let winners=[],base=(history.at(-1)?.numero||1)*1777+27000;
+  for(let s=0;s<seeds;s++){
+    let rnd=seededRandom(base+s*7919),draws=ultraDraws(800,seededRandom(base+s*104729)),population=[];
+    for(let i=0;i<pop;i++){
+      let t=ultraUniquePortfolio(count,rnd),m=ultraScore(t,draws,obj);
+      population.push({tickets:t,...m});
+    }
+    for(let g=0;g<gens;g++){
+      population.sort((a,b)=>b.score-a.score);
+      let elite=population.slice(0,Math.max(4,Math.floor(pop*.2))),next=[...elite];
+      while(next.length<pop){
+        let p=elite[Math.floor(rnd()*elite.length)],t=ultraMutate(p.tickets,rnd),m=ultraScore(t,draws,obj);
+        next.push({tickets:t,...m});
+      }
+      population=next;
+      if((g+1)%5===0){prog.textContent=`Seed ${s+1}/${seeds} • geração ${g+1}/${gens}`;await new Promise(r=>setTimeout(r,0))}
+    }
+    population.sort((a,b)=>b.score-a.score);winners.push(population[0]);
+  }
+  winners.sort((a,b)=>b.score-a.score);
+  let best=winners[0];
+  ultraState={budget,obj,count,best,created:new Date().toISOString()};
+  try{localStorage.setItem('sspskn_ultra',JSON.stringify(ultraState))}catch(e){}
+  out.innerHTML=`<div class="card"><h2>Resultado ULTRA</h2>
+    <div class="notice ok"><b>Melhor candidato evolutivo encontrado</b><br>${count} apostas simples equivalentes • ${brl(budget)} • ${seeds} seeds.</div>
+    <div class="grid" style="margin-top:12px">
+      <div class="kpi"><b>${(best.ev.p3*100).toFixed(2)}%</b><span>≥3+2</span></div>
+      <div class="kpi"><b>${(best.ev.p4*100).toFixed(2)}%</b><span>≥4+2</span></div>
+      <div class="kpi"><b>${(best.ev.p5*100).toFixed(3)}%</b><span>≥5+2</span></div>
+      <div class="kpi"><b>${(best.ev.p6*100).toFixed(4)}%</b><span>6+2</span></div>
+    </div>
+    <div class="small" style="margin-top:10px">Dezenas cobertas: <b>${best.d.nums}/50</b> • pares de trevos: <b>${best.d.pairs}/15</b> • overlap médio: <b>${best.ov.toFixed(2)}</b>.</div>
+    <button class="btn secondary" style="margin-top:12px" onclick="useUltraPortfolio()">Usar candidato no Gerador</button>
+  </div>`;
+  document.getElementById('ulPareto').innerHTML=winners.slice(0,5).map((x,i)=>`<div class="game"><div class="gamehead"><b>Candidato ${i+1}</b><span class="score">${x.score.toFixed(2)}</span></div><div class="tiny">≥3+2 ${(x.ev.p3*100).toFixed(2)}% • ≥4+2 ${(x.ev.p4*100).toFixed(2)}% • ≥5+2 ${(x.ev.p5*100).toFixed(3)}% • pares ${x.d.pairs}/15 • overlap ${x.ov.toFixed(2)}</div></div>`).join('');
+  prog.textContent=`ULTRA concluído: ${seeds} seeds × ${gens} gerações × ${pop} candidatos.`;
+}
+function useUltraPortfolio(){
+  if(!ultraState?.best?.tickets?.length){alert('Execute o ULTRA primeiro.');return}
+  generated=ultraState.best.tickets.map((t,i)=>({nums:[...t.nums],cl:[...t.cl],score:100-i*.01}));
+  renderGenerated();
+}
+async function runUltraWalkForward(){
+  const wf=Number(document.getElementById('ulWF').value||100),
+        tests=Number(document.getElementById('ulContests').value||80),
+        budget=Math.max(6,Number(document.getElementById('ulBudget').value||504)),
+        count=Math.floor(budget/6),
+        out=document.getElementById('ulResult'),
+        prog=document.getElementById('ulProgress');
+  if(history.length<wf+20){out.innerHTML='<div class="card notice err">Histórico insuficiente.</div>';return}
+  let start=Math.max(wf,history.length-tests),r3=0,r4=0,r5=0,r6=0,n=0;
+  for(let i=start;i<history.length;i++){
+    let past=history.slice(Math.max(0,i-wf),i),target=history[i],rnd=seededRandom(27000+i*97),w=getWeights('balanced',wf,past),tickets=[],seen=new Set();
+    while(tickets.length<count){
+      let t={nums:randomWeightedSubset(w.nums,w.weights,6,rnd),cl:randomWeightedSubset(w.cl,w.cw,2,rnd)},k=t.nums.join('-')+'|'+t.cl.join('-');
+      if(!seen.has(k)){seen.add(k);tickets.push(t)}
+    }
+    let x=scoreSimulationPortfolio(tickets,target);n++;
+    if(x.counts['3+2']>0)r3++;if(x.counts['4+2']>0)r4++;if(x.counts['5+2']>0)r5++;if(x.jack>0)r6++;
+    if(n%10===0){prog.textContent=`Walk-forward ${n}/${history.length-start}...`;await new Promise(r=>setTimeout(r,0))}
+  }
+  ultraState.walkForward={n,p3:r3/n,p4:r4/n,p5:r5/n,p6:r6/n};
+  try{localStorage.setItem('sspskn_ultra',JSON.stringify(ultraState))}catch(e){}
+  out.innerHTML=`<div class="card"><h2>Walk-forward de Portfólio</h2><div class="notice ok"><b>${n} concursos testados sem olhar o futuro.</b></div>
+  <div class="grid" style="margin-top:12px">
+    <div class="kpi"><b>${(r3/n*100).toFixed(2)}%</b><span>≥3+2</span></div>
+    <div class="kpi"><b>${(r4/n*100).toFixed(2)}%</b><span>≥4+2</span></div>
+    <div class="kpi"><b>${(r5/n*100).toFixed(2)}%</b><span>≥5+2</span></div>
+    <div class="kpi"><b>${(r6/n*100).toFixed(3)}%</b><span>6+2</span></div>
+  </div></div>`;
+  prog.textContent=`Walk-forward concluído: ${n} concursos.`;
+}
+function renderEvidenceDashboard(){
+  let wf=ultraState?.walkForward,ul=ultraState?.best;
+  document.getElementById('evidenceDashboard').innerHTML=`
+    <div class="game"><div class="gamehead"><b>Histórico</b><span class="score">${history.length>=300?'✓':'!'}</span></div><div class="tiny">${history.length} concursos</div></div>
+    <div class="game"><div class="gamehead"><b>ULTRA</b><span class="score">${ul?'✓':'!'}</span></div><div class="tiny">${ul?'candidato salvo':'não executado'}</div></div>
+    <div class="game"><div class="gamehead"><b>Walk-forward</b><span class="score">${wf?'✓':'!'}</span></div><div class="tiny">${wf?wf.n+' concursos':'não executado'}</div></div>`;
+}
+function clearUltra(){
+  document.getElementById('ulResult').innerHTML='';
+  document.getElementById('ulPareto').textContent='Execute o Motor ULTRA.';
+  document.getElementById('ulProgress').textContent='';
 }
 
 function refresh(){

@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#08140f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SSPSKN 2.3">
-<title>SSPSKN 2.3 • +Milionária</title>
+<meta name="apple-mobile-web-app-title" content="SSPSKN 2.6 MAX">
+<title>SSPSKN 2.6 MAX • +Milionária</title>
 <style>
 :root{
   --bg:#07110d; --card:#0e1d16; --card2:#12251c; --txt:#eef8f1; --muted:#9db3a6;
@@ -42,7 +42,7 @@ h1{font-size:24px;margin:0}.sub{color:var(--muted);font-size:13px;margin-top:3px
 input,select,textarea{width:100%;background:#08150f;color:var(--txt);border:1px solid var(--line);border-radius:11px;padding:11px;outline:none}
 input:focus,select:focus,textarea:focus{border-color:var(--acc2)}
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(7,17,13,.94);backdrop-filter:blur(15px);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center}
-.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(6,1fr);gap:4px}
+.tabsin{max-width:980px;width:100%;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(72px,1fr);grid-template-columns:none;gap:4px;overflow-x:auto}
 .tab{border:0;background:transparent;color:var(--muted);padding:8px 3px;border-radius:11px;font-size:10px;font-weight:700}.tab .ico{display:block;font-size:20px;margin-bottom:2px}.tab.active{background:#173526;color:var(--txt)}
 .page{display:none}.page.active{display:block}
 .balls{display:flex;gap:7px;flex-wrap:wrap}
@@ -73,7 +73,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <div class="wrap">
 <header>
   <div class="logo">SS</div>
-  <div><h1>SSPSKN 2.3</h1><div class="sub">Central estatística • +Milionária</div></div>
+  <div><h1>SSPSKN 2.6 MAX</h1><div class="sub">Central estatística • +Milionária</div></div>
   <div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div>
 </header>
 
@@ -101,7 +101,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
   </div>
 
   <div class="notice">
-    O SSPSKN usa o histórico para testar hipóteses, medir evidência e organizar cobertura. Ele <b>não prevê sorteios com garantia</b>; qualquer vantagem observada precisa sobreviver a validação fora da amostra.
+    O SSPSKN usa o histórico para testar hipóteses, medir evidência e organizar cobertura. O Motor de Portfólio compara apostas de 6+2 a 12+6 pelo custo e pelas combinações simples equivalentes. A versão 2.6 MAX também inclui motores de Valor Esperado, Regimes, Anti-Divisão, Laboratório Monte Carlo, Registro Prospectivo e Registro de Equipamento. Ele <b>não prevê sorteios com garantia</b>; qualquer vantagem observada precisa sobreviver a validação fora da amostra.
   </div>
 </section>
 
@@ -150,12 +150,206 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
       <button class="btn" onclick="generateSet()">Gerar conjunto</button>
       <button class="btn ghost" onclick="clearGenerated()">Limpar</button>
     </div>
-    <div class="small" style="margin-top:10px">O algoritmo cria muitos candidatos e seleciona jogos com boa diversidade entre si. A nota considera equilíbrio estrutural e histórico. Na versão 2.3 ela é determinística: o mesmo jogo, com o mesmo histórico, recebe a mesma nota. Continua não sendo uma chance de acerto.</div>
+    <div class="small" style="margin-top:10px">O algoritmo cria muitos candidatos e seleciona jogos com boa diversidade entre si. A nota considera equilíbrio estrutural e histórico. Na versão 2.4 ela é determinística: o mesmo jogo, com o mesmo histórico, recebe a mesma nota. Continua não sendo uma chance de acerto.</div>
   </div>
   <div id="generated" class="list"></div>
   <div class="row" id="genActions" style="display:none;margin-top:12px">
     <button class="btn secondary" onclick="saveGenerated()">Salvar todos</button>
     <button class="btn ghost" onclick="copyGenerated()">Copiar jogos</button>
+  </div>
+</section>
+
+
+<section id="portfolio" class="page">
+  <div class="card">
+    <h2>Motor de Portfólio 2.6</h2>
+    <div class="small">
+      Monte apostas compostas da +Milionária de <b>6+2 até 12+6</b>.
+      O custo é calculado pelo número de apostas simples equivalentes:
+      C(dezenas,6) × C(trevos,2) × R$ 6,00.
+      A aposta composta aumenta cobertura porque compra várias combinações simples; ela não cria vantagem matemática por real apostado.
+    </div>
+
+    <div class="row" style="margin-top:12px">
+      <div class="field">
+        <label>Dezenas por aposta</label>
+        <select id="pfNums" onchange="updatePortfolioQuote()">
+          <option>6</option><option>7</option><option selected>8</option><option>9</option><option>10</option><option>11</option><option>12</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Trevos por aposta</label>
+        <select id="pfClovers" onchange="updatePortfolioQuote()">
+          <option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:10px">
+      <div class="field">
+        <label>Orçamento total (R$)</label>
+        <input id="pfBudget" type="number" min="6" step="6" value="504" oninput="updatePortfolioQuote()">
+      </div>
+      <div class="field">
+        <label>Modo do portfólio</label>
+        <select id="pfMode">
+          <option value="coverage" selected>Cobertura ampla</option>
+          <option value="balanced">Cobertura + equilíbrio</option>
+          <option value="hybrid">Híbrido núcleo + cobertura</option>
+          <option value="random">Controle aleatório</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:10px">
+      <div class="field">
+        <label>Janela histórica</label>
+        <select id="pfWindow"><option>20</option><option>50</option><option selected>100</option><option>150</option></select>
+      </div>
+      <div class="field">
+        <label>Estratégia-base</label>
+        <select id="pfStrategy">
+          <option value="balanced" selected>Balanceada</option>
+          <option value="mixed">Mista histórico + aleatório</option>
+          <option value="recent">Ênfase recente</option>
+          <option value="delay">Ênfase em atraso</option>
+          <option value="random">Aleatória pura</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="pfQuote" class="notice ok" style="margin-top:12px"></div>
+
+    <div class="row" style="margin-top:12px">
+      <button class="btn" onclick="generatePortfolio()">Gerar portfólio</button>
+      <button class="btn secondary" onclick="testPortfolioHistory()">Testar histórico</button>
+      <button class="btn ghost" onclick="clearPortfolio()">Limpar</button>
+    </div>
+  </div>
+
+  <div id="pfSummary"></div>
+  <div id="pfList" class="list"></div>
+  <div id="pfHistory"></div>
+</section>
+
+
+<section id="value" class="page">
+  <div class="card">
+    <h2>Motor de Valor Esperado</h2>
+    <div class="small">
+      Compare concursos pela atratividade econômica. Informe prêmio estimado, arrecadação e eventual aporte extraordinário.
+      O cálculo não prevê números; ele estima quando o retorno esperado por real apostado pode ser menos desfavorável.
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Prêmio principal estimado (R$)</label><input id="evJackpot" type="number" value="10000000" min="0" step="100000"></div>
+      <div class="field"><label>Arrecadação estimada (R$)</label><input id="evSales" type="number" value="5000000" min="1" step="100000"></div>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <div class="field"><label>Aporte extraordinário/RGP (R$)</label><input id="evExternal" type="number" value="0" min="0" step="100000"></div>
+      <div class="field"><label>Divisores estimados do prêmio principal</label><input id="evWinners" type="number" value="1" min="1" step="1"></div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn" onclick="calcExpectedValue()">Calcular valor</button>
+      <button class="btn ghost" onclick="clearExpectedValue()">Limpar</button>
+    </div>
+  </div>
+  <div id="evResult"></div>
+</section>
+
+<section id="regime" class="page">
+  <div class="card">
+    <h2>Detector de Regimes</h2>
+    <div class="small">
+      Procura mudanças persistentes no comportamento estatístico do histórico dividindo os concursos em janelas independentes.
+      Um sinal só ganha relevância se reaparecer em vários blocos, reduzindo risco de coincidência.
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Tamanho do bloco</label><select id="rgBlock"><option>40</option><option selected>60</option><option>80</option><option>100</option></select></div>
+      <div class="field"><label>Limiar |z| para sinal</label><select id="rgZ"><option>1.96</option><option selected>2.33</option><option>2.58</option></select></div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn" onclick="runRegimeDetector()">Analisar regimes</button>
+      <button class="btn ghost" onclick="clearRegime()">Limpar</button>
+    </div>
+  </div>
+  <div id="rgResult"></div>
+</section>
+
+<section id="antidiv" class="page">
+  <div class="card">
+    <h2>Motor Anti-Divisão</h2>
+    <div class="small">
+      Avalia padrões de escolha humana que podem aumentar o risco de dividir um prêmio com outros apostadores.
+      Esse motor não altera a chance física do sorteio; ele busca combinações menos populares entre jogadores.
+    </div>
+    <div class="field" style="margin-top:12px"><label>Dezenas</label><input id="adNums" placeholder="Ex.: 04, 17, 28, 33, 41, 49"></div>
+    <div class="field" style="margin-top:10px"><label>Trevos</label><input id="adClovers" placeholder="Ex.: 2, 6"></div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn" onclick="analyzePopularity()">Analisar popularidade</button>
+      <button class="btn secondary" onclick="copyFromGeneratedToPopularity()">Usar Jogo 1 gerado</button>
+    </div>
+  </div>
+  <div id="adResult"></div>
+</section>
+
+<section id="lab" class="page">
+  <div class="card">
+    <h2>Laboratório SSPSKN 2.6</h2>
+    <div class="small">
+      Central de comparação de arquiteturas sob <b>o mesmo orçamento</b>. O laboratório confronta apostas simples e compostas,
+      cobertura ampla, núcleo concentrado e híbrido por simulação Monte Carlo reproduzível.
+    </div>
+
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Orçamento (R$)</label><input id="labBudget" type="number" value="504" min="6" step="6"></div>
+      <div class="field"><label>Simulações</label><select id="labSims"><option>2000</option><option selected>10000</option><option>25000</option></select></div>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <div class="field"><label>Seed</label><input id="labSeed" type="number" value="260814"></div>
+      <div class="field"><label>Objetivo</label><select id="labObjective">
+        <option value="jackpot">Cobertura 6+2</option>
+        <option value="tier" selected>Faixas intermediárias</option>
+        <option value="balanced">Equilibrado</option>
+      </select></div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn" onclick="runPortfolioLab()">Comparar arquiteturas</button>
+      <button class="btn ghost" onclick="clearPortfolioLab()">Limpar</button>
+    </div>
+    <div id="labProgress" class="small" style="margin-top:10px"></div>
+  </div>
+  <div id="labResults"></div>
+
+  <div class="card">
+    <h2>Registro prospectivo</h2>
+    <div class="small">
+      Congele uma previsão antes do sorteio. O sistema grava os jogos, concurso-alvo, horário e uma impressão digital simples.
+      Isso evita escolher retrospectivamente apenas previsões que deram certo.
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Concurso-alvo</label><input id="prosContest" type="number" min="1"></div>
+      <button class="btn secondary" onclick="freezePrediction()">Congelar jogos gerados</button>
+    </div>
+    <div id="prosResult" style="margin-top:10px"></div>
+    <div id="prosList" class="list" style="margin-top:10px"></div>
+  </div>
+
+  <div class="card">
+    <h2>Registro de equipamento e metrologia</h2>
+    <div class="small">
+      Área manual preparada para cruzar concursos com máquina, conjunto de bolas, lote, massa/diâmetro e observações públicas
+      quando esses dados forem obtidos de fontes oficiais.
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Concurso</label><input id="eqContest" type="number"></div>
+      <div class="field"><label>Máquina/globo</label><input id="eqMachine" placeholder="ID/modelo"></div>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <div class="field"><label>Conjunto/lote de bolas</label><input id="eqBallset" placeholder="Identificação"></div>
+      <div class="field"><label>Fonte/observação</label><input id="eqNote" placeholder="Relatório, vídeo, LAI..."></div>
+    </div>
+    <button class="btn secondary" style="margin-top:12px" onclick="saveEquipmentRecord()">Salvar registro</button>
+    <div id="eqList" class="list" style="margin-top:12px"></div>
   </div>
 </section>
 
@@ -185,7 +379,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 
 <section id="backtest" class="page">
   <div class="card">
-    <h2>Motor de Evidência 2.3</h2>
+    <h2>Motor de Evidência 2.6</h2>
     <div class="small">Validação walk-forward sem olhar o futuro. O SSPSKN compara cada estratégia com um controle aleatório, repete a geração com sementes reproduzíveis e calcula intervalo de confiança e teste de permutação para reduzir falsos sinais.</div>
     <div class="row" style="margin-top:12px">
       <div class="field"><label>Concursos a testar</label><select id="btDraws"><option>50</option><option selected>100</option><option>200</option><option value="0">Máximo possível</option></select></div>
@@ -226,6 +420,11 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <button class="tab active" data-page="home"><span class="ico">⌂</span>Início</button>
 <button class="tab" data-page="analysis"><span class="ico">▥</span>Análise</button>
 <button class="tab" data-page="generator"><span class="ico">✦</span>Gerar</button>
+<button class="tab" data-page="portfolio"><span class="ico">◫</span>Portfólio</button>
+<button class="tab" data-page="value"><span class="ico">R$</span>Valor</button>
+<button class="tab" data-page="regime"><span class="ico">≈</span>Regimes</button>
+<button class="tab" data-page="antidiv"><span class="ico">◇</span>Anti-divisão</button>
+<button class="tab" data-page="lab"><span class="ico">Σ</span>Laboratório</button>
 <button class="tab" data-page="checker"><span class="ico">✓</span>Conferir</button>
 <button class="tab" data-page="backtest"><span class="ico">⌁</span>Evidência</button>
 <button class="tab" data-page="saved"><span class="ico">★</span>Salvos</button>
@@ -236,9 +435,12 @@ const API='https://servicebus2.caixa.gov.br/portaldeloterias/api/maismilionaria'
 let history=load('sspskn_history',[]);
 let saved=load('sspskn_saved',[]);
 let generated=[];
+let portfolio=[];
+let prospective=load('sspskn_prospective',[]);
+let equipmentRecords=load('sspskn_equipment',[]);
 
 function load(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}}
-function store(){localStorage.setItem('sspskn_history',JSON.stringify(history));localStorage.setItem('sspskn_saved',JSON.stringify(saved))}
+function store(){localStorage.setItem('sspskn_history',JSON.stringify(history));localStorage.setItem('sspskn_saved',JSON.stringify(saved));localStorage.setItem('sspskn_prospective',JSON.stringify(prospective));localStorage.setItem('sspskn_equipment',JSON.stringify(equipmentRecords))}
 const pad=n=>String(n).padStart(2,'0');
 const uniq=a=>[...new Set(a)];
 const intersect=(a,b)=>a.filter(x=>b.includes(x));
@@ -515,6 +717,171 @@ function importJSON(){
     alert(`Importação concluída. ${add} concurso(s) novo(s).`);
   }catch(e){alert('JSON inválido. Verifique o formato e tente novamente.')}
 }
+
+function comb(n,k){
+  if(k<0||k>n)return 0;
+  k=Math.min(k,n-k);
+  let r=1;
+  for(let i=1;i<=k;i++)r=r*(n-k+i)/i;
+  return Math.round(r);
+}
+function brl(v){return Number(v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
+function portfolioUnitInfo(){
+  let n=Number(document.getElementById('pfNums')?.value||8),
+      t=Number(document.getElementById('pfClovers')?.value||2);
+  let simple=comb(n,6)*comb(t,2),cost=simple*6;
+  return {n,t,simple,cost}
+}
+function updatePortfolioQuote(){
+  let el=document.getElementById('pfQuote'); if(!el)return;
+  let q=portfolioUnitInfo(),budget=Math.max(0,Number(document.getElementById('pfBudget')?.value||0)),
+      qty=Math.floor(budget/q.cost),used=qty*q.cost,left=budget-used;
+  el.innerHTML=`<b>${q.n}+${q.t}</b> = <b>${q.simple.toLocaleString('pt-BR')}</b> apostas simples equivalentes • custo por aposta composta: <b>${brl(q.cost)}</b>.<br>
+  Com orçamento de <b>${brl(budget)}</b>: <b>${qty}</b> aposta(s) composta(s), uso de <b>${brl(used)}</b> e saldo de <b>${brl(left)}</b>.`;
+}
+function randomWeightedSubset(items,weights,k,rnd=Math.random){
+  let pool=items.map((x,i)=>({x,w:Math.max(.001,weights[i])})),out=[];
+  while(out.length<k&&pool.length){
+    let total=pool.reduce((s,p)=>s+p.w,0),r=rnd()*total,idx=0;
+    for(;idx<pool.length;idx++){r-=pool[idx].w;if(r<=0)break}
+    idx=Math.min(idx,pool.length-1);out.push(pool[idx].x);pool.splice(idx,1);
+  }
+  return out.sort((a,b)=>a-b);
+}
+function portfolioCandidate(n,t,strategy,wnd,rnd=Math.random){
+  let w=getWeights(strategy,wnd,history);
+  let nums=randomWeightedSubset(w.nums,w.weights,n,rnd);
+  let cl=randomWeightedSubset(w.cl,w.cw,t,rnd);
+  return {nums,cl};
+}
+function portfolioPopularityPenalty(nums){
+  let low31=nums.filter(n=>n<=31).length/nums.length;
+  let consecutive=nums.slice(1).filter((n,i)=>n-nums[i]===1).length;
+  let sameEnd={}; nums.forEach(n=>sameEnd[n%10]=(sameEnd[n%10]||0)+1);
+  let endMax=Math.max(...Object.values(sameEnd));
+  let arithmetic=0;
+  for(let i=0;i<nums.length-2;i++) if(nums[i+1]-nums[i]===nums[i+2]-nums[i+1]) arithmetic++;
+  return low31*.8 + consecutive*.35 + Math.max(0,endMax-2)*.3 + arithmetic*.25;
+}
+function portfolioSetScore(cand,chosen,mode){
+  if(!chosen.length)return 100-portfolioPopularityPenalty(cand.nums);
+  let numOv=chosen.map(x=>intersect(x.nums,cand.nums).length);
+  let clOv=chosen.map(x=>intersect(x.cl,cand.cl).length);
+  let avgNO=avg(numOv),avgCO=avg(clOv),maxNO=Math.max(...numOv),maxCO=Math.max(...clOv);
+  let score=100;
+  if(mode==='coverage'){ score-=avgNO*9+maxNO*5+avgCO*6+maxCO*2; }
+  else if(mode==='balanced'){
+    let target=Math.max(1,cand.nums.length*.24);
+    score-=Math.abs(avgNO-target)*7+Math.max(0,maxNO-target-2)*4+avgCO*4;
+    score-=portfolioPopularityPenalty(cand.nums)*1.5;
+  }else if(mode==='hybrid'){
+    let target=cand.nums.length<=8?2.2:3.2;
+    score-=Math.abs(avgNO-target)*5+Math.max(0,maxNO-target-3)*3+avgCO*3;
+    score-=portfolioPopularityPenalty(cand.nums);
+  }else{
+    score-=avgNO*1.5+avgCO;
+  }
+  return score;
+}
+function generatePortfolio(){
+  let q=portfolioUnitInfo(),budget=Math.max(0,Number(document.getElementById('pfBudget').value||0)),
+      qty=Math.floor(budget/q.cost),mode=document.getElementById('pfMode').value,
+      wnd=Number(document.getElementById('pfWindow').value),
+      strategy=document.getElementById('pfStrategy').value;
+  if(qty<1){
+    portfolio=[];
+    document.getElementById('pfSummary').innerHTML=`<div class="card notice err">O orçamento é menor que o custo de uma aposta ${q.n}+${q.t} (${brl(q.cost)}).</div>`;
+    document.getElementById('pfList').innerHTML='';return;
+  }
+  qty=Math.min(qty,100); // evita travamento no iPhone; informa quando orçamento permitir mais.
+  let seed=(history.at(-1)?.numero||1)*100003 + q.n*1009+q.t*97+qty*31+wmdHash(mode+strategy);
+  let rnd=seededRandom(seed),chosen=[],seen=new Set();
+  for(let k=0;k<qty;k++){
+    let best=null,bestScore=-1e9;
+    let trials=Math.min(2500,700+qty*35);
+    for(let i=0;i<trials;i++){
+      let st=(mode==='random')?'random':strategy;
+      let c=portfolioCandidate(q.n,q.t,st,wnd,rnd),key=c.nums.join('-')+'|'+c.cl.join('-');
+      if(seen.has(key))continue;
+      let sc=portfolioSetScore(c,chosen,mode);
+      if(sc>bestScore){bestScore=sc;best={...c,portfolioScore:sc}}
+    }
+    if(!best)break;
+    seen.add(best.nums.join('-')+'|'+best.cl.join('-'));chosen.push(best);
+  }
+  portfolio=chosen;
+  renderPortfolio(q,budget);
+}
+function wmdHash(s){
+  let h=2166136261>>>0;
+  for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}
+  return h>>>0;
+}
+function portfolioCoverageMetrics(){
+  if(!portfolio.length)return null;
+  let nums=[...Array(50)].map((_,i)=>i+1), cls=[1,2,3,4,5,6];
+  let nf=Object.fromEntries(nums.map(n=>[n,0])),tf=Object.fromEntries(cls.map(n=>[n,0]));
+  portfolio.forEach(p=>{p.nums.forEach(n=>nf[n]++);p.cl.forEach(t=>tf[t]++)});
+  let usedNums=nums.filter(n=>nf[n]>0).length,usedCl=cls.filter(n=>tf[n]>0).length;
+  let pairSet=new Set();
+  portfolio.forEach(p=>{
+    for(let i=0;i<p.cl.length;i++)for(let j=i+1;j<p.cl.length;j++)pairSet.add(`${p.cl[i]}-${p.cl[j]}`);
+  });
+  let overlaps=[];
+  for(let i=0;i<portfolio.length;i++)for(let j=i+1;j<portfolio.length;j++)overlaps.push(intersect(portfolio[i].nums,portfolio[j].nums).length);
+  return {usedNums,usedCl,clPairs:pairSet.size,avgOv:avg(overlaps),maxOv:overlaps.length?Math.max(...overlaps):0};
+}
+function renderPortfolio(q,budget){
+  let m=portfolioCoverageMetrics(),used=portfolio.length*q.cost;
+  document.getElementById('pfSummary').innerHTML=`<div class="card">
+    <h2>Resumo do portfólio</h2>
+    <div class="grid">
+      <div class="kpi"><b>${portfolio.length}</b><span>apostas ${q.n}+${q.t}</span></div>
+      <div class="kpi"><b>${(portfolio.length*q.simple).toLocaleString('pt-BR')}</b><span>simples equivalentes</span></div>
+      <div class="kpi"><b>${brl(used)}</b><span>custo utilizado</span></div>
+      <div class="kpi"><b>${m.usedNums}/50</b><span>dezenas cobertas</span></div>
+    </div>
+    <div class="small" style="margin-top:10px">Trevos cobertos: <b>${m.usedCl}/6</b> • pares de trevos cobertos: <b>${m.clPairs}/15</b> • sobreposição média entre núcleos: <b>${m.avgOv.toFixed(2)}</b> dezenas • máxima: <b>${m.maxOv}</b>.<br>
+    O orçamento informado foi ${brl(budget)}. Por segurança de desempenho no celular, o app mostra no máximo 100 apostas compostas por geração.</div>
+  </div>`;
+  document.getElementById('pfList').innerHTML=portfolio.map((p,i)=>`<div class="game">
+    <div class="gamehead"><b>Aposta composta ${i+1} • ${q.n}+${q.t}</b><span class="score">${q.simple.toLocaleString('pt-BR')} simples</span></div>
+    ${balls(p.nums)}<div style="height:7px"></div>${balls(p.cl,'clover')}
+  </div>`).join('');
+}
+function clearPortfolio(){
+  portfolio=[];
+  ['pfSummary','pfList','pfHistory'].forEach(id=>{let e=document.getElementById(id);if(e)e.innerHTML=''});
+  updatePortfolioQuote();
+try{document.getElementById('prosContest').value=(history.at(-1)?.numero||0)+1}catch(e){}
+}
+function testPortfolioHistory(){
+  let el=document.getElementById('pfHistory');
+  if(!portfolio.length){el.innerHTML='<div class="card notice err">Gere um portfólio primeiro.</div>';return}
+  if(!history.length){el.innerHTML='<div class="card notice err">Carregue o histórico primeiro.</div>';return}
+  let q=portfolioUnitInfo(), rows=history.map(d=>{
+    let bestN=0,bestT=0,full=0;
+    portfolio.forEach(p=>{
+      let hn=intersect(p.nums,d.dezenas).length,ht=intersect(p.cl,d.trevos).length;
+      if(hn>bestN||(hn===bestN&&ht>bestT)){bestN=hn;bestT=ht}
+      if(hn===6&&ht===2)full++;
+    });
+    return {numero:d.numero,bestN,bestT,full};
+  });
+  let contain=rows.filter(r=>r.full>0).length;
+  let n6=rows.filter(r=>r.bestN===6).length,n5=rows.filter(r=>r.bestN>=5).length,n4=rows.filter(r=>r.bestN>=4).length;
+  let both=rows.filter(r=>r.bestT===2).length;
+  el.innerHTML=`<div class="card"><h2>Teste histórico de cobertura</h2>
+    <div class="grid">
+      <div class="kpi"><b>${contain}</b><span>concursos com 6+2 contido no portfólio</span></div>
+      <div class="kpi"><b>${n6}</b><span>concursos com todas as 6 dezenas em algum núcleo</span></div>
+      <div class="kpi"><b>${n5}</b><span>concursos com 5+ dezenas em algum núcleo</span></div>
+      <div class="kpi"><b>${n4}</b><span>concursos com 4+ dezenas em algum núcleo</span></div>
+    </div>
+    <div class="small" style="margin-top:10px">Em <b>${both}</b> concursos algum núcleo continha os 2 trevos sorteados. Este teste avalia cobertura histórica do portfólio atual; não é um backtest walk-forward e não deve ser interpretado como previsão.</div>
+  </div>`;
+}
+
 const STRATEGIES=[
   {id:'balanced',name:'Balanceada'},
   {id:'mixed',name:'Mista histórico + aleatório'},
@@ -698,6 +1065,259 @@ function applyEvidenceStrategy(id,wnd){
   alert('Estratégia candidata aplicada ao Gerador. Isto não representa garantia de premiação.');
 }
 
+function calcExpectedValue(){
+  const jackpot=Math.max(0,Number(document.getElementById('evJackpot').value||0));
+  const sales=Math.max(1,Number(document.getElementById('evSales').value||1));
+  const external=Math.max(0,Number(document.getElementById('evExternal').value||0));
+  const winners=Math.max(1,Number(document.getElementById('evWinners').value||1));
+  const ticket=6, pJack=1/238360500;
+  // Aproximação das faixas fixas oficiais por aposta simples.
+  const evFixed = 50/900 + 24/112 + 12/117 + 6/15;
+  const jackpotShare=(jackpot+external)/winners;
+  const evJack=pJack*jackpotShare;
+  const evTotal=evFixed+evJack;
+  const roi=evTotal/ticket;
+  const ratio=(jackpot+external)/sales;
+  const label=roi>=1?'EV positivo estimado':roi>=.75?'Concurso relativamente mais atrativo':'EV ainda bastante negativo';
+  document.getElementById('evResult').innerHTML=`<div class="card">
+    <h2>Leitura econômica</h2>
+    <div class="grid">
+      <div class="kpi"><b>${brl(evTotal)}</b><span>retorno esperado aproximado por aposta simples</span></div>
+      <div class="kpi"><b>${(roi*100).toFixed(1)}%</b><span>retorno esperado sobre R$ 6</span></div>
+      <div class="kpi"><b>${ratio.toFixed(2)}</b><span>prêmio+aporte / arrecadação</span></div>
+      <div class="kpi"><b>${brl(evJack)}</b><span>parcela esperada da faixa principal</span></div>
+    </div>
+    <div class="notice ${roi>=1?'ok':'evidence-warn'}" style="margin-top:12px"><b>${label}</b><br>
+      Este é um cálculo simplificado e conservador. Arrecadação, quantidade real de apostas equivalentes, rateios e número de vencedores podem alterar o valor final.
+    </div>
+  </div>`;
+}
+function clearExpectedValue(){document.getElementById('evResult').innerHTML=''}
+function blockStats(data){
+  const s=calcStats(data), n=data.length, p=6/50, sd=Math.sqrt(n*p*(1-p));
+  return [...Array(50)].map((_,i)=>i+1).map(k=>({n:k,z:sd?((s.f[k]-n*p)/sd):0,count:s.f[k]}));
+}
+function runRegimeDetector(){
+  const block=Number(document.getElementById('rgBlock').value),
+        zthr=Number(document.getElementById('rgZ').value),
+        el=document.getElementById('rgResult');
+  if(history.length<block*2){el.innerHTML='<div class="card notice err">Histórico insuficiente para comparar pelo menos dois blocos completos.</div>';return}
+  let blocks=[];
+  for(let i=0;i+block<=history.length;i+=block){
+    let data=history.slice(i,i+block), st=blockStats(data);
+    blocks.push({from:data[0].numero,to:data.at(-1).numero,st});
+  }
+  let persistence=[];
+  for(let n=1;n<=50;n++){
+    let zs=blocks.map(b=>b.st[n-1].z), hits=zs.filter(z=>Math.abs(z)>=zthr).length;
+    let sameSign=zs.filter(z=>z>=zthr).length>=2||zs.filter(z=>z<=-zthr).length>=2;
+    if(hits>=2&&sameSign)persistence.push({n,hits,zs});
+  }
+  persistence.sort((a,b)=>b.hits-a.hits||Math.max(...b.zs.map(Math.abs))-Math.max(...a.zs.map(Math.abs)));
+  let rows=blocks.map((b,i)=>{
+    let top=[...b.st].sort((a,c)=>Math.abs(c.z)-Math.abs(a.z)).slice(0,3);
+    return `<tr><td>${i+1}</td><td>${b.from}–${b.to}</td><td>${top.map(x=>`${pad(x.n)} ${x.z>=0?'+':''}${x.z.toFixed(2)}σ`).join(' • ')}</td></tr>`;
+  }).join('');
+  let per=persistence.slice(0,10).map(x=>`${pad(x.n)} (${x.hits}/${blocks.length} blocos)`).join(' • ')||'nenhuma';
+  el.innerHTML=`<div class="card"><h2>Estabilidade temporal</h2>
+    <div class="notice ${persistence.length?'evidence-warn':'ok'}">${persistence.length?
+      `<b>${persistence.length} dezena(s) com sinal repetido em pelo menos dois blocos.</b> Isso exige investigação adicional e não prova viés físico.`:
+      '<b>Nenhuma dezena apresentou desvio persistente no limiar selecionado.</b> Resultado compatível com flutuação aleatória entre blocos.'}
+    </div>
+    <div class="small" style="margin-top:10px"><b>Sinais persistentes:</b> ${per}</div>
+    <div class="scrollx" style="margin-top:10px"><table><thead><tr><th>Bloco</th><th>Concursos</th><th>3 maiores desvios</th></tr></thead><tbody>${rows}</tbody></table></div>
+  </div>`;
+}
+function clearRegime(){document.getElementById('rgResult').innerHTML=''}
+function popularityFeatures(nums){
+  let low31=nums.filter(n=>n<=31).length;
+  let consecutive=nums.slice(1).filter((n,i)=>n-nums[i]===1).length;
+  let primes=new Set([2,3,5,7,11,13,17,19,23,29,31,37,41,43,47]);
+  let primeCount=nums.filter(n=>primes.has(n)).length;
+  let ends={};nums.forEach(n=>ends[n%10]=(ends[n%10]||0)+1);
+  let endMax=Math.max(...Object.values(ends));
+  let arithmetic=0;
+  for(let i=0;i<nums.length-2;i++) if(nums[i+1]-nums[i]===nums[i+2]-nums[i+1]) arithmetic++;
+  return {low31,consecutive,primeCount,endMax,arithmetic};
+}
+function analyzePopularity(){
+  let n=parseNums(document.getElementById('adNums').value,1,50),
+      c=parseNums(document.getElementById('adClovers').value,1,6),
+      el=document.getElementById('adResult');
+  if(n.length!==6||c.length!==2){el.innerHTML='<div class="card notice err">Informe exatamente 6 dezenas e 2 trevos para esta análise.</div>';return}
+  let f=popularityFeatures(n), score=100;
+  score-=Math.max(0,f.low31-3)*12;
+  score-=f.consecutive*10;
+  score-=Math.max(0,f.primeCount-4)*5;
+  score-=Math.max(0,f.endMax-2)*12;
+  score-=f.arithmetic*9;
+  score=Math.max(0,Math.min(100,score));
+  let label=score>=80?'Baixo risco estimado de escolha popular':score>=60?'Risco intermediário de escolha popular':'Maior risco estimado de divisão';
+  el.innerHTML=`<div class="card"><h2>Índice Anti-Divisão</h2>
+    <div class="notice ${score>=80?'ok':'evidence-warn'}"><b>${label}: ${score}/100</b><br>
+      Quanto maior, menos características típicas de escolhas humanas comuns foram detectadas. Isso não aumenta a chance de o jogo ser sorteado.
+    </div>
+    <div class="small" style="margin-top:10px">Dezenas até 31: <b>${f.low31}</b> • consecutivas: <b>${f.consecutive}</b> • primos: <b>${f.primeCount}</b> • maior repetição de final: <b>${f.endMax}</b> • progressões simples detectadas: <b>${f.arithmetic}</b>.</div>
+  </div>`;
+}
+function copyFromGeneratedToPopularity(){
+  if(!generated.length){alert('Gere pelo menos um jogo primeiro.');return}
+  document.getElementById('adNums').value=generated[0].nums.map(pad).join(', ');
+  document.getElementById('adClovers').value=generated[0].cl.join(', ');
+  analyzePopularity();
+}
+
+function expandCompoundTicket(nums,cl){
+  const choose=(arr,k)=>{
+    let out=[];
+    function rec(start,p){
+      if(p.length===k){out.push([...p]);return}
+      for(let i=start;i<=arr.length-(k-p.length);i++){p.push(arr[i]);rec(i+1,p);p.pop()}
+    }
+    rec(0,[]);return out;
+  };
+  let ns=choose(nums,6),cs=choose(cl,2),out=[];
+  ns.forEach(n=>cs.forEach(c=>out.push({nums:n,cl:c})));
+  return out;
+}
+function randomSimpleTicket(rnd){
+  let nums=randomWeightedSubset([...Array(50)].map((_,i)=>i+1),Array(50).fill(1),6,rnd);
+  let cl=randomWeightedSubset([1,2,3,4,5,6],Array(6).fill(1),2,rnd);
+  return {nums,cl};
+}
+function makeArchitecture(kind,budget,rnd){
+  let tickets=[];
+  const pushUnique=(t,seen)=>{
+    let k=t.nums.join('-')+'|'+t.cl.join('-');
+    if(!seen.has(k)){seen.add(k);tickets.push(t);return true}
+    return false;
+  };
+  let seen=new Set(),simpleCount=Math.floor(budget/6);
+  if(kind==='simple'){
+    while(tickets.length<simpleCount){pushUnique(randomSimpleTicket(rnd),seen)}
+  }else if(kind==='8x2'){
+    let cost=comb(8,6)*comb(2,2)*6,qty=Math.floor(budget/cost);
+    for(let q=0;q<qty;q++){
+      let core=randomWeightedSubset([...Array(50)].map((_,i)=>i+1),Array(50).fill(1),8,rnd);
+      let cl=randomWeightedSubset([1,2,3,4,5,6],Array(6).fill(1),2,rnd);
+      expandCompoundTicket(core,cl).forEach(t=>pushUnique(t,seen));
+    }
+    while(tickets.length<simpleCount)pushUnique(randomSimpleTicket(rnd),seen);
+  }else if(kind==='8x3'){
+    let cost=comb(8,6)*comb(3,2)*6,qty=Math.floor(budget/cost);
+    for(let q=0;q<qty;q++){
+      let core=randomWeightedSubset([...Array(50)].map((_,i)=>i+1),Array(50).fill(1),8,rnd);
+      let cl=randomWeightedSubset([1,2,3,4,5,6],Array(6).fill(1),3,rnd);
+      expandCompoundTicket(core,cl).forEach(t=>pushUnique(t,seen));
+    }
+    while(tickets.length<simpleCount)pushUnique(randomSimpleTicket(rnd),seen);
+  }else if(kind==='hybrid'){
+    let coreBudget=Math.floor(simpleCount*.55);
+    let coreGames=Math.floor(coreBudget/28);
+    for(let q=0;q<coreGames;q++){
+      let core=randomWeightedSubset([...Array(50)].map((_,i)=>i+1),Array(50).fill(1),8,rnd);
+      let cl=randomWeightedSubset([1,2,3,4,5,6],Array(6).fill(1),2,rnd);
+      expandCompoundTicket(core,cl).forEach(t=>pushUnique(t,seen));
+    }
+    while(tickets.length<simpleCount)pushUnique(randomSimpleTicket(rnd),seen);
+  }
+  return tickets.slice(0,simpleCount);
+}
+function scoreSimulationPortfolio(tickets,draw){
+  let bestA=0,bestT=0,counts={'3+2':0,'4+2':0,'5+2':0,'6+2':0},jack=0;
+  for(let t of tickets){
+    let a=intersect(t.nums,draw.dezenas).length,tr=intersect(t.cl,draw.trevos).length;
+    if(a>bestA||(a===bestA&&tr>bestT)){bestA=a;bestT=tr}
+    if(tr===2){
+      if(a>=3)counts['3+2']++;
+      if(a>=4)counts['4+2']++;
+      if(a>=5)counts['5+2']++;
+      if(a===6){counts['6+2']++;jack++}
+    }
+  }
+  return {bestA,bestT,counts,jack};
+}
+async function runPortfolioLab(){
+  const budget=Math.max(6,Number(document.getElementById('labBudget').value||504));
+  const sims=Number(document.getElementById('labSims').value||10000);
+  const seed=Number(document.getElementById('labSeed').value||260814);
+  const objective=document.getElementById('labObjective').value;
+  const prog=document.getElementById('labProgress'),out=document.getElementById('labResults');
+  const archs=[
+    {id:'simple',name:'Simples 6+2 diversificadas'},
+    {id:'8x2',name:'Núcleos 8+2'},
+    {id:'8x3',name:'Núcleos 8+3'},
+    {id:'hybrid',name:'Híbrido 8+2 + 6+2'}
+  ];
+  let res={}; archs.forEach(a=>res[a.id]={...a,jack:0,p3:0,p4:0,p5:0,bestSum:0,multi3:0});
+  let rnd=seededRandom(seed), portfolios={};
+  archs.forEach(a=>portfolios[a.id]=makeArchitecture(a.id,budget,seededRandom(seed+wmdHash(a.id))));
+  for(let s=0;s<sims;s++){
+    let draw={dezenas:randomWeightedSubset([...Array(50)].map((_,i)=>i+1),Array(50).fill(1),6,rnd),
+              trevos:randomWeightedSubset([1,2,3,4,5,6],Array(6).fill(1),2,rnd)};
+    for(let a of archs){
+      let x=scoreSimulationPortfolio(portfolios[a.id],draw),r=res[a.id];
+      if(x.jack>0)r.jack++;
+      if(x.counts['3+2']>0)r.p3++;
+      if(x.counts['4+2']>0)r.p4++;
+      if(x.counts['5+2']>0)r.p5++;
+      r.multi3+=x.counts['3+2'];r.bestSum+=x.bestA+x.bestT*.35;
+    }
+    if((s+1)%500===0){prog.textContent=`Simulando ${(s+1).toLocaleString('pt-BR')}/${sims.toLocaleString('pt-BR')}...`;await new Promise(r=>setTimeout(r,0))}
+  }
+  let rows=archs.map(a=>{
+    let r=res[a.id];
+    r.ticketCount=portfolios[a.id].length;
+    r.jackRate=r.jack/sims;r.p3Rate=r.p3/sims;r.p4Rate=r.p4/sims;r.p5Rate=r.p5/sims;r.avgMulti3=r.multi3/sims;r.avgBest=r.bestSum/sims;
+    if(objective==='jackpot')r.rankScore=r.jackRate*100000+r.p5Rate*30+r.p4Rate*5;
+    else if(objective==='tier')r.rankScore=r.p5Rate*100+r.p4Rate*20+r.p3Rate*3+r.avgMulti3*.5;
+    else r.rankScore=r.jackRate*10000+r.p5Rate*70+r.p4Rate*15+r.p3Rate*2+r.avgBest;
+    return r;
+  }).sort((a,b)=>b.rankScore-a.rankScore);
+  prog.textContent=`Concluído: ${sims.toLocaleString('pt-BR')} sorteios simulados com o mesmo orçamento de ${brl(budget)}.`;
+  out.innerHTML=`<div class="card"><h2>Ranking por orçamento igual</h2>
+    <div class="notice ok"><b>Melhor neste experimento: ${rows[0].name}</b><br>
+      O ranking compara estruturas de aposta, não prevê o próximo sorteio. Reexecute com outras seeds para testar estabilidade.
+    </div>
+    <div class="scrollx" style="margin-top:10px"><table><thead><tr><th>Arquitetura</th><th>Simples eq.</th><th>≥3+2</th><th>≥4+2</th><th>≥5+2</th><th>6+2</th><th>Múlt. 3+2</th></tr></thead><tbody>
+    ${rows.map((r,i)=>`<tr><td>${i+1}. ${r.name}</td><td>${r.ticketCount}</td><td>${(r.p3Rate*100).toFixed(2)}%</td><td>${(r.p4Rate*100).toFixed(2)}%</td><td>${(r.p5Rate*100).toFixed(3)}%</td><td>${(r.jackRate*100).toFixed(4)}%</td><td>${r.avgMulti3.toFixed(3)}</td></tr>`).join('')}
+    </tbody></table></div>
+  </div>`;
+}
+function clearPortfolioLab(){document.getElementById('labResults').innerHTML='';document.getElementById('labProgress').textContent=''}
+function simpleHash(str){
+  let h1=0x811c9dc5;
+  for(let i=0;i<str.length;i++){h1^=str.charCodeAt(i);h1=Math.imul(h1,16777619)}
+  return ('00000000'+(h1>>>0).toString(16)).slice(-8);
+}
+function freezePrediction(){
+  let contest=Number(document.getElementById('prosContest').value||0),el=document.getElementById('prosResult');
+  if(!contest){el.innerHTML='<div class="notice err">Informe o concurso-alvo.</div>';return}
+  if(!generated.length){el.innerHTML='<div class="notice err">Gere jogos na aba Gerar antes de congelar.</div>';return}
+  let payload={contest,created:new Date().toISOString(),games:generated.map(g=>({nums:g.nums,cl:g.cl,score:g.score}))};
+  payload.hash=simpleHash(JSON.stringify(payload));
+  prospective.push(payload);store();renderProspective();
+  el.innerHTML=`<div class="notice ok">Previsão congelada para o concurso <b>${contest}</b> • hash <b>${payload.hash}</b>.</div>`;
+}
+function renderProspective(){
+  let el=document.getElementById('prosList');if(!el)return;
+  if(!prospective.length){el.innerHTML='<div class="small">Nenhuma previsão prospectiva registrada.</div>';return}
+  el.innerHTML=prospective.slice().reverse().slice(0,10).map(p=>`<div class="game"><div class="gamehead"><b>Concurso ${p.contest}</b><span class="score">${p.hash}</span></div><div class="tiny">${fmtDate(p.created.slice(0,10))} • ${p.games.length} jogo(s)</div></div>`).join('');
+}
+function saveEquipmentRecord(){
+  let contest=Number(document.getElementById('eqContest').value||0),
+      machine=document.getElementById('eqMachine').value.trim(),
+      ballset=document.getElementById('eqBallset').value.trim(),
+      note=document.getElementById('eqNote').value.trim();
+  if(!contest){alert('Informe o concurso.');return}
+  equipmentRecords.push({contest,machine,ballset,note,created:new Date().toISOString()});store();renderEquipmentRecords();
+}
+function renderEquipmentRecords(){
+  let el=document.getElementById('eqList');if(!el)return;
+  if(!equipmentRecords.length){el.innerHTML='<div class="small">Nenhum registro de equipamento salvo.</div>';return}
+  el.innerHTML=equipmentRecords.slice().reverse().slice(0,20).map(x=>`<div class="game"><div class="gamehead"><b>Concurso ${x.contest}</b><span class="score">${x.machine||'máquina não informada'}</span></div><div class="small">Bolas/lote: <b>${x.ballset||'—'}</b><br>${x.note||''}</div></div>`).join('');
+}
+
 function refresh(){
   let last=history.at(-1);
   document.getElementById('kConc').textContent=last?.numero||'—';
@@ -714,6 +1334,7 @@ document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
 });
 refresh();
 if(history.length)setStatus('Dados locais',true);
+updatePortfolioQuote();
 </script>
 </body>
 </html>

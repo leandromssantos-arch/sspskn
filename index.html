@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#08140f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SSPSKN 3.3.3 JOINT AUDIT">
-<title>SSPSKN 3.3.3 JOINT AUDIT • +Milionária</title>
+<meta name="apple-mobile-web-app-title" content="SSPSKN 3.3.4 FINAL BET HOTFIX">
+<title>SSPSKN 3.3.4 FINAL BET HOTFIX • +Milionária</title>
 <style>
 :root{
   --bg:#07110d; --card:#0e1d16; --card2:#12251c; --txt:#eef8f1; --muted:#9db3a6;
@@ -73,7 +73,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <div class="wrap">
 <header>
   <div class="logo">SS</div>
-  <div><h1>SSPSKN 3.3.3 JOINT AUDIT</h1><div class="sub">Central estatística • +Milionária</div></div>
+  <div><h1>SSPSKN 3.3.4 FINAL BET HOTFIX</h1><div class="sub">Central estatística • +Milionária</div></div>
   <div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div>
 </header>
 
@@ -601,7 +601,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
   </div>
 
   <div class="card">
-    <h2>PRETEST ENGINE 3.3.3</h2>
+    <h2>PRETEST ENGINE 3.3.4</h2>
     <div class="small">
       Registro experimental de pré-teste/pós-teste e regime físico. <b>Preencha apenas dados reais com fonte pública.</b>
       Campos vazios ou desconhecidos permanecem desconhecidos e nunca recebem peso preditivo automaticamente.
@@ -703,7 +703,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
       <button class="btn secondary" onclick="runOrderRegime33()">Analisar ordem/regime</button>
       <button class="btn ghost" onclick="repairMetadata333()">Reparar índice local 3.3.3</button>
     </div>
-    <div id="orResult" style="margin-top:12px"></div><div class="notice" style="margin-top:10px"><b>Parser 3.3.3:</b> quando a API fornece 8 posições, 1–6 só são aceitas se coincidirem com as dezenas oficiais e 7–8 só são aceitas se coincidirem com os trevos. Divergências ficam como unknown/rejected. Ressincronize o histórico para reconstruir esses campos.</div>
+    <div id="orResult" style="margin-top:12px"></div><div class="notice" style="margin-top:10px"><b>Parser 3.3.4:</b> quando a API fornece 8 posições, 1–6 só são aceitas se coincidirem com as dezenas oficiais e 7–8 só são aceitas se coincidirem com os trevos. Divergências ficam como unknown/rejected. Ressincronize o histórico para reconstruir esses campos.</div>
   </div>
 
   <div class="card">
@@ -805,7 +805,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
     </div>
     <div class="row" style="margin-top:12px">
       <div class="field"><label>Orçamento (R$)</label><input id="fbBudget" type="number" min="6" step="6" value="504"></div>
-      <div class="field"><label>Simulações por seed</label><select id="fbSims"><option>20000</option><option selected>50000</option><option>100000</option></select></div>
+      <div class="field"><label>Simulações por seed</label><select id="fbSims"><option value="5000">5.000</option><option value="10000">10.000</option><option value="20000">20.000</option><option value="50000" selected>50.000</option><option value="100000">100.000</option></select></div>
       <div class="field"><label>Overlap Structured</label><select id="fbOverlap"><option value="2">suave</option><option value="3" selected>moderado</option><option value="4">concentrado</option></select></div>
     </div>
     <div class="row" style="margin-top:12px">
@@ -813,7 +813,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
       <button class="btn secondary" onclick="generateFinalCandidate332()">Gerar carteira candidata</button>
       <button class="btn ghost" onclick="copyFinalCandidate332()">Copiar carteira</button>
     </div>
-    <div id="fbProgress" class="small" style="margin-top:10px"></div>
+    <div id="fbProgress" class="small" style="margin-top:10px"></div><div class="tiny" style="margin-top:6px">Hotfix 3.3.4: corrige o objeto do sorteio simulado (dezenas/trevos), processa em lotes de 1.000 e exibe progresso/erro no iPhone.</div>
     <div id="fbResult"></div>
     <div id="fbGames" class="list" style="margin-top:12px"></div>
   </div>
@@ -2223,13 +2223,13 @@ async function makeLedger(){
   document.getElementById('ledger31').innerHTML=`Concursos: <b>${history.length}</b><br>SHA-256: <span class="mono">${hex}</span>`
 }
 function export31(){
-  let data={app:'SSPSKN 3.3.3 JOINT AUDIT',exported:new Date().toISOString(),history,saved,prospective,equipmentRecords,pretestRecords,scienceState,t42Experiments};
+  let data={app:'SSPSKN 3.3.4 FINAL BET HOTFIX',exported:new Date().toISOString(),history,saved,prospective,equipmentRecords,pretestRecords,scienceState,t42Experiments};
   let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='SSPSKN_3.3_backup.json';a.click();URL.revokeObjectURL(a.href)
 }
 setTimeout(()=>{renderPretests();renderT42Experiments()},0);
 
 
-/* ===================== SSPSKN 3.3.3 JOINT AUDIT ===================== */
+/* ===================== SSPSKN 3.3.4 FINAL BET HOTFIX ===================== */
 let sspskn33State=load('sspskn_33_state',{});
 function store33(){try{localStorage.setItem('sspskn_33_state',JSON.stringify(sspskn33State))}catch(e){}}
 
@@ -2414,10 +2414,10 @@ function runEvidenceGate33(){
   document.getElementById('egResult').innerHTML=`<div class="notice ${pass?'evidence-warn':'ok'}"><b>${pass} de ${items.length}</b> sinais passaram o gate preliminar. Nenhum é ativado no gerador sem confirmação adicional.</div>
   <div class="list" style="margin-top:10px">${items.map(x=>`<div class="game"><div class="gamehead"><b>${x.name}</b><span class="score">${x.pass?'ATENÇÃO':'NÃO PASSOU'}</span></div><div class="small">${x.detail}</div></div>`).join('')}</div>`
 }
-/* =================== FIM SSPSKN 3.3.3 JOINT AUDIT =================== */
+/* =================== FIM SSPSKN 3.3.4 FINAL BET HOTFIX =================== */
 
 
-/* ===================== SSPSKN 3.3.3 JOINT AUDIT ===================== */
+/* ===================== SSPSKN 3.3.4 FINAL BET HOTFIX ===================== */
 let ddLastRaw332=null,ddLastParsed332=null,finalBet332={};
 
 function rawArray332(v){
@@ -2493,54 +2493,94 @@ async function rehydrateMetadata332(){
   prog.textContent='Reidratação concluída.';
 }
 
-function mcArchitecture332(port,N,seed){
+async function mcArchitecture332(port,N,seed,onProgress){
   const rr=mulberry32(seed),univ=[...Array(50)].map((_,i)=>i+1);
   let c={p22:0,p32:0,p42:0,p52:0,p62:0};
+  const chunk=1000;
   for(let i=0;i<N;i++){
-    const d={nums:sampleR(univ,6,rr),stars:sampleR([1,2,3,4,5,6],2,rr)},f=tierFlags32(port,d);
+    // HOTFIX 3.3.4: tierFlags32 expects d.dezenas and d.trevos.
+    const d={dezenas:sampleR(univ,6,rr),trevos:sampleR([1,2,3,4,5,6],2,rr)};
+    const f=tierFlags32(port,d);
     Object.keys(c).forEach(k=>c[k]+=f[k]);
+    if(i>0 && i%chunk===0){
+      if(onProgress)onProgress(i,N);
+      await new Promise(r=>setTimeout(r,0));
+    }
   }
   Object.keys(c).forEach(k=>c[k]/=N);return c
 }
 async function runFinalBetLab332(){
   const budget=Math.max(6,Number(document.getElementById('fbBudget').value||504)),
-        games=Math.floor(budget/6),N=Number(document.getElementById('fbSims').value||50000),
-        ov=Number(document.getElementById('fbOverlap').value||3),prog=document.getElementById('fbProgress'),
-        out=document.getElementById('fbResult');
-  if(games<1){return}
-  prog.textContent=`Comparando ${games} jogos por arquitetura em duas seeds...`;await new Promise(r=>setTimeout(r,20));
-  const defs=[
-    {id:'coverage',name:'Coverage Ultra',make:(seed)=>buildT42(games,'coverage',history,mulberry32(seed))},
-    {id:'structured',name:'Structured Overlap',make:(seed)=>buildStructured33(games,ov,mulberry32(seed))},
-    {id:'shadow',name:'Shadow Random',make:(seed)=>buildT42(games,'random',history,mulberry32(seed))}
-  ];
-  const seeds=[3320815,73320815],rows=[],by={};
-  for(const d of defs){
-    let vals=[];
-    for(let si=0;si<seeds.length;si++){
-      const port=d.make(seeds[si]+(d.id==='coverage'?11:d.id==='structured'?22:33));
-      const r=mcArchitecture332(port,N,seeds[si]+909);
-      vals.push(r);
-      prog.textContent=`${d.name} • seed ${si+1}/2...`;await new Promise(r=>setTimeout(r,0));
+        games=Math.floor(budget/6),
+        N=Number(document.getElementById('fbSims').value||50000),
+        ov=Number(document.getElementById('fbOverlap').value||3),
+        prog=document.getElementById('fbProgress'),
+        out=document.getElementById('fbResult'),
+        btn=[...document.querySelectorAll('button')].find(b=>b.getAttribute('onclick')==='runFinalBetLab332()');
+  if(games<1)return;
+  if(btn)btn.disabled=true;
+  out.innerHTML='';
+  try{
+    prog.textContent=`Iniciando: ${games} jogos × 3 arquiteturas × 2 seeds...`;
+    await new Promise(r=>setTimeout(r,30));
+
+    const defs=[
+      {id:'coverage',name:'Coverage Ultra',make:(seed)=>buildT42(games,'coverage',history,mulberry32(seed))},
+      {id:'structured',name:'Structured Overlap',make:(seed)=>buildStructured33(games,ov,mulberry32(seed))},
+      {id:'shadow',name:'Shadow Random',make:(seed)=>buildT42(games,'random',history,mulberry32(seed))}
+    ];
+    const seeds=[3320815,73320815],rows=[],by={};
+    let job=0,totalJobs=defs.length*seeds.length;
+
+    for(const d of defs){
+      let vals=[];
+      for(let si=0;si<seeds.length;si++){
+        job++;
+        prog.textContent=`${d.name} • construindo seed ${si+1}/2 (${job}/${totalJobs})...`;
+        await new Promise(r=>setTimeout(r,0));
+        const port=d.make(seeds[si]+(d.id==='coverage'?11:d.id==='structured'?22:33));
+
+        const result=await mcArchitecture332(
+          port,N,seeds[si]+909,
+          (done,total)=>prog.textContent=`${d.name} • seed ${si+1}/2 • ${done.toLocaleString('pt-BR')}/${total.toLocaleString('pt-BR')} simulações`
+        );
+        vals.push(result);
+        await new Promise(r=>setTimeout(r,0));
+      }
+      const mean={};
+      ['p22','p32','p42','p52','p62'].forEach(k=>mean[k]=avg(vals.map(v=>v[k])));
+      by[d.id]={name:d.name,vals,mean};
     }
-    const mean={};['p22','p32','p42','p52','p62'].forEach(k=>mean[k]=avg(vals.map(v=>v[k])));
-    by[d.id]={name:d.name,vals,mean};
+
+    const rank=Object.entries(by).sort((a,b)=>b[1].mean.p42-a[1].mean.p42);
+    const winner=rank[0][0],best=rank[0][1],shadow=by.shadow;
+    const stable=winner!=='shadow' && best.vals.every((v,i)=>v.p42>shadow.vals[i].p42);
+    finalBet332={budget,games,N,ov,winner:stable?winner:'shadow',comparison:by,stable,created:new Date().toISOString(),portfolio:null};
+    storeFinal332();
+
+    const labels={p22:'≥2+2',p32:'≥3+2',p42:'≥4+2',p52:'≥5+2',p62:'6+2'};
+    ['p22','p32','p42','p52','p62'].forEach(k=>{
+      rows.push(`<tr><td>${labels[k]}</td><td>${fmtP32(by.coverage.mean[k])}</td><td>${fmtP32(by.structured.mean[k])}</td><td>${fmtP32(by.shadow.mean[k])}</td></tr>`)
+    });
+
+    const seedRows=seeds.map((_,i)=>`<tr><td>Seed ${i+1}</td><td>${fmtP32(by.coverage.vals[i].p42)}</td><td>${fmtP32(by.structured.vals[i].p42)}</td><td>${fmtP32(by.shadow.vals[i].p42)}</td></tr>`).join('');
+
+    out.innerHTML=`<div class="notice ${stable?'ok':'evidence-warn'}"><b>${stable?'Arquitetura estável nesta bateria: '+best.name:'Sem vantagem estável sobre Shadow nas duas seeds'}</b><br>
+      Para a carteira candidata, o sistema ${stable?'usará '+best.name:'usará Shadow Random como controle conservador'}.
+      Isso otimiza a distribuição da carteira, não prevê as dezenas sorteadas.
+    </div>
+    <div class="scrollx" style="margin-top:10px"><table><thead><tr><th>Faixa</th><th>Coverage</th><th>Structured</th><th>Shadow</th></tr></thead><tbody>${rows.join('')}</tbody></table></div>
+    <h3 style="margin-top:12px">Estabilidade específica de ≥4+2</h3>
+    <div class="scrollx"><table><thead><tr><th>Seed</th><th>Coverage</th><th>Structured</th><th>Shadow</th></tr></thead><tbody>${seedRows}</tbody></table></div>
+    <div class="small" style="margin-top:8px">Orçamento ${budget.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})} → ${games} apostas simples 6+2 • ${N.toLocaleString('pt-BR')} simulações por seed.</div>`;
+    prog.textContent='Laboratório final concluído com sucesso.';
+  }catch(e){
+    console.error('Final Bet Lab 3.3.4',e);
+    prog.textContent='Falha no laboratório final.';
+    out.innerHTML=`<div class="notice err"><b>Erro capturado:</b> ${escapeHtml332(String(e && e.message ? e.message : e))}<br>O restante do SSPSKN foi preservado.</div>`;
+  }finally{
+    if(btn)btn.disabled=false;
   }
-  const rank=Object.entries(by).sort((a,b)=>b[1].mean.p42-a[1].mean.p42);
-  const winner=rank[0][0],best=rank[0][1],shadow=by.shadow;
-  const stable=winner!=='shadow' && best.vals.every((v,i)=>v.p42>shadow.vals[i].p42);
-  finalBet332={budget,games,N,ov,winner:stable?winner:'shadow',comparison:by,stable,created:new Date().toISOString(),portfolio:null};
-  storeFinal332();
-  const labels={p22:'≥2+2',p32:'≥3+2',p42:'≥4+2',p52:'≥5+2',p62:'6+2'};
-  ['p22','p32','p42','p52','p62'].forEach(k=>{
-    rows.push(`<tr><td>${labels[k]}</td><td>${fmtP32(by.coverage.mean[k])}</td><td>${fmtP32(by.structured.mean[k])}</td><td>${fmtP32(by.shadow.mean[k])}</td></tr>`)
-  });
-  out.innerHTML=`<div class="notice ${stable?'ok':'evidence-warn'}"><b>${stable?'Arquitetura estável nesta bateria: '+best.name:'Sem vantagem estável sobre Shadow nas duas seeds'}</b><br>
-    Para a carteira candidata, o sistema ${stable?'usará '+best.name:'voltará ao Shadow Random como controle conservador'}.
-    Isso otimiza a distribuição da carteira, não prevê as dezenas sorteadas.
-  </div><div class="scrollx" style="margin-top:10px"><table><thead><tr><th>Faixa</th><th>Coverage</th><th>Structured</th><th>Shadow</th></tr></thead><tbody>${rows.join('')}</tbody></table></div>
-  <div class="small" style="margin-top:8px">Orçamento ${budget.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})} → ${games} apostas simples 6+2. Cada arquitetura recebeu o mesmo número de apostas.</div>`;
-  prog.textContent='Laboratório final concluído.';
 }
 function storeFinal332(){try{localStorage.setItem('sspskn_final332',JSON.stringify(finalBet332))}catch(e){}}
 function generateFinalCandidate332(){
@@ -2559,10 +2599,10 @@ async function copyFinalCandidate332(){
   const txt=finalBet332.portfolio.map((g,i)=>`${i+1}. ${g.nums.map(pad).join(' ')} | Trevos ${g.cl.join(' ')}`).join('\n');
   await navigator.clipboard.writeText(txt);alert('Carteira candidata copiada.')
 }
-/* =================== FIM SSPSKN 3.3.3 JOINT AUDIT =================== */
+/* =================== FIM SSPSKN 3.3.4 FINAL BET HOTFIX =================== */
 
 
-/* ===================== SSPSKN 3.3.3 JOINT AUDIT ===================== */
+/* ===================== SSPSKN 3.3.4 FINAL BET HOTFIX ===================== */
 let joint333State=load('sspskn_joint333',{});
 
 function storeJoint333(){try{localStorage.setItem('sspskn_joint333',JSON.stringify(joint333State))}catch(e){}}
@@ -2761,7 +2801,7 @@ async function runPositionalAudit333(){
   prog.textContent='Auditoria posicional concluída.';
   joint333State.positional={at:new Date().toISOString(),n:data.length,mc,tests};storeJoint333()
 }
-/* =================== FIM SSPSKN 3.3.3 JOINT AUDIT =================== */
+/* =================== FIM SSPSKN 3.3.4 FINAL BET HOTFIX =================== */
 
 function refresh(){
   let last=history.at(-1);

@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#08140f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SSPSKN 3.3.2 DATA DIAGNOSTIC">
-<title>SSPSKN 3.3.2 DATA DIAGNOSTIC • +Milionária</title>
+<meta name="apple-mobile-web-app-title" content="SSPSKN 3.3.3 JOINT AUDIT">
+<title>SSPSKN 3.3.3 JOINT AUDIT • +Milionária</title>
 <style>
 :root{
   --bg:#07110d; --card:#0e1d16; --card2:#12251c; --txt:#eef8f1; --muted:#9db3a6;
@@ -73,7 +73,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <div class="wrap">
 <header>
   <div class="logo">SS</div>
-  <div><h1>SSPSKN 3.3.2 DATA DIAGNOSTIC</h1><div class="sub">Central estatística • +Milionária</div></div>
+  <div><h1>SSPSKN 3.3.3 JOINT AUDIT</h1><div class="sub">Central estatística • +Milionária</div></div>
   <div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div>
 </header>
 
@@ -601,7 +601,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
   </div>
 
   <div class="card">
-    <h2>PRETEST ENGINE 3.3.2</h2>
+    <h2>PRETEST ENGINE 3.3.3</h2>
     <div class="small">
       Registro experimental de pré-teste/pós-teste e regime físico. <b>Preencha apenas dados reais com fonte pública.</b>
       Campos vazios ou desconhecidos permanecem desconhecidos e nunca recebem peso preditivo automaticamente.
@@ -701,8 +701,9 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
     <div class="row" style="margin-top:12px">
       <div class="field"><label>Concurso de início do novo regime</label><input id="orCut" type="number" value="373"></div>
       <button class="btn secondary" onclick="runOrderRegime33()">Analisar ordem/regime</button>
+      <button class="btn ghost" onclick="repairMetadata333()">Reparar índice local 3.3.3</button>
     </div>
-    <div id="orResult" style="margin-top:12px"></div><div class="notice" style="margin-top:10px"><b>Parser 3.3.2:</b> quando a API fornece 8 posições, 1–6 só são aceitas se coincidirem com as dezenas oficiais e 7–8 só são aceitas se coincidirem com os trevos. Divergências ficam como unknown/rejected. Ressincronize o histórico para reconstruir esses campos.</div>
+    <div id="orResult" style="margin-top:12px"></div><div class="notice" style="margin-top:10px"><b>Parser 3.3.3:</b> quando a API fornece 8 posições, 1–6 só são aceitas se coincidirem com as dezenas oficiais e 7–8 só são aceitas se coincidirem com os trevos. Divergências ficam como unknown/rejected. Ressincronize o histórico para reconstruir esses campos.</div>
   </div>
 
   <div class="card">
@@ -715,8 +716,59 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
     <div id="egResult" style="margin-top:12px"></div>
   </div>
 
+  
   <div class="card">
-    <h2>DATA DIAGNOSTIC 3.3.2 • API bruta</h2>
+    <h2>Joint Audit 2.0 • exact-null Monte Carlo</h2>
+    <div class="small">
+      Bateria pré-definida para estruturas conjuntas nas 6 dezenas: <b>Pair Max-Z</b>,
+      <b>Serial Overlap</b>, <b>Anchored-Box</b> e <b>Minimum Spacing</b>.
+      Cada janela é calibrada contra sorteios 6/50 sem reposição. O sistema aplica
+      Benjamini–Hochberg entre os quatro testes da janela e exige replicação temporal.
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Janela independente</label><select id="ja2Window"><option>40</option><option selected>60</option><option>80</option><option>100</option></select></div>
+      <div class="field"><label>Simulações nulas/janela</label><select id="ja2MC"><option>1000</option><option selected>3000</option><option>5000</option></select></div>
+      <div class="field"><label>FDR q</label><select id="ja2Q"><option value="0.01">1%</option><option value="0.05" selected>5%</option><option value="0.10">10%</option></select></div>
+      <button class="btn secondary" onclick="runJointAudit2_333()">Executar Joint Audit 2.0</button>
+    </div>
+    <div id="ja2Progress" class="small" style="margin-top:10px"></div>
+    <div id="ja2Result"></div>
+  </div>
+
+  <div class="card">
+    <h2>Power Screen • o que 380 concursos conseguem detectar?</h2>
+    <div class="small">
+      Estima empiricamente o poder de testes específicos sob perturbações simuladas simples.
+      Não estima “probabilidade de fraude”; apenas mostra se o tamanho da amostra é suficiente
+      para detectar efeitos de determinada magnitude.
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Concursos simulados</label><select id="pwN"><option>120</option><option>240</option><option selected>380</option></select></div>
+      <div class="field"><label>Réplicas</label><select id="pwR"><option>100</option><option selected>250</option><option>500</option></select></div>
+      <div class="field"><label>Força do efeito</label><select id="pwE"><option value="0.02">2%</option><option value="0.04" selected>4%</option><option value="0.08">8%</option></select></div>
+      <button class="btn secondary" onclick="runPowerScreen333()">Estimar poder</button>
+    </div>
+    <div id="pwProgress" class="small" style="margin-top:10px"></div>
+    <div id="pwResult"></div>
+  </div>
+
+  <div class="card">
+    <h2>Positional Order Audit • 6+2</h2>
+    <div class="small">
+      Usa somente concursos com <code>validated_6plus2</code>. Testa se a média de cada posição
+      das seis dezenas e das duas posições de trevo está compatível com permutações aleatórias
+      do conjunto sorteado. Este canal fica <b>separado</b> do Joint Audit por conjunto.
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Permutações</label><select id="poMC"><option>1000</option><option selected>3000</option><option>5000</option></select></div>
+      <button class="btn secondary" onclick="runPositionalAudit333()">Auditar ordem 6+2</button>
+    </div>
+    <div id="poProgress" class="small" style="margin-top:10px"></div>
+    <div id="poResult"></div>
+  </div>
+
+<div class="card">
+    <h2>DATA DIAGNOSTIC 3.3.3 • API bruta</h2>
     <div class="small">
       Consulta um concurso diretamente na API oficial e mostra <b>sem inferência</b> os campos recebidos.
       O objetivo é descobrir exatamente por que a ordem 6+2 não entrou no histórico local.
@@ -834,7 +886,20 @@ function sanitizeDraw(j){
 function validDraw(d){return Number.isFinite(d.numero)&&d.dezenas.length===6&&d.trevos.length===2}
 function mergeDraws(arr){
   let m=new Map(history.map(d=>[d.numero,d]));
-  arr.map(sanitizeDraw).filter(validDraw).forEach(d=>m.set(d.numero,d));
+  arr.map(x=>{
+    // If the item is already a validated local draw, preserve metadata fields.
+    if(x && Array.isArray(x.dezenas) && Array.isArray(x.trevos) && Number.isFinite(Number(x.numero))){
+      return {
+        numero:Number(x.numero),data:x.data||'',dezenas:[...x.dezenas].map(Number).sort((a,b)=>a-b),
+        trevos:[...x.trevos].map(Number).sort((a,b)=>a-b),
+        ordemDezenas:Array.isArray(x.ordemDezenas)?[...x.ordemDezenas]:[],
+        ordemTrevos:Array.isArray(x.ordemTrevos)?[...x.ordemTrevos]:[],
+        ordemRaw:Array.isArray(x.ordemRaw)?[...x.ordemRaw]:[],
+        ordemStatus:x.ordemStatus||'unknown',local:x.local||'',municipioUF:x.municipioUF||'',observacao:x.observacao||''
+      };
+    }
+    return sanitizeDraw(x);
+  }).filter(validDraw).forEach(d=>m.set(d.numero,d));
   history=[...m.values()].sort((a,b)=>a.numero-b.numero); store(); refresh();
 }
 function balls(nums,cls=''){return `<div class="balls">${nums.map(n=>`<span class="ball ${cls}">${pad(n)}</span>`).join('')}</div>`}
@@ -2158,13 +2223,13 @@ async function makeLedger(){
   document.getElementById('ledger31').innerHTML=`Concursos: <b>${history.length}</b><br>SHA-256: <span class="mono">${hex}</span>`
 }
 function export31(){
-  let data={app:'SSPSKN 3.3.2 DATA DIAGNOSTIC',exported:new Date().toISOString(),history,saved,prospective,equipmentRecords,pretestRecords,scienceState,t42Experiments};
+  let data={app:'SSPSKN 3.3.3 JOINT AUDIT',exported:new Date().toISOString(),history,saved,prospective,equipmentRecords,pretestRecords,scienceState,t42Experiments};
   let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='SSPSKN_3.3_backup.json';a.click();URL.revokeObjectURL(a.href)
 }
 setTimeout(()=>{renderPretests();renderT42Experiments()},0);
 
 
-/* ===================== SSPSKN 3.3.2 DATA DIAGNOSTIC ===================== */
+/* ===================== SSPSKN 3.3.3 JOINT AUDIT ===================== */
 let sspskn33State=load('sspskn_33_state',{});
 function store33(){try{localStorage.setItem('sspskn_33_state',JSON.stringify(sspskn33State))}catch(e){}}
 
@@ -2349,10 +2414,10 @@ function runEvidenceGate33(){
   document.getElementById('egResult').innerHTML=`<div class="notice ${pass?'evidence-warn':'ok'}"><b>${pass} de ${items.length}</b> sinais passaram o gate preliminar. Nenhum é ativado no gerador sem confirmação adicional.</div>
   <div class="list" style="margin-top:10px">${items.map(x=>`<div class="game"><div class="gamehead"><b>${x.name}</b><span class="score">${x.pass?'ATENÇÃO':'NÃO PASSOU'}</span></div><div class="small">${x.detail}</div></div>`).join('')}</div>`
 }
-/* =================== FIM SSPSKN 3.3.2 DATA DIAGNOSTIC =================== */
+/* =================== FIM SSPSKN 3.3.3 JOINT AUDIT =================== */
 
 
-/* ===================== SSPSKN 3.3.2 DATA DIAGNOSTIC ===================== */
+/* ===================== SSPSKN 3.3.3 JOINT AUDIT ===================== */
 let ddLastRaw332=null,ddLastParsed332=null,finalBet332={};
 
 function rawArray332(v){
@@ -2494,7 +2559,209 @@ async function copyFinalCandidate332(){
   const txt=finalBet332.portfolio.map((g,i)=>`${i+1}. ${g.nums.map(pad).join(' ')} | Trevos ${g.cl.join(' ')}`).join('\n');
   await navigator.clipboard.writeText(txt);alert('Carteira candidata copiada.')
 }
-/* =================== FIM SSPSKN 3.3.2 DATA DIAGNOSTIC =================== */
+/* =================== FIM SSPSKN 3.3.3 JOINT AUDIT =================== */
+
+
+/* ===================== SSPSKN 3.3.3 JOINT AUDIT ===================== */
+let joint333State=load('sspskn_joint333',{});
+
+function storeJoint333(){try{localStorage.setItem('sspskn_joint333',JSON.stringify(joint333State))}catch(e){}}
+
+function bh333(items){
+  const a=items.map((x,i)=>({...x,_i:i})).sort((x,y)=>x.p-y.p);
+  let prev=1;
+  for(let i=a.length-1;i>=0;i--){
+    const rank=i+1;
+    a[i].q=Math.min(prev,a[i].p*a.length/rank,1);
+    prev=a[i].q;
+  }
+  return a.sort((x,y)=>x._i-y._i);
+}
+function pairMaxZ333(data){
+  const n=data.length,p=6/50,pp=6/50*5/49;
+  const exp=n*pp,sd=Math.sqrt(Math.max(1e-9,n*pp*(1-pp)));
+  let best={pair:'—',count:0,z:0};
+  for(let a=1;a<=50;a++)for(let b=a+1;b<=50;b++){
+    let c=0;data.forEach(d=>{if(d.dezenas.includes(a)&&d.dezenas.includes(b))c++});
+    let z=(c-exp)/sd;
+    if(Math.abs(z)>Math.abs(best.z))best={pair:`${pad(a)}-${pad(b)}`,count:c,z};
+  }
+  return best
+}
+function serialOverlapStat333(data){
+  if(data.length<2)return 0;
+  return avg(data.slice(1).map((d,i)=>intersect(d.dezenas,data[i].dezenas).length))
+}
+function anchoredBoxStat333(data){
+  // Discrepancy over deterministic anchors: count how many of the six ordered values
+  // fall in low intervals [1..10], [1..20], [1..30], [1..40].
+  // We take the maximum standardized deviation across anchors.
+  const anchors=[10,20,30,40],n=data.length;
+  let max=0,best=0,obs=0,exp=0;
+  for(const a of anchors){
+    const p=a/50;
+    // Each draw contributes hypergeometric count in the anchored box.
+    const mu=6*p;
+    const variance=6*p*(1-p)*(44/49); // finite population correction for 6 from 50
+    const vals=data.map(d=>d.dezenas.filter(x=>x<=a).length);
+    const m=avg(vals),z=(m-mu)/Math.sqrt(Math.max(1e-9,variance/n));
+    if(Math.abs(z)>Math.abs(max)){max=z;best=a;obs=m;exp=mu}
+  }
+  return {z:max,anchor:best,obs,exp}
+}
+function minSpacingMean333(data){return avg(data.map(d=>minSpacing33(d.dezenas)))}
+
+function jointVector333(data){
+  return {
+    pair:pairMaxZ333(data),
+    serial:serialOverlapStat333(data),
+    box:anchoredBoxStat333(data),
+    spacing:minSpacingMean333(data)
+  }
+}
+function simulateNullData333(n,rnd){
+  const univ=[...Array(50)].map((_,i)=>i+1),out=[];
+  for(let i=0;i<n;i++)out.push({dezenas:sampleR(univ,6,rnd)});
+  return out
+}
+function empiricalTwo333(arr,x){
+  const m=avg(arr),d=Math.abs(x-m);
+  return (arr.filter(v=>Math.abs(v-m)>=d-1e-12).length+1)/(arr.length+1)
+}
+function empiricalUpper333(arr,x){
+  return (arr.filter(v=>v>=x-1e-12).length+1)/(arr.length+1)
+}
+async function calibrateJoint333(data,mc,seed,progressCb){
+  const obs=jointVector333(data),rnd=mulberry32(seed),nul={pair:[],serial:[],box:[],spacing:[]};
+  for(let i=0;i<mc;i++){
+    const z=jointVector333(simulateNullData333(data.length,rnd));
+    nul.pair.push(Math.abs(z.pair.z));nul.serial.push(z.serial);nul.box.push(Math.abs(z.box.z));nul.spacing.push(z.spacing);
+    if(progressCb && i && i%250===0){progressCb(i);await new Promise(r=>setTimeout(r,0))}
+  }
+  const tests=[
+    {id:'pair',name:'Pair Max-Z',stat:Math.abs(obs.pair.z),p:empiricalUpper333(nul.pair,Math.abs(obs.pair.z)),detail:`${obs.pair.pair} • ${obs.pair.count}x • z=${obs.pair.z.toFixed(2)}`},
+    {id:'serial',name:'Serial Overlap',stat:obs.serial,p:empiricalTwo333(nul.serial,obs.serial),detail:`média ${obs.serial.toFixed(3)}`},
+    {id:'box',name:'Anchored-Box',stat:Math.abs(obs.box.z),p:empiricalUpper333(nul.box,Math.abs(obs.box.z)),detail:`âncora ≤${obs.box.anchor} • z=${obs.box.z.toFixed(2)}`},
+    {id:'spacing',name:'Minimum Spacing',stat:obs.spacing,p:empiricalTwo333(nul.spacing,obs.spacing),detail:`média ${obs.spacing.toFixed(3)}`}
+  ];
+  return {obs,tests:bh333(tests)}
+}
+async function runJointAudit2_333(){
+  if(history.length<80){document.getElementById('ja2Result').innerHTML='<div class="notice err">Histórico insuficiente.</div>';return}
+  const w=Number(document.getElementById('ja2Window').value||60),
+        mc=Number(document.getElementById('ja2MC').value||3000),
+        qmax=Number(document.getElementById('ja2Q').value||0.05),
+        blocks=Math.floor(history.length/w),
+        start=history.length-blocks*w,
+        prog=document.getElementById('ja2Progress');
+  let rows=[],rep={pair:0,serial:0,box:0,spacing:0},directions={pair:[],serial:[],box:[],spacing:[]};
+  for(let b=0;b<blocks;b++){
+    const data=history.slice(start+b*w,start+(b+1)*w);
+    prog.textContent=`Janela ${b+1}/${blocks} • calibrando ${mc} nulos...`;
+    const r=await calibrateJoint333(data,mc,333300+b,(i)=>prog.textContent=`Janela ${b+1}/${blocks} • ${i}/${mc}`);
+    r.tests.forEach(t=>{
+      if(t.q<qmax){rep[t.id]++;directions[t.id].push(t.id==='serial'?Math.sign(r.obs.serial-0.72):t.id==='spacing'?Math.sign(r.obs.spacing-avg([])):1)}
+    });
+    rows.push({b:b+1,from:data[0].numero,to:data.at(-1).numero,tests:r.tests});
+  }
+  const replicated=Object.entries(rep).filter(([k,v])=>v>=2).map(([k])=>k);
+  document.getElementById('ja2Result').innerHTML=`<div class="scrollx"><table><thead><tr><th>Janela</th><th>Pair q</th><th>Serial q</th><th>Box q</th><th>Spacing q</th></tr></thead><tbody>
+    ${rows.map(x=>{let m=Object.fromEntries(x.tests.map(t=>[t.id,t]));return `<tr><td>${x.from}–${x.to}</td><td>${m.pair.q.toFixed(3)}</td><td>${m.serial.q.toFixed(3)}</td><td>${m.box.q.toFixed(3)}</td><td>${m.spacing.q.toFixed(3)}</td></tr>`}).join('')}
+  </tbody></table></div>
+  <div class="notice ${replicated.length?'evidence-warn':'ok'}" style="margin-top:10px">
+    FDR q&lt;${qmax}: Pair <b>${rep.pair}</b> • Serial <b>${rep.serial}</b> • Box <b>${rep.box}</b> • Spacing <b>${rep.spacing}</b> janelas.
+    ${replicated.length?`Replicação preliminar: <b>${replicated.join(', ')}</b>. Ainda exige validação prospectiva.`:'Nenhum teste replicou em duas janelas independentes.'}
+  </div>`;
+  prog.textContent='Joint Audit 2.0 concluído.';
+  joint333State.audit={at:new Date().toISOString(),w,mc,qmax,rep,rows};storeJoint333()
+}
+
+function biasedDrawPair333(rnd,effect){
+  // Null draw, with a small probability force pair 1-2 into the set.
+  const univ=[...Array(50)].map((_,i)=>i+1);
+  if(rnd()<effect){
+    const rest=sampleR(univ.filter(x=>x!==1&&x!==2),4,rnd);
+    return {dezenas:[1,2,...rest].sort((a,b)=>a-b)}
+  }
+  return {dezenas:sampleR(univ,6,rnd)}
+}
+function biasedDrawBox333(rnd,effect){
+  const univ=[...Array(50)].map((_,i)=>i+1);
+  if(rnd()<effect){
+    // Mildly favor choosing 4 of 6 from the lower 25 half.
+    const lo=[...Array(25)].map((_,i)=>i+1),hi=[...Array(25)].map((_,i)=>i+26);
+    return {dezenas:[...sampleR(lo,4,rnd),...sampleR(hi,2,rnd)].sort((a,b)=>a-b)}
+  }
+  return {dezenas:sampleR(univ,6,rnd)}
+}
+function quickPThreshold333(nullVals,alpha=.05){
+  const a=[...nullVals].sort((x,y)=>x-y),idx=Math.max(0,Math.min(a.length-1,Math.floor((1-alpha)*a.length)));
+  return a[idx]
+}
+async function runPowerScreen333(){
+  const n=Number(document.getElementById('pwN').value||380),R=Number(document.getElementById('pwR').value||250),
+        e=Number(document.getElementById('pwE').value||0.04),prog=document.getElementById('pwProgress'),out=document.getElementById('pwResult');
+  prog.textContent='Construindo limites nulos...';await new Promise(r=>setTimeout(r,20));
+  let rnd0=mulberry32(808333),nullPair=[],nullBox=[];
+  for(let i=0;i<250;i++){
+    const d=simulateNullData333(n,rnd0),v=jointVector333(d);nullPair.push(Math.abs(v.pair.z));nullBox.push(Math.abs(v.box.z));
+    if(i&&i%50===0)await new Promise(r=>setTimeout(r,0))
+  }
+  const thrP=quickPThreshold333(nullPair),thrB=quickPThreshold333(nullBox);
+  let detP=0,detB=0,rp=mulberry32(908333),rb=mulberry32(1008333);
+  for(let r=0;r<R;r++){
+    let dp=[],db=[];for(let i=0;i<n;i++){dp.push(biasedDrawPair333(rp,e));db.push(biasedDrawBox333(rb,e))}
+    if(Math.abs(pairMaxZ333(dp).z)>=thrP)detP++;
+    if(Math.abs(anchoredBoxStat333(db).z)>=thrB)detB++;
+    if(r&&r%25===0){prog.textContent=`Réplicas ${r}/${R}...`;await new Promise(r=>setTimeout(r,0))}
+  }
+  out.innerHTML=`<div class="grid"><div class="kpi"><b>${(detP/R*100).toFixed(1)}%</b><span>poder Pair Max-Z</span></div><div class="kpi"><b>${(detB/R*100).toFixed(1)}%</b><span>poder Anchored-Box</span></div><div class="kpi"><b>${n}</b><span>concursos simulados</span></div><div class="kpi"><b>${(e*100).toFixed(1)}%</b><span>força da perturbação</span></div></div>
+  <div class="notice" style="margin-top:10px">Poder alto significa que um efeito deste tamanho seria frequentemente detectado pelo teste simulado. Poder baixo significa que “não detectar” não exclui esse efeito.</div>`;
+  prog.textContent='Power Screen concluído.';
+  joint333State.power={at:new Date().toISOString(),n,R,e,pair:detP/R,box:detB/R};storeJoint333()
+}
+
+async function repairMetadata333(){
+  // Re-read locally stored objects and normalize without re-sanitizing them.
+  history=history.map(d=>({
+    numero:Number(d.numero),data:d.data||'',dezenas:[...(d.dezenas||[])].map(Number).sort((a,b)=>a-b),
+    trevos:[...(d.trevos||[])].map(Number).sort((a,b)=>a-b),
+    ordemDezenas:Array.isArray(d.ordemDezenas)?[...d.ordemDezenas]:[],
+    ordemTrevos:Array.isArray(d.ordemTrevos)?[...d.ordemTrevos]:[],
+    ordemRaw:Array.isArray(d.ordemRaw)?[...d.ordemRaw]:[],
+    ordemStatus:d.ordemStatus||'unknown',local:d.local||'',municipioUF:d.municipioUF||'',observacao:d.observacao||''
+  })).filter(validDraw).sort((a,b)=>a.numero-b.numero);
+  store();refresh();runOrderRegime33();
+}
+async function runPositionalAudit333(){
+  const data=history.filter(d=>d.ordemStatus==='validated_6plus2'&&d.ordemDezenas?.length===6&&d.ordemTrevos?.length===2),
+        mc=Number(document.getElementById('poMC').value||3000),prog=document.getElementById('poProgress'),out=document.getElementById('poResult');
+  if(data.length<30){out.innerHTML=`<div class="notice err">Apenas ${data.length} concursos com ordem 6+2 validada. Reidrate metadados e repare o índice local.</div>`;return}
+  const obsN=Array.from({length:6},(_,p)=>avg(data.map(d=>d.ordemDezenas[p]))),
+        obsT=Array.from({length:2},(_,p)=>avg(data.map(d=>d.ordemTrevos[p]))),
+        nullN=Array.from({length:6},()=>[]),nullT=Array.from({length:2},()=>[]),rr=mulberry32(123333);
+  prog.textContent=`Permutando ${data.length} concursos...`;await new Promise(r=>setTimeout(r,20));
+  for(let z=0;z<mc;z++){
+    let sumsN=Array(6).fill(0),sumsT=Array(2).fill(0);
+    data.forEach(d=>{
+      let pn=sampleR(d.dezenas,6,rr),pt=sampleR(d.trevos,2,rr);
+      pn.forEach((v,i)=>sumsN[i]+=v);pt.forEach((v,i)=>sumsT[i]+=v)
+    });
+    sumsN.forEach((v,i)=>nullN[i].push(v/data.length));sumsT.forEach((v,i)=>nullT[i].push(v/data.length));
+    if(z&&z%500===0){prog.textContent=`${z}/${mc} permutações...`;await new Promise(r=>setTimeout(r,0))}
+  }
+  let tests=[];
+  obsN.forEach((v,i)=>tests.push({id:`N${i+1}`,kind:'dezena',pos:i+1,obs:v,p:empiricalTwo333(nullN[i],v)}));
+  obsT.forEach((v,i)=>tests.push({id:`T${i+1}`,kind:'trevo',pos:i+1,obs:v,p:empiricalTwo333(nullT[i],v)}));
+  tests=bh333(tests);
+  out.innerHTML=`<div class="scrollx"><table><thead><tr><th>Canal</th><th>Média observada</th><th>p perm.</th><th>q FDR</th></tr></thead><tbody>
+    ${tests.map(t=>`<tr><td>${t.kind} pos. ${t.pos}</td><td>${t.obs.toFixed(3)}</td><td>${t.p.toFixed(4)}</td><td>${t.q.toFixed(4)}</td></tr>`).join('')}
+  </tbody></table></div>
+  <div class="notice ${tests.some(t=>t.q<.05)?'evidence-warn':'ok'}" style="margin-top:10px">${tests.filter(t=>t.q<.05).length} posição(ões) com q&lt;0,05. Mesmo um alerta precisa replicar em dados futuros antes de influenciar qualquer gerador.</div>`;
+  prog.textContent='Auditoria posicional concluída.';
+  joint333State.positional={at:new Date().toISOString(),n:data.length,mc,tests};storeJoint333()
+}
+/* =================== FIM SSPSKN 3.3.3 JOINT AUDIT =================== */
 
 function refresh(){
   let last=history.at(-1);

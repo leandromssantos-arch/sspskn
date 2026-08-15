@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#08140f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SSPSKN 3.2 VALIDATION ENGINE">
-<title>SSPSKN 3.2 VALIDATION ENGINE • +Milionária</title>
+<meta name="apple-mobile-web-app-title" content="SSPSKN 3.3.1 EXPERIMENTAL">
+<title>SSPSKN 3.3.1 EXPERIMENTAL • +Milionária</title>
 <style>
 :root{
   --bg:#07110d; --card:#0e1d16; --card2:#12251c; --txt:#eef8f1; --muted:#9db3a6;
@@ -73,7 +73,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <div class="wrap">
 <header>
   <div class="logo">SS</div>
-  <div><h1>SSPSKN 3.2 VALIDATION ENGINE</h1><div class="sub">Central estatística • +Milionária</div></div>
+  <div><h1>SSPSKN 3.3.1 EXPERIMENTAL</h1><div class="sub">Central estatística • +Milionária</div></div>
   <div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div>
 </header>
 
@@ -601,7 +601,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
   </div>
 
   <div class="card">
-    <h2>PRETEST ENGINE 3.2</h2>
+    <h2>PRETEST ENGINE 3.3.1</h2>
     <div class="small">
       Registro experimental de pré-teste/pós-teste e regime físico. <b>Preencha apenas dados reais com fonte pública.</b>
       Campos vazios ou desconhecidos permanecem desconhecidos e nunca recebem peso preditivo automaticamente.
@@ -637,6 +637,85 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
   </div>
 </section>
 
+
+<section id="experimental33" class="page">
+  <div class="card">
+    <h2>SSPSKN 3.3 • Structured Overlap Engine</h2>
+    <div class="small">
+      Compara três arquiteturas sob o mesmo número de apostas: <b>Coverage Ultra</b>,
+      <b>Structured Overlap</b> e <b>Shadow Random</b>. O objetivo principal é a
+      probabilidade simulada de ≥4+2, não a quantidade de quartetos isoladamente.
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Jogos por carteira</label><input id="soGames" type="number" min="10" max="200" value="84"></div>
+      <div class="field"><label>Simulações</label><select id="soSims"><option>10000</option><option selected>50000</option><option>100000</option><option>250000</option></select></div>
+      <div class="field"><label>Seed</label><input id="soSeed" type="number" value="330815"></div>
+      <div class="field"><label>Overlap-alvo</label><select id="soTarget"><option value="2">suave</option><option value="3" selected>moderado</option><option value="4">concentrado</option></select></div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn" onclick="runStructuredOverlap33()">Comparar arquiteturas</button>
+      <button class="btn ghost" onclick="clearStructured33()">Limpar</button>
+    </div>
+    <div id="soProgress" class="small" style="margin-top:10px"></div>
+    <div id="soResult"></div>
+  </div>
+
+  <div class="card">
+    <h2>Portfolio Cost Optimizer • 6+2 → 12+6</h2>
+    <div class="small">
+      Compara formatos pelo <b>mesmo orçamento</b>. A chance de uma aposta ampliada conter
+      pelo menos 4 dezenas e os 2 trevos é calculada pela distribuição hipergeométrica exata.
+      O custo usa o número de combinações simples equivalentes × R$ 6,00.
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Orçamento (R$)</label><input id="coBudget" type="number" min="6" step="6" value="504"></div>
+      <div class="field"><label>Objetivo</label><select id="coObjective"><option value="p42" selected>≥4+2</option><option value="p32">≥3+2</option><option value="p52">≥5+2</option><option value="p62">6+2</option></select></div>
+      <button class="btn secondary" onclick="runCostOptimizer33()">Otimizar orçamento</button>
+    </div>
+    <div id="coResult" style="margin-top:12px"></div>
+  </div>
+
+  <div class="card">
+    <h2>Joint-Structure Audit</h2>
+    <div class="small">
+      Procura estruturas que frequência individual pode não enxergar: <b>pares</b>,
+      <b>repetição serial</b> e <b>distância mínima</b>. Os alertas são exploratórios e
+      precisam replicar em janelas independentes.
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Tamanho das janelas</label><select id="jsWindow"><option>40</option><option selected>60</option><option>80</option><option>100</option></select></div>
+      <div class="field"><label>Monte Carlo nulo</label><select id="jsMC"><option>1000</option><option selected>3000</option><option>5000</option></select></div>
+      <button class="btn secondary" onclick="runJointAudit33()">Auditar estrutura conjunta</button>
+    </div>
+    <div id="jsProgress" class="small" style="margin-top:10px"></div>
+    <div id="jsResult"></div>
+  </div>
+
+  <div class="card">
+    <h2>Order & Regime Engine</h2>
+    <div class="small">
+      Usa a ordem física somente quando a API fornece uma sequência de 6 dezenas que coincide
+      exatamente com o conjunto oficial. Caso contrário, a ordem permanece <b>indisponível</b>.
+      Também permite testar um marco operacional previamente definido.
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Concurso de início do novo regime</label><input id="orCut" type="number" value="373"></div>
+      <button class="btn secondary" onclick="runOrderRegime33()">Analisar ordem/regime</button>
+    </div>
+    <div id="orResult" style="margin-top:12px"></div><div class="notice" style="margin-top:10px"><b>Parser 3.3.1:</b> quando a API fornece 8 posições, 1–6 só são aceitas se coincidirem com as dezenas oficiais e 7–8 só são aceitas se coincidirem com os trevos. Divergências ficam como unknown/rejected. Ressincronize o histórico para reconstruir esses campos.</div>
+  </div>
+
+  <div class="card">
+    <h2>Replicated Evidence Gate</h2>
+    <div class="small">
+      Um sinal só recebe selo de atenção quando reaparece em pelo menos duas janelas independentes
+      na mesma direção. O selo <b>não ativa automaticamente</b> o gerador; ainda exige Shadow e walk-forward.
+    </div>
+    <button class="btn secondary" onclick="runEvidenceGate33()">Executar gate</button>
+    <div id="egResult" style="margin-top:12px"></div>
+  </div>
+</section>
+
 <section id="saved" class="page">
   <div class="card">
     <h2>Jogos salvos</h2>
@@ -664,6 +743,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <button class="tab" data-page="checker"><span class="ico">✓</span>Conferir</button>
 <button class="tab" data-page="backtest"><span class="ico">⌁</span>Evidência</button>
 <button class="tab" data-page="target42"><span class="ico">4+2</span>TARGET</button>
+<button class="tab" data-page="experimental33"><span class="ico">3.3</span>EXP</button>
 <button class="tab" data-page="saved"><span class="ico">★</span>Salvos</button>
 </div></nav>
 
@@ -686,8 +766,19 @@ const intersect=(a,b)=>a.filter(x=>b.includes(x));
 function fmtDate(s){if(!s)return'—'; if(s.includes('/'))return s; let p=s.split('-'); return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:s}
 function sanitizeDraw(j){
   const nums=(j.listaDezenas||j.dezenas||[]).map(Number).filter(n=>n>=1&&n<=50).sort((a,b)=>a-b);
-  let trevos=(j.listaTrevos||j.trevos||j.trevosSorteados||[]).map(x=>Number(String(x).replace(/\D/g,''))).filter(n=>n>=1&&n<=6).sort((a,b)=>a-b);
-  return {numero:Number(j.numero||j.numeroConcurso||j.concurso),data:j.dataApuracao||j.data||'',dezenas:nums,trevos};
+  const trevos=(j.listaTrevos||j.trevos||j.trevosSorteados||[]).map(x=>Number(String(x).replace(/\D/g,''))).filter(n=>n>=1&&n<=6).sort((a,b)=>a-b);
+  const rawOrder=(j.dezenasSorteadasOrdemSorteio||j.ordemSorteio||[]).map(x=>Number(String(x).replace(/\D/g,''))).filter(Number.isFinite);
+  let ordemDezenas=[],ordemTrevos=[],ordemStatus='unknown';
+  if(rawOrder.length>=8){
+    const cn=rawOrder.slice(0,6).filter(n=>n>=1&&n<=50),ct=rawOrder.slice(6,8).filter(n=>n>=1&&n<=6);
+    const okN=cn.length===6&&cn.slice().sort((a,b)=>a-b).join(',')===nums.join(',');
+    const okT=ct.length===2&&ct.slice().sort((a,b)=>a-b).join(',')===trevos.join(',');
+    if(okN&&okT){ordemDezenas=cn;ordemTrevos=ct;ordemStatus='validated_6plus2'}else ordemStatus='rejected_mismatch';
+  }else if(rawOrder.length===6){
+    const cn=rawOrder.filter(n=>n>=1&&n<=50);
+    if(cn.length===6&&cn.slice().sort((a,b)=>a-b).join(',')===nums.join(',')){ordemDezenas=cn;ordemStatus='validated_nums_only'}else ordemStatus='rejected_mismatch';
+  }
+  return {numero:Number(j.numero||j.numeroConcurso||j.concurso),data:j.dataApuracao||j.data||'',dezenas:nums,trevos,ordemDezenas,ordemTrevos,ordemRaw:rawOrder,ordemStatus,local:j.localSorteio||j.nomeMunicipioUFSorteio||j.local||'',municipioUF:j.nomeMunicipioUFSorteio||'',observacao:j.observacao||''};
 }
 function validDraw(d){return Number.isFinite(d.numero)&&d.dezenas.length===6&&d.trevos.length===2}
 function mergeDraws(arr){
@@ -1992,7 +2083,7 @@ function renderT42Experiments(){
   el.innerHTML=t42Experiments.slice(0,20).map((x,i)=>`<div class="game"><div class="gamehead"><b>${x.type==='monte_carlo'?'Monte Carlo':'Walk-forward'} #${t42Experiments.length-i}</b><span class="score">${new Date(x.at).toLocaleString('pt-BR')}</span></div><div class="small mono">${JSON.stringify(x.params)}</div></div>`).join('')
 }
 function exportT42Experiments(){
-  let blob=new Blob([JSON.stringify(t42Experiments,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='SSPSKN_3.2_experimentos.json';a.click();URL.revokeObjectURL(a.href)
+  let blob=new Blob([JSON.stringify(t42Experiments,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='SSPSKN_3.3_experimentos.json';a.click();URL.revokeObjectURL(a.href)
 }
 function clearT42Experiments(){if(confirm('Apagar todo o registro de experimentos TARGET 4+2?')){t42Experiments=[];store31();renderT42Experiments()}}
 
@@ -2016,10 +2107,198 @@ async function makeLedger(){
   document.getElementById('ledger31').innerHTML=`Concursos: <b>${history.length}</b><br>SHA-256: <span class="mono">${hex}</span>`
 }
 function export31(){
-  let data={app:'SSPSKN 3.2 VALIDATION ENGINE',exported:new Date().toISOString(),history,saved,prospective,equipmentRecords,pretestRecords,scienceState,t42Experiments};
-  let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='SSPSKN_3.2_backup.json';a.click();URL.revokeObjectURL(a.href)
+  let data={app:'SSPSKN 3.3.1 EXPERIMENTAL',exported:new Date().toISOString(),history,saved,prospective,equipmentRecords,pretestRecords,scienceState,t42Experiments};
+  let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='SSPSKN_3.3_backup.json';a.click();URL.revokeObjectURL(a.href)
 }
 setTimeout(()=>{renderPretests();renderT42Experiments()},0);
+
+
+/* ===================== SSPSKN 3.3.1 EXPERIMENTAL ===================== */
+let sspskn33State=load('sspskn_33_state',{});
+function store33(){try{localStorage.setItem('sspskn_33_state',JSON.stringify(sspskn33State))}catch(e){}}
+
+function simpleTicket33(rnd){
+  return {nums:sampleR([...Array(50)].map((_,i)=>i+1),6,rnd),cl:sampleR([1,2,3,4,5,6],2,rnd),score:0}
+}
+function overlap33(a,b){return intersect(a.nums,b.nums).length}
+function overlapHistogram33(p){
+  let h={0:0,1:0,2:0,3:0,4:0,5:0,6:0},n=0;
+  for(let i=0;i<p.length;i++)for(let j=0;j<i;j++){h[overlap33(p[i],p[j])]++;n++}
+  return {h,n}
+}
+function buildStructured33(count,target,rnd){
+  let out=[],pairCounts={};for(let a=1;a<=6;a++)for(let b=a+1;b<=6;b++)pairCounts[a+'-'+b]=0;
+  const nums=[...Array(50)].map((_,i)=>i+1);
+  while(out.length<count){
+    let best=null,bestScore=-1e99;
+    for(let c=0;c<500;c++){
+      let ns=sampleR(nums,6,rnd),ovs=out.map(g=>intersect(ns,g.nums).length);
+      let near=ovs.reduce((s,x)=>s-Math.abs(x-target),0);
+      let high=ovs.filter(x=>x>=5).length,dup=out.some(g=>g.nums.join('-')===ns.join('-'));
+      let spread=new Set(ns.map(n=>Math.floor((n-1)/10))).size;
+      let score=near*1.2-high*15+(spread-3)*.3+(dup?-1000:0)+rnd()*.01;
+      if(score>bestScore){bestScore=score;best=ns}
+    }
+    let min=Math.min(...Object.values(pairCounts)),opts=Object.keys(pairCounts).filter(k=>pairCounts[k]===min),pk=opts[Math.floor(rnd()*opts.length)];pairCounts[pk]++;
+    out.push({nums:best,cl:pk.split('-').map(Number),score:0})
+  }
+  return out
+}
+function tierRate33(port,draws){
+  let x={p22:0,p32:0,p42:0,p52:0,p62:0};
+  draws.forEach(d=>{let f=tierFlags32(port,d);Object.keys(x).forEach(k=>x[k]+=f[k])});
+  Object.keys(x).forEach(k=>x[k]/=draws.length);return x
+}
+async function runStructuredOverlap33(){
+  let games=Math.max(10,Math.min(200,Number(document.getElementById('soGames').value||84))),
+      N=Number(document.getElementById('soSims').value||50000),
+      seed=Number(document.getElementById('soSeed').value||330815),
+      target=Number(document.getElementById('soTarget').value||3),
+      prog=document.getElementById('soProgress');
+  prog.textContent='Construindo Coverage, Structured Overlap e Shadow...';
+  await new Promise(r=>setTimeout(r,20));
+  let cov=buildT42(games,'coverage',history,mulberry32(seed+1)),
+      str=buildStructured33(games,target,mulberry32(seed+2)),
+      sha=buildT42(games,'random',history,mulberry32(seed+3));
+  let rr=mulberry32(seed),draws=[],univ=[...Array(50)].map((_,i)=>i+1);
+  for(let i=0;i<N;i++){
+    draws.push({nums:sampleR(univ,6,rr),stars:sampleR([1,2,3,4,5,6],2,rr)});
+    if(i&&i%25000===0){prog.textContent=`Gerando nulo ${i.toLocaleString('pt-BR')}/${N.toLocaleString('pt-BR')}...`;await new Promise(r=>setTimeout(r,0))}
+  }
+  let A=tierRate33(cov,draws),B=tierRate33(str,draws),C=tierRate33(sha,draws);
+  let hc=overlapHistogram33(cov),hs=overlapHistogram33(str),hr=overlapHistogram33(sha);
+  let rows=['p22','p32','p42','p52','p62'].map(k=>`<tr><td>${({p22:'≥2+2',p32:'≥3+2',p42:'≥4+2',p52:'≥5+2',p62:'6+2'})[k]}</td><td>${fmtP32(A[k])}</td><td><b>${fmtP32(B[k])}</b></td><td>${fmtP32(C[k])}</td></tr>`).join('');
+  document.getElementById('soResult').innerHTML=`<div class="card"><h2>Comparação por mesma quantidade de jogos</h2>
+    <div class="scrollx"><table><thead><tr><th>Faixa</th><th>Coverage</th><th>Structured</th><th>Shadow</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <div class="small" style="margin-top:10px"><b>Overlap médio aproximado:</b>
+      Coverage ${(Object.entries(hc.h).reduce((s,[k,v])=>s+Number(k)*v,0)/Math.max(1,hc.n)).toFixed(3)} •
+      Structured ${(Object.entries(hs.h).reduce((s,[k,v])=>s+Number(k)*v,0)/Math.max(1,hs.n)).toFixed(3)} •
+      Shadow ${(Object.entries(hr.h).reduce((s,[k,v])=>s+Number(k)*v,0)/Math.max(1,hr.n)).toFixed(3)}.
+    </div>
+    <div class="notice" style="margin-top:10px">Vencedor de uma única seed não é aprovado. Repita com outras seeds e use Evidence Gate/walk-forward.</div>
+  </div>`;
+  prog.textContent=`Concluído: ${N.toLocaleString('pt-BR')} sorteios simulados.`;
+  sspskn33State.structured={at:new Date().toISOString(),games,N,seed,target,A,B,C};store33()
+}
+function clearStructured33(){document.getElementById('soProgress').textContent='';document.getElementById('soResult').innerHTML=''}
+
+function expandedProb33(k,t,r){
+  const denM=cN(50,6),denT=cN(6,2);
+  let pm=0;
+  for(let h=r;h<=Math.min(6,k);h++)pm+=cN(k,h)*cN(50-k,6-h)/denM;
+  return pm*(cN(t,2)/denT)
+}
+function runCostOptimizer33(){
+  let budget=Math.max(6,Number(document.getElementById('coBudget').value||504)),
+      obj=document.getElementById('coObjective').value,
+      r={p32:3,p42:4,p52:5,p62:6}[obj],rows=[],best=null;
+  for(let k=6;k<=12;k++)for(let t=2;t<=6;t++){
+    let eq=cN(k,6)*cN(t,2),cost=eq*6,count=Math.floor(budget/cost);
+    if(count<1)continue;
+    let p=expandedProb33(k,t,r);
+    // upper-bound independence approximation for comparison only
+    let atLeastOne=1-Math.pow(1-p,count);
+    let rec={k,t,eq,cost,count,p,atLeastOne};
+    if(!best||rec.atLeastOne>best.atLeastOne)best=rec;
+    rows.push(rec)
+  }
+  rows.sort((a,b)=>b.atLeastOne-a.atLeastOne);
+  document.getElementById('coResult').innerHTML=`<div class="notice ok"><b>Melhor formato pelo benchmark independente:</b> ${best.k}+${best.t} • ${best.count} aposta(s) • custo unitário ${best.cost.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})} • P aprox. ≥1 sucesso ${fmtP32(best.atLeastOne)}.</div>
+  <div class="scrollx" style="margin-top:10px"><table><thead><tr><th>Formato</th><th>Custo</th><th>Qtd.</th><th>P por aposta</th><th>P ≥1*</th></tr></thead><tbody>
+  ${rows.slice(0,20).map(x=>`<tr><td>${x.k}+${x.t}</td><td>${x.cost.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}</td><td>${x.count}</td><td>${fmtP32(x.p)}</td><td>${fmtP32(x.atLeastOne)}</td></tr>`).join('')}
+  </tbody></table></div><div class="tiny" style="margin-top:8px">*Benchmark assume independência entre apostas para ordenar formatos. Carteiras reais sobrepostas devem ser confirmadas por Monte Carlo.</div>`;
+}
+
+function minSpacing33(nums){
+  let a=[...nums].sort((x,y)=>x-y),m=99;for(let i=1;i<a.length;i++)m=Math.min(m,a[i]-a[i-1]);return m
+}
+function jointStats33(data){
+  let pair=new Map(),reps=[],mins=[];
+  data.forEach((d,idx)=>{
+    for(let i=0;i<6;i++)for(let j=i+1;j<6;j++){let k=d.dezenas[i]+'-'+d.dezenas[j];pair.set(k,(pair.get(k)||0)+1)}
+    mins.push(minSpacing33(d.dezenas));
+    if(idx)reps.push(intersect(d.dezenas,data[idx-1].dezenas).length)
+  });
+  let maxPair=[...pair.entries()].sort((a,b)=>b[1]-a[1])[0]||['—',0];
+  return {maxPair,repMean:avg(reps),minMean:avg(mins)}
+}
+function nullJoint33(n,mc,seed){
+  let rr=mulberry32(seed),maxPairs=[],repMeans=[],minMeans=[],univ=[...Array(50)].map((_,i)=>i+1);
+  for(let z=0;z<mc;z++){
+    let data=[];for(let i=0;i<n;i++)data.push({dezenas:sampleR(univ,6,rr)});
+    let st=jointStats33(data);maxPairs.push(st.maxPair[1]);repMeans.push(st.repMean);minMeans.push(st.minMean)
+  }
+  return {maxPairs,repMeans,minMeans}
+}
+function empiricalP33(arr,x,two=false){
+  let m=avg(arr);if(two){let d=Math.abs(x-m);return (arr.filter(v=>Math.abs(v-m)>=d-1e-12).length+1)/(arr.length+1)}
+  return (arr.filter(v=>v>=x-1e-12).length+1)/(arr.length+1)
+}
+async function runJointAudit33(){
+  if(history.length<80){document.getElementById('jsResult').innerHTML='<div class="notice err">Histórico insuficiente.</div>';return}
+  let w=Number(document.getElementById('jsWindow').value||60),mc=Number(document.getElementById('jsMC').value||3000),
+      prog=document.getElementById('jsProgress'),blocks=Math.floor(history.length/w),rows=[],repSignals={pair:0,rep:0,spacing:0};
+  prog.textContent='Calibrando janelas contra histórico nulo combinatório...';await new Promise(r=>setTimeout(r,20));
+  for(let b=0;b<blocks;b++){
+    let data=history.slice(history.length-blocks*w+b*w,history.length-blocks*w+(b+1)*w),st=jointStats33(data),nul=nullJoint33(w,mc,333000+b);
+    let pp=empiricalP33(nul.maxPairs,st.maxPair[1]),pr=empiricalP33(nul.repMeans,st.repMean,true),ps=empiricalP33(nul.minMeans,st.minMean,true);
+    if(pp<.05)repSignals.pair++;if(pr<.05)repSignals.rep++;if(ps<.05)repSignals.spacing++;
+    rows.push({b:b+1,from:data[0].numero,to:data.at(-1).numero,st,pp,pr,ps});
+    prog.textContent=`Janela ${b+1}/${blocks}...`;await new Promise(r=>setTimeout(r,0))
+  }
+  document.getElementById('jsResult').innerHTML=`<div class="scrollx"><table><thead><tr><th>Janela</th><th>Par máx.</th><th>p par</th><th>Overlap serial</th><th>p serial</th><th>Dist. mín.</th><th>p spacing</th></tr></thead><tbody>
+    ${rows.map(x=>`<tr><td>${x.from}–${x.to}</td><td>${x.st.maxPair[0]} (${x.st.maxPair[1]}x)</td><td>${x.pp.toFixed(3)}</td><td>${x.st.repMean.toFixed(3)}</td><td>${x.pr.toFixed(3)}</td><td>${x.st.minMean.toFixed(3)}</td><td>${x.ps.toFixed(3)}</td></tr>`).join('')}
+  </tbody></table></div>
+  <div class="notice ${Object.values(repSignals).some(x=>x>=2)?'evidence-warn':'ok'}" style="margin-top:10px">
+    Replicações p&lt;0,05: pares <b>${repSignals.pair}</b> • serial <b>${repSignals.rep}</b> • spacing <b>${repSignals.spacing}</b>.
+    Um único alerta é tratado como ruído potencial.
+  </div>`;
+  prog.textContent='Auditoria conjunta concluída.';
+  sspskn33State.joint={at:new Date().toISOString(),w,mc,repSignals,rows};store33()
+}
+
+function runOrderRegime33(){
+  let cut=Number(document.getElementById('orCut').value||373),
+      ordered=history.filter(d=>Array.isArray(d.ordemDezenas)&&d.ordemDezenas.length===6),
+      orderedTrevos=history.filter(d=>Array.isArray(d.ordemTrevos)&&d.ordemTrevos.length===2),
+      rejectedOrder=history.filter(d=>d.ordemStatus==='rejected_mismatch');
+  let before=history.filter(d=>d.numero<cut),after=history.filter(d=>d.numero>=cut);
+  function reg(data){if(!data.length)return null;let sums=data.map(d=>d.dezenas.reduce((a,b)=>a+b,0)),reps=data.slice(1).map((d,i)=>intersect(d.dezenas,data[i].dezenas).length),mins=data.map(d=>minSpacing33(d.dezenas));return{n:data.length,sum:avg(sums),rep:avg(reps),min:avg(mins)}}
+  let a=reg(before),b=reg(after),orderHtml='';
+  if(ordered.length){
+    let pos=Array.from({length:6},()=>[]);
+    ordered.forEach(d=>d.ordemDezenas.forEach((n,i)=>pos[i].push(n)));
+    orderHtml=`<div class="grid" style="margin-top:10px">${pos.map((x,i)=>`<div class="kpi"><b>${avg(x).toFixed(2)}</b><span>média posição ${i+1} • n=${x.length}</span></div>`).join('')}</div>`;
+  }else orderHtml='<div class="notice" style="margin-top:10px">Nenhum concurso armazenado contém uma sequência de 6 dezenas de ordem física validável. Atualize concursos futuros para capturar o campo quando disponível.</div>';
+  document.getElementById('orResult').innerHTML=`<div class="grid">
+    <div class="kpi"><b>${ordered.length}</b><span>ordem de dezenas validada</span></div>
+    <div class="kpi"><b>${orderedTrevos.length}</b><span>ordem 6+2 validada</span></div>
+    <div class="kpi"><b>${before.length}</b><span>antes do corte ${cut}</span></div>
+    <div class="kpi"><b>${after.length}</b><span>depois do corte ${cut}</span></div>
+    <div class="kpi"><b>${history.filter(d=>d.local).length}</b><span>com local armazenado</span></div>
+  </div>
+  ${a&&b?`<div class="scrollx" style="margin-top:10px"><table><thead><tr><th>Regime</th><th>n</th><th>Soma média</th><th>Overlap serial</th><th>Dist. mínima</th></tr></thead><tbody><tr><td>Antes</td><td>${a.n}</td><td>${a.sum.toFixed(2)}</td><td>${a.rep.toFixed(3)}</td><td>${a.min.toFixed(3)}</td></tr><tr><td>Depois</td><td>${b.n}</td><td>${b.sum.toFixed(2)}</td><td>${b.rep.toFixed(3)}</td><td>${b.min.toFixed(3)}</td></tr></tbody></table></div>`:''}
+  ${orderHtml}<div class="tiny" style="margin-top:8px">Diferenças descritivas antes/depois não são evidência causal; precisam de teste e mais dados pós-corte.</div>`
+}
+
+function runEvidenceGate33(){
+  let j=sspskn33State.joint,so=sspskn33State.structured,items=[];
+  if(j){
+    let r=j.repSignals;
+    items.push({name:'Joint pair anomaly',pass:r.pair>=2,detail:`${r.pair} janelas p<0,05`});
+    items.push({name:'Serial-overlap anomaly',pass:r.rep>=2,detail:`${r.rep} janelas p<0,05`});
+    items.push({name:'Spacing anomaly',pass:r.spacing>=2,detail:`${r.spacing} janelas p<0,05`});
+  }
+  if(so){
+    let d=so.B.p42-Math.max(so.A.p42,so.C.p42);
+    items.push({name:'Structured Overlap ≥4+2',pass:d>0.00025,detail:`vantagem na seed registrada ${(d*100).toFixed(4)} p.p.`});
+  }
+  if(!items.length){document.getElementById('egResult').innerHTML='<div class="notice">Execute primeiro Structured Overlap e Joint-Structure Audit.</div>';return}
+  let pass=items.filter(x=>x.pass).length;
+  document.getElementById('egResult').innerHTML=`<div class="notice ${pass?'evidence-warn':'ok'}"><b>${pass} de ${items.length}</b> sinais passaram o gate preliminar. Nenhum é ativado no gerador sem confirmação adicional.</div>
+  <div class="list" style="margin-top:10px">${items.map(x=>`<div class="game"><div class="gamehead"><b>${x.name}</b><span class="score">${x.pass?'ATENÇÃO':'NÃO PASSOU'}</span></div><div class="small">${x.detail}</div></div>`).join('')}</div>`
+}
+/* =================== FIM SSPSKN 3.3.1 EXPERIMENTAL =================== */
 
 function refresh(){
   let last=history.at(-1);

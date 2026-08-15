@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#08140f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SSPSKN 3.3.1 EXPERIMENTAL">
-<title>SSPSKN 3.3.1 EXPERIMENTAL • +Milionária</title>
+<meta name="apple-mobile-web-app-title" content="SSPSKN 3.3.2 DATA DIAGNOSTIC">
+<title>SSPSKN 3.3.2 DATA DIAGNOSTIC • +Milionária</title>
 <style>
 :root{
   --bg:#07110d; --card:#0e1d16; --card2:#12251c; --txt:#eef8f1; --muted:#9db3a6;
@@ -73,7 +73,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <div class="wrap">
 <header>
   <div class="logo">SS</div>
-  <div><h1>SSPSKN 3.3.1 EXPERIMENTAL</h1><div class="sub">Central estatística • +Milionária</div></div>
+  <div><h1>SSPSKN 3.3.2 DATA DIAGNOSTIC</h1><div class="sub">Central estatística • +Milionária</div></div>
   <div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div>
 </header>
 
@@ -601,7 +601,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
   </div>
 
   <div class="card">
-    <h2>PRETEST ENGINE 3.3.1</h2>
+    <h2>PRETEST ENGINE 3.3.2</h2>
     <div class="small">
       Registro experimental de pré-teste/pós-teste e regime físico. <b>Preencha apenas dados reais com fonte pública.</b>
       Campos vazios ou desconhecidos permanecem desconhecidos e nunca recebem peso preditivo automaticamente.
@@ -702,7 +702,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
       <div class="field"><label>Concurso de início do novo regime</label><input id="orCut" type="number" value="373"></div>
       <button class="btn secondary" onclick="runOrderRegime33()">Analisar ordem/regime</button>
     </div>
-    <div id="orResult" style="margin-top:12px"></div><div class="notice" style="margin-top:10px"><b>Parser 3.3.1:</b> quando a API fornece 8 posições, 1–6 só são aceitas se coincidirem com as dezenas oficiais e 7–8 só são aceitas se coincidirem com os trevos. Divergências ficam como unknown/rejected. Ressincronize o histórico para reconstruir esses campos.</div>
+    <div id="orResult" style="margin-top:12px"></div><div class="notice" style="margin-top:10px"><b>Parser 3.3.2:</b> quando a API fornece 8 posições, 1–6 só são aceitas se coincidirem com as dezenas oficiais e 7–8 só são aceitas se coincidirem com os trevos. Divergências ficam como unknown/rejected. Ressincronize o histórico para reconstruir esses campos.</div>
   </div>
 
   <div class="card">
@@ -713,6 +713,57 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
     </div>
     <button class="btn secondary" onclick="runEvidenceGate33()">Executar gate</button>
     <div id="egResult" style="margin-top:12px"></div>
+  </div>
+
+  <div class="card">
+    <h2>DATA DIAGNOSTIC 3.3.2 • API bruta</h2>
+    <div class="small">
+      Consulta um concurso diretamente na API oficial e mostra <b>sem inferência</b> os campos recebidos.
+      O objetivo é descobrir exatamente por que a ordem 6+2 não entrou no histórico local.
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Concurso para diagnóstico</label><input id="ddContest" type="number" value="373"></div>
+      <button class="btn secondary" onclick="runDataDiagnostic332()">Diagnosticar API</button>
+      <button class="btn ghost" onclick="reprocessDiagnostic332()">Salvar este concurso reprocessado</button>
+    </div>
+    <div id="ddProgress" class="small" style="margin-top:10px"></div>
+    <div id="ddResult" style="margin-top:12px"></div>
+  </div>
+
+  <div class="card">
+    <h2>Reidratação de metadados 6+2</h2>
+    <div class="small">
+      Reconsulta concursos já existentes apenas para completar metadados como ordem e local.
+      As dezenas/trevos oficiais continuam validadas pelo mesmo parser antes de substituir o registro local.
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Concursos mais recentes</label><select id="rhCount"><option>20</option><option selected>80</option><option>160</option><option value="9999">Todos</option></select></div>
+      <button class="btn secondary" onclick="rehydrateMetadata332()">Reprocessar metadados</button>
+    </div>
+    <div id="rhProgress" class="small" style="margin-top:10px"></div>
+    <div id="rhResult"></div>
+  </div>
+
+  <div class="card">
+    <h2>Final Bet Lab • alvo ≥4+2</h2>
+    <div class="small">
+      Laboratório para a carteira de hoje. Compara arquiteturas sob <b>mesmo custo</b> e duas seeds independentes.
+      Ele não usa “números quentes” como vantagem presumida. A recomendação é apenas de <b>geometria da carteira</b>,
+      nunca garantia de previsão do sorteio.
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Orçamento (R$)</label><input id="fbBudget" type="number" min="6" step="6" value="504"></div>
+      <div class="field"><label>Simulações por seed</label><select id="fbSims"><option>20000</option><option selected>50000</option><option>100000</option></select></div>
+      <div class="field"><label>Overlap Structured</label><select id="fbOverlap"><option value="2">suave</option><option value="3" selected>moderado</option><option value="4">concentrado</option></select></div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn" onclick="runFinalBetLab332()">Executar laboratório final</button>
+      <button class="btn secondary" onclick="generateFinalCandidate332()">Gerar carteira candidata</button>
+      <button class="btn ghost" onclick="copyFinalCandidate332()">Copiar carteira</button>
+    </div>
+    <div id="fbProgress" class="small" style="margin-top:10px"></div>
+    <div id="fbResult"></div>
+    <div id="fbGames" class="list" style="margin-top:12px"></div>
   </div>
 </section>
 
@@ -2107,13 +2158,13 @@ async function makeLedger(){
   document.getElementById('ledger31').innerHTML=`Concursos: <b>${history.length}</b><br>SHA-256: <span class="mono">${hex}</span>`
 }
 function export31(){
-  let data={app:'SSPSKN 3.3.1 EXPERIMENTAL',exported:new Date().toISOString(),history,saved,prospective,equipmentRecords,pretestRecords,scienceState,t42Experiments};
+  let data={app:'SSPSKN 3.3.2 DATA DIAGNOSTIC',exported:new Date().toISOString(),history,saved,prospective,equipmentRecords,pretestRecords,scienceState,t42Experiments};
   let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='SSPSKN_3.3_backup.json';a.click();URL.revokeObjectURL(a.href)
 }
 setTimeout(()=>{renderPretests();renderT42Experiments()},0);
 
 
-/* ===================== SSPSKN 3.3.1 EXPERIMENTAL ===================== */
+/* ===================== SSPSKN 3.3.2 DATA DIAGNOSTIC ===================== */
 let sspskn33State=load('sspskn_33_state',{});
 function store33(){try{localStorage.setItem('sspskn_33_state',JSON.stringify(sspskn33State))}catch(e){}}
 
@@ -2298,7 +2349,152 @@ function runEvidenceGate33(){
   document.getElementById('egResult').innerHTML=`<div class="notice ${pass?'evidence-warn':'ok'}"><b>${pass} de ${items.length}</b> sinais passaram o gate preliminar. Nenhum é ativado no gerador sem confirmação adicional.</div>
   <div class="list" style="margin-top:10px">${items.map(x=>`<div class="game"><div class="gamehead"><b>${x.name}</b><span class="score">${x.pass?'ATENÇÃO':'NÃO PASSOU'}</span></div><div class="small">${x.detail}</div></div>`).join('')}</div>`
 }
-/* =================== FIM SSPSKN 3.3.1 EXPERIMENTAL =================== */
+/* =================== FIM SSPSKN 3.3.2 DATA DIAGNOSTIC =================== */
+
+
+/* ===================== SSPSKN 3.3.2 DATA DIAGNOSTIC ===================== */
+let ddLastRaw332=null,ddLastParsed332=null,finalBet332={};
+
+function rawArray332(v){
+  if(Array.isArray(v))return v;
+  if(v==null)return [];
+  if(typeof v==='string')return v.split(/[,\s;|]+/).filter(Boolean);
+  return [];
+}
+function explainRaw332(j){
+  const officialNums=(j.listaDezenas||j.dezenas||[]).map(Number).filter(n=>n>=1&&n<=50).sort((a,b)=>a-b);
+  const trevoSources={
+    listaTrevos:j.listaTrevos,
+    trevos:j.trevos,
+    trevosSorteados:j.trevosSorteados,
+    dezenasSorteadasOrdemSorteio:j.dezenasSorteadasOrdemSorteio
+  };
+  const officialTrevos=(j.listaTrevos||j.trevos||j.trevosSorteados||[])
+    .map?.(x=>Number(String(x).replace(/\D/g,'')))?.filter(n=>n>=1&&n<=6)?.sort((a,b)=>a-b)||[];
+  const raw=rawArray332(j.dezenasSorteadasOrdemSorteio).map(x=>Number(String(x).replace(/\D/g,''))).filter(Number.isFinite);
+  const first6=raw.slice(0,6),last2=raw.slice(6,8);
+  const firstOK=first6.length===6&&first6.slice().sort((a,b)=>a-b).join(',')===officialNums.join(',');
+  const lastOK=last2.length===2&&last2.slice().sort((a,b)=>a-b).join(',')===officialTrevos.join(',');
+  return {officialNums,officialTrevos,raw,first6,last2,firstOK,lastOK,trevoSources,keys:Object.keys(j).sort()};
+}
+async function runDataDiagnostic332(){
+  const n=Number(document.getElementById('ddContest').value||373),prog=document.getElementById('ddProgress'),out=document.getElementById('ddResult');
+  prog.textContent=`Consultando concurso ${n}...`;out.innerHTML='';
+  try{
+    const r=await fetch(`${API}/${n}`,{headers:{Accept:'application/json'},cache:'no-store'});
+    if(!r.ok)throw new Error(`HTTP ${r.status}`);
+    const j=await r.json(),x=explainRaw332(j),p=sanitizeDraw(j);
+    ddLastRaw332=j;ddLastParsed332=p;
+    const cls=(x.firstOK&&x.lastOK)?'ok':'evidence-warn';
+    out.innerHTML=`<div class="notice ${cls}"><b>Diagnóstico concurso ${n}</b><br>
+      Ordem bruta: <b>${x.raw.length?x.raw.join(' • '):'campo ausente/vazio'}</b><br>
+      listaDezenas: <b>${x.officialNums.map(pad).join(' ')||'ausente'}</b><br>
+      Trevos oficiais detectados: <b>${x.officialTrevos.join(' ')||'não detectados nos campos esperados'}</b><br>
+      Split 1–6: <b>${x.first6.join(' ')||'—'}</b> → ${x.firstOK?'VALIDADO':'não coincide'}<br>
+      Split 7–8: <b>${x.last2.join(' ')||'—'}</b> → ${x.lastOK?'VALIDADO':'não coincide'}<br>
+      Parser final: <b>${p.ordemStatus||'unknown'}</b> • local: <b>${p.local||'não informado'}</b>
+    </div>
+    <details style="margin-top:10px"><summary>Ver nomes dos campos recebidos</summary><div class="small mono" style="margin-top:8px;word-break:break-word">${x.keys.join(', ')}</div></details>
+    <details style="margin-top:10px"><summary>Ver campos candidatos de trevos</summary><pre class="small mono" style="white-space:pre-wrap;word-break:break-word">${escapeHtml332(JSON.stringify(x.trevoSources,null,2))}</pre></details>`;
+    prog.textContent='Diagnóstico concluído. Nenhum dado é alterado até usar “Salvar este concurso reprocessado”.';
+  }catch(e){prog.textContent='Falha no diagnóstico.';out.innerHTML=`<div class="notice err">${String(e.message||e)}</div>`}
+}
+function escapeHtml332(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function reprocessDiagnostic332(){
+  if(!ddLastParsed332||!validDraw(ddLastParsed332)){alert('Execute primeiro o diagnóstico de um concurso válido.');return}
+  mergeDraws([ddLastParsed332]);
+  alert(`Concurso ${ddLastParsed332.numero} reprocessado. Ordem: ${ddLastParsed332.ordemStatus||'unknown'}.`)
+}
+async function rehydrateMetadata332(){
+  if(!history.length){alert('Histórico vazio.');return}
+  const wanted=Number(document.getElementById('rhCount').value||80),arr=wanted>=9999?history.slice():history.slice(-wanted),
+        prog=document.getElementById('rhProgress'),out=document.getElementById('rhResult');
+  let ok=0,ord=0,full=0,rejected=0,failed=0;
+  prog.textContent=`Reprocessando ${arr.length} concursos...`;out.innerHTML='';
+  for(let i=0;i<arr.length;i+=4){
+    const batch=arr.slice(i,i+4);
+    const res=await Promise.allSettled(batch.map(d=>fetch(`${API}/${d.numero}`,{headers:{Accept:'application/json'},cache:'no-store'}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()})));
+    for(const z of res){
+      if(z.status==='fulfilled'){
+        const p=sanitizeDraw(z.value);
+        if(validDraw(p)){mergeDraws([p]);ok++;if(p.ordemDezenas?.length===6)ord++;if(p.ordemStatus==='validated_6plus2')full++;if(p.ordemStatus==='rejected_mismatch')rejected++}
+      }else failed++;
+    }
+    prog.textContent=`${Math.min(i+4,arr.length)}/${arr.length} • 6+2 validados ${full}`;
+    await new Promise(r=>setTimeout(r,120));
+  }
+  out.innerHTML=`<div class="grid"><div class="kpi"><b>${ok}</b><span>reprocessados</span></div><div class="kpi"><b>${ord}</b><span>ordem dezenas</span></div><div class="kpi"><b>${full}</b><span>ordem 6+2</span></div><div class="kpi"><b>${rejected}</b><span>rejeitados</span></div></div>
+  <div class="small" style="margin-top:8px">Falhas de rede/API: ${failed}. O histórico numérico só é substituído quando o concurso passa pela validação padrão.</div>`;
+  prog.textContent='Reidratação concluída.';
+}
+
+function mcArchitecture332(port,N,seed){
+  const rr=mulberry32(seed),univ=[...Array(50)].map((_,i)=>i+1);
+  let c={p22:0,p32:0,p42:0,p52:0,p62:0};
+  for(let i=0;i<N;i++){
+    const d={nums:sampleR(univ,6,rr),stars:sampleR([1,2,3,4,5,6],2,rr)},f=tierFlags32(port,d);
+    Object.keys(c).forEach(k=>c[k]+=f[k]);
+  }
+  Object.keys(c).forEach(k=>c[k]/=N);return c
+}
+async function runFinalBetLab332(){
+  const budget=Math.max(6,Number(document.getElementById('fbBudget').value||504)),
+        games=Math.floor(budget/6),N=Number(document.getElementById('fbSims').value||50000),
+        ov=Number(document.getElementById('fbOverlap').value||3),prog=document.getElementById('fbProgress'),
+        out=document.getElementById('fbResult');
+  if(games<1){return}
+  prog.textContent=`Comparando ${games} jogos por arquitetura em duas seeds...`;await new Promise(r=>setTimeout(r,20));
+  const defs=[
+    {id:'coverage',name:'Coverage Ultra',make:(seed)=>buildT42(games,'coverage',history,mulberry32(seed))},
+    {id:'structured',name:'Structured Overlap',make:(seed)=>buildStructured33(games,ov,mulberry32(seed))},
+    {id:'shadow',name:'Shadow Random',make:(seed)=>buildT42(games,'random',history,mulberry32(seed))}
+  ];
+  const seeds=[3320815,73320815],rows=[],by={};
+  for(const d of defs){
+    let vals=[];
+    for(let si=0;si<seeds.length;si++){
+      const port=d.make(seeds[si]+(d.id==='coverage'?11:d.id==='structured'?22:33));
+      const r=mcArchitecture332(port,N,seeds[si]+909);
+      vals.push(r);
+      prog.textContent=`${d.name} • seed ${si+1}/2...`;await new Promise(r=>setTimeout(r,0));
+    }
+    const mean={};['p22','p32','p42','p52','p62'].forEach(k=>mean[k]=avg(vals.map(v=>v[k])));
+    by[d.id]={name:d.name,vals,mean};
+  }
+  const rank=Object.entries(by).sort((a,b)=>b[1].mean.p42-a[1].mean.p42);
+  const winner=rank[0][0],best=rank[0][1],shadow=by.shadow;
+  const stable=winner!=='shadow' && best.vals.every((v,i)=>v.p42>shadow.vals[i].p42);
+  finalBet332={budget,games,N,ov,winner:stable?winner:'shadow',comparison:by,stable,created:new Date().toISOString(),portfolio:null};
+  storeFinal332();
+  const labels={p22:'≥2+2',p32:'≥3+2',p42:'≥4+2',p52:'≥5+2',p62:'6+2'};
+  ['p22','p32','p42','p52','p62'].forEach(k=>{
+    rows.push(`<tr><td>${labels[k]}</td><td>${fmtP32(by.coverage.mean[k])}</td><td>${fmtP32(by.structured.mean[k])}</td><td>${fmtP32(by.shadow.mean[k])}</td></tr>`)
+  });
+  out.innerHTML=`<div class="notice ${stable?'ok':'evidence-warn'}"><b>${stable?'Arquitetura estável nesta bateria: '+best.name:'Sem vantagem estável sobre Shadow nas duas seeds'}</b><br>
+    Para a carteira candidata, o sistema ${stable?'usará '+best.name:'voltará ao Shadow Random como controle conservador'}.
+    Isso otimiza a distribuição da carteira, não prevê as dezenas sorteadas.
+  </div><div class="scrollx" style="margin-top:10px"><table><thead><tr><th>Faixa</th><th>Coverage</th><th>Structured</th><th>Shadow</th></tr></thead><tbody>${rows.join('')}</tbody></table></div>
+  <div class="small" style="margin-top:8px">Orçamento ${budget.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})} → ${games} apostas simples 6+2. Cada arquitetura recebeu o mesmo número de apostas.</div>`;
+  prog.textContent='Laboratório final concluído.';
+}
+function storeFinal332(){try{localStorage.setItem('sspskn_final332',JSON.stringify(finalBet332))}catch(e){}}
+function generateFinalCandidate332(){
+  if(!finalBet332.games){try{finalBet332=JSON.parse(localStorage.getItem('sspskn_final332')||'{}')}catch(e){}}
+  if(!finalBet332.games){alert('Execute primeiro o laboratório final.');return}
+  const seed=Date.now()%2147483647;
+  let p;
+  if(finalBet332.winner==='structured')p=buildStructured33(finalBet332.games,finalBet332.ov,mulberry32(seed));
+  else if(finalBet332.winner==='coverage')p=buildT42(finalBet332.games,'coverage',history,mulberry32(seed));
+  else p=buildT42(finalBet332.games,'random',history,mulberry32(seed));
+  finalBet332.portfolio=p;finalBet332.portfolioSeed=seed;finalBet332.frozenAt=new Date().toISOString();storeFinal332();
+  document.getElementById('fbGames').innerHTML=p.map((g,i)=>`<div class="game"><div class="gamehead"><b>Final ${i+1}</b><span class="score">${finalBet332.winner}</span></div>${balls(g.nums)}<div style="height:7px"></div>${balls(g.cl,'clover')}</div>`).join('');
+}
+async function copyFinalCandidate332(){
+  if(!finalBet332.portfolio?.length){alert('Gere a carteira candidata primeiro.');return}
+  const txt=finalBet332.portfolio.map((g,i)=>`${i+1}. ${g.nums.map(pad).join(' ')} | Trevos ${g.cl.join(' ')}`).join('\n');
+  await navigator.clipboard.writeText(txt);alert('Carteira candidata copiada.')
+}
+/* =================== FIM SSPSKN 3.3.2 DATA DIAGNOSTIC =================== */
 
 function refresh(){
   let last=history.at(-1);

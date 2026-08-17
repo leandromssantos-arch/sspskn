@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#08140f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SSPSKN 3.0 Precision">
-<title>SSPSKN 3.0 Precision • +Milionária</title>
+<meta name="apple-mobile-web-app-title" content="SSPSKN 3.1 Precision">
+<title>SSPSKN 3.1 Precision • +Milionária</title>
 <style>
 :root{
   --bg:#07110d; --card:#0e1d16; --card2:#12251c; --txt:#eef8f1; --muted:#9db3a6;
@@ -73,7 +73,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <div class="wrap">
 <header>
   <div class="logo">SS</div>
-  <div><h1>SSPSKN 3.0 Precision</h1><div class="sub">Precision Lab • +Milionária</div></div>
+  <div><h1>SSPSKN 3.1 Precision</h1><div class="sub">Precision Lab • +Milionária</div></div>
   <div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div>
 </header>
 
@@ -195,6 +195,11 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
       <div class="field"><label>Janela histórica</label><select id="btWindow"><option>20</option><option selected>50</option><option>100</option></select></div>
       <div class="field"><label>Máx. repetição entre jogos</label><select id="btOverlap"><option>2</option><option selected>3</option><option>4</option></select></div>
     </div>
+    <div class="row" style="margin-top:10px">
+      <div class="field"><label>Repetições / sementes</label><select id="btSeeds"><option>1</option><option selected>5</option><option>10</option><option>20</option><option>50</option><option>100</option></select></div>
+      <div class="field"><label>Objetivo primário</label><select disabled><option>≥4 dezenas + 2 trevos</option></select></div>
+    </div>
+    <div class="small" style="margin-top:8px">3.1: ranking pelo alvo ≥4+2. Repetições maiores aumentam a robustez, mas podem levar vários minutos no iPhone.</div>
     <div class="row" style="margin-top:12px">
       <button class="btn" onclick="runBacktest()">Executar backtest</button>
       <button class="btn ghost" onclick="clearBacktest()">Limpar</button>
@@ -206,7 +211,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 </section>
 
 <section id="precision" class="page">
-  <div class="card"><h2>SSPSKN 3.0 • Precision Lab</h2><div class="notice ok"><b>Regra:</b> primeiro provar eficiência, depois apostar. Os módulos abaixo são auditorias experimentais e não alteram os jogos sem validação fora da amostra.</div></div>
+  <div class="card"><h2>SSPSKN 3.1 • Precision Lab</h2><div class="notice ok"><b>Regra:</b> primeiro provar eficiência, depois apostar. Os módulos abaixo são auditorias experimentais e não alteram os jogos sem validação fora da amostra.</div></div>
   <div class="card"><h2>Extraction Order Engine</h2><div class="small">Audita número × posição de extração (D1–D6 e T1–T2). <b>Status:</b> aguardando histórico com ordem real de extração. Resultados ordenados numericamente não serão tratados como ordem física.</div></div>
   <div class="card"><h2>Sequential Regime Detector</h2><div class="small">Detector sequencial conservador de mudança de distribuição. Nesta versão, ele calcula um indicador exploratório sobre frequência recente versus histórica; qualquer alerta exige confirmação walk-forward antes de influenciar apostas.</div><div id="regimeBox" style="margin-top:10px"></div><button class="btn secondary" style="margin-top:10px" onclick="runRegimeAudit()">Executar auditoria</button></div>
   <div class="card"><h2>Equipment-Regime Ledger</h2><div class="small">Estrutura preparada para: concurso, máquina/globo, conjunto de bolas, local, incidente/troca, metrologia e fonte. O sistema não inventará metadados ausentes.</div><textarea id="equipmentLedger" rows="7" placeholder="Ex.: concurso; maquina; conjunto; local; incidente; metrologia; fonte"></textarea><button class="btn secondary" style="margin-top:8px" onclick="saveLedger()">Salvar ledger local</button></div>
@@ -525,7 +530,8 @@ const STRATEGIES=[
   {id:'mixed',name:'Mista histórico + aleatório'},
   {id:'recent',name:'Ênfase recente'},
   {id:'delay',name:'Ênfase em atraso'},
-  {id:'random',name:'Aleatória pura'}
+  {id:'random',name:'Aleatória pura'},
+  {id:'coverage',name:'Coverage Only'}
 ];
 
 function seededRandom(seed){
@@ -544,6 +550,25 @@ function generateForData(strategy,wnd,count,maxOv,data,seedBase=1){
   let chosen=[];
   for(let g of candidates){if(chosen.every(c=>overlap(c,g)<=maxOv)){chosen.push(g);if(chosen.length>=count)break}}
   return chosen;
+}
+function generateCoverageForData(count,maxOv,seedBase=1){
+  let chosen=[], pairUse={}, seen=new Set();
+  withSeed(seedBase,()=>{
+    let tries=0;
+    while(chosen.length<count && tries<Math.max(4000,count*500)){
+      tries++;
+      let nums=[]; while(nums.length<6){let n=1+Math.floor(Math.random()*50);if(!nums.includes(n))nums.push(n)} nums.sort((a,b)=>a-b);
+      let pairs=[]; for(let a=1;a<=6;a++)for(let b=a+1;b<=6;b++)pairs.push([a,b]);
+      pairs.sort((x,y)=>(pairUse[x.join('-')]||0)-(pairUse[y.join('-')]||0)||Math.random()-.5);
+      let cl=pairs[0], g={nums,cl,score:0}, k=keyGame(g); if(seen.has(k))continue;
+      let same=chosen.filter(c=>c.cl[0]===cl[0]&&c.cl[1]===cl[1]);
+      if(same.every(c=>overlap(c,g)<=maxOv)){chosen.push(g);seen.add(k);let pk=cl.join('-');pairUse[pk]=(pairUse[pk]||0)+1}
+    }
+  });
+  return chosen;
+}
+function precisionSet(strategy,wnd,count,maxOv,data,seed){
+  return strategy==='coverage'?generateCoverageForData(count,maxOv,seed):generateForData(strategy,wnd,count,maxOv,data,seed);
 }
 function hitKey(a,t){return `${a}+${t}`}
 function patternAnalysis(data){
@@ -567,31 +592,41 @@ function clearBacktest(){document.getElementById('btResults').innerHTML='';docum
 async function runBacktest(){
   let out=document.getElementById('btResults'),prog=document.getElementById('btProgress');
   if(history.length<30){out.innerHTML='<div class="card notice err">Carregue pelo menos 30 concursos para executar um backtest útil.</div>';return}
-  let requested=Number(document.getElementById('btDraws').value),games=Number(document.getElementById('btGames').value),wnd=Number(document.getElementById('btWindow').value),maxOv=Number(document.getElementById('btOverlap').value);
-  let minTrain=Math.max(20,wnd), maxTests=Math.max(0,history.length-minTrain), tests=requested===0?maxTests:Math.min(requested,maxTests);
+  let requested=Number(document.getElementById('btDraws').value),games=Number(document.getElementById('btGames').value),wnd=Number(document.getElementById('btWindow').value),maxOv=Number(document.getElementById('btOverlap').value),seeds=Number(document.getElementById('btSeeds')?.value||1);
+  let minTrain=Math.max(20,wnd),maxTests=Math.max(0,history.length-minTrain),tests=requested===0?maxTests:Math.min(requested,maxTests);
   if(tests<1){out.innerHTML='<div class="card notice err">Histórico insuficiente para a janela selecionada.</div>';return}
-  let start=history.length-tests, stats={};STRATEGIES.forEach(x=>stats[x.id]={name:x.name,draws:0,totalA:0,totalT:0,bestA:0,bestT:0,dist:{},scoreSum:0});
-  renderPattern(history.slice(0,start));
-  out.innerHTML='';
+  let start=history.length-tests,stats={};
+  STRATEGIES.forEach(x=>stats[x.id]={name:x.name,trials:0,totalA:0,totalT:0,target:0,h32:0,h41:0,h31:0,h22:0,bestA:0,bestT:0,dist:{}});
+  renderPattern(history.slice(0,start));out.innerHTML='';
+  let total=tests*seeds,done=0;
   for(let idx=start;idx<history.length;idx++){
-    let train=history.slice(0,idx), target=history[idx];
-    for(let si=0;si<STRATEGIES.length;si++){
-      let st=STRATEGIES[si], set=generateForData(st.id,wnd,games,maxOv,train,(target.numero*1009)+(si*97)+games);
-      let hits=set.map(g=>({a:intersect(g.nums,target.dezenas).length,t:intersect(g.cl,target.trevos).length,score:g.score}));
-      hits.sort((x,y)=>y.a-x.a||y.t-x.t||y.score-x.score);
-      let best=hits[0],z=stats[st.id];z.draws++;z.totalA+=best.a;z.totalT+=best.t;z.bestA=Math.max(z.bestA,best.a);z.bestT=Math.max(z.bestT,best.t);z.scoreSum+=avg(hits.map(h=>h.score));z.dist[hitKey(best.a,best.t)]=(z.dist[hitKey(best.a,best.t)]||0)+1;
+    let train=history.slice(0,idx),target=history[idx];
+    for(let rep=0;rep<seeds;rep++){
+      for(let si=0;si<STRATEGIES.length;si++){
+        let st=STRATEGIES[si],seed=(target.numero*1009)+(si*100003)+(rep*7919)+games;
+        let set=precisionSet(st.id,wnd,games,maxOv,train,seed);
+        let hits=set.map(g=>({a:intersect(g.nums,target.dezenas).length,t:intersect(g.cl,target.trevos).length}));
+        hits.sort((x,y)=>y.a-x.a||y.t-x.t); let best=hits[0]||{a:0,t:0},z=stats[st.id];
+        z.trials++;z.totalA+=best.a;z.totalT+=best.t;z.bestA=Math.max(z.bestA,best.a);z.bestT=Math.max(z.bestT,best.t);z.dist[hitKey(best.a,best.t)]=(z.dist[hitKey(best.a,best.t)]||0)+1;
+        if(hits.some(h=>h.a>=4&&h.t===2))z.target++;
+        if(hits.some(h=>h.a===3&&h.t===2))z.h32++;
+        if(hits.some(h=>h.a>=4&&h.t>=1))z.h41++;
+        if(hits.some(h=>h.a===3&&h.t>=1))z.h31++;
+        if(hits.some(h=>h.a===2&&h.t===2))z.h22++;
+      }
+      done++; if(done%5===0){prog.textContent=`Processando ${done}/${total} concurso-sementes...`;await new Promise(r=>setTimeout(r,0))}
     }
-    let done=idx-start+1;prog.textContent=`Processando ${done}/${tests} concursos...`;
-    if(done%5===0)await new Promise(r=>setTimeout(r,0));
   }
-  let rows=Object.entries(stats).map(([id,z])=>({id,...z,avgA:z.totalA/z.draws,avgT:z.totalT/z.draws,avgScore:z.scoreSum/z.draws}));
-  rows.sort((a,b)=>(b.avgA+b.avgT*.35)-(a.avgA+a.avgT*.35)||b.bestA-a.bestA);
-  prog.textContent=`Backtest concluído: ${tests} concursos • ${games} jogos por estratégia/concurso • janela ${wnd}.`;
-  let best=rows[0],random=rows.find(r=>r.id==='random'),delta=random?((best.avgA-best.avgA*0)+(best.avgA-random.avgA)):0;
-  let table=rows.map((r,i)=>`<tr><td>${i+1}. ${r.name}</td><td>${r.avgA.toFixed(3)}</td><td>${r.avgT.toFixed(3)}</td><td>${r.bestA}+${r.bestT}</td><td>${r.avgScore.toFixed(1)}</td></tr>`).join('');
-  let cmp=random&&best.id!=='random'?`A melhor estratégia observada teve média de <b>${(best.avgA-random.avgA).toFixed(3)}</b> dezena(s) a mais por concurso que a aleatória pura neste recorte.`:'A estratégia aleatória pura ficou no topo deste recorte; não há evidência de vantagem histórica das estratégias guiadas.';
-  let dist=Object.entries(best.dist).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([k,v])=>`${k}: ${v}x`).join(' • ');
-  out.innerHTML=`<div class="card rank1"><h2>Melhor configuração observada</h2><div class="notice ok"><b>${best.name}</b> ficou em 1º neste backtest. ${cmp}</div><div class="small" style="margin-top:10px">Distribuição dos melhores jogos dessa estratégia: ${dist||'—'}.</div><div class="small" style="margin-top:8px"><b>Importante:</b> desempenho passado não garante vantagem no próximo sorteio. Use o ranking como ferramenta de comparação, não como probabilidade de prêmio.</div></div><div class="card"><h2>Ranking das estratégias</h2><div class="scrollx"><table><thead><tr><th>Estratégia</th><th>Média dezenas</th><th>Média trevos</th><th>Melhor</th><th>Equilíbrio médio</th></tr></thead><tbody>${table}</tbody></table></div></div>`;
+  let rows=Object.entries(stats).map(([id,z])=>({id,...z,rate:z.target/z.trials,avgA:z.totalA/z.trials,avgT:z.totalT/z.trials}));
+  let random=rows.find(r=>r.id==='random'),rr=random?.rate||0;
+  rows.forEach(r=>r.lift=rr>0?r.rate/rr:(r.rate>0?Infinity:1));
+  rows.sort((a,b)=>b.rate-a.rate||b.h32/a.trials-a.h32/b.trials||b.avgA-a.avgA);
+  prog.textContent=`Backtest 3.1 concluído: ${tests} concursos × ${seeds} semente(s) • ${games} jogos • ${rows.length} estratégias.`;
+  let best=rows[0];
+  let fmtLift=x=>!Number.isFinite(x)?'∞':x.toFixed(2)+'×';
+  let table=rows.map((r,i)=>`<tr><td>${i+1}. ${r.name}</td><td><b>${r.target}</b>/${r.trials}<br><span class="tiny">${(r.rate*100).toFixed(3)}%</span></td><td>${fmtLift(r.lift)}</td><td>${r.h32}</td><td>${r.h41}</td><td>${r.h22}</td><td>${r.bestA}+${r.bestT}</td></tr>`).join('');
+  let gate=(best.id!=='random'&&best.target>=5&&Number.isFinite(best.lift)&&best.lift>=1.10)?`SINAL PARA INVESTIGAR: ${best.name} superou o controle neste recorte. Ainda exige confirmação em outro período.`:`SEM VANTAGEM VALIDADA: não aumentar orçamento com base neste backtest.`;
+  out.innerHTML=`<div class="card rank1"><h2>Target-4+2 Backtest</h2><div class="notice ${gate.startsWith('SINAL')?'ok':''}"><b>${gate}</b></div><div class="grid" style="margin-top:10px"><div class="kpi"><b>${best.name}</b><span>1º pelo alvo ≥4+2</span></div><div class="kpi"><b>${best.target}/${best.trials}</b><span>ocorrências ≥4+2</span></div><div class="kpi"><b>${fmtLift(best.lift)}</b><span>Predictive Lift vs aleatória</span></div><div class="kpi"><b>${seeds}</b><span>sementes por concurso</span></div></div><div class="small" style="margin-top:10px">O Lift só é informativo quando o controle aleatório registra eventos suficientes. Eventos ≥4+2 são raros; poucos acertos não provam previsibilidade.</div></div><div class="card"><h2>Ranking 3.1 — objetivo ≥4+2</h2><div class="scrollx"><table><thead><tr><th>Estratégia</th><th>≥4+2</th><th>Lift</th><th>3+2</th><th>≥4+1</th><th>2+2</th><th>Melhor</th></tr></thead><tbody>${table}</tbody></table></div></div>`;
 }
 
 function runRegimeAudit(){

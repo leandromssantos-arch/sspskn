@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#08140f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SSPSKN 3.3 RESEARCH ENGINE">
+<title>SSPSKN 3.3 RESEARCH ENGINE • +Milionária</title>
+<style>
+:root{
+  --bg:#07110d; --card:#0e1d16; --card2:#12251c; --txt:#eef8f1; --muted:#9db3a6;
+  --acc:#3ee487; --acc2:#14b866; --gold:#ffd56a; --danger:#ff6b72; --line:#234033;
+  --shadow:0 10px 28px rgba(0,0,0,.28)
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:
+radial-gradient(circle at 100% 0,#123824 0,transparent 34%),var(--bg);color:var(--txt);min-height:100vh}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.wrap{max-width:980px;margin:auto;padding:calc(12px + env(safe-area-inset-top)) 14px calc(96px + env(safe-area-inset-bottom))}
+header{display:flex;gap:12px;align-items:center;margin:8px 0 16px}
+.logo{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(145deg,var(--acc),#12834d);font-weight:900;font-size:20px;color:#04120b;box-shadow:var(--shadow)}
+h1{font-size:24px;margin:0}.sub{color:var(--muted);font-size:13px;margin-top:3px}
+.status{margin-left:auto;text-align:right;font-size:12px;color:var(--muted)}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gold);margin-right:5px}
+.card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:18px;padding:16px;margin:12px 0;box-shadow:var(--shadow)}
+.card h2{font-size:17px;margin:0 0 12px}.card h3{font-size:14px;margin:15px 0 8px;color:#d5e9dd}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.kpi{background:#091710;border:1px solid var(--line);padding:12px;border-radius:14px}
+.kpi b{font-size:20px;display:block}.kpi span{font-size:11px;color:var(--muted)}
+.btn{border:0;border-radius:12px;padding:12px 14px;font-weight:800;background:var(--acc);color:#031109}
+.btn.secondary{background:#173526;color:var(--txt);border:1px solid #315742}
+.btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+.btn.danger{background:#35191c;color:#ffd9db;border:1px solid #6d2f34}
+.btn:disabled{opacity:.5}
+.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.field{flex:1;min-width:130px}.field label{display:block;font-size:11px;color:var(--muted);margin:0 0 5px}
+input,select,textarea{width:100%;background:#08150f;color:var(--txt);border:1px solid var(--line);border-radius:11px;padding:11px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--acc2)}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(7,17,13,.94);backdrop-filter:blur(15px);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center}
+.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(8,1fr);gap:4px}
+.tab{border:0;background:transparent;color:var(--muted);padding:8px 3px;border-radius:11px;font-size:10px;font-weight:700}.tab .ico{display:block;font-size:20px;margin-bottom:2px}.tab.active{background:#173526;color:var(--txt)}
+.page{display:none}.page.active{display:block}
+.balls{display:flex;gap:7px;flex-wrap:wrap}
+.ball{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#163d2a;border:1px solid #2f6b4c;font-size:13px;font-weight:900}
+.clover{background:#3a3015;border-color:#806c2e;color:#ffe59e}
+.pill{display:inline-flex;align-items:center;border:1px solid var(--line);background:#0a1711;border-radius:999px;padding:7px 10px;font-size:12px;color:#dcece2}
+.small{font-size:12px;color:var(--muted);line-height:1.45}.tiny{font-size:10px;color:var(--muted)}
+.progress{height:8px;border-radius:20px;background:#07110d;overflow:hidden;border:1px solid var(--line)}.progress>i{display:block;height:100%;background:var(--acc)}
+.list{display:grid;gap:8px}.game{background:#08150f;border:1px solid var(--line);border-radius:14px;padding:12px}
+.gamehead{display:flex;justify-content:space-between;gap:8px;margin-bottom:8px;align-items:center}
+.score{font-size:11px;border-radius:999px;padding:5px 8px;background:#173526;color:#bff4d2}
+table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:8px 5px;text-align:left;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:600}
+.numgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.numitem{background:#08150f;border:1px solid var(--line);border-radius:9px;padding:8px 4px;text-align:center}
+.numitem b{display:block}.numitem small{font-size:9px;color:var(--muted)}
+.badge{display:inline-block;padding:4px 7px;border-radius:8px;background:#192e23;color:#b8d6c5;font-size:10px}
+.metricrow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.rank1{border-color:#5b8f68}.mono{font-variant-numeric:tabular-nums}.scrollx{overflow-x:auto}
+.notice{border-left:3px solid var(--gold);padding:10px 12px;background:#201d0e;border-radius:10px;color:#f4e8c0;font-size:12px;line-height:1.4}
+.ok{border-left-color:var(--acc);background:#0c2217;color:#c9f6d9}
+.err{border-left-color:var(--danger);background:#2b1416;color:#ffd6d8}
+hr{border:0;border-top:1px solid var(--line);margin:14px 0}
+details{border:1px solid var(--line);border-radius:12px;padding:10px;background:#09150f}summary{cursor:pointer;font-weight:700}
+canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);border-radius:12px}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}.numgrid{grid-template-columns:repeat(10,1fr)}}
+
+.researchgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.bar{height:9px;border:1px solid var(--line);background:#07110d;border-radius:99px;overflow:hidden}.bar>i{display:block;height:100%;background:var(--acc)}
+.tag{display:inline-block;padding:5px 8px;border:1px solid var(--line);border-radius:999px;font-size:10px;color:#cfe4d7;background:#0a1711}
+@media(min-width:700px){.researchgrid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="logo">SS</div>
+  <div><h1>SSPSKN 3.3 RESEARCH ENGINE</h1><div class="sub">Evidence Lab • +Milionária</div></div>
+  <div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div>
+</header>
+
+<section id="home" class="page active">
+  <div class="card">
+    <h2>Visão geral</h2>
+    <div class="grid">
+      <div class="kpi"><b id="kConc">—</b><span>último concurso</span></div>
+      <div class="kpi"><b id="kHist">0</b><span>concursos no aparelho</span></div>
+      <div class="kpi"><b id="kSaved">0</b><span>jogos salvos</span></div>
+      <div class="kpi"><b id="kDate">—</b><span>última data</span></div>
+    </div>
+    <h3>Último resultado</h3>
+    <div id="lastResult" class="small">Sincronize para carregar os resultados.</div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn" onclick="syncAll()">Atualizar histórico</button>
+      <button class="btn secondary" onclick="syncLatest()">Só último concurso</button>
+    </div>
+    <div id="syncMsg" class="small" style="margin-top:10px"></div>
+  </div>
+
+  <div class="card">
+    <h2>Leitura rápida do histórico</h2>
+    <div id="quickStats" class="small">Carregue o histórico para ativar as análises.</div>
+  </div>
+
+  <div class="notice">
+    O SSPSKN usa o histórico para organizar cobertura e comparar padrões. Ele <b>não prevê sorteios</b> e nenhuma pontuação aumenta a probabilidade matemática de uma combinação específica.
+  </div>
+</section>
+
+<section id="analysis" class="page">
+  <div class="card">
+    <h2>Análise de dezenas</h2>
+    <div class="row">
+      <div class="field"><label>Janela</label><select id="windowSel" onchange="renderAnalysis()"><option value="0">Todo histórico</option><option>10</option><option>20</option><option>50</option><option>100</option></select></div>
+      <div class="field"><label>Ordenar por</label><select id="sortSel" onchange="renderAnalysis()"><option value="freq">Frequência</option><option value="delay">Atraso</option><option value="num">Número</option></select></div>
+    </div>
+    <div id="analysisSummary" class="small" style="margin:12px 0"></div>
+    <div class="numgrid" id="numStats"></div>
+  </div>
+
+  <div class="card">
+    <h2>Trevos</h2>
+    <div class="numgrid" id="cloverStats"></div>
+  </div>
+
+  <div class="card">
+    <h2>Estrutura dos sorteios</h2>
+    <div id="structureStats" class="small"></div>
+  </div>
+</section>
+
+<section id="generator" class="page">
+  <div class="card">
+    <h2>Gerador diversificado</h2>
+    <div class="row">
+      <div class="field"><label>Quantidade de jogos</label><input id="genCount" type="number" min="1" max="100" value="10"></div>
+      <div class="field"><label>Estratégia</label>
+        <select id="strategy">
+          <option value="balanced">Balanceada</option>
+          <option value="mixed">Mista histórico + aleatório</option>
+          <option value="recent">Ênfase recente</option>
+          <option value="delay">Ênfase em atraso</option>
+          <option value="random">Aleatória pura</option><option value="joint">Joint Covering 4+2</option>
+        </select>
+      </div>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <div class="field"><label>Máx. dezenas repetidas entre jogos</label><select id="maxOverlap"><option>2</option><option selected>3</option><option>4</option><option>5</option></select></div>
+      <div class="field"><label>Janela recente da análise</label><select id="genWindow"><option>20</option><option selected>50</option><option>100</option></select></div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn" onclick="generateSet()">Gerar conjunto</button>
+      <button class="btn ghost" onclick="clearGenerated()">Limpar</button>
+    </div>
+    <div class="small" style="margin-top:10px">O algoritmo cria muitos candidatos e seleciona jogos com boa diversidade entre si. A nota considera equilíbrio estrutural e histórico. Nesta versão a nota estrutural continua determinística: o mesmo jogo, com o mesmo histórico, recebe a mesma nota. Continua não sendo uma chance de acerto.</div>
+  </div>
+  <div id="generated" class="list"></div>
+  <div class="row" id="genActions" style="display:none;margin-top:12px">
+    <button class="btn secondary" onclick="saveGenerated()">Salvar todos</button>
+    <button class="btn ghost" onclick="copyGenerated()">Copiar jogos</button>
+  </div>
+</section>
+
+<section id="checker" class="page">
+  <div class="card">
+    <h2>Conferir aposta</h2>
+    <div class="small">Digite 6 dezenas e 2 trevos separados por espaço ou vírgula.</div>
+    <div class="field" style="margin-top:10px"><label>Dezenas</label><input id="checkNums" placeholder="Ex.: 03, 11, 19, 28, 37, 46"></div>
+    <div class="field" style="margin-top:10px"><label>Trevos</label><input id="checkClovers" placeholder="Ex.: 2, 5"></div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn" onclick="checkGame()">Conferir histórico</button>
+      <button class="btn secondary" onclick="scoreTyped()">Analisar jogo</button>
+    </div>
+    <div id="checkResult" style="margin-top:12px"></div>
+  </div>
+
+  <div class="card">
+    <h2>Importação manual</h2>
+    <details>
+      <summary>Usar se a atualização automática falhar</summary>
+      <div class="small" style="margin:8px 0">Cole um JSON de concursos no formato: [{"numero":1,"data":"...","dezenas":[...],"trevos":[...]}]</div>
+      <textarea id="jsonImport" rows="7" placeholder='[{"numero":1,"data":"2022-05-28","dezenas":[1,2,3,4,5,6],"trevos":[1,2]}]'></textarea>
+      <button class="btn secondary" style="margin-top:8px" onclick="importJSON()">Importar JSON</button>
+    </details>
+  </div>
+</section>
+
+<section id="validation" class="page"><div class="card"><h2>SSPSKN 3.3 • Research Gate</h2><div class="notice ok"><b>Regra:</b> primeiro provar eficiência, depois apostar.</div><div class="grid" style="margin-top:12px"><div class="kpi"><b>6/50</b><span>Dezena Engine</span></div><div class="kpi"><b>2/6</b><span>Trevo Engine</span></div><div class="kpi"><b>Blind</b><span>Holdout</span></div><div class="kpi"><b id="gateState321">STOP</b><span>gate atual</span></div></div></div><div class="card"><h2>Novos motores 3.2</h2><div class="small">Rare-Event Validation • Random/Placebo Control • Coverage/Overlap Portfolio • Consistency Guard • Epoch Replication • STOP/TEST/PLAY Gate.</div><div class="notice" style="margin-top:12px">Backtest histórico nunca libera PLAY sozinho. Um sinal precisa sobreviver a validação fora da amostra.</div></div>
+<div class="card">
+  <h2>Budget Audit</h2>
+  <div class="row">
+    <div class="field"><label>Orçamento de referência (R$)</label><input id="budget321" type="number" min="6" step="6" value="120"></div>
+    <div class="field"><label>Custo simples de referência</label><input id="unitCost321" type="number" min="0.01" step="0.01" value="6"></div>
+  </div>
+  <button class="btn secondary" style="margin-top:10px" onclick="budgetAudit321()">Calcular benchmark</button>
+  <div id="budgetOut321" class="small" style="margin-top:10px"></div>
+</div>
+</section>
+
+<section id="backtest" class="page">
+  <div class="card">
+    <h2>Backtest histórico</h2>
+    <div class="small">Teste as estratégias sem usar resultados futuros. Para cada concurso testado, o SSPSKN usa apenas os concursos anteriores, gera jogos e depois compara com o resultado real.</div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Concursos a testar</label><select id="btDraws"><option>20</option><option selected>50</option><option>100</option><option value="0">Máximo possível</option></select></div>
+      <div class="field"><label>Jogos por concurso</label><select id="btGames"><option>5</option><option selected>10</option><option>20</option><option>50</option></select></div>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <div class="field"><label>Janela histórica</label><select id="btWindow"><option>20</option><option selected>50</option><option>100</option></select></div>
+      <div class="field"><label>Máx. repetição entre jogos</label><select id="btOverlap"><option>2</option><option selected>3</option><option>4</option></select></div>
+    </div>
+    <div class="row" style="margin-top:10px"><div class="field"><label>Repetições / sementes</label><select id="btSeeds"><option>1</option><option selected>5</option><option>10</option><option>25</option></select></div><div class="field"><label>Objetivo primário</label><select id="btTarget"><option value="42" selected>≥4 dezenas + 2 trevos</option><option value="32">≥3 dezenas + 2 trevos</option></select></div></div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn" onclick="runValidation321()">Executar validação 3.3</button>
+      <button class="btn ghost" onclick="clearBacktest()">Limpar</button>
+    </div>
+    <div id="btProgress" class="small" style="margin-top:10px"></div>
+  </div>
+  <div id="patternBox"></div>
+  <div id="btResults"></div>
+</section>
+
+
+<section id="research33" class="page">
+  <div class="card">
+    <h2>SSPSKN 3.3 • Research Engine</h2>
+    <div class="notice ok"><b>Arquitetura:</b> previsão só recebe peso se vencer controles fora da amostra. Caso contrário, o orçamento é decidido por cobertura combinatória e eficiência econômica.</div>
+    <div class="researchgrid" style="margin-top:12px">
+      <div class="kpi"><b id="predGate33">STOP</b><span>Predictive Gate</span></div>
+      <div class="kpi"><b id="portGate33">TEST</b><span>Portfolio Gate</span></div>
+      <div class="kpi"><b id="spa33">—</b><span>Reality/SPA proxy</span></div>
+      <div class="kpi"><b id="mcs33">—</b><span>Model set</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Joint Covering 6/50 × 2/6</h2>
+    <div class="small">Avalia a carteira como um único problema dezenas+trevos. O cálculo usa Monte Carlo sobre resultados 6/50+2/6 e estima a probabilidade de a carteira produzir pelo menos um ≥4+2.</div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Jogos da carteira</label><input id="jcGames33" type="number" min="5" max="100" value="20"></div>
+      <div class="field"><label>Simulações</label><select id="jcSims33"><option>5000</option><option selected>20000</option><option>50000</option></select></div>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <div class="field"><label>Estratégia base</label><select id="jcStrategy33"><option value="balanced">Balanceada</option><option value="coverage">Coverage Only</option><option value="random">Aleatória</option><option value="joint" selected>Joint Covering</option></select></div>
+      <div class="field"><label>Máx. overlap inicial</label><select id="jcOverlap33"><option>2</option><option selected>3</option><option>4</option></select></div>
+    </div>
+    <button class="btn" style="margin-top:12px" onclick="runJointCovering33()">Otimizar e auditar carteira</button>
+    <div id="jcOut33" style="margin-top:12px"></div>
+  </div>
+  <div class="card">
+    <h2>Champion × Challengers</h2>
+    <div class="small">Champion atual: <b>Balanceada</b>. Challengers: Mista, Recente, Atraso, Coverage, Joint Covering e Aleatória. O Champion só é substituído se a vantagem sobreviver ao Reality Check/SPA proxy e a múltiplas épocas.</div>
+    <button class="btn secondary" style="margin-top:12px" onclick="runResearchGate33()">Executar Research Gate</button>
+    <div id="researchOut33" style="margin-top:12px"></div>
+  </div>
+  <div class="card">
+    <h2>Prospective Vault</h2>
+    <div class="small">Congela a estratégia escolhida e registra o concurso de corte. Concursos posteriores ficam reservados para validação prospectiva e não podem recalibrar retroativamente o modelo.</div>
+    <div class="row" style="margin-top:10px">
+      <div class="field"><label>Estratégia congelada</label><select id="vaultStrategy33"><option value="balanced">Balanceada</option><option value="mixed">Mista</option><option value="recent">Recente</option><option value="delay">Atraso</option><option value="coverage">Coverage</option><option value="joint">Joint Covering</option></select></div>
+      <div class="field"><label>Concurso de corte</label><input id="vaultCut33" type="number" min="1" value="381"></div>
+    </div>
+    <button class="btn ghost" style="margin-top:12px" onclick="freezeVault33()">Congelar configuração</button>
+    <div id="vaultOut33" class="small" style="margin-top:10px"></div>
+  </div>
+</section>
+
+<section id="saved" class="page">
+  <div class="card">
+    <h2>Jogos salvos</h2>
+    <div class="row">
+      <button class="btn secondary" onclick="exportSaved()">Exportar CSV</button>
+      <button class="btn ghost" onclick="copySaved()">Copiar</button>
+      <button class="btn danger" onclick="clearSaved()">Apagar todos</button>
+    </div>
+  </div>
+  <div id="savedList" class="list"></div>
+</section>
+</div>
+
+<nav class="tabs"><div class="tabsin">
+<button class="tab active" data-page="home"><span class="ico">⌂</span>Início</button>
+<button class="tab" data-page="analysis"><span class="ico">▥</span>Análise</button>
+<button class="tab" data-page="generator"><span class="ico">✦</span>Gerar</button>
+<button class="tab" data-page="checker"><span class="ico">✓</span>Conferir</button>
+<button class="tab" data-page="backtest"><span class="ico">⌁</span>Backtest</button>
+<button class="tab" data-page="validation"><span class="ico">◎</span>Validação</button>
+<button class="tab" data-page="research33"><span class="ico">◈</span>Pesquisa</button>
+<button class="tab" data-page="saved"><span class="ico">★</span>Salvos</button>
+</div></nav>
+
+<script>
+const API='https://servicebus2.caixa.gov.br/portaldeloterias/api/maismilionaria';
+let history=load('sspskn_history',[]);
+let saved=load('sspskn_saved',[]);
+let generated=[];
+
+function load(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}}
+function store(){localStorage.setItem('sspskn_history',JSON.stringify(history));localStorage.setItem('sspskn_saved',JSON.stringify(saved))}
+const pad=n=>String(n).padStart(2,'0');
+const uniq=a=>[...new Set(a)];
+const intersect=(a,b)=>a.filter(x=>b.includes(x));
+function fmtDate(s){if(!s)return'—'; if(s.includes('/'))return s; let p=s.split('-'); return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:s}
+function sanitizeDraw(j){
+  const nums=(j.listaDezenas||j.dezenas||[]).map(Number).filter(n=>n>=1&&n<=50).sort((a,b)=>a-b);
+  let trevos=(j.listaTrevos||j.trevos||j.trevosSorteados||[]).map(x=>Number(String(x).replace(/\D/g,''))).filter(n=>n>=1&&n<=6).sort((a,b)=>a-b);
+  return {numero:Number(j.numero||j.numeroConcurso||j.concurso),data:j.dataApuracao||j.data||'',dezenas:nums,trevos};
+}
+function validDraw(d){return Number.isFinite(d.numero)&&d.dezenas.length===6&&d.trevos.length===2}
+function mergeDraws(arr){
+  let m=new Map(history.map(d=>[d.numero,d]));
+  arr.map(sanitizeDraw).filter(validDraw).forEach(d=>m.set(d.numero,d));
+  history=[...m.values()].sort((a,b)=>a.numero-b.numero); store(); refresh();
+}
+function balls(nums,cls=''){return `<div class="balls">${nums.map(n=>`<span class="ball ${cls}">${pad(n)}</span>`).join('')}</div>`}
+function setStatus(txt,ok=false){document.getElementById('syncStatus').textContent=txt;document.getElementById('dot').style.background=ok?'#3ee487':'#ffd56a'}
+function msg(t,type=''){document.getElementById('syncMsg').innerHTML=`<div class="notice ${type}">${t}</div>`}
+
+async function fetchDraw(n,retries=3){
+  const url=n?`${API}/${n}`:API;
+  let lastErr;
+  for(let attempt=0;attempt<=retries;attempt++){
+    try{
+      const r=await fetch(url,{headers:{'Accept':'application/json'},cache:'no-store'});
+      if(!r.ok)throw new Error(`HTTP ${r.status}`);
+      const d=sanitizeDraw(await r.json());
+      if(!validDraw(d))throw new Error('Formato inesperado');
+      return d;
+    }catch(e){
+      lastErr=e;
+      if(attempt<retries)await new Promise(r=>setTimeout(r,350*(attempt+1)));
+    }
+  }
+  throw lastErr;
+}
+async function syncLatest(){
+  try{
+    setStatus('Atualizando...');
+    const d=await fetchDraw();
+    if(!validDraw(d))throw new Error('Formato inesperado');
+    mergeDraws([d]); setStatus('Atualizado',true); msg(`Concurso ${d.numero} atualizado com sucesso.`,'ok');
+  }catch(e){setStatus('Falha na conexão');msg('A atualização automática não respondeu. Seus dados salvos continuam intactos. Tente novamente ou use a importação manual.','err')}
+}
+async function syncAll(){
+  try{
+    setStatus('Buscando último...');
+    const last=await fetchDraw();
+    mergeDraws([last]);
+
+    const target=last.numero;
+    let have=new Set(history.map(d=>d.numero));
+    let missing=[];
+    for(let n=1;n<=target;n++)if(!have.has(n))missing.push(n);
+
+    if(!missing.length){
+      setStatus('Histórico completo',true);
+      msg(`Histórico completo: ${history.length} de ${target} concursos carregados.`,'ok');
+      return;
+    }
+
+    let totalInicial=missing.length;
+    msg(`Sincronizando histórico: faltam ${totalInicial} concursos. O SSPSKN fará até 3 passagens automáticas.`);
+    let pass=0;
+
+    while(missing.length && pass<3){
+      pass++;
+      let doneThisPass=0;
+      for(let i=0;i<missing.length;i+=4){
+        const batch=missing.slice(i,i+4);
+        const res=await Promise.allSettled(batch.map(n=>fetchDraw(n,2)));
+        const ok=res.filter(x=>x.status==='fulfilled').map(x=>x.value).filter(validDraw);
+        if(ok.length){ mergeDraws(ok); doneThisPass+=ok.length; }
+
+        const loaded=history.length;
+        setStatus(`Passagem ${pass} • ${loaded}/${target}`);
+        await new Promise(r=>setTimeout(r,180));
+      }
+
+      have=new Set(history.map(d=>d.numero));
+      missing=[];
+      for(let n=1;n<=target;n++)if(!have.has(n))missing.push(n);
+
+      if(missing.length && pass<3){
+        msg(`Passagem ${pass} concluída. Ainda faltam ${missing.length}; repetindo apenas os concursos ausentes...`);
+        await new Promise(r=>setTimeout(r,900));
+      }
+    }
+
+    const completeness=((history.length/target)*100).toFixed(1);
+    if(!missing.length){
+      setStatus('Histórico completo',true);
+      msg(`Sincronização concluída: ${history.length}/${target} concursos (${completeness}%).`,'ok');
+    }else{
+      setStatus('Histórico parcial',false);
+      msg(`Sincronização parcial: ${history.length}/${target} concursos (${completeness}%). Ainda faltam ${missing.length}. Toque em “Atualizar histórico” novamente mais tarde; o sistema buscará somente os ausentes.`,'');
+    }
+  }catch(e){
+    setStatus('Falha na conexão');
+    msg('Não foi possível sincronizar agora. O histórico já salvo continua intacto. Tente novamente em alguns instantes.','err');
+  }
+}
+
+function windowData(n){let a=history.slice();if(n>0)a=a.slice(-n);return a}
+function calcStats(data=history){
+  let f=Array(51).fill(0), tf=Array(7).fill(0), lastSeen=Array(51).fill(-1), tLast=Array(7).fill(-1);
+  data.forEach((d,i)=>{d.dezenas.forEach(n=>{f[n]++;lastSeen[n]=i});d.trevos.forEach(n=>{tf[n]++;tLast[n]=i})});
+  let delays=Array(51).fill(0),td=Array(7).fill(0);
+  for(let n=1;n<=50;n++)delays[n]=lastSeen[n]<0?data.length:data.length-1-lastSeen[n];
+  for(let n=1;n<=6;n++)td[n]=tLast[n]<0?data.length:data.length-1-tLast[n];
+  return {f,tf,delays,td};
+}
+function avg(a){return a.length?a.reduce((x,y)=>x+y,0)/a.length:0}
+function median(a){if(!a.length)return 0;let b=[...a].sort((x,y)=>x-y),m=Math.floor(b.length/2);return b.length%2?b[m]:(b[m-1]+b[m])/2}
+function quick(){
+  const el=document.getElementById('quickStats');
+  if(!history.length){el.textContent='Carregue o histórico para ativar as análises.';return}
+  let s=calcStats(history), nums=[...Array(50)].map((_,i)=>i+1);
+  let hot=[...nums].sort((a,b)=>s.f[b]-s.f[a]).slice(0,6);
+  let delay=[...nums].sort((a,b)=>s.delays[b]-s.delays[a]).slice(0,6);
+  let last=history.at(-1), prev=history.at(-2);
+  let rep=prev?intersect(last.dezenas,prev.dezenas).length:0;
+  let expected=last?.numero||history.length;
+  let missing=Math.max(0,expected-history.length);
+  el.innerHTML=`<div class="grid3">
+    <div class="kpi"><b>${hot.map(pad).join(' ')}</b><span>mais frequentes no histórico</span></div>
+    <div class="kpi"><b>${delay.map(pad).join(' ')}</b><span>maiores atrasos atuais</span></div>
+    <div class="kpi"><b>${rep}</b><span>repetidas do concurso anterior</span></div>
+  </div>
+  <div class="small" style="margin-top:10px">Cobertura do histórico: <b>${history.length}/${expected}</b> concursos (${expected?((history.length/expected)*100).toFixed(1):'0.0'}%). ${missing?`Ainda faltam <b>${missing}</b>; “Atualizar histórico” tentará somente os ausentes.`:'Histórico numericamente completo.'}</div>`;
+}
+function renderAnalysis(){
+  let n=Number(document.getElementById('windowSel')?.value||0), data=windowData(n), el=document.getElementById('numStats');
+  if(!data.length){el.innerHTML='<div class="small">Sem histórico.</div>';return}
+  let s=calcStats(data), order=[...Array(50)].map((_,i)=>i+1), mode=document.getElementById('sortSel').value;
+  if(mode==='freq')order.sort((a,b)=>s.f[b]-s.f[a]||a-b);
+  if(mode==='delay')order.sort((a,b)=>s.delays[b]-s.delays[a]||a-b);
+  el.innerHTML=order.map(x=>`<div class="numitem"><b>${pad(x)}</b><small>${s.f[x]}x • atr ${s.delays[x]}</small></div>`).join('');
+  document.getElementById('cloverStats').innerHTML=[1,2,3,4,5,6].map(x=>`<div class="numitem"><b>🍀 ${x}</b><small>${s.tf[x]}x • atr ${s.td[x]}</small></div>`).join('');
+  let sums=data.map(d=>d.dezenas.reduce((a,b)=>a+b,0));
+  let evens=data.map(d=>d.dezenas.filter(x=>x%2===0).length);
+  let reps=data.slice(1).map((d,i)=>intersect(d.dezenas,data[i].dezenas).length);
+  document.getElementById('analysisSummary').innerHTML=`Base: <b>${data.length}</b> concursos • média esperada de frequência por dezena nesta janela: <b>${(data.length*6/50).toFixed(1)}</b>`;
+  document.getElementById('structureStats').innerHTML=`
+    <div class="grid3">
+      <div class="kpi"><b>${avg(sums).toFixed(1)}</b><span>soma média das 6 dezenas</span></div>
+      <div class="kpi"><b>${avg(evens).toFixed(2)}</b><span>pares por concurso</span></div>
+      <div class="kpi"><b>${avg(reps).toFixed(2)}</b><span>repetições do concurso anterior</span></div>
+    </div>
+    <p>Mediana da soma: <b>${median(sums).toFixed(0)}</b>. Faixa central observada (20%–80%): <b>${quantile(sums,.2).toFixed(0)} a ${quantile(sums,.8).toFixed(0)}</b>.</p>`;
+}
+function quantile(a,q){if(!a.length)return 0;let b=[...a].sort((x,y)=>x-y),p=(b.length-1)*q,lo=Math.floor(p),hi=Math.ceil(p);return b[lo]+(b[hi]-b[lo])*(p-lo)}
+
+function rngPickWeighted(items,weights,k){
+  let pool=items.map((x,i)=>({x,w:Math.max(.001,weights[i])})), out=[];
+  while(out.length<k&&pool.length){
+    let total=pool.reduce((s,p)=>s+p.w,0),r=Math.random()*total,idx=0;
+    for(;idx<pool.length;idx++){r-=pool[idx].w;if(r<=0)break}
+    idx=Math.min(idx,pool.length-1);out.push(pool[idx].x);pool.splice(idx,1);
+  }return out.sort((a,b)=>a-b)
+}
+function getWeights(strategy,wnd,data=history){
+  let all=calcStats(data), recentData=wnd>0?data.slice(-wnd):data, recent=calcStats(recentData), nums=[...Array(50)].map((_,i)=>i+1);
+  let meanAll=Math.max(1,data.length*6/50), meanRec=Math.max(1,recentData.length*6/50);
+  let weights=nums.map(n=>{
+    if(strategy==='random'||strategy==='coverage'||strategy==='joint')return 1;
+    let fa=all.f[n]/meanAll, fr=recent.f[n]/meanRec, d=1+Math.min(all.delays[n],20)/20;
+    if(strategy==='recent')return .35+.65*fr;
+    if(strategy==='delay')return .45+.55*d;
+    if(strategy==='mixed')return .55+.25*fa+.20*fr;
+    return .65+.18*Math.min(fa,1.8)+.17*Math.min(fr,1.8);
+  });
+  let cl=[1,2,3,4,5,6], cw=cl.map(n=>(strategy==='random'||strategy==='coverage'||strategy==='joint')?1:.6+.4*(recent.tf[n]/Math.max(1,recentData.length*2/6)));
+  return {nums,weights,cl,cw}
+}
+function gameQuality(nums,clovers,data=history){
+  let sum=nums.reduce((a,b)=>a+b,0), even=nums.filter(n=>n%2===0).length;
+  let low=nums.filter(n=>n<=25).length;
+  let decades=new Set(nums.map(n=>Math.floor((n-1)/10))).size;
+  let consecutive=nums.slice(1).filter((n,i)=>n-nums[i]===1).length;
+
+  let score=82;
+  score-=Math.abs(even-3)*6;
+  score-=Math.abs(low-3)*5;
+  score+=(decades-3)*2;
+  score-=Math.max(0,consecutive-1)*5;
+
+  if(data.length){
+    let sums=data.map(d=>d.dezenas.reduce((a,b)=>a+b,0));
+    let med=median(sums), q20=quantile(sums,.2), q80=quantile(sums,.8);
+    let span=Math.max(20,(q80-q20));
+    score-=Math.min(14,Math.abs(sum-med)/span*12);
+
+    let last=data.at(-1), rep=last?intersect(nums,last.dezenas).length:0;
+    score-=Math.max(0,rep-2)*4;
+
+    let s=calcStats(data), expected=data.length*6/50;
+    let freqAvg=avg(nums.map(n=>s.f[n]));
+    score+=Math.max(-5,Math.min(5,(freqAvg-expected)/Math.max(1,expected)*10));
+
+    // Trevos entram com peso pequeno: descrevem aderência histórica sem dominar a nota.
+    let tExpected=data.length*2/6, tAvg=avg(clovers.map(n=>s.tf[n]));
+    score+=Math.max(-3,Math.min(3,(tAvg-tExpected)/Math.max(1,tExpected)*6));
+  }
+
+  return Math.max(45,Math.min(97,Math.round(score)));
+}
+function makeCandidate(strategy,wnd,data=history){
+  let w=getWeights(strategy,wnd,data), nums=rngPickWeighted(w.nums,w.weights,6), cl=rngPickWeighted(w.cl,w.cw,2);
+  return {nums,cl,score:gameQuality(nums,cl,data)}
+}
+function overlap(a,b){return intersect(a.nums,b.nums).length}
+function keyGame(g){return g.nums.join('-')+'|'+g.cl.join('-')}
+function generateSet(){
+  let count=Math.min(100,Math.max(1,Number(document.getElementById('genCount').value)||10));
+  let strategy=document.getElementById('strategy').value,wnd=Number(document.getElementById('genWindow').value),maxOv=Number(document.getElementById('maxOverlap').value);
+  let candidates=[],seen=new Set();
+  for(let i=0;i<Math.max(1000,count*120);i++){let g=makeCandidate(strategy,wnd),k=keyGame(g);if(!seen.has(k)){seen.add(k);candidates.push(g)}}
+  candidates.sort((a,b)=>b.score-a.score);
+  let chosen=[];
+  for(let g of candidates){
+    if(chosen.every(c=>overlap(c,g)<=maxOv)){chosen.push(g);if(chosen.length>=count)break}
+  }
+  generated=chosen;renderGenerated();
+  if(chosen.length<count)alert(`Foi possível criar ${chosen.length} de ${count} jogos respeitando o limite de ${maxOv} dezenas repetidas. Aumente o limite de repetição para gerar mais jogos.`);
+}
+function renderGenerated(){
+  let el=document.getElementById('generated');
+  el.innerHTML=generated.map((g,i)=>`<div class="game"><div class="gamehead"><b>Jogo ${i+1}</b><span class="score">equilíbrio ${g.score}/100</span></div>${balls(g.nums)}<div style="height:7px"></div>${balls(g.cl,'clover')}</div>`).join('');
+  document.getElementById('genActions').style.display=generated.length?'flex':'none';
+}
+function clearGenerated(){generated=[];renderGenerated()}
+function saveGenerated(){
+  let now=new Date().toISOString();
+  generated.forEach(g=>saved.push({...g,created:now}));
+  saved=dedupeSaved(saved);store();refresh();alert(`${generated.length} jogo(s) salvos.`)
+}
+function dedupeSaved(a){let m=new Map();a.forEach(g=>m.set(keyGame(g),g));return [...m.values()]}
+function textGames(a){return a.map((g,i)=>`Jogo ${i+1}: ${g.nums.map(pad).join(' ')} | Trevos ${g.cl.join(' ')}`).join('\n')}
+async function copyGenerated(){await navigator.clipboard.writeText(textGames(generated));alert('Jogos copiados.')}
+function renderSaved(){
+  const el=document.getElementById('savedList');
+  if(!saved.length){el.innerHTML='<div class="card small">Nenhum jogo salvo ainda.</div>';return}
+  el.innerHTML=saved.map((g,i)=>`<div class="game"><div class="gamehead"><b>Jogo salvo ${i+1}</b><button class="btn ghost" style="padding:6px 9px" onclick="removeSaved(${i})">Excluir</button></div>${balls(g.nums)}<div style="height:7px"></div>${balls(g.cl,'clover')}</div>`).join('')
+}
+function removeSaved(i){saved.splice(i,1);store();refresh()}
+function clearSaved(){if(confirm('Apagar todos os jogos salvos?')){saved=[];store();refresh()}}
+async function copySaved(){await navigator.clipboard.writeText(textGames(saved));alert('Jogos copiados.')}
+function exportSaved(){
+  let rows=['jogo;dezena1;dezena2;dezena3;dezena4;dezena5;dezena6;trevo1;trevo2;equilibrio'];
+  saved.forEach((g,i)=>rows.push([i+1,...g.nums,...g.cl,g.score??''].join(';')));
+  let blob=new Blob([rows.join('\n')],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='SSPSKN_jogos.csv';a.click();URL.revokeObjectURL(a.href)
+}
+function parseNums(s,min,max){return uniq((s.match(/\d+/g)||[]).map(Number).filter(n=>n>=min&&n<=max)).sort((a,b)=>a-b)}
+function scoreTyped(){
+  let n=parseNums(document.getElementById('checkNums').value,1,50),c=parseNums(document.getElementById('checkClovers').value,1,6),el=document.getElementById('checkResult');
+  if(n.length!==6||c.length!==2){el.innerHTML='<div class="notice err">Informe exatamente 6 dezenas diferentes e 2 trevos diferentes.</div>';return}
+  let sc=gameQuality(n,c),sum=n.reduce((a,b)=>a+b,0),even=n.filter(x=>x%2===0).length;
+  el.innerHTML=`<div class="notice ok"><b>Índice de equilíbrio: ${sc}/100</b><br>Soma ${sum} • ${even} pares e ${6-even} ímpares • ${n.filter(x=>x<=25).length} dezenas entre 1–25.<br><span class="tiny">Este índice descreve a estrutura do jogo; não representa probabilidade de premiação.</span></div>`
+}
+function checkGame(){
+  let n=parseNums(document.getElementById('checkNums').value,1,50),c=parseNums(document.getElementById('checkClovers').value,1,6),el=document.getElementById('checkResult');
+  if(n.length!==6||c.length!==2){el.innerHTML='<div class="notice err">Informe exatamente 6 dezenas diferentes e 2 trevos diferentes.</div>';return}
+  if(!history.length){el.innerHTML='<div class="notice err">Carregue o histórico primeiro.</div>';return}
+  let res=history.map(d=>({d,a:intersect(n,d.dezenas).length,t:intersect(c,d.trevos).length})).sort((x,y)=>y.a-x.a||y.t-x.t||y.d.numero-x.d.numero);
+  let best=res.slice(0,10);
+  el.innerHTML=`<div class="notice ok">Melhor desempenho encontrado no histórico: <b>${best[0].a} dezenas + ${best[0].t} trevo(s)</b>.</div>
+  <table><thead><tr><th>Concurso</th><th>Data</th><th>Dezenas</th><th>Trevos</th></tr></thead><tbody>${best.map(x=>`<tr><td>${x.d.numero}</td><td>${fmtDate(x.d.data)}</td><td>${x.a}/6</td><td>${x.t}/2</td></tr>`).join('')}</tbody></table>`
+}
+function importJSON(){
+  try{
+    let a=JSON.parse(document.getElementById('jsonImport').value);if(!Array.isArray(a))a=[a];
+    let before=history.length;mergeDraws(a);let add=history.length-before;
+    alert(`Importação concluída. ${add} concurso(s) novo(s).`);
+  }catch(e){alert('JSON inválido. Verifique o formato e tente novamente.')}
+}
+const STRATEGIES=[
+  {id:'balanced',name:'Balanceada'},
+  {id:'mixed',name:'Mista histórico + aleatório'},
+  {id:'recent',name:'Ênfase recente'},
+  {id:'delay',name:'Ênfase em atraso'},
+  {id:'random',name:'Aleatória pura'},
+  {id:'coverage',name:'Coverage Only'},
+  {id:'joint',name:'Joint Covering'}
+];
+
+function seededRandom(seed){
+  let t=seed>>>0;
+  return function(){t+=0x6D2B79F5;let r=Math.imul(t^t>>>15,1|t);r^=r+Math.imul(r^r>>>7,61|r);return ((r^r>>>14)>>>0)/4294967296}
+}
+function withSeed(seed,fn){let old=Math.random;Math.random=seededRandom(seed);try{return fn()}finally{Math.random=old}}
+function generateForData(strategy,wnd,count,maxOv,data,seedBase=1){
+  let candidates=[],seen=new Set();
+  withSeed(seedBase,()=>{
+    for(let i=0;i<Math.max(500,count*80);i++){
+      let g=makeCandidate(strategy,wnd,data),k=keyGame(g);if(!seen.has(k)){seen.add(k);candidates.push(g)}
+    }
+  });
+  candidates.sort((a,b)=>b.score-a.score||keyGame(a).localeCompare(keyGame(b)));
+  let chosen=[];
+  for(let g of candidates){if(chosen.every(c=>overlap(c,g)<=maxOv)){chosen.push(g);if(chosen.length>=count)break}}
+  return chosen;
+}
+function hitKey(a,t){return `${a}+${t}`}
+function patternAnalysis(data){
+  if(data.length<10)return null;
+  let s=calcStats(data), nums=[...Array(50)].map((_,i)=>i+1), cls=[1,2,3,4,5,6];
+  let expected=data.length*6/50, tExpected=data.length*2/6;
+  let chi=nums.reduce((z,n)=>z+((s.f[n]-expected)**2/expected),0);
+  let tchi=cls.reduce((z,n)=>z+((s.tf[n]-tExpected)**2/tExpected),0);
+  let maxDev=Math.max(...nums.map(n=>Math.abs(s.f[n]-expected)/Math.sqrt(expected)));
+  let tMaxDev=Math.max(...cls.map(n=>Math.abs(s.tf[n]-tExpected)/Math.sqrt(tExpected)));
+  let reps=data.slice(1).map((d,i)=>intersect(d.dezenas,data[i].dezenas).length);
+  return {chi,tchi,maxDev,tMaxDev,repAvg:avg(reps),expected,tExpected};
+}
+function renderPattern(data){
+  let p=patternAnalysis(data),el=document.getElementById('patternBox');
+  if(!p){el.innerHTML='';return}
+  let note=p.maxDev<3&&p.tMaxDev<3?'Nenhum desvio individual forte foi identificado nesta leitura simples.':'Há desvios que merecem teste no backtest, mas isso não prova previsibilidade.';
+  el.innerHTML=`<div class="card"><h2>Detector de padrões</h2><div class="metricrow"><div class="kpi"><b>${p.chi.toFixed(1)}</b><span>dispersão de frequência das dezenas</span></div><div class="kpi"><b>${p.tchi.toFixed(1)}</b><span>dispersão de frequência dos trevos</span></div><div class="kpi"><b>${p.maxDev.toFixed(2)}σ</b><span>maior desvio individual de dezena</span></div><div class="kpi"><b>${p.repAvg.toFixed(2)}</b><span>repetições médias consecutivas</span></div></div><div class="notice" style="margin-top:12px">${note} O SSPSKN não assume que exista um algoritmo secreto de sorteio; ele procura sinais estatísticos e exige validação fora da amostra.</div></div>`
+}
+function clearBacktest(){document.getElementById('btResults').innerHTML='';document.getElementById('btProgress').textContent='';document.getElementById('patternBox').innerHTML=''}
+async function runBacktest(){
+  let out=document.getElementById('btResults'),prog=document.getElementById('btProgress');
+  if(history.length<30){out.innerHTML='<div class="card notice err">Carregue pelo menos 30 concursos para executar um backtest útil.</div>';return}
+  let requested=Number(document.getElementById('btDraws').value),games=Number(document.getElementById('btGames').value),wnd=Number(document.getElementById('btWindow').value),maxOv=Number(document.getElementById('btOverlap').value);
+  let minTrain=Math.max(20,wnd), maxTests=Math.max(0,history.length-minTrain), tests=requested===0?maxTests:Math.min(requested,maxTests);
+  if(tests<1){out.innerHTML='<div class="card notice err">Histórico insuficiente para a janela selecionada.</div>';return}
+  let start=history.length-tests, stats={};STRATEGIES.forEach(x=>stats[x.id]={name:x.name,draws:0,totalA:0,totalT:0,bestA:0,bestT:0,dist:{},scoreSum:0});
+  renderPattern(history.slice(0,start));
+  out.innerHTML='';
+  for(let idx=start;idx<history.length;idx++){
+    let train=history.slice(0,idx), target=history[idx];
+    for(let si=0;si<STRATEGIES.length;si++){
+      let st=STRATEGIES[si], set=generateForData(st.id,wnd,games,maxOv,train,(target.numero*1009)+(si*97)+games);
+      let hits=set.map(g=>({a:intersect(g.nums,target.dezenas).length,t:intersect(g.cl,target.trevos).length,score:g.score}));
+      hits.sort((x,y)=>y.a-x.a||y.t-x.t||y.score-x.score);
+      let best=hits[0],z=stats[st.id];z.draws++;z.totalA+=best.a;z.totalT+=best.t;z.bestA=Math.max(z.bestA,best.a);z.bestT=Math.max(z.bestT,best.t);z.scoreSum+=avg(hits.map(h=>h.score));z.dist[hitKey(best.a,best.t)]=(z.dist[hitKey(best.a,best.t)]||0)+1;
+    }
+    let done=idx-start+1;prog.textContent=`Processando ${done}/${tests} concursos...`;
+    if(done%5===0)await new Promise(r=>setTimeout(r,0));
+  }
+  let rows=Object.entries(stats).map(([id,z])=>({id,...z,avgA:z.totalA/z.draws,avgT:z.totalT/z.draws,avgScore:z.scoreSum/z.draws}));
+  rows.sort((a,b)=>(b.avgA+b.avgT*.35)-(a.avgA+a.avgT*.35)||b.bestA-a.bestA);
+  prog.textContent=`Backtest concluído: ${tests} concursos • ${games} jogos por estratégia/concurso • janela ${wnd}.`;
+  let best=rows[0],random=rows.find(r=>r.id==='random'),delta=random?((best.avgA-best.avgA*0)+(best.avgA-random.avgA)):0;
+  let table=rows.map((r,i)=>`<tr><td>${i+1}. ${r.name}</td><td>${r.avgA.toFixed(3)}</td><td>${r.avgT.toFixed(3)}</td><td>${r.bestA}+${r.bestT}</td><td>${r.avgScore.toFixed(1)}</td></tr>`).join('');
+  let cmp=random&&best.id!=='random'?`A melhor estratégia observada teve média de <b>${(best.avgA-random.avgA).toFixed(3)}</b> dezena(s) a mais por concurso que a aleatória pura neste recorte.`:'A estratégia aleatória pura ficou no topo deste recorte; não há evidência de vantagem histórica das estratégias guiadas.';
+  let dist=Object.entries(best.dist).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([k,v])=>`${k}: ${v}x`).join(' • ');
+  out.innerHTML=`<div class="card rank1"><h2>Melhor configuração observada</h2><div class="notice ok"><b>${best.name}</b> ficou em 1º neste backtest. ${cmp}</div><div class="small" style="margin-top:10px">Distribuição dos melhores jogos dessa estratégia: ${dist||'—'}.</div><div class="small" style="margin-top:8px"><b>Importante:</b> desempenho passado não garante vantagem no próximo sorteio. Use o ranking como ferramenta de comparação, não como probabilidade de prêmio.</div></div><div class="card"><h2>Ranking das estratégias</h2><div class="scrollx"><table><thead><tr><th>Estratégia</th><th>Média dezenas</th><th>Média trevos</th><th>Melhor</th><th>Equilíbrio médio</th></tr></thead><tbody>${table}</tbody></table></div></div>`;
+}
+
+
+function evalPortfolio321(set,target){
+  const hits=set.map(g=>({
+    a:intersect(g.nums,target.dezenas).length,
+    t:intersect(g.cl,target.trevos).length
+  }));
+  const any = fn => hits.some(fn);
+  const best = [...hits].sort((x,y)=>y.a-x.a||y.t-x.t)[0] || {a:0,t:0};
+  return {
+    ge42:any(h=>h.a>=4 && h.t===2),
+    ge32:any(h=>h.a>=3 && h.t===2),
+    ge41:any(h=>h.a>=4 && h.t>=1),
+    eq22:any(h=>h.a===2 && h.t===2),
+    best
+  };
+}
+function wilson321(k,n,z=1.96){
+  if(!n)return [0,0];
+  const p=k/n, den=1+z*z/n;
+  const mid=(p+z*z/(2*n))/den;
+  const half=z*Math.sqrt((p*(1-p)+z*z/(4*n))/n)/den;
+  return [Math.max(0,mid-half),Math.min(1,mid+half)];
+}
+function pairedLift321(r,control){
+  if(!control || control.events===0) return 'amostra insuf.';
+  return (r.rate/control.rate).toFixed(2)+'×';
+}
+function consistency321(z){
+  // Logical invariant: a recorded best 5+2 or 6+2 implies at least one >=4+2 event.
+  if(z.bestT===2 && z.bestA>=4 && z.events===0) return false;
+  return true;
+}
+function gateDecision321(best,random){
+  if(!best || !random) return {state:'STOP',msg:'Controle incompleto.'};
+  if(!consistency321(best)) return {state:'STOP',msg:'ERRO DE CONSISTÊNCIA: melhor resultado implica ≥4+2, mas o contador não registrou o evento.'};
+  if(best.events<3) return {state:'STOP',msg:'Poucos eventos ≥4+2. O histórico não sustenta inferência robusta.'};
+
+  const p1=best.rate, p0=random.rate;
+  const se=Math.sqrt(Math.max(1e-12, p1*(1-p1)/best.evals + p0*(1-p0)/random.evals));
+  const z=(p1-p0)/se;
+  const replicated=best.epochWins>=3;
+
+  if(z>=1.96 && replicated){
+    return {state:'TEST',msg:'Sinal histórico supera o controle neste recorte e replica em ≥3/5 épocas. Exige teste prospectivo cego; ainda não libera PLAY.'};
+  }
+  return {state:'STOP',msg:'Vantagem não robusta ou não replicada em épocas suficientes.'};
+}
+async function runValidation321(){
+  const out=document.getElementById('btResults'), prog=document.getElementById('btProgress');
+  if(history.length<60){
+    out.innerHTML='<div class="card notice err">Histórico insuficiente para validação 3.2.1.</div>'; return;
+  }
+
+  const requested=Number(document.getElementById('btDraws').value);
+  const games=Number(document.getElementById('btGames').value);
+  const wnd=Number(document.getElementById('btWindow').value);
+  const maxOv=Number(document.getElementById('btOverlap').value);
+  const seeds=Number(document.getElementById('btSeeds').value||5);
+  const targetMode=(document.getElementById('btTarget')?.value||'42');
+
+  const minTrain=Math.max(50,wnd);
+  const maxTests=Math.max(0,history.length-minTrain);
+  const tests=requested===0?maxTests:Math.min(requested,maxTests);
+  if(tests<5){
+    out.innerHTML='<div class="card notice err">Poucos concursos disponíveis para validação.</div>'; return;
+  }
+
+  const start=history.length-tests;
+  const stats={};
+  STRATEGIES.forEach(s=>stats[s.id]={
+    id:s.id,name:s.name,evals:0,events:0,e32:0,e41:0,e22:0,
+    bestA:0,bestT:0,epochs:[0,0,0,0,0],epochEvals:[0,0,0,0,0]
+  });
+
+  renderPattern(history.slice(0,start));
+  out.innerHTML='';
+
+  for(let idx=start; idx<history.length; idx++){
+    const train=history.slice(0,idx), target=history[idx];
+    const epoch=Math.min(4,Math.floor((idx-start)*5/tests));
+
+    for(let si=0; si<STRATEGIES.length; si++){
+      const st=STRATEGIES[si], z=stats[st.id];
+      for(let sd=0; sd<seeds; sd++){
+        const seed=(target.numero*100003)+(si*1009)+(sd*97)+games;
+        const set=generateForData(st.id,wnd,games,maxOv,train,seed);
+        const r=evalPortfolio321(set,target);
+
+        z.evals++;
+        z.epochEvals[epoch]++;
+        const primary = targetMode==='32' ? r.ge32 : r.ge42;
+        if(primary){ z.events++; z.epochs[epoch]++; }
+        if(r.ge32)z.e32++;
+        if(r.ge41)z.e41++;
+        if(r.eq22)z.e22++;
+        if(r.best.a>z.bestA || (r.best.a===z.bestA && r.best.t>z.bestT)){
+          z.bestA=r.best.a; z.bestT=r.best.t;
+        }
+      }
+    }
+
+    const done=idx-start+1;
+    prog.textContent=`Validação 3.2.1: ${done}/${tests} concursos • ${seeds} sementes...`;
+    if(done%3===0) await new Promise(r=>setTimeout(r,0));
+  }
+
+  let rows=Object.values(stats).map(z=>{
+    const rate=z.evals?z.events/z.evals:0;
+    const ci=wilson321(z.events,z.evals);
+    return {...z,rate,ci};
+  });
+
+  const random=rows.find(r=>r.id==='random');
+  rows=rows.map(r=>{
+    let epochWins=0;
+    if(random){
+      for(let e=0;e<5;e++){
+        const rr=r.epochEvals[e]?r.epochs[e]/r.epochEvals[e]:0;
+        const cr=random.epochEvals[e]?random.epochs[e]/random.epochEvals[e]:0;
+        if(rr>cr)epochWins++;
+      }
+    }
+    return {...r,epochWins};
+  });
+
+  rows.sort((a,b)=>b.rate-a.rate || b.epochWins-a.epochWins || b.e32-a.e32);
+  const best=rows[0];
+  const random2=rows.find(r=>r.id==='random');
+  const gate=gateDecision321(best,random2);
+
+  const gateEl=document.getElementById('gateState321');
+  if(gateEl) gateEl.textContent=gate.state;
+
+  const inconsistent=rows.filter(r=>!consistency321(r));
+  if(inconsistent.length){
+    out.innerHTML=`<div class="card notice err"><b>ERRO DE CONSISTÊNCIA.</b> ${inconsistent.map(r=>r.name).join(', ')} apresentou melhor resultado ≥4+2 sem evento correspondente. O ranking foi bloqueado.</div>`;
+    prog.textContent='Validação bloqueada por inconsistência lógica.';
+    return;
+  }
+
+  const trs=rows.map((r,i)=>`
+    <tr>
+      <td>${i+1}. ${r.name}</td>
+      <td>${r.events}/${r.evals}<br><span class="tiny">${(100*r.rate).toFixed(3)}%</span></td>
+      <td>${pairedLift321(r,random2)}</td>
+      <td>${r.epochWins}/5</td>
+      <td>${r.e32}</td>
+      <td>${r.e41}</td>
+      <td>${r.e22}</td>
+      <td>${r.bestA}+${r.bestT}</td>
+    </tr>`).join('');
+
+  const targetLabel=targetMode==='32'?'≥3+2':'≥4+2';
+  prog.textContent=`Validação 3.2.1 concluída: ${tests} concursos × ${seeds} sementes = ${tests*seeds} avaliações por estratégia.`;
+
+  out.innerHTML=`
+    <div class="card rank1">
+      <h2>Gate 3.2.1: ${gate.state}</h2>
+      <div class="notice ${gate.state==='STOP'?'':'ok'}"><b>${best.name}</b> liderou o alvo ${targetLabel}. ${gate.msg}</div>
+      <div class="grid" style="margin-top:12px">
+        <div class="kpi"><b>${best.events}/${best.evals}</b><span>eventos da líder</span></div>
+        <div class="kpi"><b>${best.epochWins}/5</b><span>épocas acima do aleatório</span></div>
+        <div class="kpi"><b>${(best.ci[0]*100).toFixed(3)}–${(best.ci[1]*100).toFixed(3)}%</b><span>IC95% da taxa</span></div>
+        <div class="kpi"><b>${pairedLift321(best,random2)}</b><span>lift vs aleatória</span></div>
+      </div>
+      <div class="small" style="margin-top:10px">Backtest histórico pode no máximo liberar TEST. PLAY exige resultados prospectivos ainda não utilizados no desenvolvimento do modelo.</div>
+    </div>
+    <div class="card">
+      <h2>Ranking 3.2.1 — ${targetLabel}</h2>
+      <div class="scrollx"><table>
+        <thead><tr><th>Estratégia</th><th>${targetLabel}</th><th>Lift</th><th>Épocas</th><th>≥3+2</th><th>≥4+1</th><th>2+2</th><th>Melhor</th></tr></thead>
+        <tbody>${trs}</tbody>
+      </table></div>
+    </div>`;
+}
+function budgetAudit321(){
+  const budget=Math.max(0,Number(document.getElementById('budget321')?.value)||0);
+  const cost=Math.max(0.01,Number(document.getElementById('unitCost321')?.value)||6);
+  const n=Math.floor(budget/cost);
+  document.getElementById('budgetOut321').innerHTML=
+    `Benchmark: <b>${n}</b> apostas simples com orçamento de R$ ${budget.toFixed(2)} ao custo unitário informado de R$ ${cost.toFixed(2)}. O cálculo é apenas de orçamento/cobertura; confirme o preço oficial antes de apostar.`;
+}
+
+
+function comb33(n,k){if(k<0||k>n)return 0;k=Math.min(k,n-k);let r=1;for(let i=1;i<=k;i++)r=r*(n-k+i)/i;return Math.round(r)}
+function randomSubset33(n,k,rng=Math.random){const a=[...Array(n)].map((_,i)=>i+1),out=[];for(let i=0;i<k;i++){const j=i+Math.floor(rng()*(n-i));[a[i],a[j]]=[a[j],a[i]];out.push(a[i])}return out.sort((x,y)=>x-y)}
+function pairKey33(a){return a.slice().sort((x,y)=>x-y).join('-')}
+function sameTrevoPair33(a,b){return pairKey33(a.cl)===pairKey33(b.cl)}
+function portfolioProfile33(set){let pairCounts={},overlaps=[],samePairOverlaps=[],numUse=Array(51).fill(0);set.forEach(g=>{pairCounts[pairKey33(g.cl)]=(pairCounts[pairKey33(g.cl)]||0)+1;g.nums.forEach(n=>numUse[n]++)});for(let i=0;i<set.length;i++)for(let j=i+1;j<set.length;j++){const ov=overlap(set[i],set[j]);overlaps.push(ov);if(sameTrevoPair33(set[i],set[j]))samePairOverlaps.push(ov)}const mean=x=>x.length?x.reduce((a,b)=>a+b,0)/x.length:0;const variance=x=>x.length?mean(x.map(v=>(v-mean(x))**2)):0;return {meanOverlap:mean(overlaps),varOverlap:variance(overlaps),samePairMean:mean(samePairOverlaps),samePairMax:samePairOverlaps.length?Math.max(...samePairOverlaps):0,pairCounts,numUse,numUseVar:variance(numUse.slice(1))}}
+function scorePortfolio33(set){const p=portfolioProfile33(set),pairVals=Object.values(p.pairCounts),meanPair=pairVals.length?pairVals.reduce((a,b)=>a+b,0)/pairVals.length:0,pairVar=pairVals.length?pairVals.reduce((s,v)=>s+(v-meanPair)**2,0)/pairVals.length:0;return 100-7*p.samePairMean-4*p.samePairMax-1.5*p.varOverlap-.8*p.numUseVar-2*pairVar}
+function optimizeJoint33(count,data=history,seed=777){let set=[],trevoPairs=[];for(let a=1;a<=6;a++)for(let b=a+1;b<=6;b++)trevoPairs.push([a,b]);withSeed(seed,()=>{for(let i=0;i<count;i++){const cl=trevoPairs[i%trevoPairs.length];let best=null,bestGain=-1e9;for(let c=0;c<160;c++){const nums=randomSubset33(50,6,Math.random),g={nums,cl:[...cl],score:gameQuality(nums,cl,data)},val=scorePortfolio33(set.concat([g]));if(val>bestGain){bestGain=val;best=g}}set.push(best)}for(let it=0;it<250;it++){const idx=Math.floor(Math.random()*set.length),old=set[idx],cl=old.cl,nums=randomSubset33(50,6,Math.random),g={nums,cl:[...cl],score:gameQuality(nums,cl,data)},before=scorePortfolio33(set);set[idx]=g;const after=scorePortfolio33(set);if(after<before)set[idx]=old}});return set}
+function estimateJointCoverage33(set,sims=20000,seed=991){let hit=0,hit32=0,hit41=0;withSeed(seed,()=>{for(let s=0;s<sims;s++){const dn=randomSubset33(50,6,Math.random),tr=randomSubset33(6,2,Math.random);let ok42=false,ok32=false,ok41=false;for(const g of set){const a=intersect(g.nums,dn).length,t=intersect(g.cl,tr).length;if(a>=4&&t===2)ok42=true;if(a>=3&&t===2)ok32=true;if(a>=4&&t>=1)ok41=true;if(ok42&&ok32&&ok41)break}if(ok42)hit++;if(ok32)hit32++;if(ok41)hit41++}});const rate=hit/sims,se=Math.sqrt(Math.max(1e-12,rate*(1-rate)/sims));return {rate,lo:Math.max(0,rate-1.96*se),hi:Math.min(1,rate+1.96*se),r32:hit32/sims,r41:hit41/sims}}
+async function runJointCovering33(){const out=document.getElementById('jcOut33'),count=Math.max(5,Math.min(100,Number(document.getElementById('jcGames33').value)||20)),sims=Number(document.getElementById('jcSims33').value)||20000,strat=document.getElementById('jcStrategy33').value,ov=Number(document.getElementById('jcOverlap33').value)||3;out.innerHTML='<div class="small">Otimizando carteira e executando Monte Carlo...</div>';await new Promise(r=>setTimeout(r,0));let set;if(strat==='joint')set=optimizeJoint33(count,history,7319+count);else if(strat==='coverage')set=generateForData('coverage',50,count,ov,history,7319+count);else if(strat==='random')set=generateForData('random',50,count,6,history,7319+count);else set=generateForData('balanced',50,count,ov,history,7319+count);const mc=estimateJointCoverage33(set,sims,4411+count),prof=portfolioProfile33(set),theoreticalSingle=(comb33(6,4)*comb33(44,2)+comb33(6,5)*comb33(44,1)+1)/(comb33(50,6)*comb33(6,2)),naive=Math.min(1,count*theoreticalSingle);generated=set;renderGenerated();out.innerHTML=`<div class="grid"><div class="kpi"><b>${(mc.rate*100).toFixed(4)}%</b><span>MC ≥4+2</span></div><div class="kpi"><b>${(mc.lo*100).toFixed(4)}–${(mc.hi*100).toFixed(4)}%</b><span>IC95% Monte Carlo</span></div><div class="kpi"><b>${(mc.r32*100).toFixed(3)}%</b><span>MC ≥3+2</span></div><div class="kpi"><b>${(mc.r41*100).toFixed(3)}%</b><span>MC ≥4+1</span></div></div><div class="small" style="margin-top:10px">Teto linear sem sobreposição: <b>${(naive*100).toFixed(4)}%</b> • overlap médio global: <b>${prof.meanOverlap.toFixed(2)}</b> • overlap médio dentro do mesmo par de trevos: <b>${prof.samePairMean.toFixed(2)}</b> • máximo dentro do mesmo par: <b>${prof.samePairMax}</b>.</div><div class="notice" style="margin-top:10px">Esta é uma estimativa de cobertura da carteira, não uma previsão do próximo sorteio.</div>`}
+function funnelScore33(h){if(h.a>=4&&h.t===2)return 10;if(h.a>=3&&h.t===2)return 4;if(h.a>=4&&h.t>=1)return 3;if(h.a===2&&h.t===2)return 1;return 0}
+function strategyDrawScore33(strategy,train,target,games=20,seeds=2){let total=0;for(let sd=0;sd<seeds;sd++){let set=strategy==='joint'?optimizeJoint33(games,train,target.numero*1009+sd*37):generateForData(strategy,50,games,3,train,target.numero*1009+sd*37),best=0;for(const g of set){const h={a:intersect(g.nums,target.dezenas).length,t:intersect(g.cl,target.trevos).length};best=Math.max(best,funnelScore33(h))}total+=best}return total/seeds}
+function bootstrapMaxReality33(matrix,B=800,seed=20260819){const n=matrix.length,m=matrix[0].length,means=Array(m).fill(0).map((_,j)=>matrix.reduce((s,r)=>s+r[j],0)/n),obs=Math.max(...means)*Math.sqrt(n);let ge=0;withSeed(seed,()=>{for(let b=0;b<B;b++){let sums=Array(m).fill(0);for(let i=0;i<n;i++){const r=matrix[Math.floor(Math.random()*n)];for(let j=0;j<m;j++)sums[j]+=r[j]-means[j]}const stat=Math.max(...sums.map(x=>x/n))*Math.sqrt(n);if(stat>=obs)ge++}});return {p:(ge+1)/(B+1),means,obs}}
+async function runResearchGate33(){const out=document.getElementById('researchOut33');if(history.length<160){out.innerHTML='<div class="notice err">Histórico insuficiente para Research Gate.</div>';return}out.innerHTML='<div class="small">Executando Champion × Challengers e Reality Check...</div>';await new Promise(r=>setTimeout(r,0));const strategies=['balanced','mixed','recent','delay','coverage','joint'],labels={balanced:'Balanceada',mixed:'Mista',recent:'Recente',delay:'Atraso',coverage:'Coverage',joint:'Joint Covering'},tests=Math.min(100,history.length-60),start=history.length-tests;let diffs=[],wins=Object.fromEntries(strategies.map(s=>[s,0])),epochWins=Object.fromEntries(strategies.map(s=>[s,[0,0,0,0,0]]));for(let idx=start;idx<history.length;idx++){const train=history.slice(0,idx),target=history[idx],epoch=Math.min(4,Math.floor((idx-start)*5/tests)),rnd=strategyDrawScore33('random',train,target,20,2);let row=[];for(const s of strategies){const sc=strategyDrawScore33(s,train,target,20,2),d=sc-rnd;row.push(d);if(d>0){wins[s]++;epochWins[s][epoch]++}}diffs.push(row);if((idx-start)%4===0){out.innerHTML=`<div class="small">Research Gate: ${idx-start+1}/${tests} concursos...</div>`;await new Promise(r=>setTimeout(r,0))}}const rc=bootstrapMaxReality33(diffs,800),rows=strategies.map((s,j)=>({s,label:labels[s],mean:rc.means[j],wins:wins[s],epochs:epochWins[s].filter(x=>x>0).length})).sort((a,b)=>b.mean-a.mean||b.epochs-a.epochs),survivor=rows.filter(r=>r.mean>=0&&r.epochs>=3),gate=(rc.p<.05&&rows[0].epochs>=3)?'TEST':'STOP';document.getElementById('predGate33').textContent=gate;document.getElementById('spa33').textContent='p≈'+rc.p.toFixed(3);document.getElementById('mcs33').textContent=survivor.length?survivor.length+' modelos':'0';out.innerHTML=`<div class="notice ${gate==='TEST'?'ok':''}"><b>Predictive Gate: ${gate}</b><br>Reality Check bootstrap (aproximação): p≈${rc.p.toFixed(3)}. ${gate==='TEST'?'Há um candidato que merece validação prospectiva; isso ainda não libera PLAY.':'Nenhum challenger mostrou superioridade robusta após corrigir a busca pelo melhor.'}</div><div class="scrollx" style="margin-top:10px"><table><thead><tr><th>Modelo</th><th>Δ funnel vs random</th><th>vitórias</th><th>épocas</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${r.label}</td><td>${r.mean.toFixed(3)}</td><td>${r.wins}/${tests}</td><td>${r.epochs}/5</td></tr>`).join('')}</tbody></table></div><div class="small" style="margin-top:8px">O “SPA” exibido aqui é um <b>proxy bootstrap de Reality Check</b>, não uma implementação acadêmica completa do teste SPA de Hansen. A 3.3 usa-o como guarda conservador, não como prova de previsibilidade.</div>`}
+function freezeVault33(){const strategy=document.getElementById('vaultStrategy33').value,cut=Number(document.getElementById('vaultCut33').value)||history.at(-1)?.numero||0,payload={strategy,cut,frozenAt:new Date().toISOString()};localStorage.setItem('sspskn_vault33',JSON.stringify(payload));document.getElementById('vaultOut33').innerHTML=`Configuração congelada: <b>${strategy}</b> após o concurso <b>${cut}</b>. Apenas concursos posteriores podem contar como validação prospectiva desta hipótese.`}
+function loadVault33(){try{const v=JSON.parse(localStorage.getItem('sspskn_vault33')||'null');if(v&&document.getElementById('vaultOut33'))document.getElementById('vaultOut33').innerHTML=`Vault ativo: <b>${v.strategy}</b> • corte <b>${v.cut}</b> • congelado em ${new Date(v.frozenAt).toLocaleString('pt-BR')}.`}catch(e){}}
+
+function refresh(){
+  let last=history.at(-1);
+  document.getElementById('kConc').textContent=last?.numero||'—';
+  document.getElementById('kHist').textContent=history.length;
+  document.getElementById('kSaved').textContent=saved.length;
+  document.getElementById('kDate').textContent=last?fmtDate(last.data):'—';
+  document.getElementById('lastResult').innerHTML=last?`<div class="row"><span class="badge">Concurso ${last.numero}</span><span class="tiny">${fmtDate(last.data)}</span></div><div style="height:9px"></div>${balls(last.dezenas)}<div style="height:7px"></div>${balls(last.trevos,'clover')}`:'Sincronize para carregar os resultados.';
+  quick();renderAnalysis();renderSaved()
+}
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));
+  document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===b.dataset.page));
+  if(b.dataset.page==='analysis')renderAnalysis();if(b.dataset.page==='backtest')renderPattern(history);if(b.dataset.page==='research33')loadVault33();if(b.dataset.page==='saved')renderSaved()
+});
+refresh();
+if(history.length)setStatus('Dados locais',true);loadVault33();
+</script>
+</body>
+</html>

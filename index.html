@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#08140f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SSPSKN 3.3 RESEARCH ENGINE">
-<title>SSPSKN 3.3 RESEARCH ENGINE • +Milionária</title>
+<meta name="apple-mobile-web-app-title" content="SSPSKN 3.4 AUTO-RESEARCH ENGINE">
+<title>SSPSKN 3.4 AUTO-RESEARCH ENGINE • +Milionária</title>
 <style>
 :root{
   --bg:#07110d; --card:#0e1d16; --card2:#12251c; --txt:#eef8f1; --muted:#9db3a6;
@@ -42,7 +42,7 @@ h1{font-size:24px;margin:0}.sub{color:var(--muted);font-size:13px;margin-top:3px
 input,select,textarea{width:100%;background:#08150f;color:var(--txt);border:1px solid var(--line);border-radius:11px;padding:11px;outline:none}
 input:focus,select:focus,textarea:focus{border-color:var(--acc2)}
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(7,17,13,.94);backdrop-filter:blur(15px);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center}
-.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(8,1fr);gap:4px}
+.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(9,1fr);gap:4px}
 .tab{border:0;background:transparent;color:var(--muted);padding:8px 3px;border-radius:11px;font-size:10px;font-weight:700}.tab .ico{display:block;font-size:20px;margin-bottom:2px}.tab.active{background:#173526;color:var(--txt)}
 .page{display:none}.page.active{display:block}
 .balls{display:flex;gap:7px;flex-wrap:wrap}
@@ -73,13 +73,16 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 .tag{display:inline-block;padding:5px 8px;border:1px solid var(--line);border-radius:999px;font-size:10px;color:#cfe4d7;background:#0a1711}
 @media(min-width:700px){.researchgrid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 
+
+.auto-meter{height:10px;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:#07110d}.auto-meter>i{display:block;height:100%;background:var(--acc);width:0%}
+.pill{display:inline-block;padding:5px 8px;border:1px solid var(--line);border-radius:999px;font-size:10px;margin:2px 3px 2px 0}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header>
   <div class="logo">SS</div>
-  <div><h1>SSPSKN 3.3 RESEARCH ENGINE</h1><div class="sub">Evidence Lab • +Milionária</div></div>
+  <div><h1>SSPSKN 3.4 AUTO-RESEARCH ENGINE</h1><div class="sub">Evidence Lab • +Milionária</div></div>
   <div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div>
 </header>
 
@@ -215,7 +218,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
     </div>
     <div class="row" style="margin-top:10px"><div class="field"><label>Repetições / sementes</label><select id="btSeeds"><option>1</option><option selected>5</option><option>10</option><option>25</option></select></div><div class="field"><label>Objetivo primário</label><select id="btTarget"><option value="42" selected>≥4 dezenas + 2 trevos</option><option value="32">≥3 dezenas + 2 trevos</option></select></div></div>
     <div class="row" style="margin-top:12px">
-      <button class="btn" onclick="runValidation321()">Executar validação 3.3</button>
+      <button class="btn" onclick="runValidation321()">Executar validação 3.4</button>
       <button class="btn ghost" onclick="clearBacktest()">Limpar</button>
     </div>
     <div id="btProgress" class="small" style="margin-top:10px"></div>
@@ -227,7 +230,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 
 <section id="research33" class="page">
   <div class="card">
-    <h2>SSPSKN 3.3 • Research Engine</h2>
+    <h2>SSPSKN 3.4 • Research Engine</h2>
     <div class="notice ok"><b>Arquitetura:</b> previsão só recebe peso se vencer controles fora da amostra. Caso contrário, o orçamento é decidido por cobertura combinatória e eficiência econômica.</div>
     <div class="researchgrid" style="margin-top:12px">
       <div class="kpi"><b id="predGate33">STOP</b><span>Predictive Gate</span></div>
@@ -268,6 +271,46 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
   </div>
 </section>
 
+
+<section id="auto34" class="page">
+  <div class="card">
+    <h2>SSPSKN 3.4 • Auto-Research Engine</h2>
+    <div class="notice ok"><b>Modo automático:</b> cria uma matriz ampla de testes, executa em sequência, salva checkpoints e retoma do ponto interrompido.</div>
+    <div class="grid" style="margin-top:12px">
+      <div class="kpi"><b id="a34status">PARADO</b><span>estado</span></div>
+      <div class="kpi"><b id="a34done">0</b><span>experimentos concluídos</span></div>
+      <div class="kpi"><b id="a34left">0</b><span>na fila</span></div>
+      <div class="kpi"><b id="a34gate">STOP</b><span>gate agregado</span></div>
+    </div>
+    <div class="auto-meter" style="margin-top:12px"><i id="a34bar"></i></div>
+    <div id="a34msg" class="small" style="margin-top:8px"></div>
+  </div>
+  <div class="card">
+    <h2>Profundidade automática</h2>
+    <div class="row">
+      <div class="field"><label>Modo</label><select id="a34depth"><option value="quick">Rápido</option><option value="standard" selected>Padrão</option><option value="deep">Profundo</option><option value="ultra">ULTRA</option></select></div>
+      <div class="field"><label>Concursos por teste</label><select id="a34tests"><option>40</option><option selected>60</option><option>100</option></select></div>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn" onclick="autoStart34()">Iniciar / Retomar</button>
+      <button class="btn secondary" onclick="autoPause34()">Pausar</button>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn ghost" onclick="autoReset34()">Zerar pesquisa</button>
+      <button class="btn ghost" onclick="autoExport34()">Exportar ledger</button>
+    </div>
+    <div class="small" style="margin-top:10px"><b>ULTRA</b> testa mais janelas, tamanhos de carteira, overlaps, sementes e controles. É muito mais lento no iPhone e pode aquecer o aparelho.</div>
+  </div>
+  <div class="card"><h2>Matriz automática</h2><div id="a34matrix" class="small">A fila ainda não foi criada.</div></div>
+  <div class="card"><h2>Champion × Challengers</h2><div class="small">Cada configuração compara Balanceada, Mista, Recente, Atraso, Coverage e Joint Covering com controles aleatórios pareados. O melhor candidato é penalizado pelo número de experimentos já examinados.</div><div id="a34champ" style="margin-top:10px"></div></div>
+  <div class="card"><h2>Experiment Ledger</h2><div id="a34ledger"></div></div>
+  <div class="card">
+    <h2>Segundo plano</h2>
+    <div class="notice"><b>Best-effort no iPhone:</b> a 3.4 continua enquanto a página permanece ativa e salva checkpoint a cada experimento. Se o iOS suspender ou fechar o Safari, o cálculo para; ao reabrir, retoma automaticamente. Execução 24/7 com o navegador fechado exige um backend/worker remoto, que será a etapa seguinte.</div>
+    <div class="grid" style="margin-top:10px"><div class="kpi"><b id="a34vis">ATIVO</b><span>estado da página</span></div><div class="kpi"><b>CHECKPOINT</b><span>persistência local</span></div></div>
+  </div>
+</section>
+
 <section id="saved" class="page">
   <div class="card">
     <h2>Jogos salvos</h2>
@@ -289,6 +332,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <button class="tab" data-page="backtest"><span class="ico">⌁</span>Backtest</button>
 <button class="tab" data-page="validation"><span class="ico">◎</span>Validação</button>
 <button class="tab" data-page="research33"><span class="ico">◈</span>Pesquisa</button>
+<button class="tab" data-page="auto34"><span class="ico">⟳</span>Auto</button>
 <button class="tab" data-page="saved"><span class="ico">★</span>Salvos</button>
 </div></nav>
 
@@ -754,7 +798,7 @@ async function runValidation321(){
     }
 
     const done=idx-start+1;
-    prog.textContent=`Validação 3.2.1: ${done}/${tests} concursos • ${seeds} sementes...`;
+    prog.textContent=`Validação 3.4: ${done}/${tests} concursos • ${seeds} sementes...`;
     if(done%3===0) await new Promise(r=>setTimeout(r,0));
   }
 
@@ -805,11 +849,11 @@ async function runValidation321(){
     </tr>`).join('');
 
   const targetLabel=targetMode==='32'?'≥3+2':'≥4+2';
-  prog.textContent=`Validação 3.2.1 concluída: ${tests} concursos × ${seeds} sementes = ${tests*seeds} avaliações por estratégia.`;
+  prog.textContent=`Validação 3.4 concluída: ${tests} concursos × ${seeds} sementes = ${tests*seeds} avaliações por estratégia.`;
 
   out.innerHTML=`
     <div class="card rank1">
-      <h2>Gate 3.2.1: ${gate.state}</h2>
+      <h2>Gate 3.4: ${gate.state}</h2>
       <div class="notice ${gate.state==='STOP'?'':'ok'}"><b>${best.name}</b> liderou o alvo ${targetLabel}. ${gate.msg}</div>
       <div class="grid" style="margin-top:12px">
         <div class="kpi"><b>${best.events}/${best.evals}</b><span>eventos da líder</span></div>
@@ -820,7 +864,7 @@ async function runValidation321(){
       <div class="small" style="margin-top:10px">Backtest histórico pode no máximo liberar TEST. PLAY exige resultados prospectivos ainda não utilizados no desenvolvimento do modelo.</div>
     </div>
     <div class="card">
-      <h2>Ranking 3.2.1 — ${targetLabel}</h2>
+      <h2>Ranking 3.4 — ${targetLabel}</h2>
       <div class="scrollx"><table>
         <thead><tr><th>Estratégia</th><th>${targetLabel}</th><th>Lift</th><th>Épocas</th><th>≥3+2</th><th>≥4+1</th><th>2+2</th><th>Melhor</th></tr></thead>
         <tbody>${trs}</tbody>
@@ -852,6 +896,54 @@ async function runResearchGate33(){const out=document.getElementById('researchOu
 function freezeVault33(){const strategy=document.getElementById('vaultStrategy33').value,cut=Number(document.getElementById('vaultCut33').value)||history.at(-1)?.numero||0,payload={strategy,cut,frozenAt:new Date().toISOString()};localStorage.setItem('sspskn_vault33',JSON.stringify(payload));document.getElementById('vaultOut33').innerHTML=`Configuração congelada: <b>${strategy}</b> após o concurso <b>${cut}</b>. Apenas concursos posteriores podem contar como validação prospectiva desta hipótese.`}
 function loadVault33(){try{const v=JSON.parse(localStorage.getItem('sspskn_vault33')||'null');if(v&&document.getElementById('vaultOut33'))document.getElementById('vaultOut33').innerHTML=`Vault ativo: <b>${v.strategy}</b> • corte <b>${v.cut}</b> • congelado em ${new Date(v.frozenAt).toLocaleString('pt-BR')}.`}catch(e){}}
 
+
+function autoKey34(){return 'sspskn_auto34_v1'}
+function autoState34(){
+  try{return JSON.parse(localStorage.getItem(autoKey34())||'null')||{running:false,paused:false,queue:[],results:[],current:null,total:0}}
+  catch(e){return {running:false,paused:false,queue:[],results:[],current:null,total:0}}
+}
+function autoSave34(s){s.updatedAt=new Date().toISOString();localStorage.setItem(autoKey34(),JSON.stringify(s))}
+function autoBuild34(depth,tests){
+  let W,G,O,S,R;
+  if(depth==='quick'){W=[50];G=[10,20];O=[3];S=[3];R=[3]}
+  else if(depth==='deep'){W=[30,50,75,100];G=[10,20,30];O=[2,3,4];S=[3,5,10];R=[3,5]}
+  else if(depth==='ultra'){W=[20,30,40,50,60,75,100,125];G=[5,10,15,20,30,40];O=[1,2,3,4];S=[3,5,10];R=[3,5,10]}
+  else {W=[30,50,75,100];G=[10,20,30];O=[2,3];S=[3,5];R=[3,5]}
+  let q=[];
+  for(const w of W)for(const g of G)for(const o of O)for(const sd of S)for(const rc of R){q.push({id:`W${w}-G${g}-O${o}-S${sd}-R${rc}-T${tests}`,window:w,games:g,overlap:o,seeds:sd,randomControls:rc,tests})}
+  return q;
+}
+function autoRender34(){
+  const s=autoState34();if(!document.getElementById('a34status'))return;
+  document.getElementById('a34status').textContent=s.running&&!s.paused?'RODANDO':(s.paused?'PAUSADO':'PARADO');
+  document.getElementById('a34done').textContent=s.results.length;document.getElementById('a34left').textContent=s.queue.length;
+  document.getElementById('a34gate').textContent=s.results.some(r=>r.status==='TEST')?'TEST':'STOP';
+  const total=s.total||Math.max(1,s.results.length+s.queue.length+(s.current?1:0));const pct=Math.min(100,100*s.results.length/Math.max(1,total));document.getElementById('a34bar').style.width=pct.toFixed(1)+'%';
+  document.getElementById('a34msg').innerHTML=s.current?`Executando <b>${s.current.id}</b> • ${s.current.progress||0}%`:(s.results.length?`Checkpoint: ${new Date(s.updatedAt).toLocaleString('pt-BR')}`:'Pronto para iniciar.');
+  document.getElementById('a34matrix').innerHTML=`<span class="pill">${s.total||0} configs</span><span class="pill">${s.results.length} concluídas</span><span class="pill">${s.queue.length} aguardando</span>${s.current?'<span class="pill">1 em execução</span>':''}`;
+  const champ=document.getElementById('a34champ');if(s.results.length){const best=[...s.results].sort((a,b)=>(a.pAdj-b.pAdj)||(b.mean-a.mean))[0];champ.innerHTML=`<div class="notice ${best.status==='TEST'?'ok':''}"><b>${best.winner}</b> • Δ funnel ${best.mean.toFixed(3)} • p≈${best.pRaw.toFixed(3)} • p-aj≈${best.pAdj.toFixed(3)} • épocas ${best.epochs}/5 • <b>${best.status}</b></div>`}else champ.innerHTML='<div class="small">Nenhum candidato avaliado.</div>';
+  const ledger=document.getElementById('a34ledger');if(s.results.length){const rows=[...s.results].slice(-20).reverse().map(r=>`<tr><td>${r.window}/${r.games}/${r.overlap}/${r.seeds}/${r.randomControls}</td><td>${r.winner}</td><td>${r.mean.toFixed(2)}</td><td>${r.pAdj.toFixed(3)}</td><td>${r.epochs}/5</td><td>${r.status}</td></tr>`).join('');ledger.innerHTML=`<div class="scrollx"><table><thead><tr><th>W/G/O/S/R</th><th>líder</th><th>Δ</th><th>p-aj</th><th>épocas</th><th>gate</th></tr></thead><tbody>${rows}</tbody></table></div>`}else ledger.innerHTML='<div class="small">Ledger vazio.</div>';
+}
+async function autoExperiment34(cfg,onProgress){
+  const sts=['balanced','mixed','recent','delay','coverage','joint'];const labels={balanced:'Balanceada',mixed:'Mista',recent:'Recente',delay:'Atraso',coverage:'Coverage',joint:'Joint Covering'};
+  const maxT=Math.max(10,history.length-Math.max(50,cfg.window));const tests=Math.min(cfg.tests,maxT),start=history.length-tests;let diffs=[],epochs=Object.fromEntries(sts.map(x=>[x,[0,0,0,0,0]]));
+  for(let idx=start;idx<history.length;idx++){
+    const train=history.slice(0,idx),target=history[idx],ep=Math.min(4,Math.floor((idx-start)*5/tests));let rnd=0;
+    for(let r=0;r<cfg.randomControls;r++)rnd+=strategyDrawScore33('random',train,target,cfg.games,Math.max(1,Math.floor(cfg.seeds/2)));rnd/=cfg.randomControls;
+    let row=[];
+    for(const st of sts){let sc=0;if(st==='joint')sc=strategyDrawScore33('joint',train,target,cfg.games,cfg.seeds);else{for(let sd=0;sd<cfg.seeds;sd++){const set=generateForData(st,cfg.window,cfg.games,cfg.overlap,train,target.numero*100003+sd*97+cfg.window*11+cfg.games);let best=0;for(const g of set){const h={a:intersect(g.nums,target.dezenas).length,t:intersect(g.cl,target.trevos).length};best=Math.max(best,funnelScore33(h))}sc+=best}sc/=cfg.seeds}const d=sc-rnd;row.push(d);if(d>0)epochs[st][ep]++}
+    diffs.push(row);if(onProgress)onProgress(Math.round(100*(idx-start+1)/tests));if((idx-start)%2===0)await new Promise(r=>setTimeout(r,0));
+  }
+  const rc=bootstrapMaxReality33(diffs,500,20260820+cfg.window+cfg.games*3+cfg.overlap*7+cfg.seeds*13+cfg.randomControls*17);const rows=sts.map((st,j)=>({st,label:labels[st],mean:rc.means[j],epochs:epochs[st].filter(x=>x>0).length})).sort((a,b)=>b.mean-a.mean||b.epochs-a.epochs);return{winner:rows[0].label,winnerId:rows[0].st,mean:rows[0].mean,epochs:rows[0].epochs,pRaw:rc.p,tests};
+}
+async function autoLoop34(){let s=autoState34();if(!s.running||s.paused||!s.queue.length){if(!s.queue.length){s.running=false;autoSave34(s)}autoRender34();return}const cfg=s.queue.shift();s.current={...cfg,progress:0};autoSave34(s);autoRender34();const res=await autoExperiment34(cfg,p=>{let x=autoState34();if(x.current){x.current.progress=p;autoSave34(x)}if(p%10===0)autoRender34()});s=autoState34();const examined=s.results.length+1,pAdj=Math.min(1,res.pRaw*examined),status=(pAdj<0.05&&res.epochs>=3&&res.mean>0)?'TEST':'STOP';s.results.push({...cfg,...res,pAdj,status,finishedAt:new Date().toISOString()});s.current=null;autoSave34(s);autoRender34();setTimeout(autoLoop34,20)}
+function autoStart34(){let s=autoState34();if(!s.queue.length){const d=document.getElementById('a34depth').value,t=Number(document.getElementById('a34tests').value);s.queue=autoBuild34(d,t);s.total=s.queue.length;s.createdAt=new Date().toISOString()}s.running=true;s.paused=false;autoSave34(s);autoRender34();autoLoop34()}
+function autoPause34(){let s=autoState34();s.running=false;s.paused=true;autoSave34(s);autoRender34()}
+function autoReset34(){if(!confirm('Apagar fila e ledger da pesquisa automática 3.4?'))return;localStorage.removeItem(autoKey34());autoRender34()}
+function autoExport34(){const s=autoState34(),blob=new Blob([JSON.stringify(s,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='SSPSKN_3.4_ledger.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)}
+function autoResume34(){autoRender34();const s=autoState34();if(s.running&&!s.paused&&s.queue.length)setTimeout(autoLoop34,300)}
+document.addEventListener('visibilitychange',()=>{const el=document.getElementById('a34vis');if(el)el.textContent=document.hidden?'SUSPENSÍVEL':'ATIVO';autoSave34(autoState34())});
+
 function refresh(){
   let last=history.at(-1);
   document.getElementById('kConc').textContent=last?.numero||'—';
@@ -864,10 +956,10 @@ function refresh(){
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));
   document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===b.dataset.page));
-  if(b.dataset.page==='analysis')renderAnalysis();if(b.dataset.page==='backtest')renderPattern(history);if(b.dataset.page==='research33')loadVault33();if(b.dataset.page==='saved')renderSaved()
+  if(b.dataset.page==='analysis')renderAnalysis();if(b.dataset.page==='backtest')renderPattern(history);if(b.dataset.page==='research33')loadVault33();if(b.dataset.page==='auto34')autoRender34();if(b.dataset.page==='saved')renderSaved()
 });
 refresh();
-if(history.length)setStatus('Dados locais',true);loadVault33();
+if(history.length)setStatus('Dados locais',true);loadVault33();autoResume34();
 </script>
 </body>
 </html>

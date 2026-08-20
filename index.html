@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#08140f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SSPSKN 3.2.1 VALIDATION FIX">
-<title>SSPSKN 3.2.1 VALIDATION FIX • +Milionária</title>
+<meta name="apple-mobile-web-app-title" content="SSPSKN 3.3 RESEARCH ENGINE">
+<title>SSPSKN 3.3 RESEARCH ENGINE • +Milionária</title>
 <style>
 :root{
   --bg:#07110d; --card:#0e1d16; --card2:#12251c; --txt:#eef8f1; --muted:#9db3a6;
@@ -42,7 +42,7 @@ h1{font-size:24px;margin:0}.sub{color:var(--muted);font-size:13px;margin-top:3px
 input,select,textarea{width:100%;background:#08150f;color:var(--txt);border:1px solid var(--line);border-radius:11px;padding:11px;outline:none}
 input:focus,select:focus,textarea:focus{border-color:var(--acc2)}
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(7,17,13,.94);backdrop-filter:blur(15px);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center}
-.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(8,1fr);gap:4px}
 .tab{border:0;background:transparent;color:var(--muted);padding:8px 3px;border-radius:11px;font-size:10px;font-weight:700}.tab .ico{display:block;font-size:20px;margin-bottom:2px}.tab.active{background:#173526;color:var(--txt)}
 .page{display:none}.page.active{display:block}
 .balls{display:flex;gap:7px;flex-wrap:wrap}
@@ -67,13 +67,19 @@ hr{border:0;border-top:1px solid var(--line);margin:14px 0}
 details{border:1px solid var(--line);border-radius:12px;padding:10px;background:#09150f}summary{cursor:pointer;font-weight:700}
 canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);border-radius:12px}
 @media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}.numgrid{grid-template-columns:repeat(10,1fr)}}
+
+.researchgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.bar{height:9px;border:1px solid var(--line);background:#07110d;border-radius:99px;overflow:hidden}.bar>i{display:block;height:100%;background:var(--acc)}
+.tag{display:inline-block;padding:5px 8px;border:1px solid var(--line);border-radius:999px;font-size:10px;color:#cfe4d7;background:#0a1711}
+@media(min-width:700px){.researchgrid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
 </style>
 </head>
 <body>
 <div class="wrap">
 <header>
   <div class="logo">SS</div>
-  <div><h1>SSPSKN 3.2.1 VALIDATION FIX</h1><div class="sub">Evidence Lab • +Milionária</div></div>
+  <div><h1>SSPSKN 3.3 RESEARCH ENGINE</h1><div class="sub">Evidence Lab • +Milionária</div></div>
   <div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div>
 </header>
 
@@ -138,7 +144,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
           <option value="mixed">Mista histórico + aleatório</option>
           <option value="recent">Ênfase recente</option>
           <option value="delay">Ênfase em atraso</option>
-          <option value="random">Aleatória pura</option>
+          <option value="random">Aleatória pura</option><option value="joint">Joint Covering 4+2</option>
         </select>
       </div>
     </div>
@@ -183,7 +189,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
   </div>
 </section>
 
-<section id="validation" class="page"><div class="card"><h2>SSPSKN 3.2.1 • Validation Gate</h2><div class="notice ok"><b>Regra:</b> primeiro provar eficiência, depois apostar.</div><div class="grid" style="margin-top:12px"><div class="kpi"><b>6/50</b><span>Dezena Engine</span></div><div class="kpi"><b>2/6</b><span>Trevo Engine</span></div><div class="kpi"><b>Blind</b><span>Holdout</span></div><div class="kpi"><b id="gateState321">STOP</b><span>gate atual</span></div></div></div><div class="card"><h2>Novos motores 3.2</h2><div class="small">Rare-Event Validation • Random/Placebo Control • Coverage/Overlap Portfolio • Consistency Guard • Epoch Replication • STOP/TEST/PLAY Gate.</div><div class="notice" style="margin-top:12px">Backtest histórico nunca libera PLAY sozinho. Um sinal precisa sobreviver a validação fora da amostra.</div></div>
+<section id="validation" class="page"><div class="card"><h2>SSPSKN 3.3 • Research Gate</h2><div class="notice ok"><b>Regra:</b> primeiro provar eficiência, depois apostar.</div><div class="grid" style="margin-top:12px"><div class="kpi"><b>6/50</b><span>Dezena Engine</span></div><div class="kpi"><b>2/6</b><span>Trevo Engine</span></div><div class="kpi"><b>Blind</b><span>Holdout</span></div><div class="kpi"><b id="gateState321">STOP</b><span>gate atual</span></div></div></div><div class="card"><h2>Novos motores 3.2</h2><div class="small">Rare-Event Validation • Random/Placebo Control • Coverage/Overlap Portfolio • Consistency Guard • Epoch Replication • STOP/TEST/PLAY Gate.</div><div class="notice" style="margin-top:12px">Backtest histórico nunca libera PLAY sozinho. Um sinal precisa sobreviver a validação fora da amostra.</div></div>
 <div class="card">
   <h2>Budget Audit</h2>
   <div class="row">
@@ -209,13 +215,57 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
     </div>
     <div class="row" style="margin-top:10px"><div class="field"><label>Repetições / sementes</label><select id="btSeeds"><option>1</option><option selected>5</option><option>10</option><option>25</option></select></div><div class="field"><label>Objetivo primário</label><select id="btTarget"><option value="42" selected>≥4 dezenas + 2 trevos</option><option value="32">≥3 dezenas + 2 trevos</option></select></div></div>
     <div class="row" style="margin-top:12px">
-      <button class="btn" onclick="runValidation321()">Executar validação 3.2.1</button>
+      <button class="btn" onclick="runValidation321()">Executar validação 3.3</button>
       <button class="btn ghost" onclick="clearBacktest()">Limpar</button>
     </div>
     <div id="btProgress" class="small" style="margin-top:10px"></div>
   </div>
   <div id="patternBox"></div>
   <div id="btResults"></div>
+</section>
+
+
+<section id="research33" class="page">
+  <div class="card">
+    <h2>SSPSKN 3.3 • Research Engine</h2>
+    <div class="notice ok"><b>Arquitetura:</b> previsão só recebe peso se vencer controles fora da amostra. Caso contrário, o orçamento é decidido por cobertura combinatória e eficiência econômica.</div>
+    <div class="researchgrid" style="margin-top:12px">
+      <div class="kpi"><b id="predGate33">STOP</b><span>Predictive Gate</span></div>
+      <div class="kpi"><b id="portGate33">TEST</b><span>Portfolio Gate</span></div>
+      <div class="kpi"><b id="spa33">—</b><span>Reality/SPA proxy</span></div>
+      <div class="kpi"><b id="mcs33">—</b><span>Model set</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Joint Covering 6/50 × 2/6</h2>
+    <div class="small">Avalia a carteira como um único problema dezenas+trevos. O cálculo usa Monte Carlo sobre resultados 6/50+2/6 e estima a probabilidade de a carteira produzir pelo menos um ≥4+2.</div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Jogos da carteira</label><input id="jcGames33" type="number" min="5" max="100" value="20"></div>
+      <div class="field"><label>Simulações</label><select id="jcSims33"><option>5000</option><option selected>20000</option><option>50000</option></select></div>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <div class="field"><label>Estratégia base</label><select id="jcStrategy33"><option value="balanced">Balanceada</option><option value="coverage">Coverage Only</option><option value="random">Aleatória</option><option value="joint" selected>Joint Covering</option></select></div>
+      <div class="field"><label>Máx. overlap inicial</label><select id="jcOverlap33"><option>2</option><option selected>3</option><option>4</option></select></div>
+    </div>
+    <button class="btn" style="margin-top:12px" onclick="runJointCovering33()">Otimizar e auditar carteira</button>
+    <div id="jcOut33" style="margin-top:12px"></div>
+  </div>
+  <div class="card">
+    <h2>Champion × Challengers</h2>
+    <div class="small">Champion atual: <b>Balanceada</b>. Challengers: Mista, Recente, Atraso, Coverage, Joint Covering e Aleatória. O Champion só é substituído se a vantagem sobreviver ao Reality Check/SPA proxy e a múltiplas épocas.</div>
+    <button class="btn secondary" style="margin-top:12px" onclick="runResearchGate33()">Executar Research Gate</button>
+    <div id="researchOut33" style="margin-top:12px"></div>
+  </div>
+  <div class="card">
+    <h2>Prospective Vault</h2>
+    <div class="small">Congela a estratégia escolhida e registra o concurso de corte. Concursos posteriores ficam reservados para validação prospectiva e não podem recalibrar retroativamente o modelo.</div>
+    <div class="row" style="margin-top:10px">
+      <div class="field"><label>Estratégia congelada</label><select id="vaultStrategy33"><option value="balanced">Balanceada</option><option value="mixed">Mista</option><option value="recent">Recente</option><option value="delay">Atraso</option><option value="coverage">Coverage</option><option value="joint">Joint Covering</option></select></div>
+      <div class="field"><label>Concurso de corte</label><input id="vaultCut33" type="number" min="1" value="381"></div>
+    </div>
+    <button class="btn ghost" style="margin-top:12px" onclick="freezeVault33()">Congelar configuração</button>
+    <div id="vaultOut33" class="small" style="margin-top:10px"></div>
+  </div>
 </section>
 
 <section id="saved" class="page">
@@ -238,6 +288,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <button class="tab" data-page="checker"><span class="ico">✓</span>Conferir</button>
 <button class="tab" data-page="backtest"><span class="ico">⌁</span>Backtest</button>
 <button class="tab" data-page="validation"><span class="ico">◎</span>Validação</button>
+<button class="tab" data-page="research33"><span class="ico">◈</span>Pesquisa</button>
 <button class="tab" data-page="saved"><span class="ico">★</span>Salvos</button>
 </div></nav>
 
@@ -414,14 +465,14 @@ function getWeights(strategy,wnd,data=history){
   let all=calcStats(data), recentData=wnd>0?data.slice(-wnd):data, recent=calcStats(recentData), nums=[...Array(50)].map((_,i)=>i+1);
   let meanAll=Math.max(1,data.length*6/50), meanRec=Math.max(1,recentData.length*6/50);
   let weights=nums.map(n=>{
-    if(strategy==='random'||strategy==='coverage')return 1;
+    if(strategy==='random'||strategy==='coverage'||strategy==='joint')return 1;
     let fa=all.f[n]/meanAll, fr=recent.f[n]/meanRec, d=1+Math.min(all.delays[n],20)/20;
     if(strategy==='recent')return .35+.65*fr;
     if(strategy==='delay')return .45+.55*d;
     if(strategy==='mixed')return .55+.25*fa+.20*fr;
     return .65+.18*Math.min(fa,1.8)+.17*Math.min(fr,1.8);
   });
-  let cl=[1,2,3,4,5,6], cw=cl.map(n=>(strategy==='random'||strategy==='coverage')?1:.6+.4*(recent.tf[n]/Math.max(1,recentData.length*2/6)));
+  let cl=[1,2,3,4,5,6], cw=cl.map(n=>(strategy==='random'||strategy==='coverage'||strategy==='joint')?1:.6+.4*(recent.tf[n]/Math.max(1,recentData.length*2/6)));
   return {nums,weights,cl,cw}
 }
 function gameQuality(nums,clovers,data=history){
@@ -531,7 +582,8 @@ const STRATEGIES=[
   {id:'recent',name:'Ênfase recente'},
   {id:'delay',name:'Ênfase em atraso'},
   {id:'random',name:'Aleatória pura'},
-  {id:'coverage',name:'Coverage Only'}
+  {id:'coverage',name:'Coverage Only'},
+  {id:'joint',name:'Joint Covering'}
 ];
 
 function seededRandom(seed){
@@ -783,6 +835,23 @@ function budgetAudit321(){
     `Benchmark: <b>${n}</b> apostas simples com orçamento de R$ ${budget.toFixed(2)} ao custo unitário informado de R$ ${cost.toFixed(2)}. O cálculo é apenas de orçamento/cobertura; confirme o preço oficial antes de apostar.`;
 }
 
+
+function comb33(n,k){if(k<0||k>n)return 0;k=Math.min(k,n-k);let r=1;for(let i=1;i<=k;i++)r=r*(n-k+i)/i;return Math.round(r)}
+function randomSubset33(n,k,rng=Math.random){const a=[...Array(n)].map((_,i)=>i+1),out=[];for(let i=0;i<k;i++){const j=i+Math.floor(rng()*(n-i));[a[i],a[j]]=[a[j],a[i]];out.push(a[i])}return out.sort((x,y)=>x-y)}
+function pairKey33(a){return a.slice().sort((x,y)=>x-y).join('-')}
+function sameTrevoPair33(a,b){return pairKey33(a.cl)===pairKey33(b.cl)}
+function portfolioProfile33(set){let pairCounts={},overlaps=[],samePairOverlaps=[],numUse=Array(51).fill(0);set.forEach(g=>{pairCounts[pairKey33(g.cl)]=(pairCounts[pairKey33(g.cl)]||0)+1;g.nums.forEach(n=>numUse[n]++)});for(let i=0;i<set.length;i++)for(let j=i+1;j<set.length;j++){const ov=overlap(set[i],set[j]);overlaps.push(ov);if(sameTrevoPair33(set[i],set[j]))samePairOverlaps.push(ov)}const mean=x=>x.length?x.reduce((a,b)=>a+b,0)/x.length:0;const variance=x=>x.length?mean(x.map(v=>(v-mean(x))**2)):0;return {meanOverlap:mean(overlaps),varOverlap:variance(overlaps),samePairMean:mean(samePairOverlaps),samePairMax:samePairOverlaps.length?Math.max(...samePairOverlaps):0,pairCounts,numUse,numUseVar:variance(numUse.slice(1))}}
+function scorePortfolio33(set){const p=portfolioProfile33(set),pairVals=Object.values(p.pairCounts),meanPair=pairVals.length?pairVals.reduce((a,b)=>a+b,0)/pairVals.length:0,pairVar=pairVals.length?pairVals.reduce((s,v)=>s+(v-meanPair)**2,0)/pairVals.length:0;return 100-7*p.samePairMean-4*p.samePairMax-1.5*p.varOverlap-.8*p.numUseVar-2*pairVar}
+function optimizeJoint33(count,data=history,seed=777){let set=[],trevoPairs=[];for(let a=1;a<=6;a++)for(let b=a+1;b<=6;b++)trevoPairs.push([a,b]);withSeed(seed,()=>{for(let i=0;i<count;i++){const cl=trevoPairs[i%trevoPairs.length];let best=null,bestGain=-1e9;for(let c=0;c<160;c++){const nums=randomSubset33(50,6,Math.random),g={nums,cl:[...cl],score:gameQuality(nums,cl,data)},val=scorePortfolio33(set.concat([g]));if(val>bestGain){bestGain=val;best=g}}set.push(best)}for(let it=0;it<250;it++){const idx=Math.floor(Math.random()*set.length),old=set[idx],cl=old.cl,nums=randomSubset33(50,6,Math.random),g={nums,cl:[...cl],score:gameQuality(nums,cl,data)},before=scorePortfolio33(set);set[idx]=g;const after=scorePortfolio33(set);if(after<before)set[idx]=old}});return set}
+function estimateJointCoverage33(set,sims=20000,seed=991){let hit=0,hit32=0,hit41=0;withSeed(seed,()=>{for(let s=0;s<sims;s++){const dn=randomSubset33(50,6,Math.random),tr=randomSubset33(6,2,Math.random);let ok42=false,ok32=false,ok41=false;for(const g of set){const a=intersect(g.nums,dn).length,t=intersect(g.cl,tr).length;if(a>=4&&t===2)ok42=true;if(a>=3&&t===2)ok32=true;if(a>=4&&t>=1)ok41=true;if(ok42&&ok32&&ok41)break}if(ok42)hit++;if(ok32)hit32++;if(ok41)hit41++}});const rate=hit/sims,se=Math.sqrt(Math.max(1e-12,rate*(1-rate)/sims));return {rate,lo:Math.max(0,rate-1.96*se),hi:Math.min(1,rate+1.96*se),r32:hit32/sims,r41:hit41/sims}}
+async function runJointCovering33(){const out=document.getElementById('jcOut33'),count=Math.max(5,Math.min(100,Number(document.getElementById('jcGames33').value)||20)),sims=Number(document.getElementById('jcSims33').value)||20000,strat=document.getElementById('jcStrategy33').value,ov=Number(document.getElementById('jcOverlap33').value)||3;out.innerHTML='<div class="small">Otimizando carteira e executando Monte Carlo...</div>';await new Promise(r=>setTimeout(r,0));let set;if(strat==='joint')set=optimizeJoint33(count,history,7319+count);else if(strat==='coverage')set=generateForData('coverage',50,count,ov,history,7319+count);else if(strat==='random')set=generateForData('random',50,count,6,history,7319+count);else set=generateForData('balanced',50,count,ov,history,7319+count);const mc=estimateJointCoverage33(set,sims,4411+count),prof=portfolioProfile33(set),theoreticalSingle=(comb33(6,4)*comb33(44,2)+comb33(6,5)*comb33(44,1)+1)/(comb33(50,6)*comb33(6,2)),naive=Math.min(1,count*theoreticalSingle);generated=set;renderGenerated();out.innerHTML=`<div class="grid"><div class="kpi"><b>${(mc.rate*100).toFixed(4)}%</b><span>MC ≥4+2</span></div><div class="kpi"><b>${(mc.lo*100).toFixed(4)}–${(mc.hi*100).toFixed(4)}%</b><span>IC95% Monte Carlo</span></div><div class="kpi"><b>${(mc.r32*100).toFixed(3)}%</b><span>MC ≥3+2</span></div><div class="kpi"><b>${(mc.r41*100).toFixed(3)}%</b><span>MC ≥4+1</span></div></div><div class="small" style="margin-top:10px">Teto linear sem sobreposição: <b>${(naive*100).toFixed(4)}%</b> • overlap médio global: <b>${prof.meanOverlap.toFixed(2)}</b> • overlap médio dentro do mesmo par de trevos: <b>${prof.samePairMean.toFixed(2)}</b> • máximo dentro do mesmo par: <b>${prof.samePairMax}</b>.</div><div class="notice" style="margin-top:10px">Esta é uma estimativa de cobertura da carteira, não uma previsão do próximo sorteio.</div>`}
+function funnelScore33(h){if(h.a>=4&&h.t===2)return 10;if(h.a>=3&&h.t===2)return 4;if(h.a>=4&&h.t>=1)return 3;if(h.a===2&&h.t===2)return 1;return 0}
+function strategyDrawScore33(strategy,train,target,games=20,seeds=2){let total=0;for(let sd=0;sd<seeds;sd++){let set=strategy==='joint'?optimizeJoint33(games,train,target.numero*1009+sd*37):generateForData(strategy,50,games,3,train,target.numero*1009+sd*37),best=0;for(const g of set){const h={a:intersect(g.nums,target.dezenas).length,t:intersect(g.cl,target.trevos).length};best=Math.max(best,funnelScore33(h))}total+=best}return total/seeds}
+function bootstrapMaxReality33(matrix,B=800,seed=20260819){const n=matrix.length,m=matrix[0].length,means=Array(m).fill(0).map((_,j)=>matrix.reduce((s,r)=>s+r[j],0)/n),obs=Math.max(...means)*Math.sqrt(n);let ge=0;withSeed(seed,()=>{for(let b=0;b<B;b++){let sums=Array(m).fill(0);for(let i=0;i<n;i++){const r=matrix[Math.floor(Math.random()*n)];for(let j=0;j<m;j++)sums[j]+=r[j]-means[j]}const stat=Math.max(...sums.map(x=>x/n))*Math.sqrt(n);if(stat>=obs)ge++}});return {p:(ge+1)/(B+1),means,obs}}
+async function runResearchGate33(){const out=document.getElementById('researchOut33');if(history.length<160){out.innerHTML='<div class="notice err">Histórico insuficiente para Research Gate.</div>';return}out.innerHTML='<div class="small">Executando Champion × Challengers e Reality Check...</div>';await new Promise(r=>setTimeout(r,0));const strategies=['balanced','mixed','recent','delay','coverage','joint'],labels={balanced:'Balanceada',mixed:'Mista',recent:'Recente',delay:'Atraso',coverage:'Coverage',joint:'Joint Covering'},tests=Math.min(100,history.length-60),start=history.length-tests;let diffs=[],wins=Object.fromEntries(strategies.map(s=>[s,0])),epochWins=Object.fromEntries(strategies.map(s=>[s,[0,0,0,0,0]]));for(let idx=start;idx<history.length;idx++){const train=history.slice(0,idx),target=history[idx],epoch=Math.min(4,Math.floor((idx-start)*5/tests)),rnd=strategyDrawScore33('random',train,target,20,2);let row=[];for(const s of strategies){const sc=strategyDrawScore33(s,train,target,20,2),d=sc-rnd;row.push(d);if(d>0){wins[s]++;epochWins[s][epoch]++}}diffs.push(row);if((idx-start)%4===0){out.innerHTML=`<div class="small">Research Gate: ${idx-start+1}/${tests} concursos...</div>`;await new Promise(r=>setTimeout(r,0))}}const rc=bootstrapMaxReality33(diffs,800),rows=strategies.map((s,j)=>({s,label:labels[s],mean:rc.means[j],wins:wins[s],epochs:epochWins[s].filter(x=>x>0).length})).sort((a,b)=>b.mean-a.mean||b.epochs-a.epochs),survivor=rows.filter(r=>r.mean>=0&&r.epochs>=3),gate=(rc.p<.05&&rows[0].epochs>=3)?'TEST':'STOP';document.getElementById('predGate33').textContent=gate;document.getElementById('spa33').textContent='p≈'+rc.p.toFixed(3);document.getElementById('mcs33').textContent=survivor.length?survivor.length+' modelos':'0';out.innerHTML=`<div class="notice ${gate==='TEST'?'ok':''}"><b>Predictive Gate: ${gate}</b><br>Reality Check bootstrap (aproximação): p≈${rc.p.toFixed(3)}. ${gate==='TEST'?'Há um candidato que merece validação prospectiva; isso ainda não libera PLAY.':'Nenhum challenger mostrou superioridade robusta após corrigir a busca pelo melhor.'}</div><div class="scrollx" style="margin-top:10px"><table><thead><tr><th>Modelo</th><th>Δ funnel vs random</th><th>vitórias</th><th>épocas</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${r.label}</td><td>${r.mean.toFixed(3)}</td><td>${r.wins}/${tests}</td><td>${r.epochs}/5</td></tr>`).join('')}</tbody></table></div><div class="small" style="margin-top:8px">O “SPA” exibido aqui é um <b>proxy bootstrap de Reality Check</b>, não uma implementação acadêmica completa do teste SPA de Hansen. A 3.3 usa-o como guarda conservador, não como prova de previsibilidade.</div>`}
+function freezeVault33(){const strategy=document.getElementById('vaultStrategy33').value,cut=Number(document.getElementById('vaultCut33').value)||history.at(-1)?.numero||0,payload={strategy,cut,frozenAt:new Date().toISOString()};localStorage.setItem('sspskn_vault33',JSON.stringify(payload));document.getElementById('vaultOut33').innerHTML=`Configuração congelada: <b>${strategy}</b> após o concurso <b>${cut}</b>. Apenas concursos posteriores podem contar como validação prospectiva desta hipótese.`}
+function loadVault33(){try{const v=JSON.parse(localStorage.getItem('sspskn_vault33')||'null');if(v&&document.getElementById('vaultOut33'))document.getElementById('vaultOut33').innerHTML=`Vault ativo: <b>${v.strategy}</b> • corte <b>${v.cut}</b> • congelado em ${new Date(v.frozenAt).toLocaleString('pt-BR')}.`}catch(e){}}
+
 function refresh(){
   let last=history.at(-1);
   document.getElementById('kConc').textContent=last?.numero||'—';
@@ -795,10 +864,10 @@ function refresh(){
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));
   document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===b.dataset.page));
-  if(b.dataset.page==='analysis')renderAnalysis();if(b.dataset.page==='backtest')renderPattern(history);if(b.dataset.page==='saved')renderSaved()
+  if(b.dataset.page==='analysis')renderAnalysis();if(b.dataset.page==='backtest')renderPattern(history);if(b.dataset.page==='research33')loadVault33();if(b.dataset.page==='saved')renderSaved()
 });
 refresh();
-if(history.length)setStatus('Dados locais',true);
+if(history.length)setStatus('Dados locais',true);loadVault33();
 </script>
 </body>
 </html>

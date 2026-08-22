@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#08140f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SSPSKN 3.4 AUTO-RESEARCH ENGINE">
-<title>SSPSKN 3.4 AUTO-RESEARCH ENGINE • +Milionária</title>
+<meta name="apple-mobile-web-app-title" content="SSPSKN 3.4.1 FAST INTEGRITY FIX">
+<title>SSPSKN 3.4.1 FAST INTEGRITY FIX • +Milionária</title>
 <style>
 :root{
   --bg:#07110d; --card:#0e1d16; --card2:#12251c; --txt:#eef8f1; --muted:#9db3a6;
@@ -82,7 +82,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <div class="wrap">
 <header>
   <div class="logo">SS</div>
-  <div><h1>SSPSKN 3.4 AUTO-RESEARCH ENGINE</h1><div class="sub">Evidence Lab • +Milionária</div></div>
+  <div><h1>SSPSKN 3.4.1 FAST INTEGRITY FIX</h1><div class="sub">Evidence Lab • +Milionária</div></div>
   <div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div>
 </header>
 
@@ -272,42 +272,75 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 </section>
 
 
+
 <section id="auto34" class="page">
   <div class="card">
-    <h2>SSPSKN 3.4 • Auto-Research Engine</h2>
-    <div class="notice ok"><b>Modo automático:</b> cria uma matriz ampla de testes, executa em sequência, salva checkpoints e retoma do ponto interrompido.</div>
+    <h2>SSPSKN 3.4.1 • Fast Integrity Engine</h2>
+    <div class="notice ok"><b>Funil inteligente:</b> executa apenas experimentos únicos, elimina duplicações, mata cedo configurações fracas e reconstrói automaticamente apenas os testes faltantes.</div>
     <div class="grid" style="margin-top:12px">
       <div class="kpi"><b id="a34status">PARADO</b><span>estado</span></div>
-      <div class="kpi"><b id="a34done">0</b><span>experimentos concluídos</span></div>
-      <div class="kpi"><b id="a34left">0</b><span>na fila</span></div>
+      <div class="kpi"><b id="a34done">0</b><span>únicos concluídos</span></div>
+      <div class="kpi"><b id="a34left">0</b><span>faltantes/fila</span></div>
       <div class="kpi"><b id="a34gate">STOP</b><span>gate agregado</span></div>
     </div>
     <div class="auto-meter" style="margin-top:12px"><i id="a34bar"></i></div>
     <div id="a34msg" class="small" style="margin-top:8px"></div>
   </div>
+
   <div class="card">
-    <h2>Profundidade automática</h2>
+    <h2>Pesquisa automática</h2>
     <div class="row">
-      <div class="field"><label>Modo</label><select id="a34depth"><option value="quick">Rápido</option><option value="standard" selected>Padrão</option><option value="deep">Profundo</option><option value="ultra">ULTRA</option></select></div>
-      <div class="field"><label>Concursos por teste</label><select id="a34tests"><option>40</option><option selected>60</option><option>100</option></select></div>
+      <div class="field"><label>Modo</label>
+        <select id="a34depth">
+          <option value="smart" selected>Rápido inteligente</option>
+          <option value="quick">Diagnóstico</option>
+          <option value="standard">Padrão</option>
+          <option value="deep">Profundo</option>
+          <option value="ultra">ULTRA</option>
+        </select>
+      </div>
+      <div class="field"><label>Concursos por teste</label>
+        <select id="a34tests"><option>40</option><option selected>60</option><option>100</option></select>
+      </div>
     </div>
     <div class="row" style="margin-top:10px">
       <button class="btn" onclick="autoStart34()">Iniciar / Retomar</button>
       <button class="btn secondary" onclick="autoPause34()">Pausar</button>
     </div>
     <div class="row" style="margin-top:10px">
-      <button class="btn ghost" onclick="autoReset34()">Zerar pesquisa</button>
+      <button class="btn ghost" onclick="autoRepair34()">Reparar fila</button>
       <button class="btn ghost" onclick="autoExport34()">Exportar ledger</button>
     </div>
-    <div class="small" style="margin-top:10px"><b>ULTRA</b> testa mais janelas, tamanhos de carteira, overlaps, sementes e controles. É muito mais lento no iPhone e pode aquecer o aparelho.</div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn danger" onclick="autoReset34()">Zerar pesquisa</button>
+    </div>
+    <div class="small" style="margin-top:10px"><b>Rápido inteligente</b> faz triagem intermediária e encerra cedo configurações sem sinal positivo. Um early STOP nunca promove candidato; ele apenas economiza processamento. ULTRA deve ser usado somente depois que o funil identificar famílias promissoras.</div>
   </div>
-  <div class="card"><h2>Matriz automática</h2><div id="a34matrix" class="small">A fila ainda não foi criada.</div></div>
-  <div class="card"><h2>Champion × Challengers</h2><div class="small">Cada configuração compara Balanceada, Mista, Recente, Atraso, Coverage e Joint Covering com controles aleatórios pareados. O melhor candidato é penalizado pelo número de experimentos já examinados.</div><div id="a34champ" style="margin-top:10px"></div></div>
-  <div class="card"><h2>Experiment Ledger</h2><div id="a34ledger"></div></div>
+
   <div class="card">
-    <h2>Segundo plano</h2>
-    <div class="notice"><b>Best-effort no iPhone:</b> a 3.4 continua enquanto a página permanece ativa e salva checkpoint a cada experimento. Se o iOS suspender ou fechar o Safari, o cálculo para; ao reabrir, retoma automaticamente. Execução 24/7 com o navegador fechado exige um backend/worker remoto, que será a etapa seguinte.</div>
-    <div class="grid" style="margin-top:10px"><div class="kpi"><b id="a34vis">ATIVO</b><span>estado da página</span></div><div class="kpi"><b>CHECKPOINT</b><span>persistência local</span></div></div>
+    <h2>Integridade da matriz</h2>
+    <div id="a34matrix" class="small">A fila ainda não foi criada.</div>
+    <div id="a34integrity" class="small" style="margin-top:10px"></div>
+  </div>
+
+  <div class="card">
+    <h2>Champion × Challengers</h2>
+    <div class="small">O Champion é recalculado usando somente experimentos únicos. O p-aj é refeito sobre o conjunto atual de experimentos válidos; resultados antigos não preservam uma penalização incorreta.</div>
+    <div id="a34champ" style="margin-top:10px"></div>
+  </div>
+
+  <div class="card">
+    <h2>Experiment Ledger</h2>
+    <div id="a34ledger"></div>
+  </div>
+
+  <div class="card">
+    <h2>Segundo plano / Watchdog</h2>
+    <div class="notice"><b>Checkpoint + Watchdog:</b> se a fila zerar antes do plano terminar, a 3.4.1 reconstrói somente IDs faltantes. Se o iOS suspender o Safari, o experimento incompleto é refeito ao voltar; os concluídos não entram novamente na fila.</div>
+    <div class="grid" style="margin-top:10px">
+      <div class="kpi"><b id="a34vis">ATIVO</b><span>estado da página</span></div>
+      <div class="kpi"><b id="a34dup">0</b><span>duplicados descartados</span></div>
+    </div>
   </div>
 </section>
 
@@ -897,52 +930,352 @@ function freezeVault33(){const strategy=document.getElementById('vaultStrategy33
 function loadVault33(){try{const v=JSON.parse(localStorage.getItem('sspskn_vault33')||'null');if(v&&document.getElementById('vaultOut33'))document.getElementById('vaultOut33').innerHTML=`Vault ativo: <b>${v.strategy}</b> • corte <b>${v.cut}</b> • congelado em ${new Date(v.frozenAt).toLocaleString('pt-BR')}.`}catch(e){}}
 
 
-function autoKey34(){return 'sspskn_auto34_v1'}
-function autoState34(){
-  try{return JSON.parse(localStorage.getItem(autoKey34())||'null')||{running:false,paused:false,queue:[],results:[],current:null,total:0}}
-  catch(e){return {running:false,paused:false,queue:[],results:[],current:null,total:0}}
+
+function autoKey34(){return 'sspskn_auto341'}
+function oldAutoKey34(){return 'sspskn_auto34'}
+
+function autoDefault34(){
+  return {
+    version:'3.4.1',
+    running:false,paused:false,queue:[],results:[],current:null,
+    plan:[],planSignature:'',depth:'smart',tests:60,
+    duplicateDiscarded:0,earlyStops:0,totalRuns:0,createdAt:null,updatedAt:null
+  }
 }
-function autoSave34(s){s.updatedAt=new Date().toISOString();localStorage.setItem(autoKey34(),JSON.stringify(s))}
+
+function autoCfgId34(c){
+  return c.id || `W${c.window}-G${c.games}-O${c.overlap}-S${c.seeds}-R${c.randomControls}-T${c.tests}`;
+}
+
+function autoUniqueResults34(arr){
+  const m=new Map();
+  let dup=0;
+  for(const r of (arr||[])){
+    const id=autoCfgId34(r);
+    if(!m.has(id))m.set(id,{...r,id});
+    else dup++;
+  }
+  return {results:[...m.values()],dup};
+}
+
+function autoMigrate34(){
+  if(localStorage.getItem(autoKey34()))return;
+  let old=null;
+  try{old=JSON.parse(localStorage.getItem(oldAutoKey34())||'null')}catch(e){}
+  const s=autoDefault34();
+  if(old){
+    const u=autoUniqueResults34(old.results||[]);
+    s.results=u.results;
+    s.duplicateDiscarded=u.dup;
+    s.depth='smart'; s.tests=60;
+    s.createdAt=old.createdAt||new Date().toISOString();
+    s.running=false;s.paused=false;s.queue=[];s.current=null;
+  }
+  localStorage.setItem(autoKey34(),JSON.stringify(s));
+}
+
+function autoState34(){
+  autoMigrate34();
+  try{
+    const raw=JSON.parse(localStorage.getItem(autoKey34())||'null');
+    return autoNormalize34(raw||autoDefault34());
+  }catch(e){return autoDefault34()}
+}
+
+function autoSave34(s){
+  s=autoNormalize34(s);
+  s.updatedAt=new Date().toISOString();
+  localStorage.setItem(autoKey34(),JSON.stringify(s));
+}
+
 function autoBuild34(depth,tests){
   let W,G,O,S,R;
-  if(depth==='quick'){W=[50];G=[10,20];O=[3];S=[3];R=[3]}
+  if(depth==='quick'){W=[50,75];G=[10,20];O=[2,3];S=[3];R=[3]}
+  else if(depth==='smart'){W=[30,50,75,100];G=[10,20,30];O=[2,3];S=[3,5];R=[3,5]}
   else if(depth==='deep'){W=[30,50,75,100];G=[10,20,30];O=[2,3,4];S=[3,5,10];R=[3,5]}
   else if(depth==='ultra'){W=[20,30,40,50,60,75,100,125];G=[5,10,15,20,30,40];O=[1,2,3,4];S=[3,5,10];R=[3,5,10]}
   else {W=[30,50,75,100];G=[10,20,30];O=[2,3];S=[3,5];R=[3,5]}
-  let q=[];
-  for(const w of W)for(const g of G)for(const o of O)for(const sd of S)for(const rc of R){q.push({id:`W${w}-G${g}-O${o}-S${sd}-R${rc}-T${tests}`,window:w,games:g,overlap:o,seeds:sd,randomControls:rc,tests})}
+  const q=[],seen=new Set();
+  for(const w of W)for(const g of G)for(const o of O)for(const sd of S)for(const rc of R){
+    const c={window:w,games:g,overlap:o,seeds:sd,randomControls:rc,tests:Number(tests)};
+    c.id=autoCfgId34(c);
+    if(!seen.has(c.id)){seen.add(c.id);q.push(c)}
+  }
   return q;
 }
+
+function autoPlanSignature34(depth,tests){return `${depth}|${tests}|v341`}
+
+function autoNormalize34(s){
+  s={...autoDefault34(),...(s||{})};
+  const u=autoUniqueResults34(s.results||[]);
+  s.results=u.results;
+  s.duplicateDiscarded=(s.duplicateDiscarded||0)+u.dup;
+
+  const done=new Set(s.results.map(r=>autoCfgId34(r)));
+  if(s.current && done.has(autoCfgId34(s.current)))s.current=null;
+
+  const q=[],seen=new Set();
+  for(const c of (s.queue||[])){
+    const id=autoCfgId34(c);
+    if(done.has(id)||seen.has(id)||(s.current&&autoCfgId34(s.current)===id)){
+      s.duplicateDiscarded=(s.duplicateDiscarded||0)+1;
+      continue;
+    }
+    seen.add(id);q.push({...c,id});
+  }
+  s.queue=q;
+  s.plan=(s.plan||[]).map(c=>({...c,id:autoCfgId34(c)}));
+  return s;
+}
+
+function autoMissing34(s){
+  const done=new Set((s.results||[]).map(r=>autoCfgId34(r)));
+  const current=s.current?autoCfgId34(s.current):null;
+  return (s.plan||[]).filter(c=>!done.has(autoCfgId34(c)) && autoCfgId34(c)!==current);
+}
+
+function autoRepairQueueState34(s){
+  s=autoNormalize34(s);
+  if(!s.plan.length)return s;
+  const missing=autoMissing34(s);
+  const existing=new Set((s.queue||[]).map(c=>autoCfgId34(c)));
+  for(const c of missing)if(!existing.has(autoCfgId34(c)))s.queue.push(c);
+  // one more dedup pass
+  return autoNormalize34(s);
+}
+
+function autoAdjusted34(s){
+  const n=Math.max(1,s.results.length);
+  return s.results.map(r=>{
+    const pAdj=Math.min(1,Number(r.pRaw||1)*n);
+    const status=(r.earlyStop?'SCREEN_STOP':(pAdj<0.05 && Number(r.epochs)>=3 && Number(r.mean)>0 ? 'TEST':'STOP'));
+    return {...r,pAdj,status};
+  });
+}
+
 function autoRender34(){
   const s=autoState34();if(!document.getElementById('a34status'))return;
+  const adj=autoAdjusted34(s),done=adj.length,total=(s.plan||[]).length||0,missing=autoMissing34(s).length;
   document.getElementById('a34status').textContent=s.running&&!s.paused?'RODANDO':(s.paused?'PAUSADO':'PARADO');
-  document.getElementById('a34done').textContent=s.results.length;document.getElementById('a34left').textContent=s.queue.length;
-  document.getElementById('a34gate').textContent=s.results.some(r=>r.status==='TEST')?'TEST':'STOP';
-  const total=s.total||Math.max(1,s.results.length+s.queue.length+(s.current?1:0));const pct=Math.min(100,100*s.results.length/Math.max(1,total));document.getElementById('a34bar').style.width=pct.toFixed(1)+'%';
-  document.getElementById('a34msg').innerHTML=s.current?`Executando <b>${s.current.id}</b> • ${s.current.progress||0}%`:(s.results.length?`Checkpoint: ${new Date(s.updatedAt).toLocaleString('pt-BR')}`:'Pronto para iniciar.');
-  document.getElementById('a34matrix').innerHTML=`<span class="pill">${s.total||0} configs</span><span class="pill">${s.results.length} concluídas</span><span class="pill">${s.queue.length} aguardando</span>${s.current?'<span class="pill">1 em execução</span>':''}`;
-  const champ=document.getElementById('a34champ');if(s.results.length){const best=[...s.results].sort((a,b)=>(a.pAdj-b.pAdj)||(b.mean-a.mean))[0];champ.innerHTML=`<div class="notice ${best.status==='TEST'?'ok':''}"><b>${best.winner}</b> • Δ funnel ${best.mean.toFixed(3)} • p≈${best.pRaw.toFixed(3)} • p-aj≈${best.pAdj.toFixed(3)} • épocas ${best.epochs}/5 • <b>${best.status}</b></div>`}else champ.innerHTML='<div class="small">Nenhum candidato avaliado.</div>';
-  const ledger=document.getElementById('a34ledger');if(s.results.length){const rows=[...s.results].slice(-20).reverse().map(r=>`<tr><td>${r.window}/${r.games}/${r.overlap}/${r.seeds}/${r.randomControls}</td><td>${r.winner}</td><td>${r.mean.toFixed(2)}</td><td>${r.pAdj.toFixed(3)}</td><td>${r.epochs}/5</td><td>${r.status}</td></tr>`).join('');ledger.innerHTML=`<div class="scrollx"><table><thead><tr><th>W/G/O/S/R</th><th>líder</th><th>Δ</th><th>p-aj</th><th>épocas</th><th>gate</th></tr></thead><tbody>${rows}</tbody></table></div>`}else ledger.innerHTML='<div class="small">Ledger vazio.</div>';
+  document.getElementById('a34done').textContent=done;
+  document.getElementById('a34left').textContent=s.queue.length;
+  document.getElementById('a34gate').textContent=adj.some(r=>r.status==='TEST')?'TEST':'STOP';
+  document.getElementById('a34dup').textContent=s.duplicateDiscarded||0;
+
+  const pct=total?Math.min(100,100*done/total):0;
+  document.getElementById('a34bar').style.width=pct.toFixed(1)+'%';
+  document.getElementById('a34msg').innerHTML=s.current
+    ? `Executando <b>${autoCfgId34(s.current)}</b> • ${s.current.progress||0}%`
+    : (done?`Checkpoint: ${new Date(s.updatedAt).toLocaleString('pt-BR')}`:'Pronto para iniciar.');
+
+  document.getElementById('a34matrix').innerHTML=
+    `<span class="pill">${total} IDs planejados</span>`+
+    `<span class="pill">${done} únicos concluídos</span>`+
+    `<span class="pill">${s.queue.length} na fila</span>`+
+    `<span class="pill">${missing} faltantes</span>`+
+    `${s.current?'<span class="pill">1 em execução</span>':''}`;
+
+  document.getElementById('a34integrity').innerHTML=
+    `Execuções físicas: <b>${s.totalRuns||0}</b> • early STOP: <b>${s.earlyStops||0}</b> • duplicados descartados: <b>${s.duplicateDiscarded||0}</b>. `+
+    (total && done===total && !s.current ? '<b>Integridade da matriz: COMPLETA.</b>' : 'Watchdog ativo.');
+
+  const champ=document.getElementById('a34champ');
+  const valid=adj.filter(r=>!r.earlyStop);
+  if(valid.length){
+    const best=[...valid].sort((a,b)=>(a.pAdj-b.pAdj)||(b.mean-a.mean))[0];
+    champ.innerHTML=`<div class="notice ${best.status==='TEST'?'ok':''}"><b>${best.winner}</b> • Δ funnel ${Number(best.mean).toFixed(3)} • p≈${Number(best.pRaw).toFixed(3)} • p-aj atual≈${Number(best.pAdj).toFixed(3)} • épocas ${best.epochs}/5 • <b>${best.status}</b></div>`;
+  }else champ.innerHTML='<div class="small">Nenhum candidato completo avaliado.</div>';
+
+  const ledger=document.getElementById('a34ledger');
+  if(adj.length){
+    const rows=[...adj].slice(-20).reverse().map(r=>`<tr>
+      <td>${r.window}/${r.games}/${r.overlap}/${r.seeds}/${r.randomControls}</td>
+      <td>${r.winner||'—'}</td><td>${Number(r.mean||0).toFixed(2)}</td>
+      <td>${Number(r.pAdj||1).toFixed(3)}</td><td>${r.epochs||0}/5</td>
+      <td>${r.status}</td></tr>`).join('');
+    ledger.innerHTML=`<div class="scrollx"><table><thead><tr><th>W/G/O/S/R</th><th>líder</th><th>Δ</th><th>p-aj</th><th>épocas</th><th>gate</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  }else ledger.innerHTML='<div class="small">Ledger vazio.</div>';
 }
+
 async function autoExperiment34(cfg,onProgress){
-  const sts=['balanced','mixed','recent','delay','coverage','joint'];const labels={balanced:'Balanceada',mixed:'Mista',recent:'Recente',delay:'Atraso',coverage:'Coverage',joint:'Joint Covering'};
-  const maxT=Math.max(10,history.length-Math.max(50,cfg.window));const tests=Math.min(cfg.tests,maxT),start=history.length-tests;let diffs=[],epochs=Object.fromEntries(sts.map(x=>[x,[0,0,0,0,0]]));
+  const sts=['balanced','mixed','recent','delay','coverage','joint'];
+  const labels={balanced:'Balanceada',mixed:'Mista',recent:'Recente',delay:'Atraso',coverage:'Coverage',joint:'Joint Covering'};
+  const maxT=Math.max(10,history.length-Math.max(50,cfg.window));
+  const tests=Math.min(cfg.tests,maxT),start=history.length-tests;
+  const screenN=Math.min(tests,Math.max(20,Math.floor(tests/2)));
+  let diffs=[],epochs=Object.fromEntries(sts.map(x=>[x,[0,0,0,0,0]]));
+
   for(let idx=start;idx<history.length;idx++){
-    const train=history.slice(0,idx),target=history[idx],ep=Math.min(4,Math.floor((idx-start)*5/tests));let rnd=0;
-    for(let r=0;r<cfg.randomControls;r++)rnd+=strategyDrawScore33('random',train,target,cfg.games,Math.max(1,Math.floor(cfg.seeds/2)));rnd/=cfg.randomControls;
-    let row=[];
-    for(const st of sts){let sc=0;if(st==='joint')sc=strategyDrawScore33('joint',train,target,cfg.games,cfg.seeds);else{for(let sd=0;sd<cfg.seeds;sd++){const set=generateForData(st,cfg.window,cfg.games,cfg.overlap,train,target.numero*100003+sd*97+cfg.window*11+cfg.games);let best=0;for(const g of set){const h={a:intersect(g.nums,target.dezenas).length,t:intersect(g.cl,target.trevos).length};best=Math.max(best,funnelScore33(h))}sc+=best}sc/=cfg.seeds}const d=sc-rnd;row.push(d);if(d>0)epochs[st][ep]++}
-    diffs.push(row);if(onProgress)onProgress(Math.round(100*(idx-start+1)/tests));if((idx-start)%2===0)await new Promise(r=>setTimeout(r,0));
+    const train=history.slice(0,idx),target=history[idx],ep=Math.min(4,Math.floor((idx-start)*5/tests));
+    let rnd=0;
+    for(let r=0;r<cfg.randomControls;r++)rnd+=strategyDrawScore33('random',train,target,cfg.games,Math.max(1,Math.floor(cfg.seeds/2)));
+    rnd/=cfg.randomControls;
+
+    const row=[];
+    for(const st of sts){
+      let sc=0;
+      if(st==='joint')sc=strategyDrawScore33('joint',train,target,cfg.games,cfg.seeds);
+      else{
+        for(let sd=0;sd<cfg.seeds;sd++){
+          const set=generateForData(st,cfg.window,cfg.games,cfg.overlap,train,target.numero*100003+sd*97+cfg.window*11+cfg.games);
+          let best=0;
+          for(const g of set){
+            const h={a:intersect(g.nums,target.dezenas).length,t:intersect(g.cl,target.trevos).length};
+            best=Math.max(best,funnelScore33(h));
+          }
+          sc+=best;
+        }
+        sc/=cfg.seeds;
+      }
+      const d=sc-rnd;row.push(d);if(d>0)epochs[st][ep]++;
+    }
+    diffs.push(row);
+
+    const completed=idx-start+1;
+    if(onProgress)onProgress(Math.round(100*completed/tests));
+
+    // FAST screening: can only eliminate, never promote.
+    if(completed===screenN && tests>=40){
+      const means=sts.map((_,j)=>diffs.reduce((a,r)=>a+r[j],0)/diffs.length);
+      const maxMean=Math.max(...means);
+      const bestJ=means.indexOf(maxMean);
+      const positiveEpochs=epochs[sts[bestJ]].filter(x=>x>0).length;
+      if(maxMean<=0 || (maxMean<0.035 && positiveEpochs<2)){
+        return {
+          winner:labels[sts[bestJ]],winnerId:sts[bestJ],mean:maxMean,
+          epochs:positiveEpochs,pRaw:1,tests:completed,earlyStop:true,
+          reason:'futilidade na triagem intermediária'
+        };
+      }
+    }
+    if((completed)%2===0)await new Promise(r=>setTimeout(r,0));
   }
-  const rc=bootstrapMaxReality33(diffs,500,20260820+cfg.window+cfg.games*3+cfg.overlap*7+cfg.seeds*13+cfg.randomControls*17);const rows=sts.map((st,j)=>({st,label:labels[st],mean:rc.means[j],epochs:epochs[st].filter(x=>x>0).length})).sort((a,b)=>b.mean-a.mean||b.epochs-a.epochs);return{winner:rows[0].label,winnerId:rows[0].st,mean:rows[0].mean,epochs:rows[0].epochs,pRaw:rc.p,tests};
+
+  const rc=bootstrapMaxReality33(diffs,400,20260822+cfg.window+cfg.games*3+cfg.overlap*7+cfg.seeds*13+cfg.randomControls*17);
+  const rows=sts.map((st,j)=>({st,label:labels[st],mean:rc.means[j],epochs:epochs[st].filter(x=>x>0).length}))
+    .sort((a,b)=>b.mean-a.mean||b.epochs-a.epochs);
+  return {winner:rows[0].label,winnerId:rows[0].st,mean:rows[0].mean,epochs:rows[0].epochs,pRaw:rc.p,tests,earlyStop:false};
 }
-async function autoLoop34(){let s=autoState34();if(!s.running||s.paused||!s.queue.length){if(!s.queue.length){s.running=false;autoSave34(s)}autoRender34();return}const cfg=s.queue.shift();s.current={...cfg,progress:0};autoSave34(s);autoRender34();const res=await autoExperiment34(cfg,p=>{let x=autoState34();if(x.current){x.current.progress=p;autoSave34(x)}if(p%10===0)autoRender34()});s=autoState34();const examined=s.results.length+1,pAdj=Math.min(1,res.pRaw*examined),status=(pAdj<0.05&&res.epochs>=3&&res.mean>0)?'TEST':'STOP';s.results.push({...cfg,...res,pAdj,status,finishedAt:new Date().toISOString()});s.current=null;autoSave34(s);autoRender34();setTimeout(autoLoop34,20)}
-function autoStart34(){let s=autoState34();if(!s.queue.length){const d=document.getElementById('a34depth').value,t=Number(document.getElementById('a34tests').value);s.queue=autoBuild34(d,t);s.total=s.queue.length;s.createdAt=new Date().toISOString()}s.running=true;s.paused=false;autoSave34(s);autoRender34();autoLoop34()}
-function autoPause34(){let s=autoState34();s.running=false;s.paused=true;autoSave34(s);autoRender34()}
-function autoReset34(){if(!confirm('Apagar fila e ledger da pesquisa automática 3.4?'))return;localStorage.removeItem(autoKey34());autoRender34()}
-function autoExport34(){const s=autoState34(),blob=new Blob([JSON.stringify(s,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='SSPSKN_3.4_ledger.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)}
-function autoResume34(){autoRender34();const s=autoState34();if(s.running&&!s.paused&&s.queue.length)setTimeout(autoLoop34,300)}
-document.addEventListener('visibilitychange',()=>{const el=document.getElementById('a34vis');if(el)el.textContent=document.hidden?'SUSPENSÍVEL':'ATIVO';autoSave34(autoState34())});
+
+async function autoLoop34(){
+  if(window.__auto341LoopBusy)return;
+  window.__auto341LoopBusy=true;
+  try{
+    let s=autoState34();
+    if(!s.running||s.paused){autoRender34();return}
+
+    // Watchdog: if queue empty but plan incomplete, rebuild only missing IDs.
+    if(!s.queue.length){
+      s=autoRepairQueueState34(s);
+      if(!s.queue.length){
+        s.running=false;s.current=null;autoSave34(s);autoRender34();return;
+      }
+      autoSave34(s);
+    }
+
+    const cfg=s.queue.shift();
+    const doneIds=new Set(s.results.map(r=>autoCfgId34(r)));
+    if(doneIds.has(autoCfgId34(cfg))){
+      s.duplicateDiscarded=(s.duplicateDiscarded||0)+1;
+      autoSave34(s);autoRender34();
+      setTimeout(()=>{window.__auto341LoopBusy=false;autoLoop34()},20);
+      return;
+    }
+
+    s.current={...cfg,progress:0};
+    s.totalRuns=(s.totalRuns||0)+1;
+    autoSave34(s);autoRender34();
+
+    const res=await autoExperiment34(cfg,p=>{
+      let x=autoState34();
+      if(x.current&&autoCfgId34(x.current)===autoCfgId34(cfg)){
+        x.current.progress=p;autoSave34(x);
+      }
+      if(p%10===0)autoRender34();
+    });
+
+    s=autoState34();
+    if(!s.results.some(r=>autoCfgId34(r)===autoCfgId34(cfg))){
+      s.results.push({...cfg,...res,finishedAt:new Date().toISOString()});
+      if(res.earlyStop)s.earlyStops=(s.earlyStops||0)+1;
+    }else s.duplicateDiscarded=(s.duplicateDiscarded||0)+1;
+
+    s.current=null;
+    s=autoRepairQueueState34(s);
+    autoSave34(s);autoRender34();
+  }finally{
+    window.__auto341LoopBusy=false;
+  }
+  setTimeout(autoLoop34,30);
+}
+
+function autoStart34(){
+  let s=autoState34();
+  const d=document.getElementById('a34depth').value,t=Number(document.getElementById('a34tests').value);
+  const sig=autoPlanSignature34(d,t);
+
+  if(!s.plan.length){
+    s.plan=autoBuild34(d,t);s.planSignature=sig;s.depth=d;s.tests=t;s.createdAt=new Date().toISOString();
+  }else if(s.planSignature!==sig && s.results.length===0){
+    s.plan=autoBuild34(d,t);s.planSignature=sig;s.depth=d;s.tests=t;
+  }
+  // If a previous run was interrupted mid-experiment, rerun only that unfinished ID.
+  if(s.current && !s.results.some(r=>autoCfgId34(r)===autoCfgId34(s.current))){
+    s.queue.unshift({...s.current,progress:undefined});
+    s.current=null;
+  }
+  s=autoRepairQueueState34(s);
+  s.running=true;s.paused=false;autoSave34(s);autoRender34();autoLoop34();
+}
+
+function autoPause34(){
+  let s=autoState34();s.running=false;s.paused=true;autoSave34(s);autoRender34();
+}
+
+function autoRepair34(){
+  let s=autoState34();
+  if(!s.plan.length){
+    const d=document.getElementById('a34depth').value,t=Number(document.getElementById('a34tests').value);
+    s.plan=autoBuild34(d,t);s.planSignature=autoPlanSignature34(d,t);s.depth=d;s.tests=t;
+  }
+  if(s.current && !s.results.some(r=>autoCfgId34(r)===autoCfgId34(s.current))){
+    s.queue.unshift({...s.current,progress:undefined});s.current=null;
+  }
+  s=autoRepairQueueState34(s);autoSave34(s);autoRender34();
+}
+
+function autoReset34(){
+  if(!confirm('Apagar o ledger automático 3.4.1 e iniciar uma pesquisa nova?'))return;
+  localStorage.removeItem(autoKey34());autoMigrate34();
+  // Do not remigrate old duplicated 3.4 after an intentional reset.
+  localStorage.setItem(autoKey34(),JSON.stringify(autoDefault34()));
+  autoRender34();
+}
+
+function autoExport34(){
+  const s=autoState34();
+  const payload={...s,adjustedResults:autoAdjusted34(s),exportedAt:new Date().toISOString()};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download='SSPSKN_3.4.1_FAST_INTEGRITY_LEDGER.json';a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),500);
+}
+
+function autoResume34(){
+  autoMigrate34();
+  let s=autoState34();
+  // Browser may have died during current experiment: mark it unfinished and rebuild only that ID.
+  if(s.current && !s.results.some(r=>autoCfgId34(r)===autoCfgId34(s.current))){
+    s.queue.unshift({...s.current,progress:undefined});s.current=null;
+  }
+  s=autoRepairQueueState34(s);autoSave34(s);autoRender34();
+  if(s.running&&!s.paused&&s.queue.length)setTimeout(autoLoop34,300);
+}
+
+document.addEventListener('visibilitychange',()=>{
+  const el=document.getElementById('a34vis');if(el)el.textContent=document.hidden?'SUSPENSÍVEL':'ATIVO';
+  autoSave34(autoState34());
+});
 
 function refresh(){
   let last=history.at(-1);

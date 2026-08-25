@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#08140f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SSPSKN 3.4.1 FAST INTEGRITY FIX">
-<title>SSPSKN 3.4.1 FAST INTEGRITY FIX • +Milionária</title>
+<meta name="apple-mobile-web-app-title" content="SSPSKN 3.5">
+<title>SSPSKN 3.5 • +Milionária</title>
 <style>
 :root{
   --bg:#07110d; --card:#0e1d16; --card2:#12251c; --txt:#eef8f1; --muted:#9db3a6;
@@ -42,7 +42,7 @@ h1{font-size:24px;margin:0}.sub{color:var(--muted);font-size:13px;margin-top:3px
 input,select,textarea{width:100%;background:#08150f;color:var(--txt);border:1px solid var(--line);border-radius:11px;padding:11px;outline:none}
 input:focus,select:focus,textarea:focus{border-color:var(--acc2)}
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(7,17,13,.94);backdrop-filter:blur(15px);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center}
-.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(9,1fr);gap:4px}
+.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
 .tab{border:0;background:transparent;color:var(--muted);padding:8px 3px;border-radius:11px;font-size:10px;font-weight:700}.tab .ico{display:block;font-size:20px;margin-bottom:2px}.tab.active{background:#173526;color:var(--txt)}
 .page{display:none}.page.active{display:block}
 .balls{display:flex;gap:7px;flex-wrap:wrap}
@@ -67,22 +67,13 @@ hr{border:0;border-top:1px solid var(--line);margin:14px 0}
 details{border:1px solid var(--line);border-radius:12px;padding:10px;background:#09150f}summary{cursor:pointer;font-weight:700}
 canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);border-radius:12px}
 @media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}.numgrid{grid-template-columns:repeat(10,1fr)}}
-
-.researchgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-.bar{height:9px;border:1px solid var(--line);background:#07110d;border-radius:99px;overflow:hidden}.bar>i{display:block;height:100%;background:var(--acc)}
-.tag{display:inline-block;padding:5px 8px;border:1px solid var(--line);border-radius:999px;font-size:10px;color:#cfe4d7;background:#0a1711}
-@media(min-width:700px){.researchgrid{grid-template-columns:repeat(4,minmax(0,1fr))}}
-
-
-.auto-meter{height:10px;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:#07110d}.auto-meter>i{display:block;height:100%;background:var(--acc);width:0%}
-.pill{display:inline-block;padding:5px 8px;border:1px solid var(--line);border-radius:999px;font-size:10px;margin:2px 3px 2px 0}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header>
   <div class="logo">SS</div>
-  <div><h1>SSPSKN 3.4.1 FAST INTEGRITY FIX</h1><div class="sub">Evidence Lab • +Milionária</div></div>
+  <div><h1>SSPSKN 3.5</h1><div class="sub">Final Candidate • validação experimental • +Milionária</div></div>
   <div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div>
 </header>
 
@@ -147,7 +138,8 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
           <option value="mixed">Mista histórico + aleatório</option>
           <option value="recent">Ênfase recente</option>
           <option value="delay">Ênfase em atraso</option>
-          <option value="random">Aleatória pura</option><option value="joint">Joint Covering 4+2</option>
+          <option value="coverage">Coverage 3.5 (experimental)</option>
+          <option value="random">Aleatória pura</option>
         </select>
       </div>
     </div>
@@ -159,7 +151,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
       <button class="btn" onclick="generateSet()">Gerar conjunto</button>
       <button class="btn ghost" onclick="clearGenerated()">Limpar</button>
     </div>
-    <div class="small" style="margin-top:10px">O algoritmo cria muitos candidatos e seleciona jogos com boa diversidade entre si. A nota considera equilíbrio estrutural e histórico. Nesta versão a nota estrutural continua determinística: o mesmo jogo, com o mesmo histórico, recebe a mesma nota. Continua não sendo uma chance de acerto.</div>
+    <div class="small" style="margin-top:10px">O algoritmo cria muitos candidatos e seleciona jogos com boa diversidade entre si. A nota considera equilíbrio estrutural e histórico. Na versão 3.5 há também o motor Coverage experimental. As notas continuam descrevendo estrutura e não representam chance de acerto.</div>
   </div>
   <div id="generated" class="list"></div>
   <div class="row" id="genActions" style="display:none;margin-top:12px">
@@ -192,18 +184,6 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
   </div>
 </section>
 
-<section id="validation" class="page"><div class="card"><h2>SSPSKN 3.3 • Research Gate</h2><div class="notice ok"><b>Regra:</b> primeiro provar eficiência, depois apostar.</div><div class="grid" style="margin-top:12px"><div class="kpi"><b>6/50</b><span>Dezena Engine</span></div><div class="kpi"><b>2/6</b><span>Trevo Engine</span></div><div class="kpi"><b>Blind</b><span>Holdout</span></div><div class="kpi"><b id="gateState321">STOP</b><span>gate atual</span></div></div></div><div class="card"><h2>Novos motores 3.2</h2><div class="small">Rare-Event Validation • Random/Placebo Control • Coverage/Overlap Portfolio • Consistency Guard • Epoch Replication • STOP/TEST/PLAY Gate.</div><div class="notice" style="margin-top:12px">Backtest histórico nunca libera PLAY sozinho. Um sinal precisa sobreviver a validação fora da amostra.</div></div>
-<div class="card">
-  <h2>Budget Audit</h2>
-  <div class="row">
-    <div class="field"><label>Orçamento de referência (R$)</label><input id="budget321" type="number" min="6" step="6" value="120"></div>
-    <div class="field"><label>Custo simples de referência</label><input id="unitCost321" type="number" min="0.01" step="0.01" value="6"></div>
-  </div>
-  <button class="btn secondary" style="margin-top:10px" onclick="budgetAudit321()">Calcular benchmark</button>
-  <div id="budgetOut321" class="small" style="margin-top:10px"></div>
-</div>
-</section>
-
 <section id="backtest" class="page">
   <div class="card">
     <h2>Backtest histórico</h2>
@@ -216,9 +196,8 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
       <div class="field"><label>Janela histórica</label><select id="btWindow"><option>20</option><option selected>50</option><option>100</option></select></div>
       <div class="field"><label>Máx. repetição entre jogos</label><select id="btOverlap"><option>2</option><option selected>3</option><option>4</option></select></div>
     </div>
-    <div class="row" style="margin-top:10px"><div class="field"><label>Repetições / sementes</label><select id="btSeeds"><option>1</option><option selected>5</option><option>10</option><option>25</option></select></div><div class="field"><label>Objetivo primário</label><select id="btTarget"><option value="42" selected>≥4 dezenas + 2 trevos</option><option value="32">≥3 dezenas + 2 trevos</option></select></div></div>
     <div class="row" style="margin-top:12px">
-      <button class="btn" onclick="runValidation321()">Executar validação 3.4</button>
+      <button class="btn" onclick="runBacktest()">Executar backtest</button>
       <button class="btn ghost" onclick="clearBacktest()">Limpar</button>
     </div>
     <div id="btProgress" class="small" style="margin-top:10px"></div>
@@ -228,122 +207,24 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 </section>
 
 
-<section id="research33" class="page">
+<section id="validation" class="page">
   <div class="card">
-    <h2>SSPSKN 3.4 • Research Engine</h2>
-    <div class="notice ok"><b>Arquitetura:</b> previsão só recebe peso se vencer controles fora da amostra. Caso contrário, o orçamento é decidido por cobertura combinatória e eficiência econômica.</div>
-    <div class="researchgrid" style="margin-top:12px">
-      <div class="kpi"><b id="predGate33">STOP</b><span>Predictive Gate</span></div>
-      <div class="kpi"><b id="portGate33">TEST</b><span>Portfolio Gate</span></div>
-      <div class="kpi"><b id="spa33">—</b><span>Reality/SPA proxy</span></div>
-      <div class="kpi"><b id="mcs33">—</b><span>Model set</span></div>
-    </div>
+    <h2>Validação 3.5 • Final Candidate</h2>
+    <div class="notice">Núcleo congelado: <b>W75 • G20 • O3 • S3 • Coverage</b>.<br>É o principal candidato experimental vindo do ledger 3.4.1, mas ainda exige validação fora da amostra.</div>
+    <div class="grid" style="margin-top:12px"><div class="kpi"><b>75</b><span>janela</span></div><div class="kpi"><b>20</b><span>jogos</span></div><div class="kpi"><b>3</b><span>overlap</span></div><div class="kpi"><b>3</b><span>seeds base</span></div></div>
   </div>
   <div class="card">
-    <h2>Joint Covering 6/50 × 2/6</h2>
-    <div class="small">Avalia a carteira como um único problema dezenas+trevos. O cálculo usa Monte Carlo sobre resultados 6/50+2/6 e estima a probabilidade de a carteira produzir pelo menos um ≥4+2.</div>
-    <div class="row" style="margin-top:12px">
-      <div class="field"><label>Jogos da carteira</label><input id="jcGames33" type="number" min="5" max="100" value="20"></div>
-      <div class="field"><label>Simulações</label><select id="jcSims33"><option>5000</option><option selected>20000</option><option>50000</option></select></div>
-    </div>
-    <div class="row" style="margin-top:10px">
-      <div class="field"><label>Estratégia base</label><select id="jcStrategy33"><option value="balanced">Balanceada</option><option value="coverage">Coverage Only</option><option value="random">Aleatória</option><option value="joint" selected>Joint Covering</option></select></div>
-      <div class="field"><label>Máx. overlap inicial</label><select id="jcOverlap33"><option>2</option><option selected>3</option><option>4</option></select></div>
-    </div>
-    <button class="btn" style="margin-top:12px" onclick="runJointCovering33()">Otimizar e auditar carteira</button>
-    <div id="jcOut33" style="margin-top:12px"></div>
+    <h2>Walk-forward do candidato</h2>
+    <div class="small">Usa somente concursos anteriores ao alvo e compara Coverage 3.5 com aleatória pura pareada. O Coverage desta versão é uma reconstrução experimental baseada no arquivo-base enviado.</div>
+    <div class="row" style="margin-top:12px"><div class="field"><label>Concursos</label><select id="valDraws"><option>10</option><option selected>20</option><option>30</option></select></div><div class="field"><label>Seeds</label><select id="valSeeds"><option>3</option><option selected>10</option><option>20</option></select></div></div>
+    <div class="row" style="margin-top:12px"><button class="btn" onclick="runValidation35()">Executar validação</button><button class="btn ghost" onclick="clearValidation35()">Limpar</button></div>
+    <div id="valProgress" class="small" style="margin-top:10px"></div>
   </div>
-  <div class="card">
-    <h2>Champion × Challengers</h2>
-    <div class="small">Champion atual: <b>Balanceada</b>. Challengers: Mista, Recente, Atraso, Coverage, Joint Covering e Aleatória. O Champion só é substituído se a vantagem sobreviver ao Reality Check/SPA proxy e a múltiplas épocas.</div>
-    <button class="btn secondary" style="margin-top:12px" onclick="runResearchGate33()">Executar Research Gate</button>
-    <div id="researchOut33" style="margin-top:12px"></div>
-  </div>
-  <div class="card">
-    <h2>Prospective Vault</h2>
-    <div class="small">Congela a estratégia escolhida e registra o concurso de corte. Concursos posteriores ficam reservados para validação prospectiva e não podem recalibrar retroativamente o modelo.</div>
-    <div class="row" style="margin-top:10px">
-      <div class="field"><label>Estratégia congelada</label><select id="vaultStrategy33"><option value="balanced">Balanceada</option><option value="mixed">Mista</option><option value="recent">Recente</option><option value="delay">Atraso</option><option value="coverage">Coverage</option><option value="joint">Joint Covering</option></select></div>
-      <div class="field"><label>Concurso de corte</label><input id="vaultCut33" type="number" min="1" value="381"></div>
-    </div>
-    <button class="btn ghost" style="margin-top:12px" onclick="freezeVault33()">Congelar configuração</button>
-    <div id="vaultOut33" class="small" style="margin-top:10px"></div>
-  </div>
+  <div id="valResults"></div>
+  <div class="card"><h2>Integrity Ledger 3.4.1</h2><input id="ledgerImport35" type="file" accept=".json,application/json"><button class="btn secondary" style="margin-top:8px" onclick="importLedger35()">Ler ledger</button><div id="ledger35Result" class="small" style="margin-top:10px"></div></div>
+  <div class="card"><h2>Teste cego</h2><div class="small">Registre antes do sorteio. O horário fica gravado no aparelho.</div><div class="field" style="margin-top:8px"><label>Concurso</label><input id="blindContest35"></div><div class="field"><label>Jogo congelado</label><textarea id="blindGame35" rows="3"></textarea></div><div class="row"><button class="btn" onclick="saveBlind35()">Registrar</button><button class="btn secondary" onclick="exportBlind35()">Exportar</button><button class="btn danger" onclick="clearBlind35()">Apagar</button></div><div id="blindList35" style="margin-top:10px"></div></div>
+  <div class="card"><div class="notice err"><b>HOLD EXPERIMENTAL.</b> Não tratar o sistema como preditivo até o candidato permanecer positivo fora da amostra e superar controles aleatórios de forma consistente.</div></div>
 </section>
-
-
-
-<section id="auto34" class="page">
-  <div class="card">
-    <h2>SSPSKN 3.4.1 • Fast Integrity Engine</h2>
-    <div class="notice ok"><b>Funil inteligente:</b> executa apenas experimentos únicos, elimina duplicações, mata cedo configurações fracas e reconstrói automaticamente apenas os testes faltantes.</div>
-    <div class="grid" style="margin-top:12px">
-      <div class="kpi"><b id="a34status">PARADO</b><span>estado</span></div>
-      <div class="kpi"><b id="a34done">0</b><span>únicos concluídos</span></div>
-      <div class="kpi"><b id="a34left">0</b><span>faltantes/fila</span></div>
-      <div class="kpi"><b id="a34gate">STOP</b><span>gate agregado</span></div>
-    </div>
-    <div class="auto-meter" style="margin-top:12px"><i id="a34bar"></i></div>
-    <div id="a34msg" class="small" style="margin-top:8px"></div>
-  </div>
-
-  <div class="card">
-    <h2>Pesquisa automática</h2>
-    <div class="row">
-      <div class="field"><label>Modo</label>
-        <select id="a34depth">
-          <option value="smart" selected>Rápido inteligente</option>
-          <option value="quick">Diagnóstico</option>
-          <option value="standard">Padrão</option>
-          <option value="deep">Profundo</option>
-          <option value="ultra">ULTRA</option>
-        </select>
-      </div>
-      <div class="field"><label>Concursos por teste</label>
-        <select id="a34tests"><option>40</option><option selected>60</option><option>100</option></select>
-      </div>
-    </div>
-    <div class="row" style="margin-top:10px">
-      <button class="btn" onclick="autoStart34()">Iniciar / Retomar</button>
-      <button class="btn secondary" onclick="autoPause34()">Pausar</button>
-    </div>
-    <div class="row" style="margin-top:10px">
-      <button class="btn ghost" onclick="autoRepair34()">Reparar fila</button>
-      <button class="btn ghost" onclick="autoExport34()">Exportar ledger</button>
-    </div>
-    <div class="row" style="margin-top:10px">
-      <button class="btn danger" onclick="autoReset34()">Zerar pesquisa</button>
-    </div>
-    <div class="small" style="margin-top:10px"><b>Rápido inteligente</b> faz triagem intermediária e encerra cedo configurações sem sinal positivo. Um early STOP nunca promove candidato; ele apenas economiza processamento. ULTRA deve ser usado somente depois que o funil identificar famílias promissoras.</div>
-  </div>
-
-  <div class="card">
-    <h2>Integridade da matriz</h2>
-    <div id="a34matrix" class="small">A fila ainda não foi criada.</div>
-    <div id="a34integrity" class="small" style="margin-top:10px"></div>
-  </div>
-
-  <div class="card">
-    <h2>Champion × Challengers</h2>
-    <div class="small">O Champion é recalculado usando somente experimentos únicos. O p-aj é refeito sobre o conjunto atual de experimentos válidos; resultados antigos não preservam uma penalização incorreta.</div>
-    <div id="a34champ" style="margin-top:10px"></div>
-  </div>
-
-  <div class="card">
-    <h2>Experiment Ledger</h2>
-    <div id="a34ledger"></div>
-  </div>
-
-  <div class="card">
-    <h2>Segundo plano / Watchdog</h2>
-    <div class="notice"><b>Checkpoint + Watchdog:</b> se a fila zerar antes do plano terminar, a 3.4.1 reconstrói somente IDs faltantes. Se o iOS suspender o Safari, o experimento incompleto é refeito ao voltar; os concluídos não entram novamente na fila.</div>
-    <div class="grid" style="margin-top:10px">
-      <div class="kpi"><b id="a34vis">ATIVO</b><span>estado da página</span></div>
-      <div class="kpi"><b id="a34dup">0</b><span>duplicados descartados</span></div>
-    </div>
-  </div>
-</section>
-
 <section id="saved" class="page">
   <div class="card">
     <h2>Jogos salvos</h2>
@@ -363,9 +244,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <button class="tab" data-page="generator"><span class="ico">✦</span>Gerar</button>
 <button class="tab" data-page="checker"><span class="ico">✓</span>Conferir</button>
 <button class="tab" data-page="backtest"><span class="ico">⌁</span>Backtest</button>
-<button class="tab" data-page="validation"><span class="ico">◎</span>Validação</button>
-<button class="tab" data-page="research33"><span class="ico">◈</span>Pesquisa</button>
-<button class="tab" data-page="auto34"><span class="ico">⟳</span>Auto</button>
+<button class="tab" data-page="validation"><span class="ico">◉</span>Validar</button>
 <button class="tab" data-page="saved"><span class="ico">★</span>Salvos</button>
 </div></nav>
 
@@ -542,14 +421,15 @@ function getWeights(strategy,wnd,data=history){
   let all=calcStats(data), recentData=wnd>0?data.slice(-wnd):data, recent=calcStats(recentData), nums=[...Array(50)].map((_,i)=>i+1);
   let meanAll=Math.max(1,data.length*6/50), meanRec=Math.max(1,recentData.length*6/50);
   let weights=nums.map(n=>{
-    if(strategy==='random'||strategy==='coverage'||strategy==='joint')return 1;
+    if(strategy==='random')return 1;
     let fa=all.f[n]/meanAll, fr=recent.f[n]/meanRec, d=1+Math.min(all.delays[n],20)/20;
     if(strategy==='recent')return .35+.65*fr;
     if(strategy==='delay')return .45+.55*d;
+    if(strategy==='coverage')return .60+.20*Math.min(fa,1.6)+.20*Math.min(fr,1.6);
     if(strategy==='mixed')return .55+.25*fa+.20*fr;
     return .65+.18*Math.min(fa,1.8)+.17*Math.min(fr,1.8);
   });
-  let cl=[1,2,3,4,5,6], cw=cl.map(n=>(strategy==='random'||strategy==='coverage'||strategy==='joint')?1:.6+.4*(recent.tf[n]/Math.max(1,recentData.length*2/6)));
+  let cl=[1,2,3,4,5,6], cw=cl.map(n=>strategy==='random'?1:.6+.4*(recent.tf[n]/Math.max(1,recentData.length*2/6)));
   return {nums,weights,cl,cw}
 }
 function gameQuality(nums,clovers,data=history){
@@ -590,16 +470,21 @@ function makeCandidate(strategy,wnd,data=history){
 }
 function overlap(a,b){return intersect(a.nums,b.nums).length}
 function keyGame(g){return g.nums.join('-')+'|'+g.cl.join('-')}
+
+function pairKey35(a,b){return a<b?`${a}-${b}`:`${b}-${a}`}
+function generateCoverageForData(wnd,count,maxOv,data,seedBase=1){
+  let candidates=[],seen=new Set();
+  withSeed(seedBase,()=>{for(let i=0;i<Math.max(1200,count*150);i++){let g=makeCandidate('coverage',wnd,data),k=keyGame(g);if(!seen.has(k)){seen.add(k);candidates.push(g)}}});
+  let chosen=[],cn=new Set(),cp=new Set();
+  while(chosen.length<count){let best=null,bg=-1e9;for(let g of candidates){if(chosen.some(c=>overlap(c,g)>maxOv))continue;let gain=(g.score||0)*.02;g.nums.forEach(n=>{if(!cn.has(n))gain+=2});for(let i=0;i<g.nums.length;i++)for(let j=i+1;j<g.nums.length;j++)if(!cp.has(pairKey35(g.nums[i],g.nums[j])))gain+=1;if(gain>bg){bg=gain;best=g}}if(!best)break;chosen.push(best);best.nums.forEach(n=>cn.add(n));for(let i=0;i<best.nums.length;i++)for(let j=i+1;j<best.nums.length;j++)cp.add(pairKey35(best.nums[i],best.nums[j]));candidates=candidates.filter(x=>x!==best)}
+  return chosen;
+}
+
 function generateSet(){
   let count=Math.min(100,Math.max(1,Number(document.getElementById('genCount').value)||10));
   let strategy=document.getElementById('strategy').value,wnd=Number(document.getElementById('genWindow').value),maxOv=Number(document.getElementById('maxOverlap').value);
-  let candidates=[],seen=new Set();
-  for(let i=0;i<Math.max(1000,count*120);i++){let g=makeCandidate(strategy,wnd),k=keyGame(g);if(!seen.has(k)){seen.add(k);candidates.push(g)}}
-  candidates.sort((a,b)=>b.score-a.score);
   let chosen=[];
-  for(let g of candidates){
-    if(chosen.every(c=>overlap(c,g)<=maxOv)){chosen.push(g);if(chosen.length>=count)break}
-  }
+  if(strategy==='coverage'){chosen=generateCoverageForData(wnd,count,maxOv,history,Date.now()&0xffffffff)}else{let candidates=[],seen=new Set();for(let i=0;i<Math.max(1000,count*120);i++){let g=makeCandidate(strategy,wnd),k=keyGame(g);if(!seen.has(k)){seen.add(k);candidates.push(g)}}candidates.sort((a,b)=>b.score-a.score);for(let g of candidates){if(chosen.every(c=>overlap(c,g)<=maxOv)){chosen.push(g);if(chosen.length>=count)break}}}
   generated=chosen;renderGenerated();
   if(chosen.length<count)alert(`Foi possível criar ${chosen.length} de ${count} jogos respeitando o limite de ${maxOv} dezenas repetidas. Aumente o limite de repetição para gerar mais jogos.`);
 }
@@ -658,9 +543,8 @@ const STRATEGIES=[
   {id:'mixed',name:'Mista histórico + aleatório'},
   {id:'recent',name:'Ênfase recente'},
   {id:'delay',name:'Ênfase em atraso'},
-  {id:'random',name:'Aleatória pura'},
-  {id:'coverage',name:'Coverage Only'},
-  {id:'joint',name:'Joint Covering'}
+  {id:'coverage',name:'Coverage 3.5'},
+  {id:'random',name:'Aleatória pura'}
 ];
 
 function seededRandom(seed){
@@ -669,6 +553,7 @@ function seededRandom(seed){
 }
 function withSeed(seed,fn){let old=Math.random;Math.random=seededRandom(seed);try{return fn()}finally{Math.random=old}}
 function generateForData(strategy,wnd,count,maxOv,data,seedBase=1){
+  if(strategy==='coverage')return generateCoverageForData(wnd,count,maxOv,data,seedBase);
   let candidates=[],seen=new Set();
   withSeed(seedBase,()=>{
     for(let i=0;i<Math.max(500,count*80);i++){
@@ -730,552 +615,14 @@ async function runBacktest(){
 }
 
 
-function evalPortfolio321(set,target){
-  const hits=set.map(g=>({
-    a:intersect(g.nums,target.dezenas).length,
-    t:intersect(g.cl,target.trevos).length
-  }));
-  const any = fn => hits.some(fn);
-  const best = [...hits].sort((x,y)=>y.a-x.a||y.t-x.t)[0] || {a:0,t:0};
-  return {
-    ge42:any(h=>h.a>=4 && h.t===2),
-    ge32:any(h=>h.a>=3 && h.t===2),
-    ge41:any(h=>h.a>=4 && h.t>=1),
-    eq22:any(h=>h.a===2 && h.t===2),
-    best
-  };
-}
-function wilson321(k,n,z=1.96){
-  if(!n)return [0,0];
-  const p=k/n, den=1+z*z/n;
-  const mid=(p+z*z/(2*n))/den;
-  const half=z*Math.sqrt((p*(1-p)+z*z/(4*n))/n)/den;
-  return [Math.max(0,mid-half),Math.min(1,mid+half)];
-}
-function pairedLift321(r,control){
-  if(!control || control.events===0) return 'amostra insuf.';
-  return (r.rate/control.rate).toFixed(2)+'×';
-}
-function consistency321(z){
-  // Logical invariant: a recorded best 5+2 or 6+2 implies at least one >=4+2 event.
-  if(z.bestT===2 && z.bestA>=4 && z.events===0) return false;
-  return true;
-}
-function gateDecision321(best,random){
-  if(!best || !random) return {state:'STOP',msg:'Controle incompleto.'};
-  if(!consistency321(best)) return {state:'STOP',msg:'ERRO DE CONSISTÊNCIA: melhor resultado implica ≥4+2, mas o contador não registrou o evento.'};
-  if(best.events<3) return {state:'STOP',msg:'Poucos eventos ≥4+2. O histórico não sustenta inferência robusta.'};
-
-  const p1=best.rate, p0=random.rate;
-  const se=Math.sqrt(Math.max(1e-12, p1*(1-p1)/best.evals + p0*(1-p0)/random.evals));
-  const z=(p1-p0)/se;
-  const replicated=best.epochWins>=3;
-
-  if(z>=1.96 && replicated){
-    return {state:'TEST',msg:'Sinal histórico supera o controle neste recorte e replica em ≥3/5 épocas. Exige teste prospectivo cego; ainda não libera PLAY.'};
-  }
-  return {state:'STOP',msg:'Vantagem não robusta ou não replicada em épocas suficientes.'};
-}
-async function runValidation321(){
-  const out=document.getElementById('btResults'), prog=document.getElementById('btProgress');
-  if(history.length<60){
-    out.innerHTML='<div class="card notice err">Histórico insuficiente para validação 3.2.1.</div>'; return;
-  }
-
-  const requested=Number(document.getElementById('btDraws').value);
-  const games=Number(document.getElementById('btGames').value);
-  const wnd=Number(document.getElementById('btWindow').value);
-  const maxOv=Number(document.getElementById('btOverlap').value);
-  const seeds=Number(document.getElementById('btSeeds').value||5);
-  const targetMode=(document.getElementById('btTarget')?.value||'42');
-
-  const minTrain=Math.max(50,wnd);
-  const maxTests=Math.max(0,history.length-minTrain);
-  const tests=requested===0?maxTests:Math.min(requested,maxTests);
-  if(tests<5){
-    out.innerHTML='<div class="card notice err">Poucos concursos disponíveis para validação.</div>'; return;
-  }
-
-  const start=history.length-tests;
-  const stats={};
-  STRATEGIES.forEach(s=>stats[s.id]={
-    id:s.id,name:s.name,evals:0,events:0,e32:0,e41:0,e22:0,
-    bestA:0,bestT:0,epochs:[0,0,0,0,0],epochEvals:[0,0,0,0,0]
-  });
-
-  renderPattern(history.slice(0,start));
-  out.innerHTML='';
-
-  for(let idx=start; idx<history.length; idx++){
-    const train=history.slice(0,idx), target=history[idx];
-    const epoch=Math.min(4,Math.floor((idx-start)*5/tests));
-
-    for(let si=0; si<STRATEGIES.length; si++){
-      const st=STRATEGIES[si], z=stats[st.id];
-      for(let sd=0; sd<seeds; sd++){
-        const seed=(target.numero*100003)+(si*1009)+(sd*97)+games;
-        const set=generateForData(st.id,wnd,games,maxOv,train,seed);
-        const r=evalPortfolio321(set,target);
-
-        z.evals++;
-        z.epochEvals[epoch]++;
-        const primary = targetMode==='32' ? r.ge32 : r.ge42;
-        if(primary){ z.events++; z.epochs[epoch]++; }
-        if(r.ge32)z.e32++;
-        if(r.ge41)z.e41++;
-        if(r.eq22)z.e22++;
-        if(r.best.a>z.bestA || (r.best.a===z.bestA && r.best.t>z.bestT)){
-          z.bestA=r.best.a; z.bestT=r.best.t;
-        }
-      }
-    }
-
-    const done=idx-start+1;
-    prog.textContent=`Validação 3.4: ${done}/${tests} concursos • ${seeds} sementes...`;
-    if(done%3===0) await new Promise(r=>setTimeout(r,0));
-  }
-
-  let rows=Object.values(stats).map(z=>{
-    const rate=z.evals?z.events/z.evals:0;
-    const ci=wilson321(z.events,z.evals);
-    return {...z,rate,ci};
-  });
-
-  const random=rows.find(r=>r.id==='random');
-  rows=rows.map(r=>{
-    let epochWins=0;
-    if(random){
-      for(let e=0;e<5;e++){
-        const rr=r.epochEvals[e]?r.epochs[e]/r.epochEvals[e]:0;
-        const cr=random.epochEvals[e]?random.epochs[e]/random.epochEvals[e]:0;
-        if(rr>cr)epochWins++;
-      }
-    }
-    return {...r,epochWins};
-  });
-
-  rows.sort((a,b)=>b.rate-a.rate || b.epochWins-a.epochWins || b.e32-a.e32);
-  const best=rows[0];
-  const random2=rows.find(r=>r.id==='random');
-  const gate=gateDecision321(best,random2);
-
-  const gateEl=document.getElementById('gateState321');
-  if(gateEl) gateEl.textContent=gate.state;
-
-  const inconsistent=rows.filter(r=>!consistency321(r));
-  if(inconsistent.length){
-    out.innerHTML=`<div class="card notice err"><b>ERRO DE CONSISTÊNCIA.</b> ${inconsistent.map(r=>r.name).join(', ')} apresentou melhor resultado ≥4+2 sem evento correspondente. O ranking foi bloqueado.</div>`;
-    prog.textContent='Validação bloqueada por inconsistência lógica.';
-    return;
-  }
-
-  const trs=rows.map((r,i)=>`
-    <tr>
-      <td>${i+1}. ${r.name}</td>
-      <td>${r.events}/${r.evals}<br><span class="tiny">${(100*r.rate).toFixed(3)}%</span></td>
-      <td>${pairedLift321(r,random2)}</td>
-      <td>${r.epochWins}/5</td>
-      <td>${r.e32}</td>
-      <td>${r.e41}</td>
-      <td>${r.e22}</td>
-      <td>${r.bestA}+${r.bestT}</td>
-    </tr>`).join('');
-
-  const targetLabel=targetMode==='32'?'≥3+2':'≥4+2';
-  prog.textContent=`Validação 3.4 concluída: ${tests} concursos × ${seeds} sementes = ${tests*seeds} avaliações por estratégia.`;
-
-  out.innerHTML=`
-    <div class="card rank1">
-      <h2>Gate 3.4: ${gate.state}</h2>
-      <div class="notice ${gate.state==='STOP'?'':'ok'}"><b>${best.name}</b> liderou o alvo ${targetLabel}. ${gate.msg}</div>
-      <div class="grid" style="margin-top:12px">
-        <div class="kpi"><b>${best.events}/${best.evals}</b><span>eventos da líder</span></div>
-        <div class="kpi"><b>${best.epochWins}/5</b><span>épocas acima do aleatório</span></div>
-        <div class="kpi"><b>${(best.ci[0]*100).toFixed(3)}–${(best.ci[1]*100).toFixed(3)}%</b><span>IC95% da taxa</span></div>
-        <div class="kpi"><b>${pairedLift321(best,random2)}</b><span>lift vs aleatória</span></div>
-      </div>
-      <div class="small" style="margin-top:10px">Backtest histórico pode no máximo liberar TEST. PLAY exige resultados prospectivos ainda não utilizados no desenvolvimento do modelo.</div>
-    </div>
-    <div class="card">
-      <h2>Ranking 3.4 — ${targetLabel}</h2>
-      <div class="scrollx"><table>
-        <thead><tr><th>Estratégia</th><th>${targetLabel}</th><th>Lift</th><th>Épocas</th><th>≥3+2</th><th>≥4+1</th><th>2+2</th><th>Melhor</th></tr></thead>
-        <tbody>${trs}</tbody>
-      </table></div>
-    </div>`;
-}
-function budgetAudit321(){
-  const budget=Math.max(0,Number(document.getElementById('budget321')?.value)||0);
-  const cost=Math.max(0.01,Number(document.getElementById('unitCost321')?.value)||6);
-  const n=Math.floor(budget/cost);
-  document.getElementById('budgetOut321').innerHTML=
-    `Benchmark: <b>${n}</b> apostas simples com orçamento de R$ ${budget.toFixed(2)} ao custo unitário informado de R$ ${cost.toFixed(2)}. O cálculo é apenas de orçamento/cobertura; confirme o preço oficial antes de apostar.`;
-}
-
-
-function comb33(n,k){if(k<0||k>n)return 0;k=Math.min(k,n-k);let r=1;for(let i=1;i<=k;i++)r=r*(n-k+i)/i;return Math.round(r)}
-function randomSubset33(n,k,rng=Math.random){const a=[...Array(n)].map((_,i)=>i+1),out=[];for(let i=0;i<k;i++){const j=i+Math.floor(rng()*(n-i));[a[i],a[j]]=[a[j],a[i]];out.push(a[i])}return out.sort((x,y)=>x-y)}
-function pairKey33(a){return a.slice().sort((x,y)=>x-y).join('-')}
-function sameTrevoPair33(a,b){return pairKey33(a.cl)===pairKey33(b.cl)}
-function portfolioProfile33(set){let pairCounts={},overlaps=[],samePairOverlaps=[],numUse=Array(51).fill(0);set.forEach(g=>{pairCounts[pairKey33(g.cl)]=(pairCounts[pairKey33(g.cl)]||0)+1;g.nums.forEach(n=>numUse[n]++)});for(let i=0;i<set.length;i++)for(let j=i+1;j<set.length;j++){const ov=overlap(set[i],set[j]);overlaps.push(ov);if(sameTrevoPair33(set[i],set[j]))samePairOverlaps.push(ov)}const mean=x=>x.length?x.reduce((a,b)=>a+b,0)/x.length:0;const variance=x=>x.length?mean(x.map(v=>(v-mean(x))**2)):0;return {meanOverlap:mean(overlaps),varOverlap:variance(overlaps),samePairMean:mean(samePairOverlaps),samePairMax:samePairOverlaps.length?Math.max(...samePairOverlaps):0,pairCounts,numUse,numUseVar:variance(numUse.slice(1))}}
-function scorePortfolio33(set){const p=portfolioProfile33(set),pairVals=Object.values(p.pairCounts),meanPair=pairVals.length?pairVals.reduce((a,b)=>a+b,0)/pairVals.length:0,pairVar=pairVals.length?pairVals.reduce((s,v)=>s+(v-meanPair)**2,0)/pairVals.length:0;return 100-7*p.samePairMean-4*p.samePairMax-1.5*p.varOverlap-.8*p.numUseVar-2*pairVar}
-function optimizeJoint33(count,data=history,seed=777){let set=[],trevoPairs=[];for(let a=1;a<=6;a++)for(let b=a+1;b<=6;b++)trevoPairs.push([a,b]);withSeed(seed,()=>{for(let i=0;i<count;i++){const cl=trevoPairs[i%trevoPairs.length];let best=null,bestGain=-1e9;for(let c=0;c<160;c++){const nums=randomSubset33(50,6,Math.random),g={nums,cl:[...cl],score:gameQuality(nums,cl,data)},val=scorePortfolio33(set.concat([g]));if(val>bestGain){bestGain=val;best=g}}set.push(best)}for(let it=0;it<250;it++){const idx=Math.floor(Math.random()*set.length),old=set[idx],cl=old.cl,nums=randomSubset33(50,6,Math.random),g={nums,cl:[...cl],score:gameQuality(nums,cl,data)},before=scorePortfolio33(set);set[idx]=g;const after=scorePortfolio33(set);if(after<before)set[idx]=old}});return set}
-function estimateJointCoverage33(set,sims=20000,seed=991){let hit=0,hit32=0,hit41=0;withSeed(seed,()=>{for(let s=0;s<sims;s++){const dn=randomSubset33(50,6,Math.random),tr=randomSubset33(6,2,Math.random);let ok42=false,ok32=false,ok41=false;for(const g of set){const a=intersect(g.nums,dn).length,t=intersect(g.cl,tr).length;if(a>=4&&t===2)ok42=true;if(a>=3&&t===2)ok32=true;if(a>=4&&t>=1)ok41=true;if(ok42&&ok32&&ok41)break}if(ok42)hit++;if(ok32)hit32++;if(ok41)hit41++}});const rate=hit/sims,se=Math.sqrt(Math.max(1e-12,rate*(1-rate)/sims));return {rate,lo:Math.max(0,rate-1.96*se),hi:Math.min(1,rate+1.96*se),r32:hit32/sims,r41:hit41/sims}}
-async function runJointCovering33(){const out=document.getElementById('jcOut33'),count=Math.max(5,Math.min(100,Number(document.getElementById('jcGames33').value)||20)),sims=Number(document.getElementById('jcSims33').value)||20000,strat=document.getElementById('jcStrategy33').value,ov=Number(document.getElementById('jcOverlap33').value)||3;out.innerHTML='<div class="small">Otimizando carteira e executando Monte Carlo...</div>';await new Promise(r=>setTimeout(r,0));let set;if(strat==='joint')set=optimizeJoint33(count,history,7319+count);else if(strat==='coverage')set=generateForData('coverage',50,count,ov,history,7319+count);else if(strat==='random')set=generateForData('random',50,count,6,history,7319+count);else set=generateForData('balanced',50,count,ov,history,7319+count);const mc=estimateJointCoverage33(set,sims,4411+count),prof=portfolioProfile33(set),theoreticalSingle=(comb33(6,4)*comb33(44,2)+comb33(6,5)*comb33(44,1)+1)/(comb33(50,6)*comb33(6,2)),naive=Math.min(1,count*theoreticalSingle);generated=set;renderGenerated();out.innerHTML=`<div class="grid"><div class="kpi"><b>${(mc.rate*100).toFixed(4)}%</b><span>MC ≥4+2</span></div><div class="kpi"><b>${(mc.lo*100).toFixed(4)}–${(mc.hi*100).toFixed(4)}%</b><span>IC95% Monte Carlo</span></div><div class="kpi"><b>${(mc.r32*100).toFixed(3)}%</b><span>MC ≥3+2</span></div><div class="kpi"><b>${(mc.r41*100).toFixed(3)}%</b><span>MC ≥4+1</span></div></div><div class="small" style="margin-top:10px">Teto linear sem sobreposição: <b>${(naive*100).toFixed(4)}%</b> • overlap médio global: <b>${prof.meanOverlap.toFixed(2)}</b> • overlap médio dentro do mesmo par de trevos: <b>${prof.samePairMean.toFixed(2)}</b> • máximo dentro do mesmo par: <b>${prof.samePairMax}</b>.</div><div class="notice" style="margin-top:10px">Esta é uma estimativa de cobertura da carteira, não uma previsão do próximo sorteio.</div>`}
-function funnelScore33(h){if(h.a>=4&&h.t===2)return 10;if(h.a>=3&&h.t===2)return 4;if(h.a>=4&&h.t>=1)return 3;if(h.a===2&&h.t===2)return 1;return 0}
-function strategyDrawScore33(strategy,train,target,games=20,seeds=2){let total=0;for(let sd=0;sd<seeds;sd++){let set=strategy==='joint'?optimizeJoint33(games,train,target.numero*1009+sd*37):generateForData(strategy,50,games,3,train,target.numero*1009+sd*37),best=0;for(const g of set){const h={a:intersect(g.nums,target.dezenas).length,t:intersect(g.cl,target.trevos).length};best=Math.max(best,funnelScore33(h))}total+=best}return total/seeds}
-function bootstrapMaxReality33(matrix,B=800,seed=20260819){const n=matrix.length,m=matrix[0].length,means=Array(m).fill(0).map((_,j)=>matrix.reduce((s,r)=>s+r[j],0)/n),obs=Math.max(...means)*Math.sqrt(n);let ge=0;withSeed(seed,()=>{for(let b=0;b<B;b++){let sums=Array(m).fill(0);for(let i=0;i<n;i++){const r=matrix[Math.floor(Math.random()*n)];for(let j=0;j<m;j++)sums[j]+=r[j]-means[j]}const stat=Math.max(...sums.map(x=>x/n))*Math.sqrt(n);if(stat>=obs)ge++}});return {p:(ge+1)/(B+1),means,obs}}
-async function runResearchGate33(){const out=document.getElementById('researchOut33');if(history.length<160){out.innerHTML='<div class="notice err">Histórico insuficiente para Research Gate.</div>';return}out.innerHTML='<div class="small">Executando Champion × Challengers e Reality Check...</div>';await new Promise(r=>setTimeout(r,0));const strategies=['balanced','mixed','recent','delay','coverage','joint'],labels={balanced:'Balanceada',mixed:'Mista',recent:'Recente',delay:'Atraso',coverage:'Coverage',joint:'Joint Covering'},tests=Math.min(100,history.length-60),start=history.length-tests;let diffs=[],wins=Object.fromEntries(strategies.map(s=>[s,0])),epochWins=Object.fromEntries(strategies.map(s=>[s,[0,0,0,0,0]]));for(let idx=start;idx<history.length;idx++){const train=history.slice(0,idx),target=history[idx],epoch=Math.min(4,Math.floor((idx-start)*5/tests)),rnd=strategyDrawScore33('random',train,target,20,2);let row=[];for(const s of strategies){const sc=strategyDrawScore33(s,train,target,20,2),d=sc-rnd;row.push(d);if(d>0){wins[s]++;epochWins[s][epoch]++}}diffs.push(row);if((idx-start)%4===0){out.innerHTML=`<div class="small">Research Gate: ${idx-start+1}/${tests} concursos...</div>`;await new Promise(r=>setTimeout(r,0))}}const rc=bootstrapMaxReality33(diffs,800),rows=strategies.map((s,j)=>({s,label:labels[s],mean:rc.means[j],wins:wins[s],epochs:epochWins[s].filter(x=>x>0).length})).sort((a,b)=>b.mean-a.mean||b.epochs-a.epochs),survivor=rows.filter(r=>r.mean>=0&&r.epochs>=3),gate=(rc.p<.05&&rows[0].epochs>=3)?'TEST':'STOP';document.getElementById('predGate33').textContent=gate;document.getElementById('spa33').textContent='p≈'+rc.p.toFixed(3);document.getElementById('mcs33').textContent=survivor.length?survivor.length+' modelos':'0';out.innerHTML=`<div class="notice ${gate==='TEST'?'ok':''}"><b>Predictive Gate: ${gate}</b><br>Reality Check bootstrap (aproximação): p≈${rc.p.toFixed(3)}. ${gate==='TEST'?'Há um candidato que merece validação prospectiva; isso ainda não libera PLAY.':'Nenhum challenger mostrou superioridade robusta após corrigir a busca pelo melhor.'}</div><div class="scrollx" style="margin-top:10px"><table><thead><tr><th>Modelo</th><th>Δ funnel vs random</th><th>vitórias</th><th>épocas</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${r.label}</td><td>${r.mean.toFixed(3)}</td><td>${r.wins}/${tests}</td><td>${r.epochs}/5</td></tr>`).join('')}</tbody></table></div><div class="small" style="margin-top:8px">O “SPA” exibido aqui é um <b>proxy bootstrap de Reality Check</b>, não uma implementação acadêmica completa do teste SPA de Hansen. A 3.3 usa-o como guarda conservador, não como prova de previsibilidade.</div>`}
-function freezeVault33(){const strategy=document.getElementById('vaultStrategy33').value,cut=Number(document.getElementById('vaultCut33').value)||history.at(-1)?.numero||0,payload={strategy,cut,frozenAt:new Date().toISOString()};localStorage.setItem('sspskn_vault33',JSON.stringify(payload));document.getElementById('vaultOut33').innerHTML=`Configuração congelada: <b>${strategy}</b> após o concurso <b>${cut}</b>. Apenas concursos posteriores podem contar como validação prospectiva desta hipótese.`}
-function loadVault33(){try{const v=JSON.parse(localStorage.getItem('sspskn_vault33')||'null');if(v&&document.getElementById('vaultOut33'))document.getElementById('vaultOut33').innerHTML=`Vault ativo: <b>${v.strategy}</b> • corte <b>${v.cut}</b> • congelado em ${new Date(v.frozenAt).toLocaleString('pt-BR')}.`}catch(e){}}
-
-
-
-function autoKey34(){return 'sspskn_auto341'}
-function oldAutoKey34(){return 'sspskn_auto34'}
-
-function autoDefault34(){
-  return {
-    version:'3.4.1',
-    running:false,paused:false,queue:[],results:[],current:null,
-    plan:[],planSignature:'',depth:'smart',tests:60,
-    duplicateDiscarded:0,earlyStops:0,totalRuns:0,createdAt:null,updatedAt:null
-  }
-}
-
-function autoCfgId34(c){
-  return c.id || `W${c.window}-G${c.games}-O${c.overlap}-S${c.seeds}-R${c.randomControls}-T${c.tests}`;
-}
-
-function autoUniqueResults34(arr){
-  const m=new Map();
-  let dup=0;
-  for(const r of (arr||[])){
-    const id=autoCfgId34(r);
-    if(!m.has(id))m.set(id,{...r,id});
-    else dup++;
-  }
-  return {results:[...m.values()],dup};
-}
-
-function autoMigrate34(){
-  if(localStorage.getItem(autoKey34()))return;
-  let old=null;
-  try{old=JSON.parse(localStorage.getItem(oldAutoKey34())||'null')}catch(e){}
-  const s=autoDefault34();
-  if(old){
-    const u=autoUniqueResults34(old.results||[]);
-    s.results=u.results;
-    s.duplicateDiscarded=u.dup;
-    s.depth='smart'; s.tests=60;
-    s.createdAt=old.createdAt||new Date().toISOString();
-    s.running=false;s.paused=false;s.queue=[];s.current=null;
-  }
-  localStorage.setItem(autoKey34(),JSON.stringify(s));
-}
-
-function autoState34(){
-  autoMigrate34();
-  try{
-    const raw=JSON.parse(localStorage.getItem(autoKey34())||'null');
-    return autoNormalize34(raw||autoDefault34());
-  }catch(e){return autoDefault34()}
-}
-
-function autoSave34(s){
-  s=autoNormalize34(s);
-  s.updatedAt=new Date().toISOString();
-  localStorage.setItem(autoKey34(),JSON.stringify(s));
-}
-
-function autoBuild34(depth,tests){
-  let W,G,O,S,R;
-  if(depth==='quick'){W=[50,75];G=[10,20];O=[2,3];S=[3];R=[3]}
-  else if(depth==='smart'){W=[30,50,75,100];G=[10,20,30];O=[2,3];S=[3,5];R=[3,5]}
-  else if(depth==='deep'){W=[30,50,75,100];G=[10,20,30];O=[2,3,4];S=[3,5,10];R=[3,5]}
-  else if(depth==='ultra'){W=[20,30,40,50,60,75,100,125];G=[5,10,15,20,30,40];O=[1,2,3,4];S=[3,5,10];R=[3,5,10]}
-  else {W=[30,50,75,100];G=[10,20,30];O=[2,3];S=[3,5];R=[3,5]}
-  const q=[],seen=new Set();
-  for(const w of W)for(const g of G)for(const o of O)for(const sd of S)for(const rc of R){
-    const c={window:w,games:g,overlap:o,seeds:sd,randomControls:rc,tests:Number(tests)};
-    c.id=autoCfgId34(c);
-    if(!seen.has(c.id)){seen.add(c.id);q.push(c)}
-  }
-  return q;
-}
-
-function autoPlanSignature34(depth,tests){return `${depth}|${tests}|v341`}
-
-function autoNormalize34(s){
-  s={...autoDefault34(),...(s||{})};
-  const u=autoUniqueResults34(s.results||[]);
-  s.results=u.results;
-  s.duplicateDiscarded=(s.duplicateDiscarded||0)+u.dup;
-
-  const done=new Set(s.results.map(r=>autoCfgId34(r)));
-  if(s.current && done.has(autoCfgId34(s.current)))s.current=null;
-
-  const q=[],seen=new Set();
-  for(const c of (s.queue||[])){
-    const id=autoCfgId34(c);
-    if(done.has(id)||seen.has(id)||(s.current&&autoCfgId34(s.current)===id)){
-      s.duplicateDiscarded=(s.duplicateDiscarded||0)+1;
-      continue;
-    }
-    seen.add(id);q.push({...c,id});
-  }
-  s.queue=q;
-  s.plan=(s.plan||[]).map(c=>({...c,id:autoCfgId34(c)}));
-  return s;
-}
-
-function autoMissing34(s){
-  const done=new Set((s.results||[]).map(r=>autoCfgId34(r)));
-  const current=s.current?autoCfgId34(s.current):null;
-  return (s.plan||[]).filter(c=>!done.has(autoCfgId34(c)) && autoCfgId34(c)!==current);
-}
-
-function autoRepairQueueState34(s){
-  s=autoNormalize34(s);
-  if(!s.plan.length)return s;
-  const missing=autoMissing34(s);
-  const existing=new Set((s.queue||[]).map(c=>autoCfgId34(c)));
-  for(const c of missing)if(!existing.has(autoCfgId34(c)))s.queue.push(c);
-  // one more dedup pass
-  return autoNormalize34(s);
-}
-
-function autoAdjusted34(s){
-  const n=Math.max(1,s.results.length);
-  return s.results.map(r=>{
-    const pAdj=Math.min(1,Number(r.pRaw||1)*n);
-    const status=(r.earlyStop?'SCREEN_STOP':(pAdj<0.05 && Number(r.epochs)>=3 && Number(r.mean)>0 ? 'TEST':'STOP'));
-    return {...r,pAdj,status};
-  });
-}
-
-function autoRender34(){
-  const s=autoState34();if(!document.getElementById('a34status'))return;
-  const adj=autoAdjusted34(s),done=adj.length,total=(s.plan||[]).length||0,missing=autoMissing34(s).length;
-  document.getElementById('a34status').textContent=s.running&&!s.paused?'RODANDO':(s.paused?'PAUSADO':'PARADO');
-  document.getElementById('a34done').textContent=done;
-  document.getElementById('a34left').textContent=s.queue.length;
-  document.getElementById('a34gate').textContent=adj.some(r=>r.status==='TEST')?'TEST':'STOP';
-  document.getElementById('a34dup').textContent=s.duplicateDiscarded||0;
-
-  const pct=total?Math.min(100,100*done/total):0;
-  document.getElementById('a34bar').style.width=pct.toFixed(1)+'%';
-  document.getElementById('a34msg').innerHTML=s.current
-    ? `Executando <b>${autoCfgId34(s.current)}</b> • ${s.current.progress||0}%`
-    : (done?`Checkpoint: ${new Date(s.updatedAt).toLocaleString('pt-BR')}`:'Pronto para iniciar.');
-
-  document.getElementById('a34matrix').innerHTML=
-    `<span class="pill">${total} IDs planejados</span>`+
-    `<span class="pill">${done} únicos concluídos</span>`+
-    `<span class="pill">${s.queue.length} na fila</span>`+
-    `<span class="pill">${missing} faltantes</span>`+
-    `${s.current?'<span class="pill">1 em execução</span>':''}`;
-
-  document.getElementById('a34integrity').innerHTML=
-    `Execuções físicas: <b>${s.totalRuns||0}</b> • early STOP: <b>${s.earlyStops||0}</b> • duplicados descartados: <b>${s.duplicateDiscarded||0}</b>. `+
-    (total && done===total && !s.current ? '<b>Integridade da matriz: COMPLETA.</b>' : 'Watchdog ativo.');
-
-  const champ=document.getElementById('a34champ');
-  const valid=adj.filter(r=>!r.earlyStop);
-  if(valid.length){
-    const best=[...valid].sort((a,b)=>(a.pAdj-b.pAdj)||(b.mean-a.mean))[0];
-    champ.innerHTML=`<div class="notice ${best.status==='TEST'?'ok':''}"><b>${best.winner}</b> • Δ funnel ${Number(best.mean).toFixed(3)} • p≈${Number(best.pRaw).toFixed(3)} • p-aj atual≈${Number(best.pAdj).toFixed(3)} • épocas ${best.epochs}/5 • <b>${best.status}</b></div>`;
-  }else champ.innerHTML='<div class="small">Nenhum candidato completo avaliado.</div>';
-
-  const ledger=document.getElementById('a34ledger');
-  if(adj.length){
-    const rows=[...adj].slice(-20).reverse().map(r=>`<tr>
-      <td>${r.window}/${r.games}/${r.overlap}/${r.seeds}/${r.randomControls}</td>
-      <td>${r.winner||'—'}</td><td>${Number(r.mean||0).toFixed(2)}</td>
-      <td>${Number(r.pAdj||1).toFixed(3)}</td><td>${r.epochs||0}/5</td>
-      <td>${r.status}</td></tr>`).join('');
-    ledger.innerHTML=`<div class="scrollx"><table><thead><tr><th>W/G/O/S/R</th><th>líder</th><th>Δ</th><th>p-aj</th><th>épocas</th><th>gate</th></tr></thead><tbody>${rows}</tbody></table></div>`;
-  }else ledger.innerHTML='<div class="small">Ledger vazio.</div>';
-}
-
-async function autoExperiment34(cfg,onProgress){
-  const sts=['balanced','mixed','recent','delay','coverage','joint'];
-  const labels={balanced:'Balanceada',mixed:'Mista',recent:'Recente',delay:'Atraso',coverage:'Coverage',joint:'Joint Covering'};
-  const maxT=Math.max(10,history.length-Math.max(50,cfg.window));
-  const tests=Math.min(cfg.tests,maxT),start=history.length-tests;
-  const screenN=Math.min(tests,Math.max(20,Math.floor(tests/2)));
-  let diffs=[],epochs=Object.fromEntries(sts.map(x=>[x,[0,0,0,0,0]]));
-
-  for(let idx=start;idx<history.length;idx++){
-    const train=history.slice(0,idx),target=history[idx],ep=Math.min(4,Math.floor((idx-start)*5/tests));
-    let rnd=0;
-    for(let r=0;r<cfg.randomControls;r++)rnd+=strategyDrawScore33('random',train,target,cfg.games,Math.max(1,Math.floor(cfg.seeds/2)));
-    rnd/=cfg.randomControls;
-
-    const row=[];
-    for(const st of sts){
-      let sc=0;
-      if(st==='joint')sc=strategyDrawScore33('joint',train,target,cfg.games,cfg.seeds);
-      else{
-        for(let sd=0;sd<cfg.seeds;sd++){
-          const set=generateForData(st,cfg.window,cfg.games,cfg.overlap,train,target.numero*100003+sd*97+cfg.window*11+cfg.games);
-          let best=0;
-          for(const g of set){
-            const h={a:intersect(g.nums,target.dezenas).length,t:intersect(g.cl,target.trevos).length};
-            best=Math.max(best,funnelScore33(h));
-          }
-          sc+=best;
-        }
-        sc/=cfg.seeds;
-      }
-      const d=sc-rnd;row.push(d);if(d>0)epochs[st][ep]++;
-    }
-    diffs.push(row);
-
-    const completed=idx-start+1;
-    if(onProgress)onProgress(Math.round(100*completed/tests));
-
-    // FAST screening: can only eliminate, never promote.
-    if(completed===screenN && tests>=40){
-      const means=sts.map((_,j)=>diffs.reduce((a,r)=>a+r[j],0)/diffs.length);
-      const maxMean=Math.max(...means);
-      const bestJ=means.indexOf(maxMean);
-      const positiveEpochs=epochs[sts[bestJ]].filter(x=>x>0).length;
-      if(maxMean<=0 || (maxMean<0.035 && positiveEpochs<2)){
-        return {
-          winner:labels[sts[bestJ]],winnerId:sts[bestJ],mean:maxMean,
-          epochs:positiveEpochs,pRaw:1,tests:completed,earlyStop:true,
-          reason:'futilidade na triagem intermediária'
-        };
-      }
-    }
-    if((completed)%2===0)await new Promise(r=>setTimeout(r,0));
-  }
-
-  const rc=bootstrapMaxReality33(diffs,400,20260822+cfg.window+cfg.games*3+cfg.overlap*7+cfg.seeds*13+cfg.randomControls*17);
-  const rows=sts.map((st,j)=>({st,label:labels[st],mean:rc.means[j],epochs:epochs[st].filter(x=>x>0).length}))
-    .sort((a,b)=>b.mean-a.mean||b.epochs-a.epochs);
-  return {winner:rows[0].label,winnerId:rows[0].st,mean:rows[0].mean,epochs:rows[0].epochs,pRaw:rc.p,tests,earlyStop:false};
-}
-
-async function autoLoop34(){
-  if(window.__auto341LoopBusy)return;
-  window.__auto341LoopBusy=true;
-  try{
-    let s=autoState34();
-    if(!s.running||s.paused){autoRender34();return}
-
-    // Watchdog: if queue empty but plan incomplete, rebuild only missing IDs.
-    if(!s.queue.length){
-      s=autoRepairQueueState34(s);
-      if(!s.queue.length){
-        s.running=false;s.current=null;autoSave34(s);autoRender34();return;
-      }
-      autoSave34(s);
-    }
-
-    const cfg=s.queue.shift();
-    const doneIds=new Set(s.results.map(r=>autoCfgId34(r)));
-    if(doneIds.has(autoCfgId34(cfg))){
-      s.duplicateDiscarded=(s.duplicateDiscarded||0)+1;
-      autoSave34(s);autoRender34();
-      setTimeout(()=>{window.__auto341LoopBusy=false;autoLoop34()},20);
-      return;
-    }
-
-    s.current={...cfg,progress:0};
-    s.totalRuns=(s.totalRuns||0)+1;
-    autoSave34(s);autoRender34();
-
-    const res=await autoExperiment34(cfg,p=>{
-      let x=autoState34();
-      if(x.current&&autoCfgId34(x.current)===autoCfgId34(cfg)){
-        x.current.progress=p;autoSave34(x);
-      }
-      if(p%10===0)autoRender34();
-    });
-
-    s=autoState34();
-    if(!s.results.some(r=>autoCfgId34(r)===autoCfgId34(cfg))){
-      s.results.push({...cfg,...res,finishedAt:new Date().toISOString()});
-      if(res.earlyStop)s.earlyStops=(s.earlyStops||0)+1;
-    }else s.duplicateDiscarded=(s.duplicateDiscarded||0)+1;
-
-    s.current=null;
-    s=autoRepairQueueState34(s);
-    autoSave34(s);autoRender34();
-  }finally{
-    window.__auto341LoopBusy=false;
-  }
-  setTimeout(autoLoop34,30);
-}
-
-function autoStart34(){
-  let s=autoState34();
-  const d=document.getElementById('a34depth').value,t=Number(document.getElementById('a34tests').value);
-  const sig=autoPlanSignature34(d,t);
-
-  if(!s.plan.length){
-    s.plan=autoBuild34(d,t);s.planSignature=sig;s.depth=d;s.tests=t;s.createdAt=new Date().toISOString();
-  }else if(s.planSignature!==sig && s.results.length===0){
-    s.plan=autoBuild34(d,t);s.planSignature=sig;s.depth=d;s.tests=t;
-  }
-  // If a previous run was interrupted mid-experiment, rerun only that unfinished ID.
-  if(s.current && !s.results.some(r=>autoCfgId34(r)===autoCfgId34(s.current))){
-    s.queue.unshift({...s.current,progress:undefined});
-    s.current=null;
-  }
-  s=autoRepairQueueState34(s);
-  s.running=true;s.paused=false;autoSave34(s);autoRender34();autoLoop34();
-}
-
-function autoPause34(){
-  let s=autoState34();s.running=false;s.paused=true;autoSave34(s);autoRender34();
-}
-
-function autoRepair34(){
-  let s=autoState34();
-  if(!s.plan.length){
-    const d=document.getElementById('a34depth').value,t=Number(document.getElementById('a34tests').value);
-    s.plan=autoBuild34(d,t);s.planSignature=autoPlanSignature34(d,t);s.depth=d;s.tests=t;
-  }
-  if(s.current && !s.results.some(r=>autoCfgId34(r)===autoCfgId34(s.current))){
-    s.queue.unshift({...s.current,progress:undefined});s.current=null;
-  }
-  s=autoRepairQueueState34(s);autoSave34(s);autoRender34();
-}
-
-function autoReset34(){
-  if(!confirm('Apagar o ledger automático 3.4.1 e iniciar uma pesquisa nova?'))return;
-  localStorage.removeItem(autoKey34());autoMigrate34();
-  // Do not remigrate old duplicated 3.4 after an intentional reset.
-  localStorage.setItem(autoKey34(),JSON.stringify(autoDefault34()));
-  autoRender34();
-}
-
-function autoExport34(){
-  const s=autoState34();
-  const payload={...s,adjustedResults:autoAdjusted34(s),exportedAt:new Date().toISOString()};
-  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);a.download='SSPSKN_3.4.1_FAST_INTEGRITY_LEDGER.json';a.click();
-  setTimeout(()=>URL.revokeObjectURL(a.href),500);
-}
-
-function autoResume34(){
-  autoMigrate34();
-  let s=autoState34();
-  // Browser may have died during current experiment: mark it unfinished and rebuild only that ID.
-  if(s.current && !s.results.some(r=>autoCfgId34(r)===autoCfgId34(s.current))){
-    s.queue.unshift({...s.current,progress:undefined});s.current=null;
-  }
-  s=autoRepairQueueState34(s);autoSave34(s);autoRender34();
-  if(s.running&&!s.paused&&s.queue.length)setTimeout(autoLoop34,300);
-}
-
-document.addEventListener('visibilitychange',()=>{
-  const el=document.getElementById('a34vis');if(el)el.textContent=document.hidden?'SUSPENSÍVEL':'ATIVO';
-  autoSave34(autoState34());
-});
+function clearValidation35(){document.getElementById('valResults').innerHTML='';document.getElementById('valProgress').textContent=''}
+async function runValidation35(){const out=document.getElementById('valResults'),prog=document.getElementById('valProgress');if(history.length<100){out.innerHTML='<div class="card notice err">Carregue pelo menos 100 concursos.</div>';return}const draws=Math.min(Number(document.getElementById('valDraws').value),history.length-75),seeds=Number(document.getElementById('valSeeds').value),start=history.length-draws;let deltas=[],wins=0,n=0;for(let s=0;s<seeds;s++){for(let idx=start;idx<history.length;idx++){let train=history.slice(0,idx),target=history[idx],cov=generateCoverageForData(75,20,3,train,target.numero*1009+s*7919),rnd=generateForData('random',75,20,3,train,target.numero*2003+s*7919);let score=set=>Math.max(...set.map(g=>intersect(g.nums,target.dezenas).length+intersect(g.cl,target.trevos).length*.35));let d=score(cov)-score(rnd);deltas.push(d);if(d>0)wins++;n++;prog.textContent=`Validando ${n}/${draws*seeds}...`;if(n%8===0)await new Promise(r=>setTimeout(r,0))}}let m=avg(deltas),pos=deltas.filter(x=>x>0).length;let cls=m>0?'ok':'err';out.innerHTML=`<div class="card"><div class="notice ${cls}"><b>${m>0?'SINAL POSITIVO EXPERIMENTAL':'HOLD'}</b><br>Delta médio Coverage vs aleatória: <b>${m.toFixed(3)}</b> • blocos positivos: <b>${pos}/${deltas.length}</b> (${(pos/deltas.length*100).toFixed(1)}%).</div><p class="small">Este resultado não prova previsibilidade e deve ser confirmado em teste cego futuro.</p></div>`;prog.textContent=`Concluído: ${draws} concursos × ${seeds} seeds.`}
+function importLedger35(){const f=document.getElementById('ledgerImport35').files[0],el=document.getElementById('ledger35Result');if(!f){el.textContent='Selecione o JSON.';return}let r=new FileReader();r.onload=()=>{try{let j=JSON.parse(r.result),a=j.adjustedResults||j.results||[],ids=['W75-G20-O3-S3-R3-T60','W75-G20-O3-S3-R5-T60'],rows=a.filter(x=>ids.includes(x.id));el.innerHTML=`<div class="notice ${rows.length?'ok':'err'}">Ledger ${j.version||'—'} • totalRuns ${j.totalRuns??'—'} • candidatos encontrados ${rows.length}/2.</div>`+rows.map(x=>`<div class="small"><b>${x.id}</b> • ${x.winner||x.winnerId} • mean ${Number(x.mean).toFixed(4)} • pRaw ${Number(x.pRaw).toFixed(4)} • pAdj ${x.pAdj??'—'} • ${x.status??'—'}</div>`).join('')}catch(e){el.innerHTML='<div class="notice err">JSON inválido.</div>'}};r.readAsText(f)}
+function blind35(){return load('sspskn_35_blind',[])}
+function renderBlind35(){let el=document.getElementById('blindList35');if(!el)return;let a=blind35();el.innerHTML=a.length?`<table><thead><tr><th>Concurso</th><th>Registro</th><th>Jogo</th></tr></thead><tbody>${a.slice().reverse().map(x=>`<tr><td>${x.contest}</td><td>${x.lockedAt}</td><td>${x.game}</td></tr>`).join('')}</tbody></table>`:'<div class="small">Nenhum teste cego registrado.</div>'}
+function saveBlind35(){let contest=document.getElementById('blindContest35').value.trim(),game=document.getElementById('blindGame35').value.trim();if(!contest||!game){alert('Informe concurso e jogo.');return}let a=blind35();a.push({contest,game,lockedAt:new Date().toISOString()});localStorage.setItem('sspskn_35_blind',JSON.stringify(a));document.getElementById('blindContest35').value='';document.getElementById('blindGame35').value='';renderBlind35()}
+function exportBlind35(){let b=new Blob([JSON.stringify({project:'SSPSKN',version:'3.5',entries:blind35()},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='SSPSKN_3.5_BLIND_TEST_LEDGER.json';a.click();URL.revokeObjectURL(a.href)}
+function clearBlind35(){if(confirm('Apagar todos os registros cegos?')){localStorage.removeItem('sspskn_35_blind');renderBlind35()}}
 
 function refresh(){
   let last=history.at(-1);
@@ -1289,10 +636,10 @@ function refresh(){
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));
   document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===b.dataset.page));
-  if(b.dataset.page==='analysis')renderAnalysis();if(b.dataset.page==='backtest')renderPattern(history);if(b.dataset.page==='research33')loadVault33();if(b.dataset.page==='auto34')autoRender34();if(b.dataset.page==='saved')renderSaved()
+  if(b.dataset.page==='analysis')renderAnalysis();if(b.dataset.page==='backtest')renderPattern(history);if(b.dataset.page==='validation')renderBlind35();if(b.dataset.page==='saved')renderSaved()
 });
-refresh();
-if(history.length)setStatus('Dados locais',true);loadVault33();autoResume34();
+refresh();renderBlind35();
+if(history.length)setStatus('Dados locais',true);
 </script>
 </body>
 </html>

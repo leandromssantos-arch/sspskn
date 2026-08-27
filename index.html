@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#08140f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SSPSKN 3.5">
-<title>SSPSKN 3.5 • +Milionária</title>
+<meta name="apple-mobile-web-app-title" content="SSPSKN 3.6">
+<title>SSPSKN 3.6 • Evidence Engine • +Milionária</title>
 <style>
 :root{
   --bg:#07110d; --card:#0e1d16; --card2:#12251c; --txt:#eef8f1; --muted:#9db3a6;
@@ -42,7 +42,7 @@ h1{font-size:24px;margin:0}.sub{color:var(--muted);font-size:13px;margin-top:3px
 input,select,textarea{width:100%;background:#08150f;color:var(--txt);border:1px solid var(--line);border-radius:11px;padding:11px;outline:none}
 input:focus,select:focus,textarea:focus{border-color:var(--acc2)}
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(7,17,13,.94);backdrop-filter:blur(15px);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center}
-.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(8,1fr);gap:4px}
 .tab{border:0;background:transparent;color:var(--muted);padding:8px 3px;border-radius:11px;font-size:10px;font-weight:700}.tab .ico{display:block;font-size:20px;margin-bottom:2px}.tab.active{background:#173526;color:var(--txt)}
 .page{display:none}.page.active{display:block}
 .balls{display:flex;gap:7px;flex-wrap:wrap}
@@ -73,7 +73,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <div class="wrap">
 <header>
   <div class="logo">SS</div>
-  <div><h1>SSPSKN 3.5</h1><div class="sub">Final Candidate • validação experimental • +Milionária</div></div>
+  <div><h1>SSPSKN 3.6</h1><div class="sub">Evidence Engine • validação rigorosa • +Milionária</div></div>
   <div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div>
 </header>
 
@@ -138,7 +138,10 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
           <option value="mixed">Mista histórico + aleatório</option>
           <option value="recent">Ênfase recente</option>
           <option value="delay">Ênfase em atraso</option>
-          <option value="coverage">Coverage 3.5 (experimental)</option>
+          <option value="coverage">Coverage 3.5 (legado)</option>
+          <option value="coverage36">Coverage Puro 3.6</option>
+          <option value="crowd36">Anti-Crowd Coverage 3.6</option>
+          <option value="bias36">Bias-Guarded 3.6</option>
           <option value="random">Aleatória pura</option>
         </select>
       </div>
@@ -151,7 +154,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
       <button class="btn" onclick="generateSet()">Gerar conjunto</button>
       <button class="btn ghost" onclick="clearGenerated()">Limpar</button>
     </div>
-    <div class="small" style="margin-top:10px">O algoritmo cria muitos candidatos e seleciona jogos com boa diversidade entre si. A nota considera equilíbrio estrutural e histórico. Na versão 3.5 há também o motor Coverage experimental. As notas continuam descrevendo estrutura e não representam chance de acerto.</div>
+    <div class="small" style="margin-top:10px">O algoritmo cria muitos candidatos e seleciona jogos com boa diversidade entre si. A nota considera equilíbrio estrutural e histórico. Na versão 3.6, os motores novos são avaliados contra controles aleatórios. Coverage Puro não usa frequência; Anti-Crowd busca menor popularidade aparente; Bias-Guarded só reage a desvios estatísticos fortes. Nenhuma nota representa garantia de prêmio.</div>
   </div>
   <div id="generated" class="list"></div>
   <div class="row" id="genActions" style="display:none;margin-top:12px">
@@ -225,6 +228,50 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
   <div class="card"><h2>Teste cego</h2><div class="small">Registre antes do sorteio. O horário fica gravado no aparelho.</div><div class="field" style="margin-top:8px"><label>Concurso</label><input id="blindContest35"></div><div class="field"><label>Jogo congelado</label><textarea id="blindGame35" rows="3"></textarea></div><div class="row"><button class="btn" onclick="saveBlind35()">Registrar</button><button class="btn secondary" onclick="exportBlind35()">Exportar</button><button class="btn danger" onclick="clearBlind35()">Apagar</button></div><div id="blindList35" style="margin-top:10px"></div></div>
   <div class="card"><div class="notice err"><b>HOLD EXPERIMENTAL.</b> Não tratar o sistema como preditivo até o candidato permanecer positivo fora da amostra e superar controles aleatórios de forma consistente.</div></div>
 </section>
+<section id="evidence36" class="page">
+  <div class="card">
+    <h2>Evidence Lab 3.6</h2>
+    <div class="notice"><b>Regra central:</b> nenhum motor é aprovado por ranking isolado. O 3.6 exige comparação pareada contra aleatório, correção por múltiplos testes, consistência temporal e teste prospectivo. Se não houver evidência suficiente, a saída é <b>NO BET</b>.</div>
+    <div class="grid" style="margin-top:12px">
+      <div class="kpi"><b id="evUniverse">238.360.500</b><span>combinações simples</span></div>
+      <div class="kpi"><b>R$ 6,00</b><span>aposta simples oficial</span></div>
+      <div class="kpi"><b id="evTopOdds">1 / 238,4 mi</b><span>6+2 por aposta simples</span></div>
+      <div class="kpi"><b id="evGate">NO BET</b><span>gate atual</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>1. Auditor de aleatoriedade</h2>
+    <div class="small">Testa dispersão das frequências e dependência entre concursos consecutivos. O teste de sequência usa permutações da ordem observada; frequência usa simulação sob sorteio uniforme.</div>
+    <div class="row" style="margin-top:12px"><div class="field"><label>Simulações</label><select id="auditSims36"><option>500</option><option selected>1000</option><option>2000</option></select></div><button class="btn" onclick="runAudit36()">Executar auditoria</button></div>
+    <div id="auditProgress36" class="small" style="margin-top:10px"></div><div id="auditResult36"></div>
+  </div>
+
+  <div class="card">
+    <h2>2. Torneio walk-forward</h2>
+    <div class="small">Cada motor recebe somente o passado disponível antes do concurso-alvo. A comparação usa o mesmo número de jogos e seeds pareadas. P-valores são obtidos por sign-flip/permutação e ajustados por Holm.</div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Concursos</label><select id="evDraws36"><option>40</option><option selected>80</option><option>120</option><option value="0">Máximo</option></select></div>
+      <div class="field"><label>Jogos/concurso</label><select id="evGames36"><option>10</option><option selected>20</option><option>30</option></select></div>
+      <div class="field"><label>Seeds</label><select id="evSeeds36"><option>1</option><option selected>3</option><option>5</option></select></div>
+    </div>
+    <div class="row" style="margin-top:10px"><div class="field"><label>Permutações</label><select id="evPerm36"><option>500</option><option selected>1000</option><option>2000</option></select></div><button class="btn" onclick="runEvidenceTournament36()">Executar torneio</button></div>
+    <div id="evProgress36" class="small" style="margin-top:10px"></div><div id="evResults36"></div>
+  </div>
+
+  <div class="card">
+    <h2>3. Tela econômica</h2>
+    <div class="small">Esta tela não estima todas as faixas nem divisão entre ganhadores. Ela mostra apenas o componente esperado do prêmio principal por aposta simples, útil como filtro conservador.</div>
+    <div class="row" style="margin-top:12px"><div class="field"><label>Prêmio principal estimado (R$)</label><input id="jackpot36" type="number" min="0" step="1000000" placeholder="Ex.: 10000000"></div><button class="btn secondary" onclick="calcEconomic36()">Calcular</button></div>
+    <div id="econResult36" style="margin-top:10px"></div>
+  </div>
+
+  <div class="card">
+    <h2>4. Gate de decisão</h2>
+    <div id="gateResult36"><div class="notice err"><b>NO BET</b><br>Execute o torneio. O sistema só libera um motor se houver vantagem pareada estatisticamente defensável e consistente entre períodos. Mesmo um PASS estatístico não é garantia de lucro.</div></div>
+  </div>
+</section>
+
 <section id="saved" class="page">
   <div class="card">
     <h2>Jogos salvos</h2>
@@ -245,10 +292,13 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <button class="tab" data-page="checker"><span class="ico">✓</span>Conferir</button>
 <button class="tab" data-page="backtest"><span class="ico">⌁</span>Backtest</button>
 <button class="tab" data-page="validation"><span class="ico">◉</span>Validar</button>
+<button class="tab" data-page="evidence36"><span class="ico">⚗</span>Evidence</button>
 <button class="tab" data-page="saved"><span class="ico">★</span>Salvos</button>
 </div></nav>
 
 <script>
+// SSPSKN 3.6 Evidence Engine — 2026-08-26. New engines are experimental and require out-of-sample evidence.
+
 const API='https://servicebus2.caixa.gov.br/portaldeloterias/api/maismilionaria';
 let history=load('sspskn_history',[]);
 let saved=load('sspskn_saved',[]);
@@ -480,11 +530,19 @@ function generateCoverageForData(wnd,count,maxOv,data,seedBase=1){
   return chosen;
 }
 
+
+function sampleUniform36(items,k,rng=Math.random){let a=[...items],out=[];for(let i=0;i<k;i++){let j=Math.floor(rng()*a.length);out.push(a[j]);a.splice(j,1)}return out.sort((x,y)=>x-y)}
+function crowdPenalty36(nums){let p=0;let birthdays=nums.filter(n=>n<=31).length;if(birthdays===6)p+=5;else if(birthdays>=5)p+=2.5;let consec=nums.slice(1).filter((n,i)=>n-nums[i]===1).length;p+=consec*1.4;let sameDec=Math.max(...[0,1,2,3,4].map(d=>nums.filter(n=>Math.floor((n-1)/10)===d).length));if(sameDec>=4)p+=2;let endings={};nums.forEach(n=>endings[n%10]=(endings[n%10]||0)+1);if(Math.max(...Object.values(endings))>=3)p+=1.5;return p}
+function biasProfile36(data){let s=calcStats(data),N=Math.max(1,data.length),p=6/50,tp=2/6,sd=Math.sqrt(N*p*(1-p)),tsd=Math.sqrt(N*tp*(1-tp));let z=Array(51).fill(0),tz=Array(7).fill(0);for(let n=1;n<=50;n++)z[n]=(s.f[n]-N*p)/Math.max(.0001,sd);for(let n=1;n<=6;n++)tz[n]=(s.tf[n]-N*tp)/Math.max(.0001,tsd);return {z,tz,maxZ:Math.max(...z.slice(1).map(Math.abs)),tMaxZ:Math.max(...tz.slice(1).map(Math.abs))}}
+function makeCandidate36(kind,data,rng=Math.random){let nums=[...Array(50)].map((_,i)=>i+1),cl=[1,2,3,4,5,6],n,c;if(kind==='bias36'){let b=biasProfile36(data),nw=nums.map(x=>b.maxZ>=3.5?Math.exp(Math.max(-.35,Math.min(.35,b.z[x]*.10))):1),cw=cl.map(x=>b.tMaxZ>=3.5?Math.exp(Math.max(-.35,Math.min(.35,b.tz[x]*.10))):1);n=rngPickWeighted36(nums,nw,6,rng);c=rngPickWeighted36(cl,cw,2,rng)}else{n=sampleUniform36(nums,6,rng);c=sampleUniform36(cl,2,rng)}return {nums:n,cl:c,score:gameQuality(n,c,data)}}
+function rngPickWeighted36(items,weights,k,rng=Math.random){let pool=items.map((x,i)=>({x,w:Math.max(.001,weights[i])})),out=[];while(out.length<k&&pool.length){let total=pool.reduce((s,p)=>s+p.w,0),r=rng()*total,idx=0;for(;idx<pool.length;idx++){r-=pool[idx].w;if(r<=0)break}idx=Math.min(idx,pool.length-1);out.push(pool[idx].x);pool.splice(idx,1)}return out.sort((a,b)=>a-b)}
+function generateModern36(kind,count,maxOv,data,seedBase=1){let rng=seededRandom(seedBase>>>0),candidates=[],seen=new Set();for(let i=0;i<Math.max(1800,count*180);i++){let g=makeCandidate36(kind,data,rng),k=keyGame(g);if(!seen.has(k)){seen.add(k);candidates.push(g)}}let chosen=[],seenNums=new Set(),seenPairs=new Set(),seenClPairs=new Set();while(chosen.length<count){let best=null,bg=-1e9;for(let g of candidates){if(chosen.some(c=>overlap(c,g)>maxOv))continue;let gain=0;g.nums.forEach(n=>{if(!seenNums.has(n))gain+=3});for(let i=0;i<6;i++)for(let j=i+1;j<6;j++)if(!seenPairs.has(pairKey35(g.nums[i],g.nums[j])))gain+=.65;let ck=pairKey35(g.cl[0],g.cl[1]);if(!seenClPairs.has(ck))gain+=2.2;gain+=(g.score||70)*.003;if(kind==='crowd36')gain-=crowdPenalty36(g.nums)*1.2;if(kind==='bias36'){let b=biasProfile36(data);if(b.maxZ<3.5&&b.tMaxZ<3.5)gain-=.02}if(gain>bg){bg=gain;best=g}}if(!best)break;chosen.push(best);best.nums.forEach(n=>seenNums.add(n));for(let i=0;i<6;i++)for(let j=i+1;j<6;j++)seenPairs.add(pairKey35(best.nums[i],best.nums[j]));seenClPairs.add(pairKey35(best.cl[0],best.cl[1]));candidates=candidates.filter(x=>x!==best)}return chosen}
+
 function generateSet(){
   let count=Math.min(100,Math.max(1,Number(document.getElementById('genCount').value)||10));
   let strategy=document.getElementById('strategy').value,wnd=Number(document.getElementById('genWindow').value),maxOv=Number(document.getElementById('maxOverlap').value);
   let chosen=[];
-  if(strategy==='coverage'){chosen=generateCoverageForData(wnd,count,maxOv,history,Date.now()&0xffffffff)}else{let candidates=[],seen=new Set();for(let i=0;i<Math.max(1000,count*120);i++){let g=makeCandidate(strategy,wnd),k=keyGame(g);if(!seen.has(k)){seen.add(k);candidates.push(g)}}candidates.sort((a,b)=>b.score-a.score);for(let g of candidates){if(chosen.every(c=>overlap(c,g)<=maxOv)){chosen.push(g);if(chosen.length>=count)break}}}
+  if(strategy==='coverage'){chosen=generateCoverageForData(wnd,count,maxOv,history,Date.now()&0xffffffff)}else if(['coverage36','crowd36','bias36'].includes(strategy)){chosen=generateModern36(strategy,count,maxOv,history,Date.now()&0xffffffff)}else{let candidates=[],seen=new Set();for(let i=0;i<Math.max(1000,count*120);i++){let g=makeCandidate(strategy,wnd),k=keyGame(g);if(!seen.has(k)){seen.add(k);candidates.push(g)}}candidates.sort((a,b)=>b.score-a.score);for(let g of candidates){if(chosen.every(c=>overlap(c,g)<=maxOv)){chosen.push(g);if(chosen.length>=count)break}}}
   generated=chosen;renderGenerated();
   if(chosen.length<count)alert(`Foi possível criar ${chosen.length} de ${count} jogos respeitando o limite de ${maxOv} dezenas repetidas. Aumente o limite de repetição para gerar mais jogos.`);
 }
@@ -544,6 +602,9 @@ const STRATEGIES=[
   {id:'recent',name:'Ênfase recente'},
   {id:'delay',name:'Ênfase em atraso'},
   {id:'coverage',name:'Coverage 3.5'},
+  {id:'coverage36',name:'Coverage Puro 3.6'},
+  {id:'crowd36',name:'Anti-Crowd Coverage 3.6'},
+  {id:'bias36',name:'Bias-Guarded 3.6'},
   {id:'random',name:'Aleatória pura'}
 ];
 
@@ -554,6 +615,7 @@ function seededRandom(seed){
 function withSeed(seed,fn){let old=Math.random;Math.random=seededRandom(seed);try{return fn()}finally{Math.random=old}}
 function generateForData(strategy,wnd,count,maxOv,data,seedBase=1){
   if(strategy==='coverage')return generateCoverageForData(wnd,count,maxOv,data,seedBase);
+  if(['coverage36','crowd36','bias36'].includes(strategy))return generateModern36(strategy,count,maxOv,data,seedBase);
   let candidates=[],seen=new Set();
   withSeed(seedBase,()=>{
     for(let i=0;i<Math.max(500,count*80);i++){
@@ -624,6 +686,21 @@ function saveBlind35(){let contest=document.getElementById('blindContest35').val
 function exportBlind35(){let b=new Blob([JSON.stringify({project:'SSPSKN',version:'3.5',entries:blind35()},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='SSPSKN_3.5_BLIND_TEST_LEDGER.json';a.click();URL.revokeObjectURL(a.href)}
 function clearBlind35(){if(confirm('Apagar todos os registros cegos?')){localStorage.removeItem('sspskn_35_blind');renderBlind35()}}
 
+
+const UNIVERSE36=238360500, TICKET36=6;
+function mean36(a){return a.length?a.reduce((s,x)=>s+x,0)/a.length:0}
+function maxAbsZ36(data){let b=biasProfile36(data);return {n:b.maxZ,t:b.tMaxZ}}
+function randomDraw36(rng=Math.random){return {dezenas:sampleUniform36([...Array(50)].map((_,i)=>i+1),6,rng),trevos:sampleUniform36([1,2,3,4,5,6],2,rng)}}
+function overlapMean36(data,key){if(data.length<2)return 0;let a=[];for(let i=1;i<data.length;i++)a.push(intersect(data[i-1][key],data[i][key]).length);return mean36(a)}
+function shuffledOverlap36(data,key,rng){let idx=[...Array(data.length)].map((_,i)=>i);for(let i=idx.length-1;i>0;i--){let j=Math.floor(rng()*(i+1));[idx[i],idx[j]]=[idx[j],idx[i]]}let s=0;for(let i=1;i<idx.length;i++)s+=intersect(data[idx[i-1]][key],data[idx[i]][key]).length;return s/(idx.length-1)}
+async function runAudit36(){let el=document.getElementById('auditResult36'),prog=document.getElementById('auditProgress36');if(history.length<50){el.innerHTML='<div class="notice err">Carregue pelo menos 50 concursos.</div>';return}let sims=Number(document.getElementById('auditSims36').value),obs=maxAbsZ36(history),obsON=overlapMean36(history,'dezenas'),obsOT=overlapMean36(history,'trevos'),geN=0,geT=0,geON=0,geOT=0;let rng=seededRandom(360036);for(let s=0;s<sims;s++){let sim=[];for(let i=0;i<history.length;i++){let d=randomDraw36(rng);sim.push({dezenas:d.dezenas,trevos:d.trevos})}let mz=maxAbsZ36(sim);if(mz.n>=obs.n)geN++;if(mz.t>=obs.t)geT++;if(Math.abs(shuffledOverlap36(history,'dezenas',rng)-.72)>=Math.abs(obsON-.72))geON++;if(Math.abs(shuffledOverlap36(history,'trevos',rng)-(2/3))>=Math.abs(obsOT-(2/3)))geOT++;if((s+1)%50===0){prog.textContent=`Simulando ${s+1}/${sims}...`;await new Promise(r=>setTimeout(r,0))}}let pN=(geN+1)/(sims+1),pT=(geT+1)/(sims+1),pON=(geON+1)/(sims+1),pOT=(geOT+1)/(sims+1),minp=Math.min(pN,pT,pON,pOT),adj=Math.min(1,minp*4),sig=adj<=.05;el.innerHTML=`<div class="card"><div class="notice ${sig?'ok':''}"><b>${sig?'DESVIO A INVESTIGAR':'SEM EVIDÊNCIA FORTE DE VIÉS'}</b><br>Frequência dezenas: max |z| <b>${obs.n.toFixed(2)}</b>, p≈<b>${pN.toFixed(3)}</b> • Trevos: <b>${obs.t.toFixed(2)}</b>, p≈<b>${pT.toFixed(3)}</b>.<br>Overlap consecutivo: dezenas <b>${obsON.toFixed(3)}</b> (esperado 0,720), p≈<b>${pON.toFixed(3)}</b> • trevos <b>${obsOT.toFixed(3)}</b> (esperado 0,667), p≈<b>${pOT.toFixed(3)}</b>.<br>Correção conservadora 4 testes: menor p ajustado ≈ <b>${adj.toFixed(3)}</b>.</div><p class="small">Um desvio isolado não é usado automaticamente para apostar. O Bias-Guarded exige sinal forte e ainda precisa vencer fora da amostra.</p></div>`;prog.textContent=`Auditoria concluída: ${sims} simulações.`}
+function setMetric36(set,target){if(!set.length)return 0;let best=-1;for(let g of set){let a=intersect(g.nums,target.dezenas).length,t=intersect(g.cl,target.trevos).length;let v=a+t*.35;if(v>best)best=v}return best}
+function signFlipP36(diffs,perms,seed){let obs=mean36(diffs),rng=seededRandom(seed),ge=0;for(let p=0;p<perms;p++){let s=0;for(let d of diffs)s+=rng()<.5?d:-d;if(s/diffs.length>=obs)ge++}return (ge+1)/(perms+1)}
+function holm36(rows){let s=rows.map((r,i)=>({i,p:r.p})).sort((a,b)=>a.p-b.p),prev=0;for(let k=0;k<s.length;k++){let adj=Math.min(1,s[k].p*(s.length-k));adj=Math.max(prev,adj);rows[s[k].i].pAdj=adj;prev=adj}return rows}
+function segmentsPositive36(d){let n=d.length,q=Math.floor(n/3);if(q<1)return false;return mean36(d.slice(0,q))>0&&mean36(d.slice(q,2*q))>0&&mean36(d.slice(2*q))>0}
+async function runEvidenceTournament36(){let out=document.getElementById('evResults36'),prog=document.getElementById('evProgress36');if(history.length<100){out.innerHTML='<div class="notice err">Carregue pelo menos 100 concursos.</div>';return}let req=Number(document.getElementById('evDraws36').value),games=Number(document.getElementById('evGames36').value),seeds=Number(document.getElementById('evSeeds36').value),perms=Number(document.getElementById('evPerm36').value);let minTrain=75,max=history.length-minTrain,draws=req===0?max:Math.min(req,max),start=history.length-draws;let engines=[['coverage36','Coverage Puro 3.6'],['crowd36','Anti-Crowd 3.6'],['bias36','Bias-Guarded 3.6'],['coverage','Coverage 3.5 legado']];let diffs={};engines.forEach(e=>diffs[e[0]]=[]);let n=0,total=draws*seeds;for(let idx=start;idx<history.length;idx++){let train=history.slice(0,idx),target=history[idx];for(let sd=0;sd<seeds;sd++){let baseSeed=target.numero*10007+sd*7919+games*37,rnd=generateForData('random',75,games,3,train,baseSeed),rscore=setMetric36(rnd,target);for(let [id] of engines){let set=generateForData(id,75,games,3,train,baseSeed+id.length*97),v=setMetric36(set,target);diffs[id].push(v-rscore)}n++;if(n%4===0){prog.textContent=`Walk-forward ${n}/${total} blocos...`;await new Promise(r=>setTimeout(r,0))}}}let rows=engines.map(([id,name],i)=>{let d=diffs[id],m=mean36(d),wr=d.filter(x=>x>0).length/d.length,p=signFlipP36(d,perms,3600+i*101);return {id,name,delta:m,winRate:wr,p,consistent:segmentsPositive36(d),n:d.length}});holm36(rows);rows.sort((a,b)=>a.pAdj-b.pAdj||b.delta-a.delta);let winner=rows[0],pass=winner.pAdj<=.05&&winner.delta>=.10&&winner.winRate>=.55&&winner.consistent;let table=rows.map(r=>`<tr><td>${r.name}</td><td>${r.delta.toFixed(3)}</td><td>${(r.winRate*100).toFixed(1)}%</td><td>${r.p.toFixed(3)}</td><td>${r.pAdj.toFixed(3)}</td><td>${r.consistent?'3/3':'não'}</td></tr>`).join('');out.innerHTML=`<div class="card"><div class="notice ${pass?'ok':'err'}"><b>${pass?'EVIDENCE PASS':'HOLD / NO BET'}</b><br>${pass?`${winner.name} passou os critérios estatísticos internos.`:'Nenhum motor cumpriu simultaneamente efeito mínimo, p ajustado, taxa de vitórias e consistência temporal.'}</div><div class="scrollx" style="margin-top:10px"><table><thead><tr><th>Motor</th><th>Δ vs random</th><th>blocos +</th><th>p</th><th>p Holm</th><th>segmentos</th></tr></thead><tbody>${table}</tbody></table></div><p class="small">Critério 3.6: p Holm ≤ 0,05; Δ ≥ 0,10; blocos positivos ≥ 55%; três terços cronológicos com Δ positivo. PASS estatístico não significa lucro garantido.</p></div>`;document.getElementById('evGate').textContent=pass?'PASS ESTATÍSTICO':'NO BET';document.getElementById('gateResult36').innerHTML=`<div class="notice ${pass?'ok':'err'}"><b>${pass?'PASS ESTATÍSTICO — ainda exige teste cego':'NO BET'}</b><br>${pass?'Congele o candidato antes do próximo sorteio e valide prospectivamente. Não aumentar orçamento até acumular evidência prospectiva.':'Os dados atuais não justificam tratar nenhum motor como vantagem real. O sistema recomenda não aumentar exposição.'}</div>`;prog.textContent=`Torneio concluído: ${draws} concursos × ${seeds} seeds = ${draws*seeds} blocos por motor.`}
+function calcEconomic36(){let j=Number(document.getElementById('jackpot36').value)||0,el=document.getElementById('econResult36');if(j<=0){el.innerHTML='<div class="notice err">Informe o prêmio estimado.</div>';return}let comp=j/UNIVERSE36,ratio=comp/TICKET36,breakEven=UNIVERSE36*TICKET36;el.innerHTML=`<div class="notice"><b>Componente do prêmio principal por aposta:</b> R$ ${comp.toFixed(4)}.<br>Isso equivale a ${(ratio*100).toFixed(2)}% do preço de R$ 6,00. Jackpot que sozinho igualaria o preço da aposta: aproximadamente <b>R$ ${(breakEven/1e9).toFixed(3)} bilhões</b>.<br><span class="tiny">Ignora faixas inferiores, impostos/regras aplicáveis, acumulações e divisão entre ganhadores; portanto não é cálculo completo de valor esperado.</span></div>`}
+
 function refresh(){
   let last=history.at(-1);
   document.getElementById('kConc').textContent=last?.numero||'—';
@@ -636,7 +713,7 @@ function refresh(){
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));
   document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===b.dataset.page));
-  if(b.dataset.page==='analysis')renderAnalysis();if(b.dataset.page==='backtest')renderPattern(history);if(b.dataset.page==='validation')renderBlind35();if(b.dataset.page==='saved')renderSaved()
+  if(b.dataset.page==='analysis')renderAnalysis();if(b.dataset.page==='backtest')renderPattern(history);if(b.dataset.page==='validation')renderBlind35();if(b.dataset.page==='evidence36')document.getElementById('evGate').textContent='NO BET';if(b.dataset.page==='saved')renderSaved()
 });
 refresh();renderBlind35();
 if(history.length)setStatus('Dados locais',true);

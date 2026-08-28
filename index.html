@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="SSPSKN 3.6">
-<title>SSPSKN 3.6 • Evidence Engine • +Milionária</title>
+<title>SSPSKN 3.6.1 • Research Lab • +Milionária</title>
 <style>
 :root{
   --bg:#07110d; --card:#0e1d16; --card2:#12251c; --txt:#eef8f1; --muted:#9db3a6;
@@ -73,7 +73,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <div class="wrap">
 <header>
   <div class="logo">SS</div>
-  <div><h1>SSPSKN 3.6</h1><div class="sub">Evidence Engine • validação rigorosa • +Milionária</div></div>
+  <div><h1>SSPSKN 3.6.1</h1><div class="sub">Research Lab • stress test • +Milionária</div></div>
   <div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div>
 </header>
 
@@ -260,14 +260,26 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
   </div>
 
   <div class="card">
-    <h2>3. Tela econômica</h2>
+    <h2>3. Stress Lab — Coverage Puro</h2>
+    <div class="small">Tenta derrubar o candidato nº 1. Mede distribuição completa do delta contra controles aleatórios pareados, intervalo bootstrap, caudas 3+/4+, estabilidade por janela e separa cobertura de possível sinal preditivo. Não libera aposta.</div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Concursos</label><select id="stressDraws361"><option>80</option><option selected>120</option><option value="0">Máximo</option></select></div>
+      <div class="field"><label>Seeds</label><select id="stressSeeds361"><option>3</option><option selected>5</option><option>10</option></select></div>
+      <div class="field"><label>Bootstrap</label><select id="stressBoot361"><option>1000</option><option selected>2000</option><option>5000</option></select></div>
+    </div>
+    <button class="btn" style="margin-top:10px" onclick="runStress361()">Executar stress test</button>
+    <div id="stressProgress361" class="small" style="margin-top:10px"></div><div id="stressResult361"></div>
+  </div>
+
+  <div class="card">
+    <h2>4. Tela econômica</h2>
     <div class="small">Esta tela não estima todas as faixas nem divisão entre ganhadores. Ela mostra apenas o componente esperado do prêmio principal por aposta simples, útil como filtro conservador.</div>
     <div class="row" style="margin-top:12px"><div class="field"><label>Prêmio principal estimado (R$)</label><input id="jackpot36" type="number" min="0" step="1000000" placeholder="Ex.: 10000000"></div><button class="btn secondary" onclick="calcEconomic36()">Calcular</button></div>
     <div id="econResult36" style="margin-top:10px"></div>
   </div>
 
   <div class="card">
-    <h2>4. Gate de decisão</h2>
+    <h2>5. Gate de decisão</h2>
     <div id="gateResult36"><div class="notice err"><b>NO BET</b><br>Execute o torneio. O sistema só libera um motor se houver vantagem pareada estatisticamente defensável e consistente entre períodos. Mesmo um PASS estatístico não é garantia de lucro.</div></div>
   </div>
 </section>
@@ -699,6 +711,11 @@ function signFlipP36(diffs,perms,seed){let obs=mean36(diffs),rng=seededRandom(se
 function holm36(rows){let s=rows.map((r,i)=>({i,p:r.p})).sort((a,b)=>a.p-b.p),prev=0;for(let k=0;k<s.length;k++){let adj=Math.min(1,s[k].p*(s.length-k));adj=Math.max(prev,adj);rows[s[k].i].pAdj=adj;prev=adj}return rows}
 function segmentsPositive36(d){let n=d.length,q=Math.floor(n/3);if(q<1)return false;return mean36(d.slice(0,q))>0&&mean36(d.slice(q,2*q))>0&&mean36(d.slice(2*q))>0}
 async function runEvidenceTournament36(){let out=document.getElementById('evResults36'),prog=document.getElementById('evProgress36');if(history.length<100){out.innerHTML='<div class="notice err">Carregue pelo menos 100 concursos.</div>';return}let req=Number(document.getElementById('evDraws36').value),games=Number(document.getElementById('evGames36').value),seeds=Number(document.getElementById('evSeeds36').value),perms=Number(document.getElementById('evPerm36').value);let minTrain=75,max=history.length-minTrain,draws=req===0?max:Math.min(req,max),start=history.length-draws;let engines=[['coverage36','Coverage Puro 3.6'],['crowd36','Anti-Crowd 3.6'],['bias36','Bias-Guarded 3.6'],['coverage','Coverage 3.5 legado']];let diffs={};engines.forEach(e=>diffs[e[0]]=[]);let n=0,total=draws*seeds;for(let idx=start;idx<history.length;idx++){let train=history.slice(0,idx),target=history[idx];for(let sd=0;sd<seeds;sd++){let baseSeed=target.numero*10007+sd*7919+games*37,rnd=generateForData('random',75,games,3,train,baseSeed),rscore=setMetric36(rnd,target);for(let [id] of engines){let set=generateForData(id,75,games,3,train,baseSeed+id.length*97),v=setMetric36(set,target);diffs[id].push(v-rscore)}n++;if(n%4===0){prog.textContent=`Walk-forward ${n}/${total} blocos...`;await new Promise(r=>setTimeout(r,0))}}}let rows=engines.map(([id,name],i)=>{let d=diffs[id],m=mean36(d),wr=d.filter(x=>x>0).length/d.length,p=signFlipP36(d,perms,3600+i*101);return {id,name,delta:m,winRate:wr,p,consistent:segmentsPositive36(d),n:d.length}});holm36(rows);rows.sort((a,b)=>a.pAdj-b.pAdj||b.delta-a.delta);let winner=rows[0],pass=winner.pAdj<=.05&&winner.delta>=.10&&winner.winRate>=.55&&winner.consistent;let table=rows.map(r=>`<tr><td>${r.name}</td><td>${r.delta.toFixed(3)}</td><td>${(r.winRate*100).toFixed(1)}%</td><td>${r.p.toFixed(3)}</td><td>${r.pAdj.toFixed(3)}</td><td>${r.consistent?'3/3':'não'}</td></tr>`).join('');out.innerHTML=`<div class="card"><div class="notice ${pass?'ok':'err'}"><b>${pass?'EVIDENCE PASS':'HOLD / NO BET'}</b><br>${pass?`${winner.name} passou os critérios estatísticos internos.`:'Nenhum motor cumpriu simultaneamente efeito mínimo, p ajustado, taxa de vitórias e consistência temporal.'}</div><div class="scrollx" style="margin-top:10px"><table><thead><tr><th>Motor</th><th>Δ vs random</th><th>blocos +</th><th>p</th><th>p Holm</th><th>segmentos</th></tr></thead><tbody>${table}</tbody></table></div><p class="small">Critério 3.6: p Holm ≤ 0,05; Δ ≥ 0,10; blocos positivos ≥ 55%; três terços cronológicos com Δ positivo. PASS estatístico não significa lucro garantido.</p></div>`;document.getElementById('evGate').textContent=pass?'PASS ESTATÍSTICO':'NO BET';document.getElementById('gateResult36').innerHTML=`<div class="notice ${pass?'ok':'err'}"><b>${pass?'PASS ESTATÍSTICO — ainda exige teste cego':'NO BET'}</b><br>${pass?'Congele o candidato antes do próximo sorteio e valide prospectivamente. Não aumentar orçamento até acumular evidência prospectiva.':'Os dados atuais não justificam tratar nenhum motor como vantagem real. O sistema recomenda não aumentar exposição.'}</div>`;prog.textContent=`Torneio concluído: ${draws} concursos × ${seeds} seeds = ${draws*seeds} blocos por motor.`}
+function quantile361(a,q){if(!a.length)return 0;let x=a.slice().sort((u,v)=>u-v),i=(x.length-1)*q,l=Math.floor(i),h=Math.ceil(i);return l===h?x[l]:x[l]+(x[h]-x[l])*(i-l)}
+function bestHits361(set,target){let best={a:-1,t:-1,v:-1};for(let g of set){let a=intersect(g.nums,target.dezenas).length,t=intersect(g.cl,target.trevos).length,v=a+t*.35;if(v>best.v)best={a,t,v}}return best}
+function bootstrapCI361(d,B,seed){let rng=seededRandom(seed),m=[];for(let b=0;b<B;b++){let s=0;for(let i=0;i<d.length;i++)s+=d[Math.floor(rng()*d.length)];m.push(s/d.length)}return [quantile361(m,.025),quantile361(m,.975)]}
+async function runStress361(){let out=document.getElementById('stressResult361'),prog=document.getElementById('stressProgress361');if(history.length<120){out.innerHTML='<div class="notice err">Carregue pelo menos 120 concursos.</div>';return}let req=Number(document.getElementById('stressDraws361').value),seeds=Number(document.getElementById('stressSeeds361').value),B=Number(document.getElementById('stressBoot361').value),minTrain=75,max=history.length-minTrain,draws=req===0?max:Math.min(req,max),start=history.length-draws;let diffs=[],tail={c3:0,r3:0,c4:0,r4:0,ct2:0,rt2:0},wins=0,ties=0,n=0;for(let idx=start;idx<history.length;idx++){let train=history.slice(0,idx),target=history[idx];for(let sd=0;sd<seeds;sd++){let seed=target.numero*13007+sd*7919,r=generateForData('random',75,20,3,train,seed),c=generateForData('coverage36',75,20,3,train,seed+361),rh=bestHits361(r,target),ch=bestHits361(c,target),d=ch.v-rh.v;diffs.push(d);if(d>0)wins++;else if(d===0)ties++;if(ch.a>=3)tail.c3++;if(rh.a>=3)tail.r3++;if(ch.a>=4)tail.c4++;if(rh.a>=4)tail.r4++;if(ch.t>=2)tail.ct2++;if(rh.t>=2)tail.rt2++;n++;if(n%10===0){prog.textContent=`Stress ${n}/${draws*seeds} blocos...`;await new Promise(r=>setTimeout(r,0))}}}let m=mean36(diffs),ci=bootstrapCI361(diffs,B,361361),med=quantile361(diffs,.5),q10=quantile361(diffs,.1),q90=quantile361(diffs,.9),wr=wins/n,segments=[];for(let k=0;k<4;k++){let a=Math.floor(k*n/4),b=Math.floor((k+1)*n/4);segments.push(mean36(diffs.slice(a,b)))}let windows=[40,80,120].filter(w=>w<=draws).map(w=>{let z=diffs.slice(-w*seeds);return `${w}: ${mean36(z).toFixed(3)}`}).join(' • ');let robust=ci[0]>0&&segments.every(x=>x>0);out.innerHTML=`<div class="notice ${robust?'ok':'err'}"><b>${robust?'SINAL RESISTIU AO STRESS — AINDA NÃO É PASS':'CANDIDATO NÃO PROVOU ROBUSTEZ'}</b><br>Δ médio <b>${m.toFixed(3)}</b> • IC bootstrap 95% <b>[${ci[0].toFixed(3)}, ${ci[1].toFixed(3)}]</b> • mediana ${med.toFixed(3)} • vitórias ${(wr*100).toFixed(1)}% • empates ${(ties/n*100).toFixed(1)}%.</div><div class="scrollx" style="margin-top:10px"><table><thead><tr><th>Métrica</th><th>Coverage</th><th>Random</th></tr></thead><tbody><tr><td>melhor jogo ≥3 dezenas</td><td>${(100*tail.c3/n).toFixed(1)}%</td><td>${(100*tail.r3/n).toFixed(1)}%</td></tr><tr><td>melhor jogo ≥4 dezenas</td><td>${(100*tail.c4/n).toFixed(1)}%</td><td>${(100*tail.r4/n).toFixed(1)}%</td></tr><tr><td>2 trevos no melhor jogo</td><td>${(100*tail.ct2/n).toFixed(1)}%</td><td>${(100*tail.rt2/n).toFixed(1)}%</td></tr></tbody></table></div><p class="small">Quartis temporais Δ: ${segments.map(x=>x.toFixed(3)).join(' • ')}.<br>Cauda do Δ: P10 ${q10.toFixed(3)} • P90 ${q90.toFixed(3)}.<br>Sensibilidade por janela (blocos finais): ${windows}.<br><b>Regra:</b> este laboratório nunca libera aposta. Um sinal só avança se o IC excluir zero e permanecer positivo em todos os períodos; depois ainda exige teste prospectivo congelado.</p>`;prog.textContent=`Stress concluído: ${draws} concursos × ${seeds} seeds = ${n} blocos; ${B} reamostragens bootstrap.`}
+
 function calcEconomic36(){let j=Number(document.getElementById('jackpot36').value)||0,el=document.getElementById('econResult36');if(j<=0){el.innerHTML='<div class="notice err">Informe o prêmio estimado.</div>';return}let comp=j/UNIVERSE36,ratio=comp/TICKET36,breakEven=UNIVERSE36*TICKET36;el.innerHTML=`<div class="notice"><b>Componente do prêmio principal por aposta:</b> R$ ${comp.toFixed(4)}.<br>Isso equivale a ${(ratio*100).toFixed(2)}% do preço de R$ 6,00. Jackpot que sozinho igualaria o preço da aposta: aproximadamente <b>R$ ${(breakEven/1e9).toFixed(3)} bilhões</b>.<br><span class="tiny">Ignora faixas inferiores, impostos/regras aplicáveis, acumulações e divisão entre ganhadores; portanto não é cálculo completo de valor esperado.</span></div>`}
 
 function refresh(){

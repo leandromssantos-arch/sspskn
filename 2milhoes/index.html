@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="2 Milhões">
-<title>2 Milhões 1.0B</title>
+<title>2 Milhões 1.0C</title>
 <style>
 :root{--bg:#f4f7f5;--card:#fff;--ink:#16221b;--muted:#63716a;--brand:#0b6b3a;--brand2:#11955a;--line:#dfe8e2;--warn:#a56a00;--bad:#b3261e}
 *{box-sizing:border-box}
@@ -28,7 +28,7 @@ button.danger{background:#fff0ef;color:var(--bad);border:1px solid #f2c9c6}
 .muted{color:var(--muted);font-size:13px}
 .nums{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .ball{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--brand);color:white;font-weight:800;font-size:13px}
-.tabs{position:fixed;left:0;right:0;bottom:0;background:white;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);z-index:5;padding-bottom:max(5px,env(safe-area-inset-bottom))}
+.tabs{position:fixed;left:0;right:0;bottom:0;background:white;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(6,1fr);z-index:5;padding-bottom:max(5px,env(safe-area-inset-bottom))}
 .tabbtn{background:transparent;color:#5b6b62;border-radius:0;margin:0;padding:10px 4px;font-size:12px}
 .tabbtn.active{color:var(--brand);background:#eef7f2}
 .tab{display:none}.tab.active{display:block}
@@ -39,8 +39,8 @@ code{word-break:break-all}
 </head>
 <body>
 <header>
-  <h1>2 Milhões 1.0B</h1>
-  <p>Random Baseline • backtest controlado • NO BET</p>
+  <h1>2 Milhões 1.0C</h1>
+  <p>Coverage 1.0 • Motor × Random • NO BET</p>
 </header>
 
 <main>
@@ -122,13 +122,47 @@ code{word-break:break-all}
   </div>
 </section>
 
+
+<section id="coverage" class="tab">
+  <div class="card">
+    <h2 style="margin-top:0">Coverage 1.0C</h2>
+    <p class="muted">Motor combinatório sem uso de frequência histórica. Ele tenta reduzir redundância entre jogos e aumentar cobertura de pares/trincas. A comparação é sempre contra portfólios aleatórios com o mesmo número de jogos.</p>
+    <div class="grid">
+      <div class="kpi"><b id="cvContests">—</b><span>concursos testados</span></div>
+      <div class="kpi"><b id="cvRandoms">—</b><span>controles aleatórios</span></div>
+      <div class="kpi"><b id="cvGames">20</b><span>jogos por portfólio</span></div>
+      <div class="kpi"><b>NO BET</b><span>gate atual</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Parâmetros</h3>
+    <label class="small">Concursos retrospectivos</label>
+    <input id="cvN" type="number" min="50" max="1000" step="10" value="300"
+      style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">
+    <label class="small">Controles aleatórios por concurso</label>
+    <input id="cvSeeds" type="number" min="5" max="200" step="5" value="30"
+      style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">
+    <label class="small">Jogos simples por portfólio</label>
+    <input id="cvGamesInput" type="number" min="5" max="60" step="5" value="20"
+      style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">
+    <button onclick="runCoverageCompare()">Executar Motor × Random</button>
+    <div id="cvStatus" class="status">Ainda não executado.</div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Resultado Motor × Random</h3>
+    <div id="cvOut" class="muted">Sem resultados.</div>
+  </div>
+</section>
+
 <section id="projeto" class="tab">
   <div class="card">
     <h2 style="margin-top:0">Roadmap congelado</h2>
     <p class="muted">
       <b>1.0A</b> Histórico e auditoria<br>
       <b>1.0B</b> Random baseline ← fase atual<br>
-      <b>1.0C</b> Coverage Engine<br>
+      <b>1.0C</b> Coverage Engine ← fase atual<br>
       <b>1.0D</b> Tail Coverage Engine<br>
       <b>1.0E</b> Walk-forward + bootstrap<br>
       <b>1.0F</b> Tournament<br>
@@ -151,6 +185,7 @@ code{word-break:break-all}
   <button class="tabbtn" onclick="showTab('auditoria',this)">Auditoria</button>
   <button class="tabbtn" onclick="showTab('historico',this)">Histórico</button>
   <button class="tabbtn" onclick="showTab('baseline',this)">Baseline</button>
+  <button class="tabbtn" onclick="showTab('coverage',this)">Coverage</button>
   <button class="tabbtn" onclick="showTab('projeto',this)">Projeto</button>
 </nav>
 
@@ -320,7 +355,7 @@ function render(){
     </div>`).join(''):'Sem dados.';
 }
 function exportHistory(){
-  const blob=new Blob([JSON.stringify({version:'2 Milhões 1.0B',exportedAt:new Date().toISOString(),history},null,2)],{type:'application/json'});
+  const blob=new Blob([JSON.stringify({version:'2 Milhões 1.0C',exportedAt:new Date().toISOString(),history},null,2)],{type:'application/json'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='2_MILHOES_HISTORY.json'; a.click(); URL.revokeObjectURL(a.href);
 }
 function clearHistory(){
@@ -446,6 +481,164 @@ async function runRandomBaseline(){
     <div class="status" style="margin-top:12px"><b>Interpretação:</b> estes números formam o piso de comparação. Coverage e Tail Coverage só poderão avançar se superarem este baseline com o mesmo número de jogos e mesma janela temporal.</div>
   `;
   st.innerHTML='<span class="ok">Random Baseline concluído.</span>';
+}
+
+
+function combKey2(a,b){ return a<b ? a+'-'+b : b+'-'+a; }
+function combKey3(a,b,c){ const x=[a,b,c].sort((u,v)=>u-v); return x.join('-'); }
+
+function coveragePortfolio(gamesN){
+  const candidates=[];
+  for(let i=0;i<450;i++) candidates.push(randomGame15());
+
+  const chosen=[];
+  const pairCount=new Map(), triCount=new Map();
+
+  function scoreGame(g){
+    let sc=0;
+    for(let i=0;i<g.length;i++){
+      for(let j=i+1;j<g.length;j++){
+        const k=combKey2(g[i],g[j]);
+        sc += 1/(1+(pairCount.get(k)||0));
+      }
+    }
+    // sparse triple reward
+    for(let i=0;i<g.length;i+=2){
+      for(let j=i+1;j<g.length;j+=3){
+        for(let k=j+1;k<g.length;k+=4){
+          const key=combKey3(g[i],g[j],g[k]);
+          sc += 0.35/(1+(triCount.get(key)||0));
+        }
+      }
+    }
+    // overlap penalty
+    for(const c of chosen){
+      const s=new Set(c); let ov=0;
+      for(const n of g) if(s.has(n)) ov++;
+      if(ov>10) sc -= (ov-10)*8;
+      else if(ov>8) sc -= (ov-8)*2;
+    }
+    return sc;
+  }
+
+  while(chosen.length<gamesN && candidates.length){
+    let bi=0,bs=-Infinity;
+    for(let i=0;i<candidates.length;i++){
+      const s=scoreGame(candidates[i]);
+      if(s>bs){bs=s;bi=i;}
+    }
+    const g=candidates.splice(bi,1)[0];
+    chosen.push(g);
+    for(let i=0;i<g.length;i++){
+      for(let j=i+1;j<g.length;j++){
+        const k=combKey2(g[i],g[j]);
+        pairCount.set(k,(pairCount.get(k)||0)+1);
+      }
+    }
+    for(let i=0;i<g.length;i+=2){
+      for(let j=i+1;j<g.length;j+=3){
+        for(let k=j+1;k<g.length;k+=4){
+          const key=combKey3(g[i],g[j],g[k]);
+          triCount.set(key,(triCount.get(key)||0)+1);
+        }
+      }
+    }
+  }
+  return chosen;
+}
+
+async function runCoverageCompare(){
+  const st=document.getElementById('cvStatus');
+  const out=document.getElementById('cvOut');
+  if(!history.length){ st.innerHTML='<span class="bad">Base vazia.</span>'; return; }
+  if(!auditData().ok){ st.innerHTML='<span class="bad">Base não íntegra.</span>'; return; }
+
+  const N=Math.max(50,Math.min(1000,Number(document.getElementById('cvN').value)||300));
+  const seeds=Math.max(5,Math.min(200,Number(document.getElementById('cvSeeds').value)||30));
+  const gamesN=Math.max(5,Math.min(60,Number(document.getElementById('cvGamesInput').value)||20));
+  const slice=history.slice(-Math.min(N,history.length));
+
+  document.getElementById('cvGames').textContent=gamesN;
+  document.getElementById('cvContests').textContent=slice.length;
+  document.getElementById('cvRandoms').textContent=(slice.length*seeds).toLocaleString('pt-BR');
+
+  let motor={p11:0,p12:0,p13:0,p14:0,p15:0,best:0};
+  let rand={p11:0,p12:0,p13:0,p14:0,p15:0,best:0};
+  let pairedWins13=0,pairedWins14=0,pairedWinsBest=0,pairedTiesBest=0,totalPairs=0;
+
+  st.textContent='Executando Coverage 1.0 × Random...';
+
+  let cidx=0;
+  for(const c of slice){
+    const mg=coveragePortfolio(gamesN);
+    const me=evaluatePortfolio(mg,c.dezenas);
+    motor.best+=me.best;
+    if(me.c11>0)motor.p11++;
+    if(me.c12>0)motor.p12++;
+    if(me.c13>0)motor.p13++;
+    if(me.c14>0)motor.p14++;
+    if(me.c15>0)motor.p15++;
+
+    for(let s=0;s<seeds;s++){
+      const rg=[]; for(let i=0;i<gamesN;i++) rg.push(randomGame15());
+      const re=evaluatePortfolio(rg,c.dezenas);
+      rand.best+=re.best;
+      if(re.c11>0)rand.p11++;
+      if(re.c12>0)rand.p12++;
+      if(re.c13>0)rand.p13++;
+      if(re.c14>0)rand.p14++;
+      if(re.c15>0)rand.p15++;
+      if((me.c13>0)>(re.c13>0)) pairedWins13++;
+      if((me.c14>0)>(re.c14>0)) pairedWins14++;
+      if(me.best>re.best) pairedWinsBest++;
+      else if(me.best===re.best) pairedTiesBest++;
+      totalPairs++;
+    }
+    cidx++;
+    if(cidx%10===0){
+      st.textContent=`Executando concurso ${cidx}/${slice.length}...`;
+      await new Promise(r=>setTimeout(r,0));
+    }
+  }
+
+  const mN=slice.length, rN=slice.length*seeds;
+  const pct=(x,n)=>(100*x/n).toFixed(3)+'%';
+  const delta=(a,b)=>((a-b)*100).toFixed(3)+' pp';
+
+  const m13=motor.p13/mN, r13=rand.p13/rN;
+  const m14=motor.p14/mN, r14=rand.p14/rN;
+  const m15=motor.p15/mN, r15=rand.p15/rN;
+
+  out.innerHTML=`
+    <div class="grid">
+      <div class="kpi"><b>${(motor.best/mN).toFixed(3)}</b><span>melhor acerto médio Coverage</span></div>
+      <div class="kpi"><b>${(rand.best/rN).toFixed(3)}</b><span>melhor acerto médio Random</span></div>
+      <div class="kpi"><b>${delta(m13,r13)}</b><span>Δ Coverage vs Random em 13+</span></div>
+      <div class="kpi"><b>${delta(m14,r14)}</b><span>Δ Coverage vs Random em 14+</span></div>
+    </div>
+
+    <div style="margin-top:12px">
+      <b>Ao menos um jogo no portfólio — Coverage:</b><br>
+      11+: ${pct(motor.p11,mN)} • 12+: ${pct(motor.p12,mN)} • 13+: ${pct(motor.p13,mN)} • 14+: ${pct(motor.p14,mN)} • 15: ${pct(motor.p15,mN)}
+    </div>
+
+    <div style="margin-top:12px">
+      <b>Ao menos um jogo no portfólio — Random:</b><br>
+      11+: ${pct(rand.p11,rN)} • 12+: ${pct(rand.p12,rN)} • 13+: ${pct(rand.p13,rN)} • 14+: ${pct(rand.p14,rN)} • 15: ${pct(rand.p15,rN)}
+    </div>
+
+    <div style="margin-top:12px">
+      <b>Comparação pareada:</b><br>
+      Coverage venceu Random no melhor acerto em ${pct(pairedWinsBest,totalPairs)} dos pares; empatou em ${pct(pairedTiesBest,totalPairs)}.<br>
+      Coverage teve 13+ quando o Random não teve em ${pct(pairedWins13,totalPairs)} dos pares.<br>
+      Coverage teve 14+ quando o Random não teve em ${pct(pairedWins14,totalPairs)} dos pares.
+    </div>
+
+    <div class="status" style="margin-top:12px">
+      <b>Gate:</b> NO BET. Esta fase é apenas comparação retrospectiva. Nenhum resultado isolado autoriza aposta; o motor ainda precisa passar por robustez temporal, bootstrap/múltiplos testes e validação prospectiva congelada.
+    </div>
+  `;
+  st.innerHTML='<span class="ok">Motor × Random concluído.</span>';
 }
 
 render();

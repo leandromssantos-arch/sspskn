@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b6b3a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="2 Milhões">
+<title>2 Milhões 1.0A</title>
+<style>
+:root{--bg:#f4f7f5;--card:#fff;--ink:#16221b;--muted:#63716a;--brand:#0b6b3a;--brand2:#11955a;--line:#dfe8e2;--warn:#a56a00;--bad:#b3261e}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{padding:18px 16px 12px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:white;position:sticky;top:0;z-index:4}
+header h1{margin:0;font-size:21px}
+header p{margin:5px 0 0;font-size:13px;opacity:.9}
+main{max-width:780px;margin:auto;padding:14px 14px 90px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.035)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.kpi{padding:12px;border-radius:12px;background:#f8fbf9;border:1px solid var(--line)}
+.kpi b{display:block;font-size:24px;color:var(--brand)}
+.kpi span{font-size:12px;color:var(--muted)}
+button{appearance:none;border:0;border-radius:12px;padding:13px 14px;font-weight:700;font-size:15px;background:var(--brand);color:#fff;width:100%;margin-top:8px}
+button.secondary{background:#e8f3ed;color:var(--brand)}
+button.danger{background:#fff0ef;color:var(--bad);border:1px solid #f2c9c6}
+.status{padding:10px 12px;border-radius:10px;background:#eef7f2;font-size:13px;margin-top:10px}
+.muted{color:var(--muted);font-size:13px}
+.nums{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.ball{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--brand);color:white;font-weight:800;font-size:13px}
+.tabs{position:fixed;left:0;right:0;bottom:0;background:white;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);z-index:5;padding-bottom:max(5px,env(safe-area-inset-bottom))}
+.tabbtn{background:transparent;color:#5b6b62;border-radius:0;margin:0;padding:10px 4px;font-size:12px}
+.tabbtn.active{color:var(--brand);background:#eef7f2}
+.tab{display:none}.tab.active{display:block}
+.small{font-size:12px}
+.ok{color:var(--brand);font-weight:700}.warn{color:var(--warn);font-weight:700}.bad{color:var(--bad);font-weight:700}
+code{word-break:break-all}
+</style>
+</head>
+<body>
+<header>
+  <h1>2 Milhões 1.0A</h1>
+  <p>Histórico oficial • auditoria • base para validação prospectiva</p>
+</header>
+
+<main>
+<section id="inicio" class="tab active">
+  <div class="card">
+    <h2 style="margin-top:0">Estado da base</h2>
+    <div class="grid">
+      <div class="kpi"><b id="lastContest">—</b><span>último concurso</span></div>
+      <div class="kpi"><b id="countHistory">0</b><span>concursos no aparelho</span></div>
+      <div class="kpi"><b id="lastDate">—</b><span>última data</span></div>
+      <div class="kpi"><b id="integrity">—</b><span>integridade</span></div>
+    </div>
+    <button onclick="syncHistory()">Atualizar histórico oficial</button>
+    <div id="syncStatus" class="status">Ainda não sincronizado nesta sessão.</div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Último resultado</h3>
+    <div id="latestResult" class="muted">Sincronize para carregar o último concurso.</div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Regra metodológica</h3>
+    <p class="muted">A versão 1.0A não gera apostas. Ela somente constrói e audita a base histórica. Os motores entram nas próximas fases e sempre serão comparados com controles aleatórios de mesmo orçamento.</p>
+    <div class="status"><b>Gate atual:</b> NO BET</div>
+  </div>
+</section>
+
+<section id="auditoria" class="tab">
+  <div class="card">
+    <h2 style="margin-top:0">Auditoria da base</h2>
+    <button onclick="runAudit()">Executar auditoria</button>
+    <div id="auditOut" class="status">Nenhuma auditoria executada nesta sessão.</div>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">Verificações</h3>
+    <p class="muted">• continuidade dos concursos<br>• 15 dezenas por concurso<br>• dezenas únicas entre 1 e 25<br>• datas válidas<br>• duplicidades de concurso</p>
+  </div>
+</section>
+
+<section id="historico" class="tab">
+  <div class="card">
+    <h2 style="margin-top:0">Histórico recente</h2>
+    <div id="historyList" class="muted">Sem dados.</div>
+  </div>
+</section>
+
+<section id="projeto" class="tab">
+  <div class="card">
+    <h2 style="margin-top:0">Roadmap congelado</h2>
+    <p class="muted">
+      <b>1.0A</b> Histórico e auditoria<br>
+      <b>1.0B</b> Random baseline<br>
+      <b>1.0C</b> Coverage Engine<br>
+      <b>1.0D</b> Tail Coverage Engine<br>
+      <b>1.0E</b> Walk-forward + bootstrap<br>
+      <b>1.0F</b> Tournament<br>
+      <b>1.0G</b> Prospective Freeze<br>
+      <b>1.0H</b> Ledger prospectivo
+    </p>
+    <div class="status"><b>Objetivo:</b> medir vantagem real em 13+, 14+ e 15 acertos contra o aleatório, sem retroajuste.</div>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">Armazenamento local</h3>
+    <p class="muted">O histórico fica salvo no navegador deste iPhone usando localStorage.</p>
+    <button class="secondary" onclick="exportHistory()">Exportar histórico JSON</button>
+    <button class="danger" onclick="clearHistory()">Apagar histórico deste aparelho</button>
+  </div>
+</section>
+</main>
+
+<nav class="tabs">
+  <button class="tabbtn active" onclick="showTab('inicio',this)">Início</button>
+  <button class="tabbtn" onclick="showTab('auditoria',this)">Auditoria</button>
+  <button class="tabbtn" onclick="showTab('historico',this)">Histórico</button>
+  <button class="tabbtn" onclick="showTab('projeto',this)">Projeto</button>
+</nav>
+
+<script>
+const KEY='lotofacil_research_lab_history_v1';
+let history = loadHistory();
+
+function loadHistory(){
+  try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []}
+}
+function saveHistory(){localStorage.setItem(KEY,JSON.stringify(history))}
+function showTab(id,btn){
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.tabbtn').forEach(x=>x.classList.remove('active'));
+  document.getElementById(id).classList.add('active'); btn.classList.add('active');
+}
+function fmtDate(d){
+  if(!d) return '—';
+  const p=d.split('-'); return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:d;
+}
+function normalize(c){
+  return {
+    numero:Number(c.numero),
+    dataApuracao:c.dataApuracao||'',
+    dezenas:(c.listaDezenas||[]).map(Number).sort((a,b)=>a-b),
+    acumulado:!!c.acumulado,
+    valorArrecadado:c.valorArrecadado??null
+  }
+}
+async function fetchContest(n){
+  const url='https://servicebus2.caixa.gov.br/portaldeloterias/api/lotofacil/'+(n||'');
+  const r=await fetch(url,{cache:'no-store'});
+  if(!r.ok) throw new Error('HTTP '+r.status);
+  return normalize(await r.json());
+}
+async function syncHistory(){
+  const st=document.getElementById('syncStatus');
+  st.textContent='Consultando concurso mais recente...';
+  try{
+    const latest=await fetchContest();
+    let map=new Map(history.map(x=>[x.numero,x]));
+    let start=history.length?Math.max(1, Math.max(...history.map(x=>x.numero))+1):1;
+    if(start>latest.numero){
+      map.set(latest.numero,latest);
+    }else{
+      for(let n=start;n<=latest.numero;n++){
+        st.textContent=`Baixando concurso ${n} de ${latest.numero}...`;
+        try{ map.set(n,await fetchContest(n)); }
+        catch(e){ console.warn('Falha concurso',n,e); }
+      }
+      map.set(latest.numero,latest);
+    }
+    history=[...map.values()].sort((a,b)=>a.numero-b.numero);
+    saveHistory(); render();
+    st.innerHTML=`<span class="ok">Atualizado.</span> Base local até o concurso ${latest.numero}.`;
+  }catch(e){
+    st.innerHTML=`<span class="bad">Falha ao atualizar.</span> ${e.message}. Se estiver abrindo como arquivo local, publique no GitHub Pages e tente novamente.`;
+  }
+}
+function auditData(){
+  if(!history.length) return {ok:false,msg:'Base vazia.'};
+  const nums=history.map(x=>x.numero).sort((a,b)=>a-b);
+  const dup=nums.filter((x,i)=>i&&x===nums[i-1]);
+  const gaps=[];
+  for(let i=1;i<nums.length;i++) if(nums[i]!==nums[i-1]+1) gaps.push([nums[i-1],nums[i]]);
+  const invalid=[];
+  for(const c of history){
+    const s=new Set(c.dezenas);
+    if(c.dezenas.length!==15||s.size!==15||c.dezenas.some(n=>n<1||n>25)) invalid.push(c.numero);
+  }
+  const ok=!dup.length&&!gaps.length&&!invalid.length;
+  return {ok,dup,gaps,invalid,msg:ok?'Base íntegra.':'Foram encontradas inconsistências.'};
+}
+function runAudit(){
+  const a=auditData();
+  let h=`<b class="${a.ok?'ok':'warn'}">${a.msg}</b>`;
+  if(a.dup?.length) h+=`<br>Duplicados: ${a.dup.join(', ')}`;
+  if(a.gaps?.length) h+=`<br>Quebras: ${a.gaps.map(g=>g.join('→')).join(', ')}`;
+  if(a.invalid?.length) h+=`<br>Concursos inválidos: ${a.invalid.join(', ')}`;
+  document.getElementById('auditOut').innerHTML=h;
+  render();
+}
+function render(){
+  const last=history.at(-1);
+  document.getElementById('lastContest').textContent=last?.numero||'—';
+  document.getElementById('countHistory').textContent=history.length;
+  document.getElementById('lastDate').textContent=last?fmtDate(last.dataApuracao):'—';
+  const a=auditData();
+  document.getElementById('integrity').textContent=history.length?(a.ok?'OK':'REVISAR'):'—';
+  if(last){
+    document.getElementById('latestResult').innerHTML=
+      `<b>Concurso ${last.numero}</b> • ${fmtDate(last.dataApuracao)}
+       <div class="nums">${last.dezenas.map(n=>`<span class="ball">${String(n).padStart(2,'0')}</span>`).join('')}</div>`;
+  }
+  const recent=history.slice(-10).reverse();
+  document.getElementById('historyList').innerHTML=recent.length?recent.map(c=>
+    `<div style="padding:10px 0;border-bottom:1px solid var(--line)">
+      <b>${c.numero}</b> • ${fmtDate(c.dataApuracao)}<br>
+      <span class="small">${c.dezenas.map(n=>String(n).padStart(2,'0')).join(' ')}</span>
+    </div>`).join(''):'Sem dados.';
+}
+function exportHistory(){
+  const blob=new Blob([JSON.stringify({version:'2 Milhões 1.0A',exportedAt:new Date().toISOString(),history},null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='2_MILHOES_HISTORY.json'; a.click(); URL.revokeObjectURL(a.href);
+}
+function clearHistory(){
+  if(confirm('Apagar todo o histórico local do 2 Milhões neste aparelho?')){
+    localStorage.removeItem(KEY); history=[]; render();
+  }
+}
+render();
+</script>
+</body>
+</html>

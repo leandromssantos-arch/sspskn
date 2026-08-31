@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="2 Milhões">
-<title>2 Milhões 1.0A</title>
+<title>2 Milhões 1.0A.1</title>
 <style>
 :root{--bg:#f4f7f5;--card:#fff;--ink:#16221b;--muted:#63716a;--brand:#0b6b3a;--brand2:#11955a;--line:#dfe8e2;--warn:#a56a00;--bad:#b3261e}
 *{box-sizing:border-box}
@@ -39,8 +39,8 @@ code{word-break:break-all}
 </head>
 <body>
 <header>
-  <h1>2 Milhões 1.0A</h1>
-  <p>Histórico oficial • auditoria • base para validação prospectiva</p>
+  <h1>2 Milhões 1.0A.1</h1>
+  <p>Histórico oficial • auditoria • recuperação automática de lacunas</p>
 </header>
 
 <main>
@@ -151,30 +151,94 @@ async function fetchContest(n){
   if(!r.ok) throw new Error('HTTP '+r.status);
   return normalize(await r.json());
 }
+function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
+
+async function fetchContestRetry(n, tries=4){
+  let lastErr=null;
+  for(let i=0;i<tries;i++){
+    try{
+      return await fetchContest(n);
+    }catch(e){
+      lastErr=e;
+      await sleep(350*(i+1));
+    }
+  }
+  throw lastErr||new Error('Falha desconhecida');
+}
+
+function missingContests(latest){
+  const have=new Set(history.map(x=>x.numero));
+  const miss=[];
+  for(let n=1;n<=latest;n++) if(!have.has(n)) miss.push(n);
+  return miss;
+}
+
 async function syncHistory(){
   const st=document.getElementById('syncStatus');
   st.textContent='Consultando concurso mais recente...';
+
   try{
-    const latest=await fetchContest();
+    const latest=await fetchContestRetry('',5);
     let map=new Map(history.map(x=>[x.numero,x]));
-    let start=history.length?Math.max(1, Math.max(...history.map(x=>x.numero))+1):1;
-    if(start>latest.numero){
-      map.set(latest.numero,latest);
-    }else{
-      for(let n=start;n<=latest.numero;n++){
-        st.textContent=`Baixando concurso ${n} de ${latest.numero}...`;
-        try{ map.set(n,await fetchContest(n)); }
-        catch(e){ console.warn('Falha concurso',n,e); }
-      }
-      map.set(latest.numero,latest);
+    map.set(latest.numero,latest);
+
+    let miss=[];
+    for(let n=1;n<=latest.numero;n++) if(!map.has(n)) miss.push(n);
+
+    if(!miss.length){
+      history=[...map.values()].sort((a,b)=>a.numero-b.numero);
+      saveHistory(); render();
+      st.innerHTML=`<span class="ok">Base já completa.</span> ${history.length}/${latest.numero} concursos.`;
+      return;
     }
+
+    let done=0, failed=[];
+    const concurrency=4;
+    let cursor=0;
+
+    async function worker(){
+      while(cursor<miss.length){
+        const idx=cursor++;
+        const n=miss[idx];
+        st.textContent=`Recuperando concurso ${n} • ${done}/${miss.length} concluídos...`;
+        try{
+          const c=await fetchContestRetry(n,4);
+          map.set(n,c);
+        }catch(e){
+          failed.push(n);
+          console.warn('Falha persistente no concurso',n,e);
+        }
+        done++;
+
+        if(done%25===0){
+          history=[...map.values()].sort((a,b)=>a.numero-b.numero);
+          saveHistory();
+          render();
+          await sleep(120);
+        }else{
+          await sleep(80);
+        }
+      }
+    }
+
+    await Promise.all(Array.from({length:concurrency},()=>worker()));
+
     history=[...map.values()].sort((a,b)=>a.numero-b.numero);
-    saveHistory(); render();
-    st.innerHTML=`<span class="ok">Atualizado.</span> Base local até o concurso ${latest.numero}.`;
+    saveHistory();
+    render();
+
+    const stillMissing=missingContests(latest.numero);
+    if(!stillMissing.length){
+      st.innerHTML=`<span class="ok">Sincronização completa.</span> ${history.length}/${latest.numero} concursos armazenados.`;
+    }else{
+      const sample=stillMissing.slice(0,12).join(', ');
+      st.innerHTML=`<span class="warn">Recuperação parcial.</span> Faltam ${stillMissing.length} concurso(s): ${sample}${stillMissing.length>12?'…':''}. Toque novamente em “Atualizar histórico oficial” para retomar somente as lacunas.`;
+    }
   }catch(e){
-    st.innerHTML=`<span class="bad">Falha ao atualizar.</span> ${e.message}. Se estiver abrindo como arquivo local, publique no GitHub Pages e tente novamente.`;
+    st.innerHTML=`<span class="bad">Falha ao atualizar.</span> ${e.message}. Nenhum dado já salvo foi apagado; tente novamente.`;
   }
 }
+
 function auditData(){
   if(!history.length) return {ok:false,msg:'Base vazia.'};
   const nums=history.map(x=>x.numero).sort((a,b)=>a-b);
@@ -186,8 +250,10 @@ function auditData(){
     const s=new Set(c.dezenas);
     if(c.dezenas.length!==15||s.size!==15||c.dezenas.some(n=>n<1||n>25)) invalid.push(c.numero);
   }
-  const ok=!dup.length&&!gaps.length&&!invalid.length;
-  return {ok,dup,gaps,invalid,msg:ok?'Base íntegra.':'Foram encontradas inconsistências.'};
+  const expectedCount=nums.length ? (nums[nums.length-1]-nums[0]+1) : 0;
+  const countMismatch=nums.length!==expectedCount;
+  const ok=!dup.length&&!gaps.length&&!invalid.length&&!countMismatch;
+  return {ok,dup,gaps,invalid,countMismatch,expectedCount,msg:ok?'Base íntegra.':'Foram encontradas inconsistências.'};
 }
 function runAudit(){
   const a=auditData();
@@ -195,6 +261,7 @@ function runAudit(){
   if(a.dup?.length) h+=`<br>Duplicados: ${a.dup.join(', ')}`;
   if(a.gaps?.length) h+=`<br>Quebras: ${a.gaps.map(g=>g.join('→')).join(', ')}`;
   if(a.invalid?.length) h+=`<br>Concursos inválidos: ${a.invalid.join(', ')}`;
+  if(a.countMismatch) h+=`<br>Quantidade armazenada: ${history.length} • sequência esperada: ${a.expectedCount}`;
   document.getElementById('auditOut').innerHTML=h;
   render();
 }
@@ -218,7 +285,7 @@ function render(){
     </div>`).join(''):'Sem dados.';
 }
 function exportHistory(){
-  const blob=new Blob([JSON.stringify({version:'2 Milhões 1.0A',exportedAt:new Date().toISOString(),history},null,2)],{type:'application/json'});
+  const blob=new Blob([JSON.stringify({version:'2 Milhões 1.0A.1',exportedAt:new Date().toISOString(),history},null,2)],{type:'application/json'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='2_MILHOES_HISTORY.json'; a.click(); URL.revokeObjectURL(a.href);
 }
 function clearHistory(){

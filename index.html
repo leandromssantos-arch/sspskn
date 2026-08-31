@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#08140f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SSPSKN 3.6">
-<title>SSPSKN 3.6.1 • Research Lab • +Milionária</title>
+<meta name="apple-mobile-web-app-title" content="SSPSKN 3.7">
+<title>SSPSKN 3.7 • Out-of-Sample Lab • +Milionária</title>
 <style>
 :root{
   --bg:#07110d; --card:#0e1d16; --card2:#12251c; --txt:#eef8f1; --muted:#9db3a6;
@@ -42,7 +42,7 @@ h1{font-size:24px;margin:0}.sub{color:var(--muted);font-size:13px;margin-top:3px
 input,select,textarea{width:100%;background:#08150f;color:var(--txt);border:1px solid var(--line);border-radius:11px;padding:11px;outline:none}
 input:focus,select:focus,textarea:focus{border-color:var(--acc2)}
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(7,17,13,.94);backdrop-filter:blur(15px);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center}
-.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(8,1fr);gap:4px}
+.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(9,1fr);gap:4px}
 .tab{border:0;background:transparent;color:var(--muted);padding:8px 3px;border-radius:11px;font-size:10px;font-weight:700}.tab .ico{display:block;font-size:20px;margin-bottom:2px}.tab.active{background:#173526;color:var(--txt)}
 .page{display:none}.page.active{display:block}
 .balls{display:flex;gap:7px;flex-wrap:wrap}
@@ -73,7 +73,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <div class="wrap">
 <header>
   <div class="logo">SS</div>
-  <div><h1>SSPSKN 3.6.1</h1><div class="sub">Research Lab • stress test • +Milionária</div></div>
+  <div><h1>SSPSKN 3.7</h1><div class="sub">Out-of-Sample Lab • prospective freeze • +Milionária</div></div>
   <div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div>
 </header>
 
@@ -142,6 +142,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
           <option value="coverage36">Coverage Puro 3.6</option>
           <option value="crowd36">Anti-Crowd Coverage 3.6</option>
           <option value="bias36">Bias-Guarded 3.6</option>
+          <option value="tail37">Tail Coverage 3.7</option>
           <option value="random">Aleatória pura</option>
         </select>
       </div>
@@ -154,7 +155,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
       <button class="btn" onclick="generateSet()">Gerar conjunto</button>
       <button class="btn ghost" onclick="clearGenerated()">Limpar</button>
     </div>
-    <div class="small" style="margin-top:10px">O algoritmo cria muitos candidatos e seleciona jogos com boa diversidade entre si. A nota considera equilíbrio estrutural e histórico. Na versão 3.6, os motores novos são avaliados contra controles aleatórios. Coverage Puro não usa frequência; Anti-Crowd busca menor popularidade aparente; Bias-Guarded só reage a desvios estatísticos fortes. Nenhuma nota representa garantia de prêmio.</div>
+    <div class="small" style="margin-top:10px">O algoritmo cria muitos candidatos e seleciona jogos com boa diversidade entre si. A nota considera equilíbrio estrutural e histórico. Na versão 3.6, os motores novos são avaliados contra controles aleatórios. Coverage Puro não usa frequência; Anti-Crowd busca menor popularidade aparente; Bias-Guarded só reage a desvios estatísticos fortes. Tail Coverage 3.7 não usa frequência histórica: maximiza diversidade de subconjuntos de 3/4 dezenas e combinações 4-dezenas+par de trevos dentro do portfólio. Nenhuma nota representa garantia de prêmio.</div>
   </div>
   <div id="generated" class="list"></div>
   <div class="row" id="genActions" style="display:none;margin-top:12px">
@@ -284,6 +285,50 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
   </div>
 </section>
 
+
+<section id="oos37" class="page">
+  <div class="card">
+    <h2>Out-of-Sample Lab 3.7</h2>
+    <div class="notice"><b>Objetivo:</b> separar cobertura combinatória de qualquer alegação preditiva. O 3.7 introduz um motor de cobertura de cauda sem frequência histórica e um ledger prospectivo congelado. Como o histórico até a instalação desta versão já foi inspecionado nas versões anteriores, nenhum recorte retrospectivo é tratado como teste cego puro.</div>
+    <div class="grid" style="margin-top:12px">
+      <div class="kpi"><b id="oosLast37">—</b><span>último concurso disponível</span></div>
+      <div class="kpi"><b id="oosFreeze37">NÃO</b><span>protocolo congelado</span></div>
+      <div class="kpi"><b id="oosN37">0</b><span>concursos prospectivos avaliados</span></div>
+      <div class="kpi"><b id="oosGate37">NO BET</b><span>gate prospectivo</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>1. Benchmark de cauda retrospectivo</h2>
+    <div class="small">Comparação apenas diagnóstica. Mede a frequência com que o melhor jogo do portfólio atinge ≥3 dezenas, ≥4 dezenas, 2 trevos e 4+2, sempre contra aleatório com o mesmo número de jogos e seeds. Não é teste cego porque estes concursos já fizeram parte do desenvolvimento do projeto.</div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Concursos</label><select id="oosDiagDraws37"><option>60</option><option selected>100</option><option>150</option></select></div>
+      <div class="field"><label>Jogos/concurso</label><select id="oosDiagGames37"><option>10</option><option selected>20</option><option>30</option></select></div>
+      <div class="field"><label>Seeds</label><select id="oosDiagSeeds37"><option>1</option><option selected>3</option><option>5</option></select></div>
+    </div>
+    <button class="btn secondary" style="margin-top:10px" onclick="runTailBenchmark37()">Executar diagnóstico</button>
+    <div id="oosDiagProgress37" class="small" style="margin-top:10px"></div>
+    <div id="oosDiagResult37"></div>
+  </div>
+
+  <div class="card">
+    <h2>2. Congelamento prospectivo</h2>
+    <div class="small">Congela agora o protocolo do próximo concurso: motor <b>Tail Coverage 3.7</b>, 20 jogos simples, overlap máximo 3 e seed determinística derivada do número do próximo concurso. O conjunto é salvo com horário local/ISO antes do sorteio e não pode ser substituído sem apagar todo o ledger prospectivo.</div>
+    <div class="row" style="margin-top:12px"><button class="btn" onclick="freezeProtocol37()">Congelar protocolo</button><button class="btn secondary" onclick="prepareNextBlind37()">Gerar próximo teste cego</button><button class="btn ghost" onclick="exportProspective37()">Exportar ledger</button></div>
+    <div id="freezeInfo37" class="small" style="margin-top:10px"></div>
+    <div id="nextBlind37" style="margin-top:10px"></div>
+  </div>
+
+  <div class="card">
+    <h2>3. Avaliação prospectiva</h2>
+    <div class="small">Depois que um novo concurso entrar no histórico, esta etapa confere automaticamente somente conjuntos que já estavam congelados antes do resultado. O gate não libera aposta com amostra pequena.</div>
+    <div class="row" style="margin-top:12px"><button class="btn secondary" onclick="evaluateProspective37()">Conferir ledger</button><button class="btn danger" onclick="clearProspective37()">Apagar protocolo + ledger</button></div>
+    <div id="prospectiveResult37" style="margin-top:10px"></div>
+  </div>
+
+  <div class="card"><div class="notice err"><b>GATE 3.7:</b> por padrão permanece NO BET. Um eventual sinal só será marcado como “prospectivo promissor” após pelo menos 20 concursos congelados, sem alteração do protocolo, e com melhora simultânea de 4+ e 4+2 frente ao controle aleatório pareado. Mesmo assim, não é garantia de lucro.</div></div>
+</section>
+
 <section id="saved" class="page">
   <div class="card">
     <h2>Jogos salvos</h2>
@@ -305,11 +350,12 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <button class="tab" data-page="backtest"><span class="ico">⌁</span>Backtest</button>
 <button class="tab" data-page="validation"><span class="ico">◉</span>Validar</button>
 <button class="tab" data-page="evidence36"><span class="ico">⚗</span>Evidence</button>
+<button class="tab" data-page="oos37"><span class="ico">◇</span>OOS 3.7</button>
 <button class="tab" data-page="saved"><span class="ico">★</span>Salvos</button>
 </div></nav>
 
 <script>
-// SSPSKN 3.6 Evidence Engine — 2026-08-26. New engines are experimental and require out-of-sample evidence.
+// SSPSKN 3.7 Out-of-Sample Engine — 2026-08-30. Adds tail-coverage portfolio design and prospective frozen ledger.
 
 const API='https://servicebus2.caixa.gov.br/portaldeloterias/api/maismilionaria';
 let history=load('sspskn_history',[]);
@@ -550,11 +596,52 @@ function makeCandidate36(kind,data,rng=Math.random){let nums=[...Array(50)].map(
 function rngPickWeighted36(items,weights,k,rng=Math.random){let pool=items.map((x,i)=>({x,w:Math.max(.001,weights[i])})),out=[];while(out.length<k&&pool.length){let total=pool.reduce((s,p)=>s+p.w,0),r=rng()*total,idx=0;for(;idx<pool.length;idx++){r-=pool[idx].w;if(r<=0)break}idx=Math.min(idx,pool.length-1);out.push(pool[idx].x);pool.splice(idx,1)}return out.sort((a,b)=>a-b)}
 function generateModern36(kind,count,maxOv,data,seedBase=1){let rng=seededRandom(seedBase>>>0),candidates=[],seen=new Set();for(let i=0;i<Math.max(1800,count*180);i++){let g=makeCandidate36(kind,data,rng),k=keyGame(g);if(!seen.has(k)){seen.add(k);candidates.push(g)}}let chosen=[],seenNums=new Set(),seenPairs=new Set(),seenClPairs=new Set();while(chosen.length<count){let best=null,bg=-1e9;for(let g of candidates){if(chosen.some(c=>overlap(c,g)>maxOv))continue;let gain=0;g.nums.forEach(n=>{if(!seenNums.has(n))gain+=3});for(let i=0;i<6;i++)for(let j=i+1;j<6;j++)if(!seenPairs.has(pairKey35(g.nums[i],g.nums[j])))gain+=.65;let ck=pairKey35(g.cl[0],g.cl[1]);if(!seenClPairs.has(ck))gain+=2.2;gain+=(g.score||70)*.003;if(kind==='crowd36')gain-=crowdPenalty36(g.nums)*1.2;if(kind==='bias36'){let b=biasProfile36(data);if(b.maxZ<3.5&&b.tMaxZ<3.5)gain-=.02}if(gain>bg){bg=gain;best=g}}if(!best)break;chosen.push(best);best.nums.forEach(n=>seenNums.add(n));for(let i=0;i<6;i++)for(let j=i+1;j<6;j++)seenPairs.add(pairKey35(best.nums[i],best.nums[j]));seenClPairs.add(pairKey35(best.cl[0],best.cl[1]));candidates=candidates.filter(x=>x!==best)}return chosen}
 
+function tripleKey37(a,b,c){return [a,b,c].sort((x,y)=>x-y).join('-')}
+function quadKey37(a,b,c,d){return [a,b,c,d].sort((x,y)=>x-y).join('-')}
+function generateTail37(count,maxOv,seedBase=1){
+  const rng=seededRandom(seedBase>>>0),nums=[...Array(50)].map((_,i)=>i+1),cls=[1,2,3,4,5,6];
+  let candidates=[],seen=new Set();
+  for(let i=0;i<Math.max(2400,count*240);i++){
+    let n=sampleUniform36(nums,6,rng),c=sampleUniform36(cls,2,rng),g={nums:n,cl:c,score:70},k=keyGame(g);
+    if(!seen.has(k)){seen.add(k);candidates.push(g)}
+  }
+  let chosen=[],seenNums=new Set(),seenPairs=new Set(),seenTriples=new Set(),seenQuads=new Set(),seenJoint=new Set(),seenCl=new Set();
+  while(chosen.length<count){
+    let best=null,bg=-1e99;
+    for(let g of candidates){
+      if(chosen.some(c=>overlap(c,g)>maxOv))continue;
+      let gain=0,ck=pairKey35(g.cl[0],g.cl[1]);
+      g.nums.forEach(n=>{if(!seenNums.has(n))gain+=.10});
+      for(let i=0;i<6;i++)for(let j=i+1;j<6;j++)if(!seenPairs.has(pairKey35(g.nums[i],g.nums[j])))gain+=.06;
+      for(let i=0;i<6;i++)for(let j=i+1;j<6;j++)for(let k=j+1;k<6;k++){
+        let tk=tripleKey37(g.nums[i],g.nums[j],g.nums[k]);if(!seenTriples.has(tk))gain+=.18;
+      }
+      for(let i=0;i<6;i++)for(let j=i+1;j<6;j++)for(let k=j+1;k<6;k++)for(let l=k+1;l<6;l++){
+        let qk=quadKey37(g.nums[i],g.nums[j],g.nums[k],g.nums[l]);
+        if(!seenQuads.has(qk))gain+=1.0;
+        if(!seenJoint.has(qk+'|'+ck))gain+=1.8;
+      }
+      if(!seenCl.has(ck))gain+=2.0;
+      if(gain>bg){bg=gain;best=g}
+    }
+    if(!best)break;
+    chosen.push(best);let ck=pairKey35(best.cl[0],best.cl[1]);best.nums.forEach(n=>seenNums.add(n));
+    for(let i=0;i<6;i++)for(let j=i+1;j<6;j++)seenPairs.add(pairKey35(best.nums[i],best.nums[j]));
+    for(let i=0;i<6;i++)for(let j=i+1;j<6;j++)for(let k=j+1;k<6;k++)seenTriples.add(tripleKey37(best.nums[i],best.nums[j],best.nums[k]));
+    for(let i=0;i<6;i++)for(let j=i+1;j<6;j++)for(let k=j+1;k<6;k++)for(let l=k+1;l<6;l++){
+      let qk=quadKey37(best.nums[i],best.nums[j],best.nums[k],best.nums[l]);seenQuads.add(qk);seenJoint.add(qk+'|'+ck)
+    }
+    seenCl.add(ck);candidates=candidates.filter(x=>x!==best)
+  }
+  return chosen.map(g=>({...g,score:Math.min(97,70+Math.round(27*chosen.length/Math.max(1,count))) }));
+}
+
+
 function generateSet(){
   let count=Math.min(100,Math.max(1,Number(document.getElementById('genCount').value)||10));
   let strategy=document.getElementById('strategy').value,wnd=Number(document.getElementById('genWindow').value),maxOv=Number(document.getElementById('maxOverlap').value);
   let chosen=[];
-  if(strategy==='coverage'){chosen=generateCoverageForData(wnd,count,maxOv,history,Date.now()&0xffffffff)}else if(['coverage36','crowd36','bias36'].includes(strategy)){chosen=generateModern36(strategy,count,maxOv,history,Date.now()&0xffffffff)}else{let candidates=[],seen=new Set();for(let i=0;i<Math.max(1000,count*120);i++){let g=makeCandidate(strategy,wnd),k=keyGame(g);if(!seen.has(k)){seen.add(k);candidates.push(g)}}candidates.sort((a,b)=>b.score-a.score);for(let g of candidates){if(chosen.every(c=>overlap(c,g)<=maxOv)){chosen.push(g);if(chosen.length>=count)break}}}
+  if(strategy==='coverage'){chosen=generateCoverageForData(wnd,count,maxOv,history,Date.now()&0xffffffff)}else if(strategy==='tail37'){chosen=generateTail37(count,maxOv,Date.now()&0xffffffff)}else if(['coverage36','crowd36','bias36'].includes(strategy)){chosen=generateModern36(strategy,count,maxOv,history,Date.now()&0xffffffff)}else{let candidates=[],seen=new Set();for(let i=0;i<Math.max(1000,count*120);i++){let g=makeCandidate(strategy,wnd),k=keyGame(g);if(!seen.has(k)){seen.add(k);candidates.push(g)}}candidates.sort((a,b)=>b.score-a.score);for(let g of candidates){if(chosen.every(c=>overlap(c,g)<=maxOv)){chosen.push(g);if(chosen.length>=count)break}}}
   generated=chosen;renderGenerated();
   if(chosen.length<count)alert(`Foi possível criar ${chosen.length} de ${count} jogos respeitando o limite de ${maxOv} dezenas repetidas. Aumente o limite de repetição para gerar mais jogos.`);
 }
@@ -617,6 +704,7 @@ const STRATEGIES=[
   {id:'coverage36',name:'Coverage Puro 3.6'},
   {id:'crowd36',name:'Anti-Crowd Coverage 3.6'},
   {id:'bias36',name:'Bias-Guarded 3.6'},
+  {id:'tail37',name:'Tail Coverage 3.7'},
   {id:'random',name:'Aleatória pura'}
 ];
 
@@ -627,6 +715,7 @@ function seededRandom(seed){
 function withSeed(seed,fn){let old=Math.random;Math.random=seededRandom(seed);try{return fn()}finally{Math.random=old}}
 function generateForData(strategy,wnd,count,maxOv,data,seedBase=1){
   if(strategy==='coverage')return generateCoverageForData(wnd,count,maxOv,data,seedBase);
+  if(strategy==='tail37')return generateTail37(count,maxOv,seedBase);
   if(['coverage36','crowd36','bias36'].includes(strategy))return generateModern36(strategy,count,maxOv,data,seedBase);
   let candidates=[],seen=new Set();
   withSeed(seedBase,()=>{
@@ -718,6 +807,57 @@ async function runStress361(){let out=document.getElementById('stressResult361')
 
 function calcEconomic36(){let j=Number(document.getElementById('jackpot36').value)||0,el=document.getElementById('econResult36');if(j<=0){el.innerHTML='<div class="notice err">Informe o prêmio estimado.</div>';return}let comp=j/UNIVERSE36,ratio=comp/TICKET36,breakEven=UNIVERSE36*TICKET36;el.innerHTML=`<div class="notice"><b>Componente do prêmio principal por aposta:</b> R$ ${comp.toFixed(4)}.<br>Isso equivale a ${(ratio*100).toFixed(2)}% do preço de R$ 6,00. Jackpot que sozinho igualaria o preço da aposta: aproximadamente <b>R$ ${(breakEven/1e9).toFixed(3)} bilhões</b>.<br><span class="tiny">Ignora faixas inferiores, impostos/regras aplicáveis, acumulações e divisão entre ganhadores; portanto não é cálculo completo de valor esperado.</span></div>`}
 
+
+const OOS37_PROTOCOL_KEY='sspskn_37_protocol';
+const OOS37_LEDGER_KEY='sspskn_37_ledger';
+function protocol37(){return load(OOS37_PROTOCOL_KEY,null)}
+function ledger37(){return load(OOS37_LEDGER_KEY,[])}
+function storeLedger37(a){localStorage.setItem(OOS37_LEDGER_KEY,JSON.stringify(a))}
+function bestTail37(set,target){
+  let best={a:-1,t:-1};
+  for(let g of set){let a=intersect(g.nums,target.dezenas).length,t=intersect(g.cl,target.trevos).length;if(a>best.a||(a===best.a&&t>best.t))best={a,t}}
+  return best
+}
+function tailFlags37(h){return {g3:h.a>=3?1:0,g4:h.a>=4?1:0,t2:h.t>=2?1:0,g42:(h.a>=4&&h.t>=2)?1:0}}
+function renderOOS37(){
+  let last=history.at(-1),p=protocol37(),a=ledger37(),evaluated=a.filter(x=>x.result&&x.randomResult);
+  let el=id=>document.getElementById(id);if(!el('oosLast37'))return;
+  el('oosLast37').textContent=last?.numero||'—';el('oosFreeze37').textContent=p?'SIM':'NÃO';el('oosN37').textContent=evaluated.length;
+  let gate='NO BET';if(evaluated.length>=20){let c=evaluated.map(x=>tailFlags37(x.result)),r=evaluated.map(x=>tailFlags37(x.randomResult)),c4=avg(c.map(x=>x.g4)),r4=avg(r.map(x=>x.g4)),c42=avg(c.map(x=>x.g42)),r42=avg(r.map(x=>x.g42));if(c4>r4&&c42>r42)gate='PROMISSOR'}
+  el('oosGate37').textContent=gate;
+  el('freezeInfo37').innerHTML=p?`<div class="notice ok"><b>Congelado em ${fmtDate(p.dateLocal)}</b> após o concurso ${p.frozenAfter}. Próximo alvo original: ${p.nextContest}. Motor ${p.engine}, ${p.games} jogos, overlap ${p.maxOverlap}. O protocolo não é alterado automaticamente.</div>`:'<div class="notice">Ainda não há protocolo congelado.</div>';
+}
+async function runTailBenchmark37(){
+  let out=document.getElementById('oosDiagResult37'),prog=document.getElementById('oosDiagProgress37');if(history.length<120){out.innerHTML='<div class="notice err">Carregue pelo menos 120 concursos.</div>';return}
+  let draws=Math.min(Number(document.getElementById('oosDiagDraws37').value),history.length-75),games=Number(document.getElementById('oosDiagGames37').value),seeds=Number(document.getElementById('oosDiagSeeds37').value),start=history.length-draws;
+  let C={g3:0,g4:0,t2:0,g42:0},R={g3:0,g4:0,t2:0,g42:0},n=0;
+  for(let idx=start;idx<history.length;idx++){let target=history[idx],train=history.slice(0,idx);for(let sd=0;sd<seeds;sd++){
+    let seed=target.numero*17011+sd*7919+games*31,c=generateTail37(games,3,seed+37),r=generateForData('random',75,games,3,train,seed),cf=tailFlags37(bestTail37(c,target)),rf=tailFlags37(bestTail37(r,target));
+    Object.keys(C).forEach(k=>{C[k]+=cf[k];R[k]+=rf[k]});n++;if(n%12===0){prog.textContent=`Diagnóstico ${n}/${draws*seeds} blocos...`;await new Promise(r=>setTimeout(r,0))}
+  }}
+  let row=(label,k)=>`<tr><td>${label}</td><td>${(100*C[k]/n).toFixed(2)}%</td><td>${(100*R[k]/n).toFixed(2)}%</td><td>${(100*(C[k]-R[k])/n).toFixed(2)} pp</td></tr>`;
+  out.innerHTML=`<div class="card"><div class="notice"><b>DIAGNÓSTICO RETROSPECTIVO — NÃO É TESTE CEGO</b><br>O resultado serve para verificar se a cobertura combinatória muda as caudas com orçamento idêntico; não deve ser usado para ajustar e depois reivindicar validação no mesmo recorte.</div><div class="scrollx" style="margin-top:10px"><table><thead><tr><th>Métrica do melhor jogo</th><th>Tail 3.7</th><th>Random</th><th>Δ</th></tr></thead><tbody>${row('≥3 dezenas','g3')}${row('≥4 dezenas','g4')}${row('2 trevos','t2')}${row('≥4 dezenas + 2 trevos','g42')}</tbody></table></div></div>`;prog.textContent=`Concluído: ${draws} concursos × ${seeds} seeds = ${n} blocos.`
+}
+function freezeProtocol37(){
+  if(protocol37()){alert('Já existe protocolo congelado. Para alterar, apague protocolo + ledger; isso reinicia a validação prospectiva.');return}
+  let last=history.at(-1);if(!last){alert('Carregue o histórico primeiro.');return}
+  let now=new Date(),p={version:'3.7',engine:'Tail Coverage 3.7',games:20,maxOverlap:3,frozenAfter:last.numero,nextContest:last.numero+1,frozenAt:now.toISOString(),dateLocal:now.toLocaleDateString('pt-BR')};localStorage.setItem(OOS37_PROTOCOL_KEY,JSON.stringify(p));renderOOS37();prepareNextBlind37()
+}
+function prepareNextBlind37(){
+  let p=protocol37(),last=history.at(-1),box=document.getElementById('nextBlind37');if(!p){box.innerHTML='<div class="notice err">Congele o protocolo primeiro.</div>';return}
+  let contest=(last?.numero||p.frozenAfter)+1,a=ledger37();if(a.some(x=>x.contest===contest)){box.innerHTML=`<div class="notice ok">O concurso ${contest} já está congelado no ledger.</div>`;return}
+  let seed=contest*17011+37,set=generateTail37(p.games,p.maxOverlap,seed+37),rnd=generateForData('random',75,p.games,p.maxOverlap,history,seed),entry={contest,createdAt:new Date().toISOString(),protocolVersion:'3.7',engine:p.engine,games:set,randomGames:rnd,result:null,randomResult:null};a.push(entry);storeLedger37(a);
+  box.innerHTML=`<div class="notice ok"><b>Teste cego ${contest} congelado.</b><br>${set.length} jogos Tail 3.7 + ${rnd.length} controles aleatórios foram gravados antes do resultado.</div><div class="small" style="margin-top:8px">${textGames(set).replace(/\n/g,'<br>')}</div>`;renderOOS37()
+}
+function evaluateProspective37(){
+  let a=ledger37(),changed=false;for(let e of a){if(e.result)continue;let d=history.find(x=>x.numero===e.contest);if(!d)continue;e.result=bestTail37(e.games,d);e.randomResult=bestTail37(e.randomGames,d);e.draw={numero:d.numero,data:d.data,dezenas:d.dezenas,trevos:d.trevos};changed=true}if(changed)storeLedger37(a);
+  let ev=a.filter(x=>x.result&&x.randomResult),out=document.getElementById('prospectiveResult37');if(!ev.length){out.innerHTML='<div class="notice">Nenhum concurso congelado já possui resultado no histórico.</div>';renderOOS37();return}
+  let C={g3:0,g4:0,t2:0,g42:0},R={g3:0,g4:0,t2:0,g42:0};ev.forEach(e=>{let c=tailFlags37(e.result),r=tailFlags37(e.randomResult);Object.keys(C).forEach(k=>{C[k]+=c[k];R[k]+=r[k]})});let n=ev.length,gate=n>=20&&(C.g4>R.g4)&&(C.g42>R.g42);
+  out.innerHTML=`<div class="notice ${gate?'ok':'err'}"><b>${gate?'PROSPECTIVO PROMISSOR — NÃO É GARANTIA':'NO BET / AMOSTRA INSUFICIENTE OU SEM VANTAGEM'}</b><br>${n} concurso(s) prospectivo(s) avaliado(s). Critério mínimo de leitura: 20 concursos sem mudar protocolo e melhora simultânea em 4+ e 4+2.</div><div class="scrollx" style="margin-top:10px"><table><thead><tr><th>Métrica</th><th>Tail 3.7</th><th>Random</th></tr></thead><tbody><tr><td>≥3 dezenas</td><td>${C.g3}/${n}</td><td>${R.g3}/${n}</td></tr><tr><td>≥4 dezenas</td><td>${C.g4}/${n}</td><td>${R.g4}/${n}</td></tr><tr><td>2 trevos</td><td>${C.t2}/${n}</td><td>${R.t2}/${n}</td></tr><tr><td>≥4 + 2 trevos</td><td>${C.g42}/${n}</td><td>${R.g42}/${n}</td></tr></tbody></table></div>`;renderOOS37()
+}
+function clearProspective37(){if(!confirm('Apagar protocolo e TODO o ledger prospectivo 3.7? Isso reinicia a validação.'))return;localStorage.removeItem(OOS37_PROTOCOL_KEY);localStorage.removeItem(OOS37_LEDGER_KEY);document.getElementById('nextBlind37').innerHTML='';document.getElementById('prospectiveResult37').innerHTML='';renderOOS37()}
+function exportProspective37(){let p=protocol37(),a=ledger37(),blob=new Blob([JSON.stringify({version:'SSPSKN 3.7',protocol:p,ledger:a},null,2)],{type:'application/json'}),x=document.createElement('a');x.href=URL.createObjectURL(blob);x.download='SSPSKN_3.7_PROSPECTIVE_LEDGER.json';x.click();URL.revokeObjectURL(x.href)}
+
 function refresh(){
   let last=history.at(-1);
   document.getElementById('kConc').textContent=last?.numero||'—';
@@ -725,14 +865,14 @@ function refresh(){
   document.getElementById('kSaved').textContent=saved.length;
   document.getElementById('kDate').textContent=last?fmtDate(last.data):'—';
   document.getElementById('lastResult').innerHTML=last?`<div class="row"><span class="badge">Concurso ${last.numero}</span><span class="tiny">${fmtDate(last.data)}</span></div><div style="height:9px"></div>${balls(last.dezenas)}<div style="height:7px"></div>${balls(last.trevos,'clover')}`:'Sincronize para carregar os resultados.';
-  quick();renderAnalysis();renderSaved()
+  quick();renderAnalysis();renderSaved();renderOOS37()
 }
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));
   document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===b.dataset.page));
-  if(b.dataset.page==='analysis')renderAnalysis();if(b.dataset.page==='backtest')renderPattern(history);if(b.dataset.page==='validation')renderBlind35();if(b.dataset.page==='evidence36')document.getElementById('evGate').textContent='NO BET';if(b.dataset.page==='saved')renderSaved()
+  if(b.dataset.page==='analysis')renderAnalysis();if(b.dataset.page==='backtest')renderPattern(history);if(b.dataset.page==='validation')renderBlind35();if(b.dataset.page==='evidence36')document.getElementById('evGate').textContent='NO BET';if(b.dataset.page==='oos37')renderOOS37();if(b.dataset.page==='saved')renderSaved()
 });
-refresh();renderBlind35();
+refresh();renderBlind35();renderOOS37();
 if(history.length)setStatus('Dados locais',true);
 </script>
 </body>

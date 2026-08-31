@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="2 Milhões">
-<title>2 Milhões 1.0A.1</title>
+<title>2 Milhões 1.0B</title>
 <style>
 :root{--bg:#f4f7f5;--card:#fff;--ink:#16221b;--muted:#63716a;--brand:#0b6b3a;--brand2:#11955a;--line:#dfe8e2;--warn:#a56a00;--bad:#b3261e}
 *{box-sizing:border-box}
@@ -28,7 +28,7 @@ button.danger{background:#fff0ef;color:var(--bad);border:1px solid #f2c9c6}
 .muted{color:var(--muted);font-size:13px}
 .nums{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .ball{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--brand);color:white;font-weight:800;font-size:13px}
-.tabs{position:fixed;left:0;right:0;bottom:0;background:white;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);z-index:5;padding-bottom:max(5px,env(safe-area-inset-bottom))}
+.tabs{position:fixed;left:0;right:0;bottom:0;background:white;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);z-index:5;padding-bottom:max(5px,env(safe-area-inset-bottom))}
 .tabbtn{background:transparent;color:#5b6b62;border-radius:0;margin:0;padding:10px 4px;font-size:12px}
 .tabbtn.active{color:var(--brand);background:#eef7f2}
 .tab{display:none}.tab.active{display:block}
@@ -39,8 +39,8 @@ code{word-break:break-all}
 </head>
 <body>
 <header>
-  <h1>2 Milhões 1.0A.1</h1>
-  <p>Histórico oficial • auditoria • recuperação automática de lacunas</p>
+  <h1>2 Milhões 1.0B</h1>
+  <p>Random Baseline • backtest controlado • NO BET</p>
 </header>
 
 <main>
@@ -88,12 +88,46 @@ code{word-break:break-all}
   </div>
 </section>
 
+
+<section id="baseline" class="tab">
+  <div class="card">
+    <h2 style="margin-top:0">Random Baseline 1.0B</h2>
+    <p class="muted">Este módulo mede o desempenho esperado de portfólios aleatórios de mesmo orçamento. Ele não tenta prever sorteios e não autoriza apostas.</p>
+    <div class="grid">
+      <div class="kpi"><b id="rbContests">—</b><span>concursos testados</span></div>
+      <div class="kpi"><b id="rbPortfolios">—</b><span>portfólios avaliados</span></div>
+      <div class="kpi"><b id="rbGames">20</b><span>jogos por portfólio</span></div>
+      <div class="kpi"><b>NO BET</b><span>gate atual</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Parâmetros</h3>
+    <label class="small">Concursos retrospectivos</label>
+    <input id="rbN" type="number" min="50" max="1000" step="10" value="300"
+      style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">
+    <label class="small">Portfólios aleatórios por concurso</label>
+    <input id="rbSeeds" type="number" min="5" max="200" step="5" value="30"
+      style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">
+    <label class="small">Jogos simples por portfólio</label>
+    <input id="rbGamesInput" type="number" min="5" max="100" step="5" value="20"
+      style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">
+    <button onclick="runRandomBaseline()">Executar Random Baseline</button>
+    <div id="rbStatus" class="status">Ainda não executado.</div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Resultado do baseline</h3>
+    <div id="rbOut" class="muted">Sem resultados.</div>
+  </div>
+</section>
+
 <section id="projeto" class="tab">
   <div class="card">
     <h2 style="margin-top:0">Roadmap congelado</h2>
     <p class="muted">
       <b>1.0A</b> Histórico e auditoria<br>
-      <b>1.0B</b> Random baseline<br>
+      <b>1.0B</b> Random baseline ← fase atual<br>
       <b>1.0C</b> Coverage Engine<br>
       <b>1.0D</b> Tail Coverage Engine<br>
       <b>1.0E</b> Walk-forward + bootstrap<br>
@@ -116,6 +150,7 @@ code{word-break:break-all}
   <button class="tabbtn active" onclick="showTab('inicio',this)">Início</button>
   <button class="tabbtn" onclick="showTab('auditoria',this)">Auditoria</button>
   <button class="tabbtn" onclick="showTab('historico',this)">Histórico</button>
+  <button class="tabbtn" onclick="showTab('baseline',this)">Baseline</button>
   <button class="tabbtn" onclick="showTab('projeto',this)">Projeto</button>
 </nav>
 
@@ -285,7 +320,7 @@ function render(){
     </div>`).join(''):'Sem dados.';
 }
 function exportHistory(){
-  const blob=new Blob([JSON.stringify({version:'2 Milhões 1.0A.1',exportedAt:new Date().toISOString(),history},null,2)],{type:'application/json'});
+  const blob=new Blob([JSON.stringify({version:'2 Milhões 1.0B',exportedAt:new Date().toISOString(),history},null,2)],{type:'application/json'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='2_MILHOES_HISTORY.json'; a.click(); URL.revokeObjectURL(a.href);
 }
 function clearHistory(){
@@ -293,6 +328,126 @@ function clearHistory(){
     localStorage.removeItem(KEY); history=[]; render();
   }
 }
+
+function randInt(n){ return Math.floor(Math.random()*n); }
+
+function randomGame15(){
+  const pool=Array.from({length:25},(_,i)=>i+1);
+  for(let i=pool.length-1;i>0;i--){
+    const j=randInt(i+1);
+    [pool[i],pool[j]]=[pool[j],pool[i]];
+  }
+  return pool.slice(0,15).sort((a,b)=>a-b);
+}
+
+function hitsOf(game, result){
+  const s=new Set(result);
+  let h=0;
+  for(const n of game) if(s.has(n)) h++;
+  return h;
+}
+
+function evaluatePortfolio(games, result){
+  let best=0,c11=0,c12=0,c13=0,c14=0,c15=0;
+  for(const g of games){
+    const h=hitsOf(g,result);
+    if(h>best) best=h;
+    if(h>=11)c11++;
+    if(h>=12)c12++;
+    if(h>=13)c13++;
+    if(h>=14)c14++;
+    if(h>=15)c15++;
+  }
+  return {best,c11,c12,c13,c14,c15};
+}
+
+async function runRandomBaseline(){
+  const out=document.getElementById('rbOut');
+  const st=document.getElementById('rbStatus');
+  if(!history.length){
+    st.innerHTML='<span class="bad">Base vazia.</span>';
+    return;
+  }
+  const audit=auditData();
+  if(!audit.ok){
+    st.innerHTML='<span class="bad">Base não íntegra. Corrija antes do baseline.</span>';
+    return;
+  }
+
+  const N=Math.max(50,Math.min(1000,Number(document.getElementById('rbN').value)||300));
+  const seeds=Math.max(5,Math.min(200,Number(document.getElementById('rbSeeds').value)||30));
+  const gamesN=Math.max(5,Math.min(100,Number(document.getElementById('rbGamesInput').value)||20));
+  document.getElementById('rbGames').textContent=gamesN;
+
+  const slice=history.slice(-Math.min(N,history.length));
+  const totals={portfolios:0,bestSum:0,b11:0,b12:0,b13:0,b14:0,b15:0,
+                p11:0,p12:0,p13:0,p14:0,p15:0};
+  const bestFreq={};
+
+  st.textContent='Executando baseline aleatório...';
+  let done=0,total=slice.length*seeds;
+
+  for(const c of slice){
+    for(let s=0;s<seeds;s++){
+      const games=[];
+      for(let i=0;i<gamesN;i++) games.push(randomGame15());
+      const e=evaluatePortfolio(games,c.dezenas);
+      totals.portfolios++;
+      totals.bestSum+=e.best;
+      totals.b11+=e.c11; totals.b12+=e.c12; totals.b13+=e.c13; totals.b14+=e.c14; totals.b15+=e.c15;
+      if(e.c11>0)totals.p11++;
+      if(e.c12>0)totals.p12++;
+      if(e.c13>0)totals.p13++;
+      if(e.c14>0)totals.p14++;
+      if(e.c15>0)totals.p15++;
+      bestFreq[e.best]=(bestFreq[e.best]||0)+1;
+      done++;
+      if(done%250===0){
+        st.textContent=`Executando ${done}/${total} portfólios...`;
+        await new Promise(r=>setTimeout(r,0));
+      }
+    }
+  }
+
+  const p=totals.portfolios;
+  const pct=x=>(100*x/p).toFixed(3)+'%';
+  const avg=x=>(x/p).toFixed(3);
+
+  document.getElementById('rbContests').textContent=slice.length;
+  document.getElementById('rbPortfolios').textContent=p.toLocaleString('pt-BR');
+
+  out.innerHTML=`
+    <div class="grid">
+      <div class="kpi"><b>${avg(totals.bestSum)}</b><span>melhor acerto médio</span></div>
+      <div class="kpi"><b>${pct(totals.p13)}</b><span>portfólios com 13+</span></div>
+      <div class="kpi"><b>${pct(totals.p14)}</b><span>portfólios com 14+</span></div>
+      <div class="kpi"><b>${pct(totals.p15)}</b><span>portfólios com 15</span></div>
+    </div>
+    <div style="margin-top:12px">
+      <b>Probabilidade empírica de ao menos um jogo no portfólio:</b><br>
+      11+: ${pct(totals.p11)}<br>
+      12+: ${pct(totals.p12)}<br>
+      13+: ${pct(totals.p13)}<br>
+      14+: ${pct(totals.p14)}<br>
+      15: ${pct(totals.p15)}
+    </div>
+    <div style="margin-top:12px">
+      <b>Média de jogos premiados por portfólio:</b><br>
+      11+: ${avg(totals.b11)}<br>
+      12+: ${avg(totals.b12)}<br>
+      13+: ${avg(totals.b13)}<br>
+      14+: ${avg(totals.b14)}<br>
+      15: ${avg(totals.b15)}
+    </div>
+    <div style="margin-top:12px" class="small">
+      Distribuição do melhor acerto:
+      ${Object.keys(bestFreq).sort((a,b)=>a-b).map(k=>`${k}: ${pct(bestFreq[k])}`).join(' • ')}
+    </div>
+    <div class="status" style="margin-top:12px"><b>Interpretação:</b> estes números formam o piso de comparação. Coverage e Tail Coverage só poderão avançar se superarem este baseline com o mesmo número de jogos e mesma janela temporal.</div>
+  `;
+  st.innerHTML='<span class="ok">Random Baseline concluído.</span>';
+}
+
 render();
 </script>
 </body>

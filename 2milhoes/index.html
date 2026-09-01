@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="2 Milhões">
-<title>2 Milhões 1.0C</title>
+<title>2 Milhões 1.1</title>
 <style>
 :root{--bg:#f4f7f5;--card:#fff;--ink:#16221b;--muted:#63716a;--brand:#0b6b3a;--brand2:#11955a;--line:#dfe8e2;--warn:#a56a00;--bad:#b3261e}
 *{box-sizing:border-box}
@@ -28,7 +28,7 @@ button.danger{background:#fff0ef;color:var(--bad);border:1px solid #f2c9c6}
 .muted{color:var(--muted);font-size:13px}
 .nums{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .ball{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--brand);color:white;font-weight:800;font-size:13px}
-.tabs{position:fixed;left:0;right:0;bottom:0;background:white;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(6,1fr);z-index:5;padding-bottom:max(5px,env(safe-area-inset-bottom))}
+.tabs{position:fixed;left:0;right:0;bottom:0;background:white;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(7,1fr);z-index:5;padding-bottom:max(5px,env(safe-area-inset-bottom))}
 .tabbtn{background:transparent;color:#5b6b62;border-radius:0;margin:0;padding:10px 4px;font-size:12px}
 .tabbtn.active{color:var(--brand);background:#eef7f2}
 .tab{display:none}.tab.active{display:block}
@@ -39,8 +39,8 @@ code{word-break:break-all}
 </head>
 <body>
 <header>
-  <h1>2 Milhões 1.0C</h1>
-  <p>Coverage 1.0 • Motor × Random • NO BET</p>
+  <h1>2 Milhões 1.1</h1>
+  <p>Evidence & Robustness Lab • Champion × Random • NO BET</p>
 </header>
 
 <main>
@@ -64,7 +64,7 @@ code{word-break:break-all}
 
   <div class="card">
     <h3 style="margin-top:0">Regra metodológica</h3>
-    <p class="muted">A versão 1.0A não gera apostas. Ela somente constrói e audita a base histórica. Os motores entram nas próximas fases e sempre serão comparados com controles aleatórios de mesmo orçamento.</p>
+    <p class="muted">A versão 1.1 permanece em NO BET. Coverage é um candidato congelado e deve superar controles aleatórios de mesmo orçamento em múltiplas janelas antes de qualquer validação prospectiva.</p>
     <div class="status"><b>Gate atual:</b> NO BET</div>
   </div>
 </section>
@@ -156,6 +156,29 @@ code{word-break:break-all}
   </div>
 </section>
 
+<section id="robustez" class="tab">
+  <div class="card">
+    <h2 style="margin-top:0">Robustness Lab 1.1</h2>
+    <p class="muted">Testa o Coverage congelado em múltiplas janelas temporais contra controles Random de mesmo orçamento. O objetivo é verificar estabilidade, não procurar a melhor janela.</p>
+    <div class="grid">
+      <div class="kpi"><b id="rtWindows">—</b><span>janelas avaliadas</span></div>
+      <div class="kpi"><b id="rtStable">—</b><span>janelas com Δ14+ positivo</span></div>
+      <div class="kpi"><b id="rtDelta13">—</b><span>Δ médio 13+</span></div>
+      <div class="kpi"><b id="rtDelta14">—</b><span>Δ médio 14+</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">Teste temporal</h3>
+    <label class="small">Jogos por portfólio</label>
+    <input id="rtGames" type="number" min="5" max="60" step="5" value="20" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">
+    <label class="small">Controles Random por concurso</label>
+    <input id="rtSeeds" type="number" min="10" max="200" step="10" value="30" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">
+    <button onclick="runRobustness()">Executar Robustness Gate</button>
+    <div id="rtStatus" class="status">Ainda não executado.</div>
+  </div>
+  <div class="card"><h3 style="margin-top:0">Evidence Ledger</h3><div id="rtOut" class="muted">Sem resultados.</div></div>
+</section>
+
 <section id="projeto" class="tab">
   <div class="card">
     <h2 style="margin-top:0">Roadmap congelado</h2>
@@ -165,6 +188,7 @@ code{word-break:break-all}
       <b>1.0C</b> Coverage Engine ← fase atual<br>
       <b>1.0D</b> Tail Coverage Engine<br>
       <b>1.0E</b> Walk-forward + bootstrap<br>
+       <b>1.1</b> Evidence & Robustness Lab ← fase atual<br>
       <b>1.0F</b> Tournament<br>
       <b>1.0G</b> Prospective Freeze<br>
       <b>1.0H</b> Ledger prospectivo
@@ -186,6 +210,7 @@ code{word-break:break-all}
   <button class="tabbtn" onclick="showTab('historico',this)">Histórico</button>
   <button class="tabbtn" onclick="showTab('baseline',this)">Baseline</button>
   <button class="tabbtn" onclick="showTab('coverage',this)">Coverage</button>
+  <button class="tabbtn" onclick="showTab('robustez',this)">Robustez</button>
   <button class="tabbtn" onclick="showTab('projeto',this)">Projeto</button>
 </nav>
 
@@ -355,7 +380,7 @@ function render(){
     </div>`).join(''):'Sem dados.';
 }
 function exportHistory(){
-  const blob=new Blob([JSON.stringify({version:'2 Milhões 1.0C',exportedAt:new Date().toISOString(),history},null,2)],{type:'application/json'});
+  const blob=new Blob([JSON.stringify({version:'2 Milhões 1.1',exportedAt:new Date().toISOString(),history},null,2)],{type:'application/json'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='2_MILHOES_HISTORY.json'; a.click(); URL.revokeObjectURL(a.href);
 }
 function clearHistory(){
@@ -639,6 +664,43 @@ async function runCoverageCompare(){
     </div>
   `;
   st.innerHTML='<span class="ok">Motor × Random concluído.</span>';
+}
+
+
+async function runRobustness(){
+  const st=document.getElementById('rtStatus'), out=document.getElementById('rtOut');
+  if(!history.length){st.innerHTML='<span class="bad">Base vazia.</span>';return;}
+  if(!auditData().ok){st.innerHTML='<span class="bad">Base não íntegra.</span>';return;}
+  const gamesN=Math.max(5,Math.min(60,Number(document.getElementById('rtGames').value)||20));
+  const seeds=Math.max(10,Math.min(200,Number(document.getElementById('rtSeeds').value)||30));
+  const sizes=[100,200,300,500,750,1000].filter(n=>n<=history.length);
+  const rows=[];
+  st.textContent='Executando múltiplas janelas temporais...';
+  for(let wi=0;wi<sizes.length;wi++){
+    const n=sizes[wi], slice=history.slice(-n);
+    let m13=0,m14=0,m15=0,r13=0,r14=0,r15=0;
+    for(let ci=0;ci<slice.length;ci++){
+      const c=slice[ci], me=evaluatePortfolio(coveragePortfolio(gamesN),c.dezenas);
+      if(me.c13)m13++; if(me.c14)m14++; if(me.c15)m15++;
+      for(let z=0;z<seeds;z++){
+        const rg=[]; for(let i=0;i<gamesN;i++) rg.push(randomGame15());
+        const re=evaluatePortfolio(rg,c.dezenas);
+        if(re.c13)r13++; if(re.c14)r14++; if(re.c15)r15++;
+      }
+      if(ci%20===0){st.textContent=`Janela ${wi+1}/${sizes.length} • ${ci}/${slice.length}`; await new Promise(r=>setTimeout(r,0));}
+    }
+    const rn=n*seeds;
+    rows.push({n,d13:m13/n-r13/rn,d14:m14/n-r14/rn,d15:m15/n-r15/rn});
+  }
+  const mean=k=>rows.reduce((a,x)=>a+x[k],0)/rows.length;
+  const pos14=rows.filter(x=>x.d14>0).length;
+  document.getElementById('rtWindows').textContent=rows.length;
+  document.getElementById('rtStable').textContent=`${pos14}/${rows.length}`;
+  document.getElementById('rtDelta13').textContent=(100*mean('d13')).toFixed(3)+' pp';
+  document.getElementById('rtDelta14').textContent=(100*mean('d14')).toFixed(3)+' pp';
+  const gate = pos14>=Math.ceil(rows.length*.75) && mean('d14')>0 && mean('d13')>=-0.0025 ? 'SINAL PARA TESTE MAIS FORTE' : 'NÃO PROMOVER';
+  out.innerHTML=`<b>Coverage 1.0 congelado — múltiplas janelas:</b><br><br>${rows.map(x=>`${x.n} concursos: Δ13+ ${(100*x.d13).toFixed(3)} pp • Δ14+ ${(100*x.d14).toFixed(3)} pp • Δ15 ${(100*x.d15).toFixed(3)} pp`).join('<br>')}<div class="status" style="margin-top:12px"><b>Gate 1.1:</b> ${gate}. Este gate é exploratório e não autoriza aposta. Próximo nível: bootstrap/intervalos de confiança, correção de múltiplos testes e teste prospectivo congelado.</div>`;
+  st.innerHTML='<span class="ok">Robustness Gate concluído.</span>';
 }
 
 render();

@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="2 Milhões">
-<title>2 Milhões 1.1</title>
+<title>2 Milhões 1.3 Evidence Architecture</title>
 <style>
 :root{--bg:#f4f7f5;--card:#fff;--ink:#16221b;--muted:#63716a;--brand:#0b6b3a;--brand2:#11955a;--line:#dfe8e2;--warn:#a56a00;--bad:#b3261e}
 *{box-sizing:border-box}
@@ -28,7 +28,7 @@ button.danger{background:#fff0ef;color:var(--bad);border:1px solid #f2c9c6}
 .muted{color:var(--muted);font-size:13px}
 .nums{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .ball{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--brand);color:white;font-weight:800;font-size:13px}
-.tabs{position:fixed;left:0;right:0;bottom:0;background:white;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(7,1fr);z-index:5;padding-bottom:max(5px,env(safe-area-inset-bottom))}
+.tabs{position:fixed;left:0;right:0;bottom:0;background:white;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(8,1fr);z-index:5;padding-bottom:max(5px,env(safe-area-inset-bottom))}
 .tabbtn{background:transparent;color:#5b6b62;border-radius:0;margin:0;padding:10px 4px;font-size:12px}
 .tabbtn.active{color:var(--brand);background:#eef7f2}
 .tab{display:none}.tab.active{display:block}
@@ -39,8 +39,8 @@ code{word-break:break-all}
 </head>
 <body>
 <header>
-  <h1>2 Milhões 1.1</h1>
-  <p>Evidence & Robustness Lab • Champion × Random • NO BET</p>
+  <h1>2 Milhões 1.3 Evidence Architecture</h1>
+  <p>Exact Coverage • Matched-Null • Sequential Evidence • Prospective Freeze • NO BET</p>
 </header>
 
 <main>
@@ -158,25 +158,98 @@ code{word-break:break-all}
 
 <section id="robustez" class="tab">
   <div class="card">
-    <h2 style="margin-top:0">Robustness Lab 1.1</h2>
-    <p class="muted">Testa o Coverage congelado em múltiplas janelas temporais contra controles Random de mesmo orçamento. O objetivo é verificar estabilidade, não procurar a melhor janela.</p>
+    <h2 style="margin-top:0">FAST Sequential Evidence Engine 1.2</h2>
+    <p class="muted">Triagem sequencial do Coverage 1.0 congelado. A métrica primária é 13+. O motor é testado primeiro nos 100 concursos mais recentes; só continua para 300 e 1000 se sobreviver. Concursos já processados são reutilizados, evitando testes repetidos.</p>
     <div class="grid">
-      <div class="kpi"><b id="rtWindows">—</b><span>janelas avaliadas</span></div>
-      <div class="kpi"><b id="rtStable">—</b><span>janelas com Δ14+ positivo</span></div>
-      <div class="kpi"><b id="rtDelta13">—</b><span>Δ médio 13+</span></div>
-      <div class="kpi"><b id="rtDelta14">—</b><span>Δ médio 14+</span></div>
+      <div class="kpi"><b id="fsStage">—</b><span>estágio alcançado</span></div>
+      <div class="kpi"><b id="fsGate">—</b><span>Gate A</span></div>
+      <div class="kpi"><b id="fsDelta13">—</b><span>Δ13+ primário</span></div>
+      <div class="kpi"><b id="fsDelta14">—</b><span>Δ14+ descritivo</span></div>
     </div>
   </div>
   <div class="card">
-    <h3 style="margin-top:0">Teste temporal</h3>
+    <h3 style="margin-top:0">Gate A — Screening rápido</h3>
     <label class="small">Jogos por portfólio</label>
-    <input id="rtGames" type="number" min="5" max="60" step="5" value="20" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">
+    <input id="fsGames" type="number" min="5" max="60" step="5" value="20" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">
     <label class="small">Controles Random por concurso</label>
-    <input id="rtSeeds" type="number" min="10" max="200" step="10" value="30" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">
-    <button onclick="runRobustness()">Executar Robustness Gate</button>
-    <div id="rtStatus" class="status">Ainda não executado.</div>
+    <input id="fsControls" type="number" min="10" max="100" step="10" value="30" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">
+    <label class="small">Seed reproduzível</label>
+    <input id="fsSeed" type="number" value="120260831" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">
+    <button onclick="runFastScreening()">Executar Gate A FAST</button>
+    <div id="fsStatus" class="status">Ainda não executado.</div>
   </div>
-  <div class="card"><h3 style="margin-top:0">Evidence Ledger</h3><div id="rtOut" class="muted">Sem resultados.</div></div>
+  <div class="card">
+    <h3 style="margin-top:0">Resultado sequencial</h3>
+    <div id="fsOut" class="muted">Sem resultados.</div>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">Gate B — Confirmação estatística</h3>
+    <p class="muted">Só é liberado para candidatos que sobrevivem ao Gate A. Usa bootstrap pareado sobre os concursos já processados; não repete a geração dos portfólios.</p>
+    <button id="fsBootstrapBtn" class="secondary" onclick="runFastBootstrap()" disabled>Executar Gate B (bootstrap)</button>
+    <div id="fsBootOut" class="status">Aguardando sobrevivente do Gate A.</div>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">Evidence Ledger local</h3>
+    <div id="fsLedger" class="muted">Nenhum experimento FAST salvo neste aparelho.</div>
+    <button class="secondary" onclick="exportFastLedger()">Exportar Evidence Ledger</button>
+  </div>
+</section>
+
+
+<section id="lab13" class="tab">
+  <div class="card">
+    <h2 style="margin-top:0">Lab 1.3 — Exact Coverage & Matched-Null</h2>
+    <p class="muted">Camada nova, separada do Coverage 1.0. Mede cobertura combinatória exata de 13+/14+/15 sem usar resultados históricos. Depois cria um Matched-Null por permutação global das 25 dezenas, preservando a geometria combinatória do portfólio. <b>NO BET.</b></p>
+    <div class="grid">
+      <div class="kpi"><b id="x13">—</b><span>cobertura exata 13+</span></div>
+      <div class="kpi"><b id="x14">—</b><span>cobertura exata 14+</span></div>
+      <div class="kpi"><b id="x15">—</b><span>cobertura exata 15</span></div>
+      <div class="kpi"><b id="xRegret">—</b><span>coverage regret</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Exact Outcome-Space Engine</h3>
+    <label class="small">Jogos por portfólio</label>
+    <input id="xGames" type="number" min="5" max="40" step="5" value="20" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">
+    <label class="small">Seed reproduzível</label>
+    <input id="xSeed" type="number" value="130260901" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">
+    <label class="small">Candidatos por passo do Oracle</label>
+    <input id="xPool" type="number" min="20" max="200" step="10" value="80" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">
+    <button onclick="runExactOracle()">Gerar e medir Coverage Oracle</button>
+    <div id="xStatus" class="status">Ainda não executado.</div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Resultado exato</h3>
+    <div id="xOut" class="muted">Sem resultados.</div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Matched-Null Twin</h3>
+    <p class="muted">Permuta globalmente os rótulos 1–25. Isso preserva exatamente interseções e cobertura combinatória; qualquer diferença histórica posterior não pode ser atribuída apenas à geometria do portfólio.</p>
+    <button id="xTwinBtn" class="secondary" onclick="makeMatchedTwin()" disabled>Gerar Matched-Null Twin</button>
+    <div id="xTwinOut" class="status">Aguardando Coverage Oracle.</div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Predictive Tilt experimental</h3>
+    <p class="muted">Usa somente concursos anteriores para criar um pequeno tilt de frequência com shrinkage. O tilt é candidato experimental: nunca é promovido pelo backtest e não pode exceder o limite de Coverage Regret.</p>
+    <label class="small">Coverage Regret máximo em 13+ (pp)</label>
+    <input id="xRegretMax" type="number" min="0" max="1" step="0.01" value="0.05" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">
+    <button id="xTiltBtn" class="secondary" onclick="makePredictiveTilt()" disabled>Criar Tilt com limite de risco</button>
+    <div id="xTiltOut" class="status">Aguardando Coverage Oracle.</div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Prospective Freeze Ledger</h3>
+    <p class="muted">Congela Oracle, Matched-Null e Tilt antes do concurso-alvo. O hash SHA-256 permite verificar que o lote não foi alterado depois do resultado.</p>
+    <label class="small">Concurso-alvo</label>
+    <input id="xTarget" type="number" min="1" value="" placeholder="ex.: próximo concurso" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">
+    <button id="xFreezeBtn" class="secondary" onclick="freezeLab13()" disabled>Congelar experimento prospectivo</button>
+    <div id="xFreezeOut" class="status">Nada congelado nesta sessão.</div>
+    <button class="secondary" onclick="exportLab13Ledger()">Exportar Ledger 1.3</button>
+  </div>
 </section>
 
 <section id="projeto" class="tab">
@@ -188,7 +261,9 @@ code{word-break:break-all}
       <b>1.0C</b> Coverage Engine ← fase atual<br>
       <b>1.0D</b> Tail Coverage Engine<br>
       <b>1.0E</b> Walk-forward + bootstrap<br>
-       <b>1.1</b> Evidence & Robustness Lab ← fase atual<br>
+       <b>1.1</b> Evidence & Robustness Lab — concluído<br>
+      <b>1.2 FAST</b> Sequential Evidence Engine — preservado<br>
+       <b>1.3</b> Exact Coverage + Matched-Null + Freeze ← fase atual<br>
       <b>1.0F</b> Tournament<br>
       <b>1.0G</b> Prospective Freeze<br>
       <b>1.0H</b> Ledger prospectivo
@@ -667,43 +742,298 @@ async function runCoverageCompare(){
 }
 
 
-async function runRobustness(){
-  const st=document.getElementById('rtStatus'), out=document.getElementById('rtOut');
+const FAST_LEDGER_KEY='lotofacil_2m_fast_ledger_v12';
+let fastCache=null;
+
+function loadFastLedger(){
+  try{return JSON.parse(localStorage.getItem(FAST_LEDGER_KEY)||'[]')}catch(e){return []}
+}
+function saveFastLedgerRow(row){
+  const a=loadFastLedger(); a.unshift(row); localStorage.setItem(FAST_LEDGER_KEY,JSON.stringify(a.slice(0,100))); renderFastLedger();
+}
+function renderFastLedger(){
+  const a=loadFastLedger(), el=document.getElementById('fsLedger'); if(!el)return;
+  if(!a.length){el.textContent='Nenhum experimento FAST salvo neste aparelho.';return;}
+  el.innerHTML=a.slice(0,8).map(x=>`<div style="padding:9px 0;border-bottom:1px solid var(--line)"><b>${x.gate}</b> • ${new Date(x.at).toLocaleString('pt-BR')}<br><span class="small">seed ${x.seed} • ${x.games} jogos • ${x.controls} controles • estágio ${x.stage} • Δ13+ ${x.delta13.toFixed(3)} pp</span></div>`).join('');
+}
+function exportFastLedger(){
+  const blob=new Blob([JSON.stringify({version:'2 Milhões 1.2 FAST',exportedAt:new Date().toISOString(),ledger:loadFastLedger()},null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='2_MILHOES_FAST_EVIDENCE_LEDGER.json'; a.click(); URL.revokeObjectURL(a.href);
+}
+function mulberry32(seed){
+  let a=seed>>>0; return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return ((t^t>>>14)>>>0)/4294967296;}
+}
+function mixSeed(base, contest, stream){
+  let x=(base>>>0) ^ Math.imul(contest>>>0,0x9E3779B1) ^ Math.imul(stream>>>0,0x85EBCA6B);
+  x^=x>>>16; x=Math.imul(x,0x7FEB352D); x^=x>>>15; x=Math.imul(x,0x846CA68B); x^=x>>>16; return x>>>0;
+}
+function randomGame15Rng(rng){
+  const pool=Array.from({length:25},(_,i)=>i+1);
+  for(let i=pool.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
+  return pool.slice(0,15).sort((a,b)=>a-b);
+}
+function coveragePortfolioRng(gamesN,rng){
+  const candidates=[]; for(let i=0;i<450;i++) candidates.push(randomGame15Rng(rng));
+  const chosen=[], pairCount=new Map(), triCount=new Map();
+  function scoreGame(g){
+    let sc=0;
+    for(let i=0;i<g.length;i++)for(let j=i+1;j<g.length;j++){const k=combKey2(g[i],g[j]);sc+=1/(1+(pairCount.get(k)||0));}
+    for(let i=0;i<g.length;i+=2)for(let j=i+1;j<g.length;j+=3)for(let k=j+1;k<g.length;k+=4){const key=combKey3(g[i],g[j],g[k]);sc+=0.35/(1+(triCount.get(key)||0));}
+    for(const c of chosen){const ss=new Set(c);let ov=0;for(const n of g)if(ss.has(n))ov++;if(ov>10)sc-=(ov-10)*8;else if(ov>8)sc-=(ov-8)*2;}
+    return sc;
+  }
+  while(chosen.length<gamesN&&candidates.length){
+    let bi=0,bs=-Infinity;for(let i=0;i<candidates.length;i++){const q=scoreGame(candidates[i]);if(q>bs){bs=q;bi=i;}}
+    const g=candidates.splice(bi,1)[0];chosen.push(g);
+    for(let i=0;i<g.length;i++)for(let j=i+1;j<g.length;j++){const k=combKey2(g[i],g[j]);pairCount.set(k,(pairCount.get(k)||0)+1);}
+    for(let i=0;i<g.length;i+=2)for(let j=i+1;j<g.length;j+=3)for(let k=j+1;k<g.length;k+=4){const key=combKey3(g[i],g[j],g[k]);triCount.set(key,(triCount.get(key)||0)+1);}
+  }
+  return chosen;
+}
+function summarizeFast(records){
+  const n=records.length; if(!n)return null;
+  let m13=0,m14=0,m15=0,r13=0,r14=0,r15=0,bestM=0,bestR=0;
+  for(const x of records){m13+=x.m13;m14+=x.m14;m15+=x.m15;r13+=x.r13;r14+=x.r14;r15+=x.r15;bestM+=x.bestM;bestR+=x.bestR;}
+  return {n,d13:100*(m13/n-r13/n),d14:100*(m14/n-r14/n),d15:100*(m15/n-r15/n),bestDelta:(bestM-bestR)/n};
+}
+async function evalFastSegment(segment,gamesN,controls,seed,records,st,label){
+  for(let i=segment.length-1;i>=0;i--){
+    const c=segment[i];
+    const mrng=mulberry32(mixSeed(seed,c.numero,1));
+    const me=evaluatePortfolio(coveragePortfolioRng(gamesN,mrng),c.dezenas);
+    let r13=0,r14=0,r15=0,best=0;
+    for(let z=0;z<controls;z++){
+      const rng=mulberry32(mixSeed(seed,c.numero,1000+z));
+      const rg=[];for(let g=0;g<gamesN;g++)rg.push(randomGame15Rng(rng));
+      const re=evaluatePortfolio(rg,c.dezenas); if(re.c13)r13++;if(re.c14)r14++;if(re.c15)r15++;best+=re.best;
+    }
+    records.push({contest:c.numero,m13:me.c13>0?1:0,m14:me.c14>0?1:0,m15:me.c15>0?1:0,r13:r13/controls,r14:r14/controls,r15:r15/controls,bestM:me.best,bestR:best/controls});
+    if(records.length%10===0){st.textContent=`${label} • ${records.length} concursos processados`;await new Promise(r=>setTimeout(r,0));}
+  }
+}
+async function runFastScreening(){
+  const st=document.getElementById('fsStatus'), out=document.getElementById('fsOut');
   if(!history.length){st.innerHTML='<span class="bad">Base vazia.</span>';return;}
   if(!auditData().ok){st.innerHTML='<span class="bad">Base não íntegra.</span>';return;}
-  const gamesN=Math.max(5,Math.min(60,Number(document.getElementById('rtGames').value)||20));
-  const seeds=Math.max(10,Math.min(200,Number(document.getElementById('rtSeeds').value)||30));
-  const sizes=[100,200,300,500,750,1000].filter(n=>n<=history.length);
-  const rows=[];
-  st.textContent='Executando múltiplas janelas temporais...';
-  for(let wi=0;wi<sizes.length;wi++){
-    const n=sizes[wi], slice=history.slice(-n);
-    let m13=0,m14=0,m15=0,r13=0,r14=0,r15=0;
-    for(let ci=0;ci<slice.length;ci++){
-      const c=slice[ci], me=evaluatePortfolio(coveragePortfolio(gamesN),c.dezenas);
-      if(me.c13)m13++; if(me.c14)m14++; if(me.c15)m15++;
-      for(let z=0;z<seeds;z++){
-        const rg=[]; for(let i=0;i<gamesN;i++) rg.push(randomGame15());
-        const re=evaluatePortfolio(rg,c.dezenas);
-        if(re.c13)r13++; if(re.c14)r14++; if(re.c15)r15++;
-      }
-      if(ci%20===0){st.textContent=`Janela ${wi+1}/${sizes.length} • ${ci}/${slice.length}`; await new Promise(r=>setTimeout(r,0));}
-    }
-    const rn=n*seeds;
-    rows.push({n,d13:m13/n-r13/rn,d14:m14/n-r14/rn,d15:m15/n-r15/rn});
+  const gamesN=Math.max(5,Math.min(60,Number(document.getElementById('fsGames').value)||20));
+  const controls=Math.max(10,Math.min(100,Number(document.getElementById('fsControls').value)||30));
+  const seed=(Number(document.getElementById('fsSeed').value)||120260831)>>>0;
+  const maxN=Math.min(1000,history.length), latest=history.slice(-maxN), records=[], summaries=[];
+  document.getElementById('fsBootstrapBtn').disabled=true; document.getElementById('fsBootOut').textContent='Aguardando sobrevivente do Gate A.';
+  st.textContent='Gate A: iniciando janela 100...'; out.textContent='Processando...';
+
+  const seg100=latest.slice(-Math.min(100,latest.length));
+  await evalFastSegment(seg100,gamesN,controls,seed,records,st,'Janela 100');
+  let sm=summarizeFast(records); summaries.push({...sm,stage:100});
+  let gate='CONTINUAR';
+  if(sm.d13<=-0.50){gate='ELIMINADO 100';}
+
+  if(gate==='CONTINUAR' && maxN>=300){
+    st.textContent='Sobreviveu 100. Expandindo para 300 sem repetir concursos...';
+    const seg200=latest.slice(-300,-100); await evalFastSegment(seg200,gamesN,controls,seed,records,st,'Janela 300');
+    sm=summarizeFast(records); summaries.push({...sm,stage:300});
+    const first=summaries[0];
+    if(sm.d13<=0 || (first.d13<0 && sm.d13<0.15)) gate='ELIMINADO 300';
   }
-  const mean=k=>rows.reduce((a,x)=>a+x[k],0)/rows.length;
-  const pos14=rows.filter(x=>x.d14>0).length;
-  document.getElementById('rtWindows').textContent=rows.length;
-  document.getElementById('rtStable').textContent=`${pos14}/${rows.length}`;
-  document.getElementById('rtDelta13').textContent=(100*mean('d13')).toFixed(3)+' pp';
-  document.getElementById('rtDelta14').textContent=(100*mean('d14')).toFixed(3)+' pp';
-  const gate = pos14>=Math.ceil(rows.length*.75) && mean('d14')>0 && mean('d13')>=-0.0025 ? 'SINAL PARA TESTE MAIS FORTE' : 'NÃO PROMOVER';
-  out.innerHTML=`<b>Coverage 1.0 congelado — múltiplas janelas:</b><br><br>${rows.map(x=>`${x.n} concursos: Δ13+ ${(100*x.d13).toFixed(3)} pp • Δ14+ ${(100*x.d14).toFixed(3)} pp • Δ15 ${(100*x.d15).toFixed(3)} pp`).join('<br>')}<div class="status" style="margin-top:12px"><b>Gate 1.1:</b> ${gate}. Este gate é exploratório e não autoriza aposta. Próximo nível: bootstrap/intervalos de confiança, correção de múltiplos testes e teste prospectivo congelado.</div>`;
-  st.innerHTML='<span class="ok">Robustness Gate concluído.</span>';
+  if(gate==='CONTINUAR' && maxN>=1000){
+    st.textContent='Sobreviveu 300. Expandindo para 1000 sem repetir concursos...';
+    const seg700=latest.slice(-1000,-300); await evalFastSegment(seg700,gamesN,controls,seed,records,st,'Janela 1000');
+    sm=summarizeFast(records); summaries.push({...sm,stage:1000});
+  }
+
+  const positives=summaries.filter(x=>x.d13>0).length, final=summaries[summaries.length-1];
+  if(gate==='CONTINUAR') gate=(positives>=2 && summaries.reduce((a,x)=>a+x.d13,0)/summaries.length>0.15)?'SOBREVIVE GATE A':'INCONCLUSIVO';
+  fastCache={records,summaries,gamesN,controls,seed,gate};
+  document.getElementById('fsStage').textContent=final.stage;
+  document.getElementById('fsGate').textContent=gate.replace(' GATE A','');
+  document.getElementById('fsDelta13').textContent=final.d13.toFixed(3)+' pp';
+  document.getElementById('fsDelta14').textContent=final.d14.toFixed(3)+' pp';
+  out.innerHTML=`<b>Coverage 1.0 congelado × Random — seed ${seed}</b><br><br>${summaries.map(x=>`${x.stage} concursos: <b>Δ13+ ${x.d13.toFixed(3)} pp</b> • Δ14+ ${x.d14.toFixed(3)} pp • Δ15 ${x.d15.toFixed(3)} pp • Δ melhor acerto ${x.bestDelta.toFixed(3)}`).join('<br>')}<div class="status" style="margin-top:12px"><b>Gate A:</b> ${gate}. 13+ é a única métrica de promoção nesta fase; 14+/15 são descritivas. NO BET.</div>`;
+  st.innerHTML='<span class="ok">Gate A FAST concluído.</span>';
+  if(gate==='SOBREVIVE GATE A'){document.getElementById('fsBootstrapBtn').disabled=false;document.getElementById('fsBootOut').innerHTML='<span class="ok">Gate B liberado.</span> Usa os mesmos dados; não repete portfólios.';}
+  saveFastLedgerRow({at:new Date().toISOString(),gate,seed,games:gamesN,controls,stage:final.stage,delta13:final.d13,delta14:final.d14,delta15:final.d15,summaries});
+}
+function percentile(a,p){const x=[...a].sort((u,v)=>u-v);const i=(x.length-1)*p,lo=Math.floor(i),hi=Math.ceil(i);return lo===hi?x[lo]:x[lo]+(x[hi]-x[lo])*(i-lo);}
+async function runFastBootstrap(){
+  const el=document.getElementById('fsBootOut');
+  if(!fastCache||fastCache.gate!=='SOBREVIVE GATE A'){el.innerHTML='<span class="warn">Gate B bloqueado.</span> Execute e sobreviva ao Gate A primeiro.';return;}
+  const rec=fastCache.records, n=rec.length, rng=mulberry32(mixSeed(fastCache.seed,n,77777)), B=1000, vals=[];
+  el.textContent='Bootstrap pareado 0/1000...';
+  for(let b=0;b<B;b++){
+    let d=0;for(let i=0;i<n;i++){const x=rec[Math.floor(rng()*n)];d+=x.m13-x.r13;} vals.push(100*d/n);
+    if(b%100===0){el.textContent=`Bootstrap pareado ${b}/1000...`;await new Promise(r=>setTimeout(r,0));}
+  }
+  const point=100*rec.reduce((a,x)=>a+x.m13-x.r13,0)/n, lo=percentile(vals,.025), hi=percentile(vals,.975), ppos=vals.filter(x=>x>0).length/B;
+  const decision=lo>0?'SINAL CONFIRMADO PARA PROSPECTIVO':'AINDA INCONCLUSIVO';
+  el.innerHTML=`<b>Gate B:</b> ${decision}<br>Δ13+ pareado: ${point.toFixed(3)} pp<br>IC bootstrap 95%: ${lo.toFixed(3)} a ${hi.toFixed(3)} pp<br>Bootstrap P(Δ&gt;0): ${(100*ppos).toFixed(1)}%<br><span class="small">Métrica primária pré-definida: 13+. Resultado não autoriza aposta; sobreviventes seguem para congelamento prospectivo.</span>`;
+  saveFastLedgerRow({at:new Date().toISOString(),gate:'GATE B '+decision,seed:fastCache.seed,games:fastCache.gamesN,controls:fastCache.controls,stage:n,delta13:point,delta14:fastCache.summaries.at(-1).d14,delta15:fastCache.summaries.at(-1).d15,ci95:[lo,hi],bootstrapPositive:ppos});
+}
+
+
+// ===== 2 MILHÕES 1.3 — EXACT COVERAGE / MATCHED-NULL / PROSPECTIVE FREEZE =====
+const LAB13_LEDGER_KEY='lotofacil_2m_lab13_ledger_v13';
+const OUTCOME_SPACE=3268760;
+let lab13Cache=null;
+
+function gameMask(g){
+  let m=0;
+  for(const n of g) m |= (1 << (n-1));
+  return m>>>0;
+}
+function numsFromMask(m){
+  const a=[]; for(let i=0;i<25;i++) if((m>>>i)&1) a.push(i+1); return a;
+}
+function complementNums(g){
+  const s=new Set(g), a=[]; for(let n=1;n<=25;n++) if(!s.has(n)) a.push(n); return a;
+}
+function outcomeMasksForGame(g, threshold){
+  const inside=[...g], outside=complementNums(g), out=[];
+  if(threshold<=15) out.push(gameMask(g));
+  if(threshold<=14){
+    for(let i=0;i<inside.length;i++) for(let o=0;o<outside.length;o++){
+      const gg=inside.filter((_,k)=>k!==i); gg.push(outside[o]); out.push(gameMask(gg));
+    }
+  }
+  if(threshold<=13){
+    for(let i=0;i<inside.length-1;i++) for(let j=i+1;j<inside.length;j++)
+      for(let a=0;a<outside.length-1;a++) for(let b=a+1;b<outside.length;b++){
+        const gg=[]; for(let k=0;k<inside.length;k++) if(k!==i&&k!==j) gg.push(inside[k]);
+        gg.push(outside[a],outside[b]); out.push(gameMask(gg));
+      }
+  }
+  return out;
+}
+function exactUnionCount(games, threshold){
+  const s=new Set();
+  for(const g of games) for(const m of outcomeMasksForGame(g,threshold)) s.add(m);
+  return s.size;
+}
+function exactMetrics(games){
+  const c13=exactUnionCount(games,13), c14=exactUnionCount(games,14), c15=exactUnionCount(games,15);
+  return {c13,c14,c15,p13:100*c13/OUTCOME_SPACE,p14:100*c14/OUTCOME_SPACE,p15:100*c15/OUTCOME_SPACE};
+}
+function overlap(a,b){const s=new Set(a);let n=0;for(const x of b)if(s.has(x))n++;return n;}
+function portfolioGeometry(games){
+  let sum=0,max=0,n=0;
+  for(let i=0;i<games.length;i++)for(let j=i+1;j<games.length;j++){const o=overlap(games[i],games[j]);sum+=o;max=Math.max(max,o);n++;}
+  return {meanOverlap:n?sum/n:0,maxOverlap:max};
+}
+function marginal13(g, covered){
+  let add=0; for(const m of outcomeMasksForGame(g,13)) if(!covered.has(m)) add++; return add;
+}
+async function runExactOracle(){
+  const st=document.getElementById('xStatus'), out=document.getElementById('xOut');
+  if(!history.length || !auditData().ok){st.innerHTML='<span class="bad">Sincronize e audite uma base íntegra primeiro.</span>';return;}
+  const gamesN=Math.max(5,Math.min(40,Number(document.getElementById('xGames').value)||20));
+  const seed=(Number(document.getElementById('xSeed').value)||130260901)>>>0;
+  const poolN=Math.max(20,Math.min(200,Number(document.getElementById('xPool').value)||80));
+  const rng=mulberry32(seed), chosen=[], covered=new Set(), used=new Set();
+  st.textContent='Coverage Oracle: iniciando busca exata...'; out.textContent='Processando...';
+  for(let step=0;step<gamesN;step++){
+    let best=null,bestGain=-1;
+    for(let k=0;k<poolN;k++){
+      const g=randomGame15Rng(rng), key=g.join('-'); if(used.has(key))continue;
+      const gain=marginal13(g,covered);
+      if(gain>bestGain){bestGain=gain;best=g;}
+    }
+    if(!best) best=randomGame15Rng(rng);
+    chosen.push(best); used.add(best.join('-'));
+    for(const m of outcomeMasksForGame(best,13)) covered.add(m);
+    st.textContent=`Coverage Oracle: ${step+1}/${gamesN} jogos • ${covered.size.toLocaleString('pt-BR')} resultados 13+ únicos`;
+    await new Promise(r=>setTimeout(r,0));
+  }
+  const met=exactMetrics(chosen), geo=portfolioGeometry(chosen);
+  lab13Cache={oracle:chosen,oracleMetrics:met,twin:null,tilt:null,seed,gamesN,poolN};
+  document.getElementById('x13').textContent=met.p13.toFixed(4)+'%';
+  document.getElementById('x14').textContent=met.p14.toFixed(4)+'%';
+  document.getElementById('x15').textContent=met.p15.toFixed(6)+'%';
+  document.getElementById('xRegret').textContent='0.000 pp';
+  out.innerHTML=`<b>Coverage Oracle gerado sem histórico preditivo.</b><br>
+    Cobertura 13+: ${met.c13.toLocaleString('pt-BR')} / ${OUTCOME_SPACE.toLocaleString('pt-BR')} = <b>${met.p13.toFixed(5)}%</b><br>
+    Cobertura 14+: ${met.c14.toLocaleString('pt-BR')} = ${met.p14.toFixed(5)}%<br>
+    Cobertura 15: ${met.c15.toLocaleString('pt-BR')} = ${met.p15.toFixed(7)}%<br>
+    Overlap médio entre jogos: ${geo.meanOverlap.toFixed(3)} • máximo: ${geo.maxOverlap}<br><br>
+    <b>Jogos Oracle:</b><br><span class="small">${chosen.map((g,i)=>`${String(i+1).padStart(2,'0')}. ${g.map(n=>String(n).padStart(2,'0')).join(' ')}`).join('<br>')}</span>
+    <div class="status" style="margin-top:12px"><b>Interpretação:</b> esta é eficiência combinatória exata, não previsão. NO BET.</div>`;
+  document.getElementById('xTwinBtn').disabled=false;
+  document.getElementById('xTiltBtn').disabled=false;
+  document.getElementById('xFreezeBtn').disabled=false;
+  const last=history.at(-1); if(last) document.getElementById('xTarget').value=last.numero+1;
+  st.innerHTML='<span class="ok">Coverage Oracle concluído.</span>';
+}
+function permute25(seed){
+  const a=Array.from({length:25},(_,i)=>i+1),rng=mulberry32(seed);
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a;
+}
+function applyPermutation(games,p){return games.map(g=>g.map(n=>p[n-1]).sort((a,b)=>a-b));}
+function makeMatchedTwin(){
+  const el=document.getElementById('xTwinOut'); if(!lab13Cache){el.textContent='Execute o Oracle primeiro.';return;}
+  const p=permute25(mixSeed(lab13Cache.seed,history.at(-1)?.numero||0,31337));
+  const twin=applyPermutation(lab13Cache.oracle,p), met=exactMetrics(twin);
+  lab13Cache.twin=twin; lab13Cache.twinMetrics=met;
+  const same=met.c13===lab13Cache.oracleMetrics.c13&&met.c14===lab13Cache.oracleMetrics.c14&&met.c15===lab13Cache.oracleMetrics.c15;
+  el.innerHTML=`<b class="${same?'ok':'bad'}">${same?'Estrutura preservada exatamente.':'Falha de invariância.'}</b><br>
+  13+: ${met.p13.toFixed(5)}% • 14+: ${met.p14.toFixed(5)}% • 15: ${met.p15.toFixed(7)}%<br>
+  <span class="small">${twin.map((g,i)=>`${String(i+1).padStart(2,'0')}. ${g.map(n=>String(n).padStart(2,'0')).join(' ')}`).join('<br>')}</span>`;
+}
+function historicalScores(){
+  const n=Math.min(300,history.length), slice=history.slice(-n), counts=Array(26).fill(0);
+  for(const c of slice) for(const x of c.dezenas) counts[x]++;
+  const expected=n*15/25, shrink=50;
+  return counts.map((c,i)=>i?((c-expected)/(n+shrink)):0);
+}
+function makePredictiveTilt(){
+  const el=document.getElementById('xTiltOut'); if(!lab13Cache){el.textContent='Execute o Oracle primeiro.';return;}
+  const maxReg=Math.max(0,Number(document.getElementById('xRegretMax').value)||0.05);
+  const scores=historicalScores(), base=lab13Cache.oracle, baseM=lab13Cache.oracleMetrics;
+  let best=base.map(g=>[...g]), bestScore=best.flat().reduce((a,n)=>a+scores[n],0), bestM=baseM, accepted=0;
+  const rng=mulberry32(mixSeed(lab13Cache.seed,history.at(-1)?.numero||0,424242));
+  for(let it=0;it<120;it++){
+    const cand=best.map(g=>[...g]), gi=Math.floor(rng()*cand.length), g=cand[gi], inside=new Set(g);
+    const out=[];for(let n=1;n<=25;n++)if(!inside.has(n))out.push(n);
+    let worst=g[0];for(const n of g)if(scores[n]<scores[worst])worst=n;
+    let repl=out[0];for(const n of out)if(scores[n]>scores[repl])repl=n;
+    const idx=g.indexOf(worst);g[idx]=repl;g.sort((a,b)=>a-b);
+    const met=exactMetrics(cand), regret=baseM.p13-met.p13, sc=cand.flat().reduce((a,n)=>a+scores[n],0);
+    if(regret<=maxReg && sc>bestScore){best=cand;bestScore=sc;bestM=met;accepted++;}
+  }
+  const regret=baseM.p13-bestM.p13;
+  lab13Cache.tilt=best; lab13Cache.tiltMetrics=bestM; lab13Cache.regret=regret;
+  document.getElementById('xRegret').textContent=regret.toFixed(4)+' pp';
+  el.innerHTML=`Trocas aceitas: ${accepted}<br>Coverage Regret 13+: <b>${regret.toFixed(5)} pp</b> (limite ${maxReg.toFixed(3)} pp)<br>
+  Cobertura Tilt 13+: ${bestM.p13.toFixed(5)}% • 14+: ${bestM.p14.toFixed(5)}%<br>
+  <span class="small">Este tilt é apenas hipótese experimental. Precisa vencer Oracle e Matched-Null em walk-forward/prospectivo; não autoriza aposta.</span>`;
+}
+async function sha256Text(s){
+  if(window.crypto&&crypto.subtle){
+    const b=new TextEncoder().encode(s), h=await crypto.subtle.digest('SHA-256',b);
+    return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('');
+  }
+  return 'SHA256_INDISPONIVEL_NESTE_CONTEXTO';
+}
+function loadLab13Ledger(){try{return JSON.parse(localStorage.getItem(LAB13_LEDGER_KEY)||'[]')}catch(e){return []}}
+async function freezeLab13(){
+  const el=document.getElementById('xFreezeOut'); if(!lab13Cache){el.textContent='Execute o Oracle primeiro.';return;}
+  const target=Number(document.getElementById('xTarget').value);
+  const last=history.at(-1)?.numero||0;
+  if(!target||target<=last){el.innerHTML='<span class="bad">O concurso-alvo precisa ser futuro em relação à base atual.</span>';return;}
+  const payload={version:'2 Milhões 1.3',frozenAt:new Date().toISOString(),historyThrough:last,targetContest:target,
+    seed:lab13Cache.seed,games:lab13Cache.gamesN,oracle:lab13Cache.oracle,oracleMetrics:lab13Cache.oracleMetrics,
+    matchedNull:lab13Cache.twin||null,matchedNullMetrics:lab13Cache.twinMetrics||null,
+    predictiveTilt:lab13Cache.tilt||null,tiltMetrics:lab13Cache.tiltMetrics||null,coverageRegret:lab13Cache.regret??null,
+    status:'EXPERIMENTO PROSPECTIVO — NO BET'};
+  const canonical=JSON.stringify(payload), hash=await sha256Text(canonical); payload.sha256=hash;
+  const a=loadLab13Ledger();a.unshift(payload);localStorage.setItem(LAB13_LEDGER_KEY,JSON.stringify(a.slice(0,50)));
+  el.innerHTML=`<span class="ok"><b>FREEZE gravado.</b></span><br>Alvo: concurso ${target}<br>Base congelada até: ${last}<br>SHA-256: <code>${hash}</code><br><span class="small">Não recalibrar este lote após conhecer o resultado.</span>`;
+}
+function exportLab13Ledger(){
+  const data={version:'2 Milhões 1.3',exportedAt:new Date().toISOString(),ledger:loadLab13Ledger()};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='2_MILHOES_1_3_PROSPECTIVE_LEDGER.json';a.click();URL.revokeObjectURL(a.href);
 }
 
 render();
+renderFastLedger();
 </script>
 </body>
 </html>

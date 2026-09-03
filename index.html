@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#08140f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SSPSKN 3.7">
-<title>SSPSKN 3.7 • Out-of-Sample Lab • +Milionária</title>
+<meta name="apple-mobile-web-app-title" content="SSPSKN 3.8">
+<title>SSPSKN 3.8 • Evidence Upgrade • +Milionária</title>
 <style>
 :root{
   --bg:#07110d; --card:#0e1d16; --card2:#12251c; --txt:#eef8f1; --muted:#9db3a6;
@@ -42,7 +42,7 @@ h1{font-size:24px;margin:0}.sub{color:var(--muted);font-size:13px;margin-top:3px
 input,select,textarea{width:100%;background:#08150f;color:var(--txt);border:1px solid var(--line);border-radius:11px;padding:11px;outline:none}
 input:focus,select:focus,textarea:focus{border-color:var(--acc2)}
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(7,17,13,.94);backdrop-filter:blur(15px);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center}
-.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(9,1fr);gap:4px}
+.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
 .tab{border:0;background:transparent;color:var(--muted);padding:8px 3px;border-radius:11px;font-size:10px;font-weight:700}.tab .ico{display:block;font-size:20px;margin-bottom:2px}.tab.active{background:#173526;color:var(--txt)}
 .page{display:none}.page.active{display:block}
 .balls{display:flex;gap:7px;flex-wrap:wrap}
@@ -73,7 +73,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <div class="wrap">
 <header>
   <div class="logo">SS</div>
-  <div><h1>SSPSKN 3.7</h1><div class="sub">Out-of-Sample Lab • prospective freeze • +Milionária</div></div>
+  <div><h1>SSPSKN 3.8</h1><div class="sub">Evidence Upgrade • OOS preserved • +Milionária</div></div>
   <div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div>
 </header>
 
@@ -329,6 +329,15 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
   <div class="card"><div class="notice err"><b>GATE 3.7:</b> por padrão permanece NO BET. Um eventual sinal só será marcado como “prospectivo promissor” após pelo menos 20 concursos congelados, sem alteração do protocolo, e com melhora simultânea de 4+ e 4+2 frente ao controle aleatório pareado. Mesmo assim, não é garantia de lucro.</div></div>
 </section>
 
+
+<section id="lab38" class="page">
+ <div class="card"><h2>SSPSKN 3.8 • Evidence Upgrade</h2><div class="notice"><b>Regra de promoção:</b> nenhum motor entra nas apostas por backtest isolado. Precisa superar controle aleatório de <b>mesmo orçamento</b>, sobreviver a OOS/prospectivo e manter vantagem nas métricas de cauda. O ledger OOS 3.7 é preservado.</div><div class="grid" style="margin-top:12px"><div class="kpi"><b id="g38status">NO BET</b><span>gate 3.8</span></div><div class="kpi"><b id="g38draws">0</b><span>blocos avaliados</span></div><div class="kpi"><b id="g38delta">—</b><span>Δ rare-event</span></div><div class="kpi"><b id="g38inc">0</b><span>incidentes registrados</span></div></div></div>
+ <div class="card"><h2>1. Champion vs Random • mesmo orçamento</h2><div class="small">Walk-forward pareado. Tail Coverage 3.7 recebe exatamente o mesmo número de jogos que o Random. A métrica enfatiza eventos raros: 3+ dezenas, 4+ dezenas, 2 trevos e 4+2. Resultado retrospectivo é diagnóstico, não autorização de aposta.</div><div class="row" style="margin-top:12px"><div class="field"><label>Concursos</label><select id="g38n"><option>40</option><option selected>80</option><option>120</option></select></div><div class="field"><label>Jogos/orçamento</label><select id="g38games"><option>10</option><option selected>20</option><option>30</option></select></div><div class="field"><label>Seeds</label><select id="g38seeds"><option>1</option><option selected>3</option><option>5</option></select></div></div><button class="btn" style="margin-top:10px" onclick="runGate38()">Executar Gate 3.8</button><div id="g38progress" class="small" style="margin-top:10px"></div><div id="g38result"></div></div>
+ <div class="card"><h2>2. Combinatorial Randomness Audit</h2><div class="small">Audita frequências marginais, coocorrência de pares e overlap serial. O p-valor Monte Carlo usa (1 + extremos)/(1 + simulações). Achado exploratório não é previsão.</div><div class="row" style="margin-top:12px"><div class="field"><label>Simulações</label><select id="g38sims"><option>250</option><option selected>500</option><option>1000</option></select></div><button class="btn secondary" onclick="runCombAudit38()">Auditar histórico</button></div><div id="g38audit"></div></div>
+ <div class="card"><h2>3. Physical Draw Incident Ledger</h2><div class="small">Registro de confundidores operacionais documentados. Não atribui poder preditivo ao incidente.</div><div class="row" style="margin-top:10px"><div class="field"><label>Concurso</label><input id="incContest38" type="number"></div><div class="field"><label>Tipo</label><select id="incType38"><option>manual_ball_release</option><option>multiple_ejection</option><option>globe_intervention</option><option>equipment_change</option><option>location_change</option><option>schedule_change</option><option>auditor_nonconfirmation</option><option>cross_lottery_incident</option><option>other</option></select></div></div><div class="field" style="margin-top:8px"><label>Fonte/observação verificável</label><textarea id="incNote38" rows="3"></textarea></div><div class="row"><button class="btn secondary" onclick="addIncident38()">Registrar</button><button class="btn ghost" onclick="exportIncidents38()">Exportar</button></div><div id="incList38" style="margin-top:10px"></div></div>
+ <div class="card"><div class="notice err"><b>GATE FINAL 3.8:</b> PASS retrospectivo nunca libera aposta sozinho. Até existir evidência OOS/prospectiva suficiente e robusta, a decisão operacional permanece <b>NO BET</b>.</div></div>
+</section>
+
 <section id="saved" class="page">
   <div class="card">
     <h2>Jogos salvos</h2>
@@ -351,6 +360,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <button class="tab" data-page="validation"><span class="ico">◉</span>Validar</button>
 <button class="tab" data-page="evidence36"><span class="ico">⚗</span>Evidence</button>
 <button class="tab" data-page="oos37"><span class="ico">◇</span>OOS 3.7</button>
+<button class="tab" data-page="lab38"><span class="ico">⌬</span>3.8</button>
 <button class="tab" data-page="saved"><span class="ico">★</span>Salvos</button>
 </div></nav>
 
@@ -857,7 +867,7 @@ function evaluateProspective37(){
 }
 function clearProspective37(){if(!confirm('Apagar protocolo e TODO o ledger prospectivo 3.7? Isso reinicia a validação.'))return;localStorage.removeItem(OOS37_PROTOCOL_KEY);localStorage.removeItem(OOS37_LEDGER_KEY);document.getElementById('nextBlind37').innerHTML='';document.getElementById('prospectiveResult37').innerHTML='';renderOOS37()}
 function exportProspective37(){let p=protocol37(),a=ledger37(),blob=new Blob([JSON.stringify({version:'SSPSKN 3.7',protocol:p,ledger:a},null,2)],{type:'application/json'}),x=document.createElement('a');x.href=URL.createObjectURL(blob);x.download='SSPSKN_3.7_PROSPECTIVE_LEDGER.json';x.click();URL.revokeObjectURL(x.href)}
-
+\n// SSPSKN 3.8 Evidence Upgrade — preserves all 3.7 localStorage keys and prospective ledger.\nconst INC38='sspskn_incidents_38';\nfunction incidents38(){return load(INC38,[])}\nfunction storeInc38(a){localStorage.setItem(INC38,JSON.stringify(a));renderIncidents38()}\nfunction renderIncidents38(){let a=incidents38(),el=document.getElementById('incList38');if(document.getElementById('g38inc'))document.getElementById('g38inc').textContent=a.length;if(!el)return;el.innerHTML=a.length?a.slice().reverse().map((x,i)=>`<div class="game"><b>Concurso ${x.contest}</b> <span class="badge">${x.type}</span><div class="small">${x.note||'sem observação'} • ${fmtDate(x.created.slice(0,10))}</div></div>`).join(''):'<div class="small">Nenhum incidente registrado.</div>'}\nfunction addIncident38(){let c=Number(document.getElementById('incContest38').value),type=document.getElementById('incType38').value,note=document.getElementById('incNote38').value.trim();if(!c)return alert('Informe o concurso.');let a=incidents38();a.push({contest:c,type,note,created:new Date().toISOString()});storeInc38(a);document.getElementById('incNote38').value=''}\nfunction exportIncidents38(){let blob=new Blob([JSON.stringify({version:'SSPSKN 3.8',incidents:incidents38()},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='SSPSKN_3.8_PHYSICAL_INCIDENT_LEDGER.json';a.click();URL.revokeObjectURL(a.href)}\nfunction rareScore38(h){return (h.a>=3?1:0)+(h.a>=4?4:0)+(h.t>=2?2:0)+(h.a>=4&&h.t>=2?12:0)+(h.a>=5?10:0)}\nasync function runGate38(){let out=document.getElementById('g38result'),prog=document.getElementById('g38progress');if(history.length<100){out.innerHTML='<div class="notice err">Carregue pelo menos 100 concursos.</div>';return}let nd=Math.min(Number(document.getElementById('g38n').value),history.length-75),games=Number(document.getElementById('g38games').value),seeds=Number(document.getElementById('g38seeds').value),start=history.length-nd,diffs=[],C={g4:0,g42:0},R={g4:0,g42:0},blocks=0;for(let i=start;i<history.length;i++){let target=history[i],train=history.slice(0,i);for(let sd=0;sd<seeds;sd++){let base=target.numero*100003+sd*7919+games*37,c=generateTail37(games,3,base),r=generateForData('random',75,games,3,train,base+17),hc=bestTail37(c,target),hr=bestTail37(r,target);diffs.push(rareScore38(hc)-rareScore38(hr));C.g4+=hc.a>=4;C.g42+=hc.a>=4&&hc.t>=2;R.g4+=hr.a>=4;R.g42+=hr.a>=4&&hr.t>=2;blocks++;if(blocks%12===0){prog.textContent=`${blocks}/${nd*seeds} blocos...`;await new Promise(r=>setTimeout(r,0))}}let delta=avg(diffs),wins=diffs.filter(x=>x>0).length,loss=diffs.filter(x=>x<0).length;let rng=seededRandom(380038),B=2000,ext=0,obs=Math.abs(delta);for(let b=0;b<B;b++){let m=avg(diffs.map(x=>rng()<.5?x:-x));if(Math.abs(m)>=obs-1e-12)ext++}let p=(ext+1)/(B+1);let diagnostic=delta>0&&p<.05&&C.g4>R.g4&&C.g42>=R.g42;document.getElementById('g38draws').textContent=blocks;document.getElementById('g38delta').textContent=(delta>=0?'+':'')+delta.toFixed(3);document.getElementById('g38status').textContent='NO BET';prog.textContent='Concluído.';out.innerHTML=`<div class="notice ${diagnostic?'ok':'err'}"><b>${diagnostic?'SINAL RETROSPECTIVO — AINDA NO BET':'SEM VANTAGEM ROBUSTA — NO BET'}</b><br>Δ rare-event ${delta.toFixed(3)} • p pareado ${p.toFixed(4)} • vitórias/derrotas ${wins}/${loss}. Gate operacional continua NO BET até confirmação OOS/prospectiva.</div><div class="scrollx" style="margin-top:10px"><table><tr><th>Métrica</th><th>Tail</th><th>Random</th></tr><tr><td>≥4 dezenas</td><td>${C.g4}/${blocks}</td><td>${R.g4}/${blocks}</td></tr><tr><td>≥4+2</td><td>${C.g42}/${blocks}</td><td>${R.g42}/${blocks}</td></tr></table></div>`}\nfunction auditStats38(data){let N=data.length,p=6/50,e=N*p,f=Array(51).fill(0),pairs=new Map();data.forEach(d=>{d.dezenas.forEach(n=>f[n]++);for(let i=0;i<6;i++)for(let j=i+1;j<6;j++){let k=pairKey35(d.dezenas[i],d.dezenas[j]);pairs.set(k,(pairs.get(k)||0)+1)}});let chi=0;for(let n=1;n<=50;n++)chi+=(f[n]-e)**2/e;let pairMax=Math.max(0,...pairs.values()),serial=avg(data.slice(1).map((d,i)=>intersect(d.dezenas,data[i].dezenas).length));return {chi,pairMax,serial}}\nasync function runCombAudit38(){let out=document.getElementById('g38audit');if(history.length<30){out.innerHTML='<div class="notice err">Histórico insuficiente.</div>';return}let B=Number(document.getElementById('g38sims').value),obs=auditStats38(history),ex={chi:0,pairMax:0,serial:0},nums=[...Array(50)].map((_,i)=>i+1),cls=[1,2,3,4,5,6],rng=seededRandom(383838);for(let b=0;b<B;b++){let sim=[];for(let i=0;i<history.length;i++)sim.push({dezenas:sampleUniform36(nums,6,rng),trevos:sampleUniform36(cls,2,rng)});let z=auditStats38(sim);Object.keys(ex).forEach(k=>{if(z[k]>=obs[k]-1e-12)ex[k]++});if(b%40===0)await new Promise(r=>setTimeout(r,0))}let pv={};Object.keys(ex).forEach(k=>pv[k]=(ex[k]+1)/(B+1));let min=Math.min(...Object.values(pv));out.innerHTML=`<div class="notice ${min<.01?'err':'ok'}"><b>${min<.01?'ANOMALIA EXPLORATÓRIA — EXIGE INVESTIGAÇÃO':'SEM EVIDÊNCIA FORTE NESTA BATERIA'}</b><br>Monte Carlo sob 6/50 uniforme sem reposição. Não interpretar como previsão.</div><table style="margin-top:8px"><tr><th>Teste</th><th>Observado</th><th>p MC</th></tr><tr><td>χ² marginal</td><td>${obs.chi.toFixed(2)}</td><td>${pv.chi.toFixed(4)}</td></tr><tr><td>máx. coocorrência de par</td><td>${obs.pairMax}</td><td>${pv.pairMax.toFixed(4)}</td></tr><tr><td>overlap serial médio</td><td>${obs.serial.toFixed(3)}</td><td>${pv.serial.toFixed(4)}</td></tr></table>`}\n
 function refresh(){
   let last=history.at(-1);
   document.getElementById('kConc').textContent=last?.numero||'—';
@@ -870,9 +880,9 @@ function refresh(){
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));
   document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===b.dataset.page));
-  if(b.dataset.page==='analysis')renderAnalysis();if(b.dataset.page==='backtest')renderPattern(history);if(b.dataset.page==='validation')renderBlind35();if(b.dataset.page==='evidence36')document.getElementById('evGate').textContent='NO BET';if(b.dataset.page==='oos37')renderOOS37();if(b.dataset.page==='saved')renderSaved()
+  if(b.dataset.page==='analysis')renderAnalysis();if(b.dataset.page==='backtest')renderPattern(history);if(b.dataset.page==='validation')renderBlind35();if(b.dataset.page==='evidence36')document.getElementById('evGate').textContent='NO BET';if(b.dataset.page==='oos37')renderOOS37();if(b.dataset.page==='lab38')renderIncidents38();if(b.dataset.page==='saved')renderSaved()
 });
-refresh();renderBlind35();renderOOS37();
+refresh();renderBlind35();renderOOS37();renderIncidents38();
 if(history.length)setStatus('Dados locais',true);
 </script>
 </body>

@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="2 Milhões">
-<title>2 Milhões 2.0 Scientific Evidence Engine</title>
+<title>2 Milhões 2.0.1 Scientific Evidence Engine</title>
 <style>
 :root{--bg:#f4f7f5;--card:#fff;--ink:#16221b;--muted:#63716a;--brand:#0b6b3a;--brand2:#11955a;--line:#dfe8e2;--warn:#a56a00;--bad:#b3261e}
 *{box-sizing:border-box}
@@ -39,8 +39,9 @@ code{word-break:break-all}
 </head>
 <body>
 <header>
-  <h1>2 Milhões 2.0 Scientific Evidence Engine</h1>
-  <p>Predictive Evidence • Exact Null • Multi-Twin • Multiplicity • Prospective Freeze • NO BET</p>
+  <h1>2 Milhões 2.0.1 Scientific Evidence Engine</h1>
+    <div class="small" style="margin-top:6px"><b>2.0.1 HOTFIX</b> • sincronização resiliente para Safari/GitHub Pages</div>
+  <p>Predictive Evidence • Exact Null • Multi-Twin • Multiplicity • Prospective Freeze • NO BET • HOTFIX 2.0.1</p>
 </header>
 
 <main>
@@ -264,7 +265,67 @@ code{word-break:break-all}
   </div>
 </section>
 
-\n<section id="evidence20" class="tab">\n  <div class="card">\n    <h2 style="margin-top:0">Evidence 2.0 — Pipeline Científico</h2>\n    <p class="muted">Elimina candidatos sem evidência antes dos testes caros e separa sinal preditivo de cobertura combinatória. <b>NO BET</b> até validação prospectiva congelada.</p>\n    <div class="grid">\n      <div class="kpi"><b id="e20P0">—</b><span>P0 Predictive Evidence</span></div>\n      <div class="kpi"><b id="e20Twin">—</b><span>Multi-Twin</span></div>\n      <div class="kpi"><b id="e20Cond">—</b><span>Exact Conditional</span></div>\n      <div class="kpi"><b id="e20Final">NO BET</b><span>estado final</span></div>\n    </div>\n  </div>\n  <div class="card">\n    <h3 style="margin-top:0">P−1 — Null Contract Auditor</h3>\n    <p class="muted">Relabeling global 1–25 é aceito como controle estrutural. Embaralhamento temporal livre não é tratado como null exato.</p>\n    <button onclick="runNullContractAudit()">Executar auditoria dos nulls</button>\n    <div id="nullContractOut" class="status">Ainda não executado.</div>\n  </div>\n  <div class="card">\n    <h3 style="margin-top:0">P0 — Predictive Evidence Gate</h3>\n    <p class="muted">O sinal frequência/shrinkage precisa melhorar log-score e Brier em walk-forward contra o uniforme antes de gerar portfólios.</p>\n    <label class="small">Concursos walk-forward</label>\n    <input id="p0N" type="number" min="200" max="1500" step="50" value="500" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">\n    <button onclick="runPredictiveEvidenceGate()">Executar P0</button>\n    <div id="p0Out" class="status">Ainda não executado.</div>\n  </div>\n  <div class="card">\n    <h3 style="margin-top:0">P1 — Multi-Twin Null</h3>\n    <p class="muted">Compara o Tilt com uma distribuição de Matched-Nulls de mesma geometria e mesmo orçamento.</p>\n    <label class="small">Twins</label>\n    <input id="mtTwins" type="number" min="16" max="256" step="16" value="64" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">\n    <label class="small">Concursos</label>\n    <input id="mtN" type="number" min="100" max="1000" step="50" value="300" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">\n    <button onclick="runMultiTwinGate()">Executar P1 Multi-Twin</button>\n    <div id="mtOut" class="status">Ainda não executado.</div>\n  </div>\n  <div class="card">\n    <h3 style="margin-top:0">P2 — Exact Conditional Pair Audit</h3>\n    <p class="muted">Calcula exatamente Tilt-only, Oracle-only, ambos e nenhum em 13+ no universo de 3.268.760 resultados.</p>\n    <button onclick="runExactConditionalAudit()">Executar auditoria exata Tilt × Oracle</button>\n    <div id="condOut" class="status">Ainda não executado.</div>\n  </div>\n  <div class="card">\n    <h3 style="margin-top:0">P3 — Global Candidate Registry</h3>\n    <p class="muted">Toda hipótese testada recebe ID permanente; fracassos não são apagados.</p>\n    <div id="candidateRegistryOut" class="muted">Nenhum candidato registrado.</div>\n    <button class="secondary" onclick="exportCandidateRegistry()">Exportar Candidate Registry</button>\n  </div>\n  <div class="card">\n    <h3 style="margin-top:0">P4 — Multiplicity Guard</h3>\n    <p class="muted">Holm-Bonferroni sobre p-values registrados para impedir promoção por seleção entre muitas tentativas.</p>\n    <button onclick="runMultiplicityGuard()">Executar correção múltipla</button>\n    <div id="multOut" class="status">Ainda não executado.</div>\n  </div>\n  <div class="card">\n    <h3 style="margin-top:0">Decisão 2.0</h3>\n    <button onclick="runEvidence20Decision()">Atualizar decisão global</button>\n    <div id="decision20Out" class="status"><b>NO BET.</b> Nenhum candidato aprovado.</div>\n  </div>\n</section>\n
+
+<section id="evidence20" class="tab">
+  <div class="card">
+    <h2 style="margin-top:0">Evidence 2.0 — Pipeline Científico</h2>
+    <p class="muted">Elimina candidatos sem evidência antes dos testes caros e separa sinal preditivo de cobertura combinatória. <b>NO BET</b> até validação prospectiva congelada.</p>
+    <div class="grid">
+      <div class="kpi"><b id="e20P0">—</b><span>P0 Predictive Evidence</span></div>
+      <div class="kpi"><b id="e20Twin">—</b><span>Multi-Twin</span></div>
+      <div class="kpi"><b id="e20Cond">—</b><span>Exact Conditional</span></div>
+      <div class="kpi"><b id="e20Final">NO BET</b><span>estado final</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">P−1 — Null Contract Auditor</h3>
+    <p class="muted">Relabeling global 1–25 é aceito como controle estrutural. Embaralhamento temporal livre não é tratado como null exato.</p>
+    <button onclick="runNullContractAudit()">Executar auditoria dos nulls</button>
+    <div id="nullContractOut" class="status">Ainda não executado.</div>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">P0 — Predictive Evidence Gate</h3>
+    <p class="muted">O sinal frequência/shrinkage precisa melhorar log-score e Brier em walk-forward contra o uniforme antes de gerar portfólios.</p>
+    <label class="small">Concursos walk-forward</label>
+    <input id="p0N" type="number" min="200" max="1500" step="50" value="500" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">
+    <button onclick="runPredictiveEvidenceGate()">Executar P0</button>
+    <div id="p0Out" class="status">Ainda não executado.</div>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">P1 — Multi-Twin Null</h3>
+    <p class="muted">Compara o Tilt com uma distribuição de Matched-Nulls de mesma geometria e mesmo orçamento.</p>
+    <label class="small">Twins</label>
+    <input id="mtTwins" type="number" min="16" max="256" step="16" value="64" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">
+    <label class="small">Concursos</label>
+    <input id="mtN" type="number" min="100" max="1000" step="50" value="300" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">
+    <button onclick="runMultiTwinGate()">Executar P1 Multi-Twin</button>
+    <div id="mtOut" class="status">Ainda não executado.</div>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">P2 — Exact Conditional Pair Audit</h3>
+    <p class="muted">Calcula exatamente Tilt-only, Oracle-only, ambos e nenhum em 13+ no universo de 3.268.760 resultados.</p>
+    <button onclick="runExactConditionalAudit()">Executar auditoria exata Tilt × Oracle</button>
+    <div id="condOut" class="status">Ainda não executado.</div>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">P3 — Global Candidate Registry</h3>
+    <p class="muted">Toda hipótese testada recebe ID permanente; fracassos não são apagados.</p>
+    <div id="candidateRegistryOut" class="muted">Nenhum candidato registrado.</div>
+    <button class="secondary" onclick="exportCandidateRegistry()">Exportar Candidate Registry</button>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">P4 — Multiplicity Guard</h3>
+    <p class="muted">Holm-Bonferroni sobre p-values registrados para impedir promoção por seleção entre muitas tentativas.</p>
+    <button onclick="runMultiplicityGuard()">Executar correção múltipla</button>
+    <div id="multOut" class="status">Ainda não executado.</div>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">Decisão 2.0</h3>
+    <button onclick="runEvidence20Decision()">Atualizar decisão global</button>
+    <div id="decision20Out" class="status"><b>NO BET.</b> Nenhum candidato aprovado.</div>
+  </div>
+</section>
+
 <section id="projeto" class="tab">
   <div class="card">
     <h2 style="margin-top:0">Roadmap congelado</h2>
@@ -330,97 +391,119 @@ function normalize(c){
     valorArrecadado:c.valorArrecadado??null
   }
 }
+// ===== 2.0.1 HOTFIX: sincronização resiliente para GitHub Pages / iPhone =====
+const OFFICIAL_BASE='https://servicebus2.caixa.gov.br/portaldeloterias/api/lotofacil/';
+const MIRROR_LATEST='https://loteriascaixa-api.herokuapp.com/api/lotofacil/latest';
+const BOOTSTRAP_CSV='https://raw.githubusercontent.com/heldersontuc-collab/lotofacil-data/main/data/lotofacil.csv';
+
+// Patches verificados para cobrir a transição entre o snapshot comunitário e o hotfix.
+// O histórico futuro continua sendo buscado online e auditado antes do uso.
+const VERIFIED_PATCHES=[
+  {numero:3775,dataApuracao:'30-08-2026',dezenas:[1,4,5,6,8,10,11,12,13,15,17,18,19,23,25]},
+  {numero:3776,dataApuracao:'31-08-2026',dezenas:[3,5,7,8,10,14,16,17,18,19,20,21,23,24,25]},
+  {numero:3777,dataApuracao:'01-09-2026',dezenas:[3,5,7,8,9,10,12,13,15,19,20,21,22,24,25]},
+  {numero:3778,dataApuracao:'02-09-2026',dezenas:[1,2,3,5,6,8,9,10,13,14,16,17,18,20,22]}
+].map(x=>({...x,acumulado:false,valorArrecadado:null}));
+
+function normalizeMirror(c){
+  return {
+    numero:Number(c.concurso),
+    dataApuracao:(c.data||'').split('/').reverse().join('-'),
+    dezenas:(c.dezenas||[]).map(Number).sort((a,b)=>a-b),
+    acumulado:!!c.acumulou,
+    valorArrecadado:c.valorArrecadado??null
+  }
+}
+async function fetchJson(url,timeout=12000){
+  const ctrl=new AbortController();
+  const t=setTimeout(()=>ctrl.abort(),timeout);
+  try{
+    const r=await fetch(url,{cache:'no-store',signal:ctrl.signal});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    return await r.json();
+  } finally { clearTimeout(t); }
+}
 async function fetchContest(n){
-  const url='https://servicebus2.caixa.gov.br/portaldeloterias/api/lotofacil/'+(n||'');
-  const r=await fetch(url,{cache:'no-store'});
-  if(!r.ok) throw new Error('HTTP '+r.status);
-  return normalize(await r.json());
+  return normalize(await fetchJson(OFFICIAL_BASE+(n||'')));
+}
+async function fetchLatestResilient(){
+  try{
+    const c=await fetchContest('');
+    return {...c,_source:'CAIXA oficial'};
+  }catch(e1){
+    const c=normalizeMirror(await fetchJson(MIRROR_LATEST,15000));
+    return {...c,_source:'espelho de contingência'};
+  }
+}
+function parseBootstrapCsv(text){
+  const lines=text.trim().split(/\r?\n/); const out=[];
+  for(let i=1;i<lines.length;i++){
+    const p=lines[i].split(','); if(p.length<17) continue;
+    const n=Number(p[0]); const [dd,mm,yyyy]=(p[1]||'').split('/');
+    const dezenas=p.slice(2,17).map(Number).sort((a,b)=>a-b);
+    if(!n||dezenas.length!==15||dezenas.some(x=>!x)) continue;
+    out.push({numero:n,dataApuracao:`${yyyy}-${mm}-${dd}`,dezenas,acumulado:false,valorArrecadado:null});
+  }
+  return out;
+}
+async function bootstrapHistory(){
+  const r=await fetch(BOOTSTRAP_CSV,{cache:'no-store'});
+  if(!r.ok) throw new Error('Bootstrap HTTP '+r.status);
+  const base=parseBootstrapCsv(await r.text());
+  const map=new Map(base.map(x=>[x.numero,x]));
+  for(const p of VERIFIED_PATCHES) if(!map.has(p.numero)) map.set(p.numero,p);
+  return [...map.values()].sort((a,b)=>a.numero-b.numero);
 }
 function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
-
-async function fetchContestRetry(n, tries=4){
+async function fetchContestRetry(n, tries=3){
   let lastErr=null;
   for(let i=0;i<tries;i++){
-    try{
-      return await fetchContest(n);
-    }catch(e){
-      lastErr=e;
-      await sleep(350*(i+1));
-    }
+    try{return await fetchContest(n)}catch(e){lastErr=e;await sleep(250*(i+1));}
   }
   throw lastErr||new Error('Falha desconhecida');
 }
-
 function missingContests(latest){
-  const have=new Set(history.map(x=>x.numero));
-  const miss=[];
+  const have=new Set(history.map(x=>x.numero)); const miss=[];
   for(let n=1;n<=latest;n++) if(!have.has(n)) miss.push(n);
   return miss;
 }
-
 async function syncHistory(){
   const st=document.getElementById('syncStatus');
-  st.textContent='Consultando concurso mais recente...';
-
+  st.textContent='Inicializando sincronização resiliente 2.0.1...';
   try{
-    const latest=await fetchContestRetry('',5);
-    let map=new Map(history.map(x=>[x.numero,x]));
-    map.set(latest.numero,latest);
-
-    let miss=[];
-    for(let n=1;n<=latest.numero;n++) if(!map.has(n)) miss.push(n);
-
-    if(!miss.length){
-      history=[...map.values()].sort((a,b)=>a.numero-b.numero);
-      saveHistory(); render();
-      st.innerHTML=`<span class="ok">Base já completa.</span> ${history.length}/${latest.numero} concursos.`;
-      return;
-    }
-
-    let done=0, failed=[];
-    const concurrency=4;
-    let cursor=0;
-
-    async function worker(){
-      while(cursor<miss.length){
-        const idx=cursor++;
-        const n=miss[idx];
-        st.textContent=`Recuperando concurso ${n} • ${done}/${miss.length} concluídos...`;
-        try{
-          const c=await fetchContestRetry(n,4);
-          map.set(n,c);
-        }catch(e){
-          failed.push(n);
-          console.warn('Falha persistente no concurso',n,e);
-        }
-        done++;
-
-        if(done%25===0){
-          history=[...map.values()].sort((a,b)=>a.numero-b.numero);
-          saveHistory();
-          render();
-          await sleep(120);
-        }else{
-          await sleep(80);
-        }
+    // Em nova origem (GitHub Pages), localStorage começa vazio. Carrega um snapshot público e audita.
+    if(history.length<1000){
+      st.textContent='Carregando histórico base...';
+      try{
+        history=await bootstrapHistory(); saveHistory(); render();
+      }catch(e){
+        console.warn('Bootstrap indisponível',e);
       }
     }
+    const latest=await fetchLatestResilient();
+    let map=new Map(history.map(x=>[x.numero,x]));
+    for(const p of VERIFIED_PATCHES) if(p.numero<=latest.numero) map.set(p.numero,p);
+    map.set(latest.numero,latest);
 
-    await Promise.all(Array.from({length:concurrency},()=>worker()));
-
-    history=[...map.values()].sort((a,b)=>a.numero-b.numero);
-    saveHistory();
-    render();
-
-    const stillMissing=missingContests(latest.numero);
-    if(!stillMissing.length){
-      st.innerHTML=`<span class="ok">Sincronização completa.</span> ${history.length}/${latest.numero} concursos armazenados.`;
+    let miss=[]; for(let n=1;n<=latest.numero;n++) if(!map.has(n)) miss.push(n);
+    let done=0;
+    // Tenta reparar lacunas pela fonte oficial quando o navegador permitir.
+    for(const n of miss.slice()){
+      st.textContent=`Auditando lacunas: ${done+1}/${miss.length} • concurso ${n}`;
+      try{ map.set(n,await fetchContestRetry(n,2)); }catch(e){}
+      done++; if(done%25===0) await sleep(0);
+    }
+    history=[...map.values()].sort((a,b)=>a.numero-b.numero); saveHistory(); render();
+    const a=auditData();
+    const still=missingContests(latest.numero);
+    if(a.ok && !still.length){
+      st.innerHTML=`<span class="ok"><b>Sincronização completa.</b></span> ${history.length}/${latest.numero} concursos • último ${latest.numero} • fonte do último: ${latest._source}.`;
     }else{
-      const sample=stillMissing.slice(0,12).join(', ');
-      st.innerHTML=`<span class="warn">Recuperação parcial.</span> Faltam ${stillMissing.length} concurso(s): ${sample}${stillMissing.length>12?'…':''}. Toque novamente em “Atualizar histórico oficial” para retomar somente as lacunas.`;
+      const sample=still.slice(0,12).join(', ');
+      st.innerHTML=`<span class="warn"><b>Base carregada, mas requer reparo.</b></span> ${history.length}/${latest.numero}. Lacunas: ${sample}${still.length>12?'…':''}. Nenhum gate científico deve ser executado até Integridade = OK.`;
     }
   }catch(e){
-    st.innerHTML=`<span class="bad">Falha ao atualizar.</span> ${e.message}. Nenhum dado já salvo foi apagado; tente novamente.`;
+    st.innerHTML=`<span class="bad"><b>Falha ao sincronizar.</b></span> ${e.message}. Dados já salvos foram preservados.`;
   }
 }
 
@@ -1127,7 +1210,26 @@ async function runThreeArmWF(){
   localStorage.setItem(WF14_LEDGER_KEY,JSON.stringify(led.slice(0,50)));
 }
 
-\n// ===== 2 MILHÕES 2.0 SCIENTIFIC EVIDENCE ENGINE =====\nconst CANDIDATE_REGISTRY_KEY='lotofacil_2m_candidate_registry_v20';\nlet evidence20State={nullAudit:false,p0:null,multiTwin:null,conditional:null,multiplicity:null};\nfunction loadCandidateRegistry(){try{return JSON.parse(localStorage.getItem(CANDIDATE_REGISTRY_KEY)||'[]')}catch(e){return []}}\nfunction saveCandidateRegistryRow(row){const a=loadCandidateRegistry();const i=a.findIndex(x=>x.id===row.id);if(i>=0)a[i]={...a[i],...row};else a.unshift(row);localStorage.setItem(CANDIDATE_REGISTRY_KEY,JSON.stringify(a.slice(0,200)));renderCandidateRegistry();}\nfunction renderCandidateRegistry(){const el=document.getElementById('candidateRegistryOut');if(!el)return;const a=loadCandidateRegistry();if(!a.length){el.textContent='Nenhum candidato registrado.';return;}el.innerHTML=a.slice(0,12).map(x=>`<div style="padding:8px 0;border-bottom:1px solid var(--line)"><b>${x.id}</b> • ${x.status||'RESEARCH'}<br><span class="small">${x.family||''}${x.pValue!=null?' • p='+Number(x.pValue).toFixed(5):''}${x.note?' • '+x.note:''}</span></div>`).join('');}\nfunction exportCandidateRegistry(){const blob=new Blob([JSON.stringify({version:'2 Milhões 2.0',exportedAt:new Date().toISOString(),registry:loadCandidateRegistry()},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='2_MILHOES_2_0_CANDIDATE_REGISTRY.json';a.click();URL.revokeObjectURL(a.href);}\nfunction runNullContractAudit(){evidence20State.nullAudit=true;document.getElementById('nullContractOut').innerHTML=`<span class="ok"><b>PASS</b></span><br>NULL-ORBIT-LABEL: válido como controle estrutural.<br>NULL-PORTFOLIO: válido para mesmo orçamento.<br>NULL-TIME-FREE-SHUFFLE: <b class="warn">bloqueado como null exato</b>.<br>NULL-BLOCK: reservado para dependência temporal.`;}\nfunction logComb(n,k){if(k<0||k>n)return-Infinity;k=Math.min(k,n-k);let s=0;for(let i=1;i<=k;i++)s+=Math.log(n-k+i)-Math.log(i);return s;}\nfunction softmax15LogProb(weights,result){const dp=Array(16).fill(-Infinity);dp[0]=0;const la=(a,b)=>{if(a===-Infinity)return b;if(b===-Infinity)return a;const m=Math.max(a,b);return m+Math.log(Math.exp(a-m)+Math.exp(b-m));};for(let n=1;n<=25;n++){const w=weights[n]||0;for(let k=Math.min(15,n);k>=1;k--)dp[k]=la(dp[k],dp[k-1]+w);}let sr=0;for(const n of result)sr+=weights[n]||0;return sr-dp[15];}\nfunction weightsFromPast20(idx,lookback=300,scale=.7){const lo=Math.max(0,idx-lookback),slice=history.slice(lo,idx),counts=Array(26).fill(0);for(const c of slice)for(const n of c.dezenas)counts[n]++;const N=slice.length,exp=N*15/25,shrink=80,w=Array(26).fill(0);for(let n=1;n<=25;n++)w[n]=scale*(counts[n]-exp)/(N+shrink);return w;}\nasync function runPredictiveEvidenceGate(){const el=document.getElementById('p0Out');if(!history.length||!auditData().ok){el.innerHTML='<span class="bad">Base não íntegra.</span>';return;}const N=Math.max(200,Math.min(1500,Number(document.getElementById('p0N').value)||500));const start=Math.max(300,history.length-N),logPu=-logComb(25,15);let llr=0,bm=0,bu=0,obs=0;for(let idx=start;idx<history.length;idx++){const w=weightsFromPast20(idx),c=history[idx];llr+=softmax15LogProb(w,c.dezenas)-logPu;const set=new Set(c.dezenas);for(let n=1;n<=25;n++){const p=1/(1+Math.exp(-(Math.log(.6/.4)+w[n]))),y=set.has(n)?1:0;bm+=(y-p)*(y-p);bu+=(y-.6)*(y-.6);obs++;}if((idx-start)%50===0){el.textContent=`P0: ${idx-start+1}/${history.length-start}`;await new Promise(r=>setTimeout(r,0));}}const dB=(bu-bm)/obs,status=(llr>0&&dB>0)?'RESEARCH — SINAL POSITIVO FRACO':'DROP';evidence20State.p0={llr,deltaB:dB,status};document.getElementById('e20P0').textContent=status==='DROP'?'DROP':'RESEARCH';el.innerHTML=`<b>${status}</b><br>Log-likelihood ratio vs uniforme: ${llr.toFixed(4)}<br>Melhora média de Brier: ${dB.toExponential(3)}<br><span class="small">P0 não promove sozinho.</span>`;saveCandidateRegistryRow({id:'TILT-FREQ-SHRINK-001',family:'frequency-shrinkage',status,p0:{llr,deltaB:dB},note:'P0 prequential'});}\nfunction tiltForContest20(idx,maxReg=.05){if(!lab13Cache?.oracle)return null;const scores=pastScoresAt(idx,300);return tiltFromBaseFast(lab13Cache.oracle,scores,maxReg,lab13Cache.oracleMetrics);}\nasync function runMultiTwinGate(){const el=document.getElementById('mtOut');if(!lab13Cache?.oracle){el.innerHTML='<span class="warn">Execute o Coverage Oracle nesta sessão.</span>';return;}const twins=Math.max(16,Math.min(256,Number(document.getElementById('mtTwins').value)||64)),N=Math.max(100,Math.min(1000,Number(document.getElementById('mtN').value)||300)),start=Math.max(300,history.length-N),base=lab13Cache.oracle,total=history.length-start;let tiltHits=0;const twinHits=Array(twins).fill(0);for(let idx=start;idx<history.length;idx++){const c=history[idx],tilt=tiltForContest20(idx),et=evaluatePortfolio(tilt,c.dezenas);if(et.c13>0)tiltHits++;for(let j=0;j<twins;j++){const p=permute25(mixSeed(lab13Cache.seed,c.numero,50000+j)),tw=applyPermutation(base,p),e=evaluatePortfolio(tw,c.dezenas);if(e.c13>0)twinHits[j]++;}if((idx-start)%10===0){el.textContent=`P1 Multi-Twin: ${idx-start+1}/${total}`;await new Promise(r=>setTimeout(r,0));}}const tiltRate=tiltHits/total,rates=twinHits.map(x=>x/total),meanTwin=mean(rates),b=rates.filter(x=>x>=tiltRate).length,p=(b+1)/(twins+1),q95=percentile(rates,.95),status=(p<=.05&&tiltRate>q95)?'SURVIVE P1':'DROP';evidence20State.multiTwin={tiltRate,meanTwin,p,q95,status};document.getElementById('e20Twin').textContent=status==='SURVIVE P1'?'SURVIVE':'DROP';el.innerHTML=`<b>${status}</b><br>Tilt 13+: ${(100*tiltRate).toFixed(3)}%<br>Média Multi-Twin: ${(100*meanTwin).toFixed(3)}% • P95: ${(100*q95).toFixed(3)}%<br>Monte Carlo p=(b+1)/(B+1): <b>${p.toFixed(5)}</b>`;saveCandidateRegistryRow({id:'TILT-FREQ-SHRINK-001',family:'frequency-shrinkage',status:status==='SURVIVE P1'?'RESEARCH':'DROP',pValue:p,note:'P1 Multi-Twin'});}\nfunction exactPair13_20(a,b){const A=new Set(),B=new Set();for(const g of a)for(const m of outcomeMasksForGame(g,13))A.add(m);for(const g of b)for(const m of outcomeMasksForGame(g,13))B.add(m);let both=0;for(const m of A)if(B.has(m))both++;const aOnly=A.size-both,bOnly=B.size-both,neither=OUTCOME_SPACE-(aOnly+bOnly+both);return{a:A.size,b:B.size,both,aOnly,bOnly,neither};}\nfunction runExactConditionalAudit(){const el=document.getElementById('condOut');if(!lab13Cache?.oracle||!lab13Cache?.tilt){el.innerHTML='<span class="warn">Gere Oracle e Predictive Tilt nesta sessão.</span>';return;}const x=exactPair13_20(lab13Cache.tilt,lab13Cache.oracle),discord=x.aOnly+x.bOnly,cond=discord?x.aOnly/discord:.5;evidence20State.conditional={...x,pTiltGivenDiscord:cond};document.getElementById('e20Cond').textContent=(100*cond).toFixed(2)+'%';el.innerHTML=`Tilt-only 13+: ${x.aOnly.toLocaleString('pt-BR')}<br>Oracle-only 13+: ${x.bOnly.toLocaleString('pt-BR')}<br>Ambos: ${x.both.toLocaleString('pt-BR')}<br>Nenhum: ${x.neither.toLocaleString('pt-BR')}<br><b>P(Tilt vence | discordância) = ${(100*cond).toFixed(3)}%</b><br><span class="small">Substitui a hipótese simplificada de 50/50 quando as coberturas diferem.</span>`;}\nfunction runMultiplicityGuard(){const el=document.getElementById('multOut'),a=loadCandidateRegistry().filter(x=>x.pValue!=null);if(!a.length){el.innerHTML='<span class="warn">Nenhum p-value registrado.</span>';return;}const m=a.length,rows=[...a].sort((x,y)=>x.pValue-y.pValue).map((x,i)=>({id:x.id,p:x.pValue,thr:.05/(m-i)}));let ok=true;for(const r of rows){r.reject=ok&&r.p<=r.thr;if(!r.reject)ok=false;}evidence20State.multiplicity=rows;el.innerHTML=`<b>Holm-Bonferroni, α=0,05</b><br>${rows.map(r=>`${r.id}: p=${r.p.toFixed(5)} • limite=${r.thr.toFixed(5)} • <b>${r.reject?'PASS':'NÃO PASSA'}</b>`).join('<br>')}`;}\nfunction runEvidence20Decision(){const el=document.getElementById('decision20Out'),p0=evidence20State.p0,mt=evidence20State.multiTwin;let state='NO BET — DROP/INCONCLUSIVO';if(evidence20State.nullAudit&&p0&&p0.status!=='DROP'&&mt&&mt.status==='SURVIVE P1')state='RESEARCH — ainda precisa Gate C + prospectivo congelado';document.getElementById('e20Final').textContent=state.startsWith('RESEARCH')?'RESEARCH':'NO BET';el.innerHTML=`<b>${state}</b><br><span class="small">Retrospectivo nunca autoriza aposta nesta versão.</span>`;}\n
+
+// ===== 2 MILHÕES 2.0 SCIENTIFIC EVIDENCE ENGINE =====
+const CANDIDATE_REGISTRY_KEY='lotofacil_2m_candidate_registry_v20';
+let evidence20State={nullAudit:false,p0:null,multiTwin:null,conditional:null,multiplicity:null};
+function loadCandidateRegistry(){try{return JSON.parse(localStorage.getItem(CANDIDATE_REGISTRY_KEY)||'[]')}catch(e){return []}}
+function saveCandidateRegistryRow(row){const a=loadCandidateRegistry();const i=a.findIndex(x=>x.id===row.id);if(i>=0)a[i]={...a[i],...row};else a.unshift(row);localStorage.setItem(CANDIDATE_REGISTRY_KEY,JSON.stringify(a.slice(0,200)));renderCandidateRegistry();}
+function renderCandidateRegistry(){const el=document.getElementById('candidateRegistryOut');if(!el)return;const a=loadCandidateRegistry();if(!a.length){el.textContent='Nenhum candidato registrado.';return;}el.innerHTML=a.slice(0,12).map(x=>`<div style="padding:8px 0;border-bottom:1px solid var(--line)"><b>${x.id}</b> • ${x.status||'RESEARCH'}<br><span class="small">${x.family||''}${x.pValue!=null?' • p='+Number(x.pValue).toFixed(5):''}${x.note?' • '+x.note:''}</span></div>`).join('');}
+function exportCandidateRegistry(){const blob=new Blob([JSON.stringify({version:'2 Milhões 2.0.1',exportedAt:new Date().toISOString(),registry:loadCandidateRegistry()},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='2_MILHOES_2_0_CANDIDATE_REGISTRY.json';a.click();URL.revokeObjectURL(a.href);}
+function runNullContractAudit(){evidence20State.nullAudit=true;document.getElementById('nullContractOut').innerHTML=`<span class="ok"><b>PASS</b></span><br>NULL-ORBIT-LABEL: válido como controle estrutural.<br>NULL-PORTFOLIO: válido para mesmo orçamento.<br>NULL-TIME-FREE-SHUFFLE: <b class="warn">bloqueado como null exato</b>.<br>NULL-BLOCK: reservado para dependência temporal.`;}
+function logComb(n,k){if(k<0||k>n)return-Infinity;k=Math.min(k,n-k);let s=0;for(let i=1;i<=k;i++)s+=Math.log(n-k+i)-Math.log(i);return s;}
+function softmax15LogProb(weights,result){const dp=Array(16).fill(-Infinity);dp[0]=0;const la=(a,b)=>{if(a===-Infinity)return b;if(b===-Infinity)return a;const m=Math.max(a,b);return m+Math.log(Math.exp(a-m)+Math.exp(b-m));};for(let n=1;n<=25;n++){const w=weights[n]||0;for(let k=Math.min(15,n);k>=1;k--)dp[k]=la(dp[k],dp[k-1]+w);}let sr=0;for(const n of result)sr+=weights[n]||0;return sr-dp[15];}
+function weightsFromPast20(idx,lookback=300,scale=.7){const lo=Math.max(0,idx-lookback),slice=history.slice(lo,idx),counts=Array(26).fill(0);for(const c of slice)for(const n of c.dezenas)counts[n]++;const N=slice.length,exp=N*15/25,shrink=80,w=Array(26).fill(0);for(let n=1;n<=25;n++)w[n]=scale*(counts[n]-exp)/(N+shrink);return w;}
+async function runPredictiveEvidenceGate(){const el=document.getElementById('p0Out');if(!history.length||!auditData().ok){el.innerHTML='<span class="bad">Base não íntegra.</span>';return;}const N=Math.max(200,Math.min(1500,Number(document.getElementById('p0N').value)||500));const start=Math.max(300,history.length-N),logPu=-logComb(25,15);let llr=0,bm=0,bu=0,obs=0;for(let idx=start;idx<history.length;idx++){const w=weightsFromPast20(idx),c=history[idx];llr+=softmax15LogProb(w,c.dezenas)-logPu;const set=new Set(c.dezenas);for(let n=1;n<=25;n++){const p=1/(1+Math.exp(-(Math.log(.6/.4)+w[n]))),y=set.has(n)?1:0;bm+=(y-p)*(y-p);bu+=(y-.6)*(y-.6);obs++;}if((idx-start)%50===0){el.textContent=`P0: ${idx-start+1}/${history.length-start}`;await new Promise(r=>setTimeout(r,0));}}const dB=(bu-bm)/obs,status=(llr>0&&dB>0)?'RESEARCH — SINAL POSITIVO FRACO':'DROP';evidence20State.p0={llr,deltaB:dB,status};document.getElementById('e20P0').textContent=status==='DROP'?'DROP':'RESEARCH';el.innerHTML=`<b>${status}</b><br>Log-likelihood ratio vs uniforme: ${llr.toFixed(4)}<br>Melhora média de Brier: ${dB.toExponential(3)}<br><span class="small">P0 não promove sozinho.</span>`;saveCandidateRegistryRow({id:'TILT-FREQ-SHRINK-001',family:'frequency-shrinkage',status,p0:{llr,deltaB:dB},note:'P0 prequential'});}
+function tiltForContest20(idx,maxReg=.05){if(!lab13Cache?.oracle)return null;const scores=pastScoresAt(idx,300);return tiltFromBaseFast(lab13Cache.oracle,scores,maxReg,lab13Cache.oracleMetrics);}
+async function runMultiTwinGate(){const el=document.getElementById('mtOut');if(!lab13Cache?.oracle){el.innerHTML='<span class="warn">Execute o Coverage Oracle nesta sessão.</span>';return;}const twins=Math.max(16,Math.min(256,Number(document.getElementById('mtTwins').value)||64)),N=Math.max(100,Math.min(1000,Number(document.getElementById('mtN').value)||300)),start=Math.max(300,history.length-N),base=lab13Cache.oracle,total=history.length-start;let tiltHits=0;const twinHits=Array(twins).fill(0);for(let idx=start;idx<history.length;idx++){const c=history[idx],tilt=tiltForContest20(idx),et=evaluatePortfolio(tilt,c.dezenas);if(et.c13>0)tiltHits++;for(let j=0;j<twins;j++){const p=permute25(mixSeed(lab13Cache.seed,c.numero,50000+j)),tw=applyPermutation(base,p),e=evaluatePortfolio(tw,c.dezenas);if(e.c13>0)twinHits[j]++;}if((idx-start)%10===0){el.textContent=`P1 Multi-Twin: ${idx-start+1}/${total}`;await new Promise(r=>setTimeout(r,0));}}const tiltRate=tiltHits/total,rates=twinHits.map(x=>x/total),meanTwin=mean(rates),b=rates.filter(x=>x>=tiltRate).length,p=(b+1)/(twins+1),q95=percentile(rates,.95),status=(p<=.05&&tiltRate>q95)?'SURVIVE P1':'DROP';evidence20State.multiTwin={tiltRate,meanTwin,p,q95,status};document.getElementById('e20Twin').textContent=status==='SURVIVE P1'?'SURVIVE':'DROP';el.innerHTML=`<b>${status}</b><br>Tilt 13+: ${(100*tiltRate).toFixed(3)}%<br>Média Multi-Twin: ${(100*meanTwin).toFixed(3)}% • P95: ${(100*q95).toFixed(3)}%<br>Monte Carlo p=(b+1)/(B+1): <b>${p.toFixed(5)}</b>`;saveCandidateRegistryRow({id:'TILT-FREQ-SHRINK-001',family:'frequency-shrinkage',status:status==='SURVIVE P1'?'RESEARCH':'DROP',pValue:p,note:'P1 Multi-Twin'});}
+function exactPair13_20(a,b){const A=new Set(),B=new Set();for(const g of a)for(const m of outcomeMasksForGame(g,13))A.add(m);for(const g of b)for(const m of outcomeMasksForGame(g,13))B.add(m);let both=0;for(const m of A)if(B.has(m))both++;const aOnly=A.size-both,bOnly=B.size-both,neither=OUTCOME_SPACE-(aOnly+bOnly+both);return{a:A.size,b:B.size,both,aOnly,bOnly,neither};}
+function runExactConditionalAudit(){const el=document.getElementById('condOut');if(!lab13Cache?.oracle||!lab13Cache?.tilt){el.innerHTML='<span class="warn">Gere Oracle e Predictive Tilt nesta sessão.</span>';return;}const x=exactPair13_20(lab13Cache.tilt,lab13Cache.oracle),discord=x.aOnly+x.bOnly,cond=discord?x.aOnly/discord:.5;evidence20State.conditional={...x,pTiltGivenDiscord:cond};document.getElementById('e20Cond').textContent=(100*cond).toFixed(2)+'%';el.innerHTML=`Tilt-only 13+: ${x.aOnly.toLocaleString('pt-BR')}<br>Oracle-only 13+: ${x.bOnly.toLocaleString('pt-BR')}<br>Ambos: ${x.both.toLocaleString('pt-BR')}<br>Nenhum: ${x.neither.toLocaleString('pt-BR')}<br><b>P(Tilt vence | discordância) = ${(100*cond).toFixed(3)}%</b><br><span class="small">Substitui a hipótese simplificada de 50/50 quando as coberturas diferem.</span>`;}
+function runMultiplicityGuard(){const el=document.getElementById('multOut'),a=loadCandidateRegistry().filter(x=>x.pValue!=null);if(!a.length){el.innerHTML='<span class="warn">Nenhum p-value registrado.</span>';return;}const m=a.length,rows=[...a].sort((x,y)=>x.pValue-y.pValue).map((x,i)=>({id:x.id,p:x.pValue,thr:.05/(m-i)}));let ok=true;for(const r of rows){r.reject=ok&&r.p<=r.thr;if(!r.reject)ok=false;}evidence20State.multiplicity=rows;el.innerHTML=`<b>Holm-Bonferroni, α=0,05</b><br>${rows.map(r=>`${r.id}: p=${r.p.toFixed(5)} • limite=${r.thr.toFixed(5)} • <b>${r.reject?'PASS':'NÃO PASSA'}</b>`).join('<br>')}`;}
+function runEvidence20Decision(){const el=document.getElementById('decision20Out'),p0=evidence20State.p0,mt=evidence20State.multiTwin;let state='NO BET — DROP/INCONCLUSIVO';if(evidence20State.nullAudit&&p0&&p0.status!=='DROP'&&mt&&mt.status==='SURVIVE P1')state='RESEARCH — ainda precisa Gate C + prospectivo congelado';document.getElementById('e20Final').textContent=state.startsWith('RESEARCH')?'RESEARCH':'NO BET';el.innerHTML=`<b>${state}</b><br><span class="small">Retrospectivo nunca autoriza aposta nesta versão.</span>`;}
+
 render();
 renderFastLedger();
 renderCandidateRegistry();

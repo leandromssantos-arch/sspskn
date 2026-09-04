@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="2 Milhões">
-<title>2 Milhões 2.0.1 Scientific Evidence Engine</title>
+<title>2 Milhões 2.1 Candidate Tournament</title>
 <style>
 :root{--bg:#f4f7f5;--card:#fff;--ink:#16221b;--muted:#63716a;--brand:#0b6b3a;--brand2:#11955a;--line:#dfe8e2;--warn:#a56a00;--bad:#b3261e}
 *{box-sizing:border-box}
@@ -35,13 +35,17 @@ button.danger{background:#fff0ef;color:var(--bad);border:1px solid #f2c9c6}
 .small{font-size:12px}
 .ok{color:var(--brand);font-weight:700}.warn{color:var(--warn);font-weight:700}.bad{color:var(--bad);font-weight:700}
 code{word-break:break-all}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800;margin:2px 4px 2px 0;background:#eef7f2;color:var(--brand)}
+.badge.drop{background:#fff0ef;color:var(--bad)}.badge.watch{background:#fff7e6;color:var(--warn)}
+.family{border-left:4px solid var(--brand);padding-left:12px}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px}
+.progress{height:8px;background:#e8eee9;border-radius:999px;overflow:hidden;margin:8px 0}.progress>i{display:block;height:100%;background:var(--brand);width:0%}
 </style>
 </head>
 <body>
 <header>
-  <h1>2 Milhões 2.0.1 Scientific Evidence Engine</h1>
-    <div class="small" style="margin-top:6px"><b>2.0.1 HOTFIX</b> • sincronização resiliente para Safari/GitHub Pages</div>
-  <p>Predictive Evidence • Exact Null • Multi-Twin • Multiplicity • Prospective Freeze • NO BET • HOTFIX 2.0.1</p>
+  <h1>2 Milhões 2.1 Candidate Tournament</h1>
+    <div class="small" style="margin-top:6px"><b>2.1 TOURNAMENT</b> • quatro famílias novas • firewall • nulls • early stopping</div>
+  <p>Candidate Tournament • Exact 15/25 P0 • Matched-Null • Orbit • Evidence Budget • NO BET</p>
 </header>
 
 <main>
@@ -326,6 +330,69 @@ code{word-break:break-all}
   </div>
 </section>
 
+
+<section id="tournament21" class="tab">
+  <div class="card">
+    <h2 style="margin-top:0">2.1 — Candidate Tournament</h2>
+    <p class="muted">Triagem automática de quatro famílias realmente diferentes do TILT-FREQ-SHRINK já descartado. Cada família enfrenta <b>P0 uniforme 15/25</b> e um <b>Matched-Null temporal</b>. Nenhum resultado retrospectivo autoriza aposta.</p>
+    <div class="grid">
+      <div class="kpi"><b id="ctBase">—</b><span>base íntegra</span></div>
+      <div class="kpi"><b id="ctFamilies">0/4</b><span>famílias executadas</span></div>
+      <div class="kpi"><b id="ctSurvive">0</b><span>sobreviventes screen</span></div>
+      <div class="kpi"><b>NO BET</b><span>estado obrigatório</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Selection Firewall + Evidence Budget</h3>
+    <p class="muted">Discovery, Development e Confirmation ficam separados. O torneio usa a zona de confirmação sem permitir ajuste posterior do mesmo ID. Quatro famílias compartilham um orçamento de triagem α=0,05 com Holm sobre p conservador = max(P0 uniforme, Matched-Null).</p>
+    <label class="small">Concursos de confirmação</label>
+    <input id="ctN" type="number" min="200" max="800" step="50" value="400" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">
+    <label class="small">Null replicates por família</label>
+    <input id="ctB" type="number" min="32" max="128" step="16" value="64" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0 10px">
+    <button class="secondary" onclick="ctBuildFirewall()">Congelar firewall desta sessão</button>
+    <div id="ctFirewall" class="status">Ainda não congelado.</div>
+  </div>
+
+  <div class="card family">
+    <h3 style="margin-top:0">A — OVERLAP-K-001</h3>
+    <p class="muted">Testa se a <b>quantidade</b> de dezenas repetidas do concurso anterior carrega informação. O null é a distribuição hipergeométrica exata do overlap entre dois sorteios independentes 15/25. Não tenta escolher quais dezenas repetirão.</p>
+    <button onclick="ctRunOverlap()">Executar P0 Overlap-K</button>
+    <div id="ctOverlap" class="status">Ainda não executado.</div>
+  </div>
+
+  <div class="card family">
+    <h3 style="margin-top:0">B — SPARSE-LAG-INTERACTION-001</h3>
+    <p class="muted">Procura interações temporais de baixa ordem em lags 1–3. A busca inteira é calibrada contra históricos uniformes 15/25 e contra embaralhamento temporal dos próprios concursos, evitando premiar o “melhor par” encontrado por acaso.</p>
+    <button onclick="ctRunSparseLag()">Executar P0 Sparse-Lag</button>
+    <div id="ctSparse" class="status">Ainda não executado.</div>
+  </div>
+
+  <div class="card family">
+    <h3 style="margin-top:0">C — LOW-RANK-DYNAMIC-001</h3>
+    <p class="muted">Procura dependência temporal fraca distribuída entre muitas dezenas. Remove a direção de soma fixa 15/25 e mede a maior energia singular das cross-covariâncias em lags 1–3.</p>
+    <button onclick="ctRunLowRank()">Executar P0 Low-Rank</button>
+    <div id="ctLowRank" class="status">Ainda não executado.</div>
+  </div>
+
+  <div class="card family">
+    <h3 style="margin-top:0">D — KERNEL-DEPENDENCE-WITNESS-001</h3>
+    <p class="muted">Witness geral de dependência não linear entre o conjunto anterior e o próximo, usando kernel de overlap/Jaccard. É triagem de família, não predictor. Limitado a uma janela menor para manter desempenho no iPhone.</p>
+    <button onclick="ctRunKernel()">Executar P0 Kernel</button>
+    <div id="ctKernel" class="status">Ainda não executado.</div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Canary Integrity + decisão do torneio</h3>
+    <p class="muted">O canário roda uma relação deliberadamente sem informação. Se o pipeline começar a “aprovar” o canário, o torneio é invalidado e nenhum candidato avança.</p>
+    <button class="secondary" onclick="ctRunCanary()">Executar Canary Null</button>
+    <div id="ctCanary" class="status">Ainda não executado.</div>
+    <button onclick="ctDecision()">Aplicar Holm + decisão 2.1</button>
+    <div id="ctDecisionOut" class="status"><b>NO BET.</b> Torneio ainda não concluído.</div>
+    <button class="secondary" onclick="ctExportLedger()">Exportar Tournament Ledger</button>
+  </div>
+</section>
+
 <section id="projeto" class="tab">
   <div class="card">
     <h2 style="margin-top:0">Roadmap congelado</h2>
@@ -338,7 +405,7 @@ code{word-break:break-all}
        <b>1.1</b> Evidence & Robustness Lab — concluído<br>
       <b>1.2 FAST</b> Sequential Evidence Engine — preservado<br>
        <b>1.3</b> Exact Coverage + Matched-Null + Freeze ← fase atual<br>
-      <b>1.0F</b> Tournament<br>
+      <b>2.1</b> Candidate Tournament ← fase atual<br>      <b>1.0F</b> Tournament legado<br>
       <b>1.0G</b> Prospective Freeze<br>
       <b>1.0H</b> Ledger prospectivo
     </p>
@@ -362,6 +429,7 @@ code{word-break:break-all}
   <button class="tabbtn" onclick="showTab('robustez',this)">Robustez</button>
      <button class="tabbtn" onclick="showTab('lab13',this)">LAB 1.3</button>
    <button class="tabbtn" onclick="showTab('evidence20',this)">Evidence 2.0</button>
+   <button class="tabbtn" onclick="showTab('tournament21',this)">Tournament 2.1</button>
    <button class="tabbtn" onclick="showTab('projeto',this)">Projeto</button>
 </nav>
 
@@ -1230,9 +1298,85 @@ function runExactConditionalAudit(){const el=document.getElementById('condOut');
 function runMultiplicityGuard(){const el=document.getElementById('multOut'),a=loadCandidateRegistry().filter(x=>x.pValue!=null);if(!a.length){el.innerHTML='<span class="warn">Nenhum p-value registrado.</span>';return;}const m=a.length,rows=[...a].sort((x,y)=>x.pValue-y.pValue).map((x,i)=>({id:x.id,p:x.pValue,thr:.05/(m-i)}));let ok=true;for(const r of rows){r.reject=ok&&r.p<=r.thr;if(!r.reject)ok=false;}evidence20State.multiplicity=rows;el.innerHTML=`<b>Holm-Bonferroni, α=0,05</b><br>${rows.map(r=>`${r.id}: p=${r.p.toFixed(5)} • limite=${r.thr.toFixed(5)} • <b>${r.reject?'PASS':'NÃO PASSA'}</b>`).join('<br>')}`;}
 function runEvidence20Decision(){const el=document.getElementById('decision20Out'),p0=evidence20State.p0,mt=evidence20State.multiTwin;let state='NO BET — DROP/INCONCLUSIVO';if(evidence20State.nullAudit&&p0&&p0.status!=='DROP'&&mt&&mt.status==='SURVIVE P1')state='RESEARCH — ainda precisa Gate C + prospectivo congelado';document.getElementById('e20Final').textContent=state.startsWith('RESEARCH')?'RESEARCH':'NO BET';el.innerHTML=`<b>${state}</b><br><span class="small">Retrospectivo nunca autoriza aposta nesta versão.</span>`;}
 
+
+// ===== 2 MILHÕES 2.1 CANDIDATE TOURNAMENT =====
+const CT_LEDGER_KEY='lotofacil_2m_candidate_tournament_v21';
+let ctState={firewall:null,results:{},canary:null,decision:null};
+function ctLoadLedger(){try{return JSON.parse(localStorage.getItem(CT_LEDGER_KEY)||'[]')}catch(e){return []}}
+function ctSaveSnapshot(note='update'){
+  const row={at:new Date().toISOString(),version:'2.1',note,firewall:ctState.firewall,results:ctState.results,canary:ctState.canary,decision:ctState.decision};
+  const a=ctLoadLedger();a.unshift(row);localStorage.setItem(CT_LEDGER_KEY,JSON.stringify(a.slice(0,60)));ctRenderSummary();
+}
+function ctRenderSummary(){
+  const b=document.getElementById('ctBase'),f=document.getElementById('ctFamilies'),s=document.getElementById('ctSurvive');if(!b)return;
+  const a=auditData();b.textContent=(history.length&&a.ok)?'OK':'—';
+  const rr=Object.values(ctState.results);f.textContent=`${rr.length}/4`;s.textContent=rr.filter(x=>x.screen==='SURVIVE').length;
+}
+function ctRequireFirewall(){if(!history.length||!auditData().ok)throw new Error('Base precisa estar íntegra.');if(!ctState.firewall)throw new Error('Congele o Selection Firewall antes do teste.');return ctState.firewall;}
+function ctBuildFirewall(){
+  try{
+    if(!history.length||!auditData().ok)throw new Error('Base precisa estar íntegra.');
+    const N=Math.max(200,Math.min(800,Number(document.getElementById('ctN').value)||400));
+    const B=Math.max(32,Math.min(128,Number(document.getElementById('ctB').value)||64));
+    if(history.length<N+600)throw new Error('Histórico insuficiente para separar Discovery / Development / Confirmation.');
+    const confStart=history.length-N,devStart=Math.max(0,confStart-600);
+    ctState={firewall:{frozenAt:new Date().toISOString(),historyThrough:history.at(-1).numero,N,B,discovery:[history[0].numero,history[devStart-1]?.numero||history[0].numero],development:[history[devStart].numero,history[confStart-1].numero],confirmation:[history[confStart].numero,history.at(-1).numero],seed:210260904,alpha:.05},results:{},canary:null,decision:null};
+    document.getElementById('ctFirewall').innerHTML=`<span class="ok"><b>FIREWALL CONGELADO</b></span><br>Discovery: ${ctState.firewall.discovery.join('–')}<br>Development: ${ctState.firewall.development.join('–')}<br>Confirmation: ${ctState.firewall.confirmation.join('–')}<br>Null reps: ${B} • α-family: 0,05<br><span class="small">Alterar N/B agora exige novo freeze da sessão e zera resultados do torneio.</span>`;
+    ctSaveSnapshot('firewall');
+  }catch(e){document.getElementById('ctFirewall').innerHTML=`<span class="bad">${e.message}</span>`;}
+}
+function ctRng(seed){let a=seed>>>0;return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function ctUniformDraw(rng){const p=Array.from({length:25},(_,i)=>i+1);for(let i=24;i>0;i--){const j=Math.floor(rng()*(i+1));[p[i],p[j]]=[p[j],p[i]];}return p.slice(0,15).sort((a,b)=>a-b)}
+function ctSynthetic(N,seed){const r=ctRng(seed);return Array.from({length:N},(_,i)=>({numero:i+1,dezenas:ctUniformDraw(r)}));}
+function ctShuffleDraws(draws,seed){const r=ctRng(seed),a=draws.map(x=>({numero:x.numero,dezenas:[...x.dezenas]}));for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function ctPvalue(obs,nulls){return (1+nulls.filter(x=>x>=obs-1e-12).length)/(nulls.length+1)}
+function ctSetResult(id,res,el){ctState.results[id]=res;const cls=res.screen==='SURVIVE'?'ok':res.screen==='WATCH'?'warn':'bad';el.innerHTML=`<b class="${cls}">${res.screen}</b><br>Estatística: ${res.stat.toFixed(5)}<br>P0 uniforme: <b>${res.pUniform.toFixed(5)}</b> • Matched-Null: <b>${res.pMatched.toFixed(5)}</b><br>p conservador: ${res.pConservative.toFixed(5)}<br><span class="small">${res.note}</span>`;ctSaveSnapshot(id);}
+function ctScreen(pu,pm){const p=Math.max(pu,pm);return p<=.05?'SURVIVE':p<=.20?'WATCH':'DROP'}
+function ctOverlapK(a,b){const s=new Set(a);let k=0;for(const x of b)if(s.has(x))k++;return k}
+function ctComb(n,k){if(k<0||k>n)return 0;k=Math.min(k,n-k);let z=1;for(let i=1;i<=k;i++)z=z*(n-k+i)/i;return z}
+const CT_K_NULL=(()=>{const q={};const den=ctComb(25,15);for(let k=5;k<=15;k++)q[k]=ctComb(15,k)*ctComb(10,15-k)/den;return q})();
+function ctOverlapPrequentialStat(draws,priorDraws=[]){
+  // Positive cumulative log-likelihood ratio: rolling K model vs exact hypergeometric null.
+  const alpha=60, counts={};for(let k=5;k<=15;k++)counts[k]=alpha*CT_K_NULL[k];let total=alpha;
+  let prev=null;for(const d of priorDraws){if(prev){const k=ctOverlapK(prev.dezenas,d.dezenas);counts[k]++;total++;}prev=d;}
+  if(priorDraws.length)prev=priorDraws.at(-1);let llr=0;
+  for(const d of draws){if(prev){const k=ctOverlapK(prev.dezenas,d.dezenas),q=Math.max(1e-12,counts[k]/total),p=Math.max(1e-12,CT_K_NULL[k]);llr+=Math.log(q/p);counts[k]++;total++;}prev=d;}
+  return llr;
+}
+async function ctRunOverlap(){const el=document.getElementById('ctOverlap');try{const fw=ctRequireFirewall(),N=fw.N,B=fw.B,conf=history.slice(-N),prior=history.slice(0,-N);el.textContent='P0 Overlap-K: calibrando...';const stat=ctOverlapPrequentialStat(conf,prior);const nu=[],nm=[];for(let b=0;b<B;b++){const syn=ctSynthetic(N+1,fw.seed+101+b);nu.push(ctOverlapPrequentialStat(syn.slice(1),[syn[0]]));const sh=ctShuffleDraws(conf,fw.seed+10001+b);nm.push(ctOverlapPrequentialStat(sh,prior));if(b%8===0){el.textContent=`P0 Overlap-K: ${b+1}/${B}`;await new Promise(r=>setTimeout(r,0));}}const pu=ctPvalue(stat,nu),pm=ctPvalue(stat,nm),screen=ctScreen(pu,pm);ctSetResult('OVERLAP-K-001',{family:'transition',stat,pUniform:pu,pMatched:pm,pConservative:Math.max(pu,pm),screen,note:'Quantidade de repetição apenas; identidade das dezenas ainda não foi testada.'},el);}catch(e){el.innerHTML=`<span class="bad">${e.message}</span>`;}}
+function ctLagMaxStat(draws){
+  let best=0;
+  for(let lag=1;lag<=3;lag++)for(let i=1;i<=25;i++)for(let j=1;j<=25;j++){
+    let n00=0,n01=0,n10=0,n11=0;
+    for(let t=lag;t<draws.length;t++){const a=draws[t-lag].dezenas.includes(i),b=draws[t].dezenas.includes(j);if(a){if(b)n11++;else n10++;}else{if(b)n01++;else n00++;}}
+    const n=n00+n01+n10+n11,r1=n10+n11,r0=n00+n01,c1=n01+n11,c0=n00+n10,den=r1*r0*c1*c0;
+    if(den>0){const phi=Math.abs((n11*n00-n10*n01)*Math.sqrt(n/den));if(phi>best)best=phi;}
+  }return best;
+}
+async function ctRunSparseLag(){const el=document.getElementById('ctSparse');try{const fw=ctRequireFirewall(),N=fw.N,B=fw.B,conf=history.slice(-N);el.textContent='P0 Sparse-Lag: busca calibrada...';const stat=ctLagMaxStat(conf),nu=[],nm=[];for(let b=0;b<B;b++){nu.push(ctLagMaxStat(ctSynthetic(N,fw.seed+2000+b)));nm.push(ctLagMaxStat(ctShuffleDraws(conf,fw.seed+12000+b)));if(b%4===0){el.textContent=`P0 Sparse-Lag: ${b+1}/${B}`;await new Promise(r=>setTimeout(r,0));}}const pu=ctPvalue(stat,nu),pm=ctPvalue(stat,nm),screen=ctScreen(pu,pm);ctSetResult('SPARSE-LAG-INTERACTION-001',{family:'sparse-lag',stat,pUniform:pu,pMatched:pm,pConservative:Math.max(pu,pm),screen,note:'Máximo sobre todos os pares e lags 1–3 é recalculado em cada null; evita seleção posterior do melhor par.'},el);}catch(e){el.innerHTML=`<span class="bad">${e.message}</span>`;}}
+function ctCrossMatrix(draws,lag){const M=Array.from({length:25},()=>Array(25).fill(0)),n=draws.length-lag;if(n<=5)return M;for(let t=lag;t<draws.length;t++){const A=Array(25).fill(-.6),B=Array(25).fill(-.6);for(const x of draws[t-lag].dezenas)A[x-1]=.4;for(const x of draws[t].dezenas)B[x-1]=.4;for(let i=0;i<25;i++)for(let j=0;j<25;j++)M[i][j]+=A[i]*B[j]/n;} // double-center rows/cols to remove fixed-sum direction
+  const rm=M.map(r=>mean(r)),cm=Array(25).fill(0);for(let j=0;j<25;j++)cm[j]=mean(M.map(r=>r[j]));const gm=mean(rm);for(let i=0;i<25;i++)for(let j=0;j<25;j++)M[i][j]=M[i][j]-rm[i]-cm[j]+gm;return M;}
+function ctTopSingular(M,seed=1){const r=ctRng(seed);let v=Array.from({length:25},()=>r()-.5);const norm=x=>Math.sqrt(x.reduce((a,b)=>a+b*b,0))||1;for(let it=0;it<18;it++){let u=Array(25).fill(0);for(let i=0;i<25;i++)for(let j=0;j<25;j++)u[i]+=M[i][j]*v[j];let nu=norm(u);u=u.map(x=>x/nu);let nv=Array(25).fill(0);for(let j=0;j<25;j++)for(let i=0;i<25;i++)nv[j]+=M[i][j]*u[i];let z=norm(nv);v=nv.map(x=>x/z);}let u=Array(25).fill(0);for(let i=0;i<25;i++)for(let j=0;j<25;j++)u[i]+=M[i][j]*v[j];return norm(u)}
+function ctLowRankStat(draws){let best=0;for(let lag=1;lag<=3;lag++)best=Math.max(best,ctTopSingular(ctCrossMatrix(draws,lag),900+lag));return best}
+async function ctRunLowRank(){const el=document.getElementById('ctLowRank');try{const fw=ctRequireFirewall(),N=fw.N,B=fw.B,conf=history.slice(-N);el.textContent='P0 Low-Rank: calibrando espectro...';const stat=ctLowRankStat(conf),nu=[],nm=[];for(let b=0;b<B;b++){nu.push(ctLowRankStat(ctSynthetic(N,fw.seed+3000+b)));nm.push(ctLowRankStat(ctShuffleDraws(conf,fw.seed+13000+b)));if(b%4===0){el.textContent=`P0 Low-Rank: ${b+1}/${B}`;await new Promise(r=>setTimeout(r,0));}}const pu=ctPvalue(stat,nu),pm=ctPvalue(stat,nm),screen=ctScreen(pu,pm);ctSetResult('LOW-RANK-DYNAMIC-001',{family:'low-rank',stat,pUniform:pu,pMatched:pm,pConservative:Math.max(pu,pm),screen,note:'Top singular value após remoção da direção de soma fixa; lags 1–3 congelados.'},el);}catch(e){el.innerHTML=`<span class="bad">${e.message}</span>`;}}
+function ctSetKernel(a,b){const ov=ctOverlapK(a,b);return Math.exp((ov-9)/3)}
+function ctKernelStat(draws,maxN=180){const d=draws.slice(-Math.min(maxN,draws.length));const n=d.length-1;if(n<40)return 0;const X=d.slice(0,-1),Y=d.slice(1),K=Array.from({length:n},()=>Array(n).fill(0)),L=Array.from({length:n},()=>Array(n).fill(0));for(let i=0;i<n;i++)for(let j=i;j<n;j++){K[i][j]=K[j][i]=ctSetKernel(X[i].dezenas,X[j].dezenas);L[i][j]=L[j][i]=ctSetKernel(Y[i].dezenas,Y[j].dezenas);}const center=(A)=>{const rm=A.map(r=>mean(r)),cm=Array(n).fill(0);for(let j=0;j<n;j++)cm[j]=mean(A.map(r=>r[j]));const gm=mean(rm),C=Array.from({length:n},()=>Array(n).fill(0));for(let i=0;i<n;i++)for(let j=0;j<n;j++)C[i][j]=A[i][j]-rm[i]-cm[j]+gm;return C};const KC=center(K),LC=center(L);let z=0;for(let i=0;i<n;i++)for(let j=0;j<n;j++)z+=KC[i][j]*LC[i][j];return z/((n-1)*(n-1));}
+async function ctRunKernel(){const el=document.getElementById('ctKernel');try{const fw=ctRequireFirewall(),N=Math.min(fw.N,180),B=fw.B,conf=history.slice(-N);el.textContent='P0 Kernel: calibrando dependência...';const stat=ctKernelStat(conf,N),nu=[],nm=[];for(let b=0;b<B;b++){nu.push(ctKernelStat(ctSynthetic(N,fw.seed+4000+b),N));nm.push(ctKernelStat(ctShuffleDraws(conf,fw.seed+14000+b),N));if(b%4===0){el.textContent=`P0 Kernel: ${b+1}/${B}`;await new Promise(r=>setTimeout(r,0));}}const pu=ctPvalue(stat,nu),pm=ctPvalue(stat,nm),screen=ctScreen(pu,pm);ctSetResult('KERNEL-DEPENDENCE-WITNESS-001',{family:'kernel',stat,pUniform:pu,pMatched:pm,pConservative:Math.max(pu,pm),screen,note:`Kernel de overlap; janela limitada a ${N} concursos para custo móvel. Witness apenas.`},el);}catch(e){el.innerHTML=`<span class="bad">${e.message}</span>`;}}
+async function ctRunCanary(){const el=document.getElementById('ctCanary');try{const fw=ctRequireFirewall(),N=fw.N,B=fw.B,conf=history.slice(-N);el.textContent='Canary: executando null deliberado...';// Canary = correlação de paridade do número do concurso com presença da dezena 1; não deve carregar sinal lotérico.
+    function stat(ds,offset=0){let a=0,b=0,aa=0,bb=0,n=0;for(let t=0;t<ds.length;t++){const x=((t+offset)&1)?1:-1,y=ds[t].dezenas.includes(1)?1:0;a+=x;b+=y;aa+=x*x;bb+=y*y;n++;}const mx=a/n,my=b/n;let num=0,dx=0,dy=0;for(let t=0;t<ds.length;t++){const x=(((t+offset)&1)?1:-1)-mx,y=(ds[t].dezenas.includes(1)?1:0)-my;num+=x*y;dx+=x*x;dy+=y*y;}return Math.abs(num/Math.sqrt(dx*dy||1));}
+    const obs=stat(conf,history.length-N),nulls=[];for(let b=0;b<B;b++){nulls.push(stat(ctSynthetic(N,fw.seed+5000+b),0));if(b%8===0)await new Promise(r=>setTimeout(r,0));}const p=ctPvalue(obs,nulls),pass=p>.01;ctState.canary={stat:obs,p,pass};el.innerHTML=`<b class="${pass?'ok':'bad'}">${pass?'CANARY OK':'PIPELINE INVALID'}</b><br>p=${p.toFixed(5)}<br><span class="small">Canário não é candidato; apenas verifica falso sinal grosseiro no pipeline.</span>`;ctSaveSnapshot('canary');}catch(e){el.innerHTML=`<span class="bad">${e.message}</span>`;}}
+function ctDecision(){const el=document.getElementById('ctDecisionOut');try{ctRequireFirewall();const ids=['OVERLAP-K-001','SPARSE-LAG-INTERACTION-001','LOW-RANK-DYNAMIC-001','KERNEL-DEPENDENCE-WITNESS-001'];if(ids.some(id=>!ctState.results[id]))throw new Error('Execute as quatro famílias antes da decisão.');if(!ctState.canary)throw new Error('Execute o Canary Null antes da decisão.');if(!ctState.canary.pass){ctState.decision={status:'PIPELINE INVALID',reason:'Canary'};el.innerHTML='<span class="bad"><b>PIPELINE INVALID</b></span> — investigar antes de qualquer candidato.';ctSaveSnapshot('decision');return;}
+  const rows=ids.map(id=>({id,p:ctState.results[id].pConservative})).sort((a,b)=>a.p-b.p),m=rows.length;let active=true;for(let i=0;i<m;i++){rows[i].threshold=.05/(m-i);rows[i].holmPass=active&&rows[i].p<=rows[i].threshold;if(!rows[i].holmPass)active=false;ctState.results[rows[i].id].holmPass=rows[i].holmPass;}
+  const survivors=rows.filter(r=>r.holmPass).map(r=>r.id);ctState.decision={status:survivors.length?'RESEARCH SURVIVOR':'ALL DROP / INCONCLUSIVE',survivors,holm:rows,at:new Date().toISOString()};
+  el.innerHTML=`<b>${ctState.decision.status}</b><br>${rows.map(r=>`${r.id}: p=${r.p.toFixed(5)} • Holm ≤${r.threshold.toFixed(5)} • <b>${r.holmPass?'SURVIVE':'NÃO PASSA'}</b>`).join('<br>')}<br><br><b>NO BET.</b> ${survivors.length?'Sobrevivente(s) só ganham direito aos controles avançados e novo walk-forward; não a apostas.':'Nenhuma família demonstrou evidência suficiente neste screen.'}`;ctSaveSnapshot('decision');ctRenderSummary();
+  for(const id of ids){const r=ctState.results[id];saveCandidateRegistryRow({id,family:r.family,status:r.holmPass?'RESEARCH-SURVIVOR':'DROP/INCONCLUSIVE',pValue:r.pConservative,note:'2.1 Candidate Tournament'});}
+}catch(e){el.innerHTML=`<span class="bad">${e.message}</span>`;}}
+function ctExportLedger(){const data={version:'2 Milhões 2.1 Candidate Tournament',exportedAt:new Date().toISOString(),state:ctState,ledger:ctLoadLedger()};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='2_MILHOES_2_1_TOURNAMENT_LEDGER.json';a.click();URL.revokeObjectURL(a.href);}
+
 render();
 renderFastLedger();
 renderCandidateRegistry();
+ctRenderSummary();
 </script>
 </body>
 </html>

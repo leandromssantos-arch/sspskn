@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#08140f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SSPSKN 3.8.1">
-<title>SSPSKN 3.8.1 • Evidence Upgrade • +Milionária</title>
+<meta name="apple-mobile-web-app-title" content="SSPSKN 3.9">
+<title>SSPSKN 3.9 • Discovery & Economic Lab • +Milionária</title>
 <style>
 :root{
   --bg:#07110d; --card:#0e1d16; --card2:#12251c; --txt:#eef8f1; --muted:#9db3a6;
@@ -42,7 +42,7 @@ h1{font-size:24px;margin:0}.sub{color:var(--muted);font-size:13px;margin-top:3px
 input,select,textarea{width:100%;background:#08150f;color:var(--txt);border:1px solid var(--line);border-radius:11px;padding:11px;outline:none}
 input:focus,select:focus,textarea:focus{border-color:var(--acc2)}
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(7,17,13,.94);backdrop-filter:blur(15px);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center}
-.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(11,1fr);gap:4px}
 .tab{border:0;background:transparent;color:var(--muted);padding:8px 3px;border-radius:11px;font-size:10px;font-weight:700}.tab .ico{display:block;font-size:20px;margin-bottom:2px}.tab.active{background:#173526;color:var(--txt)}
 .page{display:none}.page.active{display:block}
 .balls{display:flex;gap:7px;flex-wrap:wrap}
@@ -66,14 +66,14 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:8px 5px;t
 hr{border:0;border-top:1px solid var(--line);margin:14px 0}
 details{border:1px solid var(--line);border-radius:12px;padding:10px;background:#09150f}summary{cursor:pointer;font-weight:700}
 canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);border-radius:12px}
-@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}.numgrid{grid-template-columns:repeat(10,1fr)}}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}.numgrid{grid-template-columns:repeat(11,1fr)}}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header>
   <div class="logo">SS</div>
-  <div><h1>SSPSKN 3.8.1</h1><div class="sub">Evidence Upgrade • OOS preserved • +Milionária</div></div>
+  <div><h1>SSPSKN 3.9</h1><div class="sub">Discovery & Economic Lab • OOS preserved • +Milionária</div></div>
   <div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div>
 </header>
 
@@ -338,6 +338,55 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
  <div class="card"><div class="notice err"><b>GATE FINAL 3.8:</b> PASS retrospectivo nunca libera aposta sozinho. Até existir evidência OOS/prospectiva suficiente e robusta, a decisão operacional permanece <b>NO BET</b>.</div></div>
 </section>
 
+
+<section id="lab39" class="page">
+  <div class="card">
+    <h2>SSPSKN 3.9 • Discovery & Economic Lab</h2>
+    <div class="notice"><b>Missão:</b> procurar vantagem mensurável sem contaminar o teste prospectivo. Compara motores sob orçamento equivalente, penaliza redundância e só promove sinais que vencem o Random em walk-forward. O ledger OOS 3.7 e o Incident Ledger 3.8 permanecem intactos.</div>
+    <div class="grid" style="margin-top:12px">
+      <div class="kpi"><b id="d39gate">NO BET</b><span>gate 3.9</span></div>
+      <div class="kpi"><b id="d39winner">—</b><span>campeão diagnóstico</span></div>
+      <div class="kpi"><b id="d39delta">—</b><span>Δ utilidade vs random</span></div>
+      <div class="kpi"><b id="d39budget">R$ 120</b><span>orçamento de referência</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>1. Discovery Tournament</h2>
+    <div class="small">Torneio walk-forward entre Coverage Puro, Anti-Crowd, Bias-Guarded, Tail Coverage e Random. Cada motor recebe exatamente o mesmo número de apostas simples. A utilidade prioriza cauda: 3+, 4+, 2 trevos, 4+2 e 5+.</div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Concursos</label><select id="d39draws"><option>40</option><option selected>80</option><option>120</option></select></div>
+      <div class="field"><label>Jogos por motor</label><select id="d39games"><option>10</option><option selected>20</option><option>30</option></select></div>
+      <div class="field"><label>Seeds</label><select id="d39seeds"><option>1</option><option selected>3</option><option>5</option></select></div>
+    </div>
+    <button class="btn" style="margin-top:10px" onclick="runDiscovery39()">Executar Discovery Tournament</button>
+    <div id="d39progress" class="small" style="margin-top:10px"></div>
+    <div id="d39result"></div>
+  </div>
+
+  <div class="card">
+    <h2>2. Economic & Multiplicity Lab</h2>
+    <div class="small">Compara formatos pelo número de combinações simples equivalentes. Como uma aposta ampliada contém múltiplas combinações, o laboratório mede cobertura equivalente e custo sem fingir que ampliar dezenas cria vantagem preditiva.</div>
+    <div class="row" style="margin-top:12px">
+      <div class="field"><label>Orçamento máximo (R$)</label><input id="d39money" type="number" min="6" step="6" value="120" oninput="renderEconomy39()"></div>
+      <div class="field"><label>Preço base simples (R$)</label><input id="d39ticket" type="number" min="0.01" step="0.01" value="6" oninput="renderEconomy39()"></div>
+    </div>
+    <div id="d39econ" style="margin-top:10px"></div>
+  </div>
+
+  <div class="card">
+    <h2>3. Carteira candidata congelável</h2>
+    <div class="small">Gera uma carteira determinística para o próximo concurso usando o campeão diagnóstico apenas se ele superar o Random; caso contrário usa Tail Coverage como referência de cobertura, sem alegação preditiva. A carteira fica registrada localmente com horário e concurso-alvo.</div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn secondary" onclick="prepareCandidate39()">Preparar carteira</button>
+      <button class="btn ghost" onclick="exportCandidate39()">Exportar carteira</button>
+    </div>
+    <div id="d39candidate" style="margin-top:10px"></div>
+  </div>
+
+  <div class="card"><div class="notice err"><b>REGRA 3.9:</b> um resultado retrospectivo nunca transforma um sorteio aleatório em previsível. O gate operacional só pode sair de NO BET com evidência prospectiva suficiente; até lá, a carteira é experimental e o orçamento deve permanecer limitado.</div></div>
+</section>
+
 <section id="saved" class="page">
   <div class="card">
     <h2>Jogos salvos</h2>
@@ -361,6 +410,7 @@ canvas{width:100%;height:190px;background:#08150f;border:1px solid var(--line);b
 <button class="tab" data-page="evidence36"><span class="ico">⚗</span>Evidence</button>
 <button class="tab" data-page="oos37"><span class="ico">◇</span>OOS 3.7</button>
 <button class="tab" data-page="lab38"><span class="ico">⌬</span>3.8</button>
+<button class="tab" data-page="lab39"><span class="ico">◆</span>3.9</button>
 <button class="tab" data-page="saved"><span class="ico">★</span>Salvos</button>
 </div></nav>
 
@@ -880,6 +930,70 @@ async function runGate38(){let out=document.getElementById('g38result'),prog=doc
 function auditStats38(data){let N=data.length,p=6/50,e=N*p,f=Array(51).fill(0),pairs=new Map();data.forEach(d=>{d.dezenas.forEach(n=>f[n]++);for(let i=0;i<6;i++)for(let j=i+1;j<6;j++){let k=pairKey35(d.dezenas[i],d.dezenas[j]);pairs.set(k,(pairs.get(k)||0)+1)}});let chi=0;for(let n=1;n<=50;n++)chi+=(f[n]-e)**2/e;let pairMax=Math.max(0,...pairs.values()),serial=avg(data.slice(1).map((d,i)=>intersect(d.dezenas,data[i].dezenas).length));return {chi,pairMax,serial}}
 async function runCombAudit38(){let out=document.getElementById('g38audit');if(history.length<30){out.innerHTML='<div class="notice err">Histórico insuficiente.</div>';return}let B=Number(document.getElementById('g38sims').value),obs=auditStats38(history),ex={chi:0,pairMax:0,serial:0},nums=[...Array(50)].map((_,i)=>i+1),cls=[1,2,3,4,5,6],rng=seededRandom(383838);for(let b=0;b<B;b++){let sim=[];for(let i=0;i<history.length;i++)sim.push({dezenas:sampleUniform36(nums,6,rng),trevos:sampleUniform36(cls,2,rng)});let z=auditStats38(sim);Object.keys(ex).forEach(k=>{if(z[k]>=obs[k]-1e-12)ex[k]++});if(b%40===0)await new Promise(r=>setTimeout(r,0))}let pv={};Object.keys(ex).forEach(k=>pv[k]=(ex[k]+1)/(B+1));let min=Math.min(...Object.values(pv));out.innerHTML=`<div class="notice ${min<.01?'err':'ok'}"><b>${min<.01?'ANOMALIA EXPLORATÓRIA — EXIGE INVESTIGAÇÃO':'SEM EVIDÊNCIA FORTE NESTA BATERIA'}</b><br>Monte Carlo sob 6/50 uniforme sem reposição. Não interpretar como previsão.</div><table style="margin-top:8px"><tr><th>Teste</th><th>Observado</th><th>p MC</th></tr><tr><td>χ² marginal</td><td>${obs.chi.toFixed(2)}</td><td>${pv.chi.toFixed(4)}</td></tr><tr><td>máx. coocorrência de par</td><td>${obs.pairMax}</td><td>${pv.pairMax.toFixed(4)}</td></tr><tr><td>overlap serial médio</td><td>${obs.serial.toFixed(3)}</td><td>${pv.serial.toFixed(4)}</td></tr></table>`}
 
+
+// SSPSKN 3.9 Discovery & Economic Lab — preserves all prior localStorage keys.
+const D39_STATE='sspskn_39_state', D39_CAND='sspskn_39_candidate';
+function state39(){return load(D39_STATE,{gate:'NO BET',winner:null,delta:null,rows:[]})}
+function saveState39(s){localStorage.setItem(D39_STATE,JSON.stringify(s));render39()}
+function utility39(h){return (h.a>=3?1:0)+(h.a>=4?5:0)+(h.t>=2?2:0)+(h.a>=4&&h.t>=2?15:0)+(h.a>=5?14:0)+(h.a>=5&&h.t>=2?18:0)}
+function bestUtility39(set,target){let best={a:-1,t:-1,u:-1};for(let g of set){let a=intersect(g.nums,target.dezenas).length,t=intersect(g.cl,target.trevos).length,u=utility39({a,t});if(u>best.u||(u===best.u&&a+t*.35>best.a+best.t*.35))best={a,t,u}}return best}
+async function runDiscovery39(){
+  let out=document.getElementById('d39result'),prog=document.getElementById('d39progress');
+  if(history.length<100){out.innerHTML='<div class="notice err">Carregue pelo menos 100 concursos.</div>';return}
+  let draws=Math.min(Number(document.getElementById('d39draws').value),history.length-75),
+      games=Number(document.getElementById('d39games').value),
+      seeds=Number(document.getElementById('d39seeds').value),
+      start=history.length-draws;
+  let engines=[['coverage36','Coverage Puro 3.6'],['crowd36','Anti-Crowd 3.6'],['bias36','Bias-Guarded 3.6'],['tail37','Tail Coverage 3.7']];
+  let diffs={};engines.forEach(e=>diffs[e[0]]=[]);let n=0,total=draws*seeds;
+  for(let idx=start;idx<history.length;idx++){
+    let train=history.slice(0,idx),target=history[idx];
+    for(let sd=0;sd<seeds;sd++){
+      let seed=target.numero*390019+sd*7919+games*43;
+      let rnd=generateForData('random',75,games,3,train,seed),ru=bestUtility39(rnd,target).u;
+      for(let [id] of engines){
+        let set=generateForData(id,75,games,3,train,seed+id.length*131);
+        diffs[id].push(bestUtility39(set,target).u-ru);
+      }
+      n++;if(n%6===0){prog.textContent=`Discovery ${n}/${total} blocos...`;await new Promise(r=>setTimeout(r,0))}
+    }
+  }
+  let rows=engines.map(([id,name],i)=>{
+    let d=diffs[id],delta=avg(d),wr=d.filter(x=>x>0).length/d.length,p=signFlipP36(d,2000,3900+i*113);
+    return {id,name,delta,winRate:wr,p,consistent:segmentsPositive36(d),n:d.length}
+  });
+  holm36(rows);rows.sort((a,b)=>a.pAdj-b.pAdj||b.delta-a.delta);
+  let w=rows[0],diagnostic=w.delta>0&&w.pAdj<=.05&&w.winRate>=.55&&w.consistent;
+  saveState39({gate:'NO BET',winner:diagnostic?w.id:null,winnerName:diagnostic?w.name:'Nenhum',delta:w.delta,diagnostic,rows,updatedAt:new Date().toISOString()});
+  let table=rows.map(r=>`<tr><td>${r.name}</td><td>${r.delta.toFixed(3)}</td><td>${(r.winRate*100).toFixed(1)}%</td><td>${r.pAdj.toFixed(3)}</td><td>${r.consistent?'3/3':'não'}</td></tr>`).join('');
+  out.innerHTML=`<div class="notice ${diagnostic?'ok':'err'}"><b>${diagnostic?'CANDIDATO DIAGNÓSTICO ENCONTRADO — GATE AINDA NO BET':'NENHUM MOTOR SUPERA O RANDOM PELO GATE 3.9'}</b><br>${diagnostic?w.name+' liderou o torneio.':'Não há justificativa estatística para alegar vantagem preditiva.'}</div><div class="scrollx" style="margin-top:10px"><table><thead><tr><th>Motor</th><th>Δ utilidade</th><th>vitórias</th><th>p Holm</th><th>segmentos</th></tr></thead><tbody>${table}</tbody></table></div>`;
+  prog.textContent=`Concluído: ${draws} concursos × ${seeds} seeds = ${total} blocos por motor.`;
+}
+function combos39(n,k){if(k<0||k>n)return 0;let r=1;for(let i=1;i<=k;i++)r=r*(n-k+i)/i;return Math.round(r)}
+function eq39(n,t){return combos39(n,6)*combos39(t,2)}
+function renderEconomy39(){
+  let money=Number(document.getElementById('d39money')?.value)||120,ticket=Number(document.getElementById('d39ticket')?.value)||6;
+  let el=document.getElementById('d39econ');if(!el)return;
+  document.getElementById('d39budget').textContent='R$ '+money.toFixed(0);
+  let formats=[[6,2],[6,3],[7,2],[7,3],[8,2],[6,4],[9,2]];
+  let rows=formats.map(([n,t])=>{let e=eq39(n,t),cost=e*ticket,qty=Math.floor(money/cost);return `<tr><td>${n}+${t}</td><td>${e}</td><td>R$ ${cost.toFixed(2)}</td><td>${qty}</td><td>${qty*e}</td></tr>`}).join('');
+  el.innerHTML=`<div class="scrollx"><table><thead><tr><th>Formato</th><th>simples equivalentes</th><th>custo equivalente</th><th>cabem no orçamento</th><th>combinações pagas</th></tr></thead><tbody>${rows}</tbody></table></div><p class="small">Sob preço linear por combinação, formatos ampliados não criam combinações “grátis”; a vantagem possível está na organização/cobertura e multiplicidade de faixas quando vários subconjuntos do mesmo bilhete são premiados.</p>`;
+}
+function candidate39(){return load(D39_CAND,null)}
+function prepareCandidate39(){
+  let last=history.at(-1),s=state39(),box=document.getElementById('d39candidate');if(!last){box.innerHTML='<div class="notice err">Atualize o histórico primeiro.</div>';return}
+  let contest=last.numero+1,engine=s.winner||'tail37',games=Math.max(1,Math.floor((Number(document.getElementById('d39money').value)||120)/(Number(document.getElementById('d39ticket').value)||6))),seed=contest*390019+39;
+  let set=generateForData(engine,75,Math.min(games,100),3,history,seed);
+  let c={version:'3.9',contest,engine,engineName:s.winnerName||'Tail Coverage 3.7 (cobertura)',createdAt:new Date().toISOString(),budget:Number(document.getElementById('d39money').value)||120,ticket:Number(document.getElementById('d39ticket').value)||6,games:set,gate:'NO BET',diagnosticWinner:!!s.winner};
+  localStorage.setItem(D39_CAND,JSON.stringify(c));renderCandidate39()
+}
+function renderCandidate39(){
+  let c=candidate39(),box=document.getElementById('d39candidate');if(!box)return;
+  box.innerHTML=c?`<div class="notice"><b>Concurso ${c.contest} • carteira experimental congelada localmente</b><br>Motor: ${c.engineName} • ${c.games.length} jogos • orçamento ref. R$ ${Number(c.budget).toFixed(2)} • gate ${c.gate}.<br><span class="tiny">Registro: ${c.createdAt}</span></div><div class="small" style="margin-top:8px">${textGames(c.games).replace(/\n/g,'<br>')}</div>`:'<div class="small">Nenhuma carteira 3.9 preparada.</div>';
+}
+function exportCandidate39(){let c=candidate39();if(!c)return alert('Prepare a carteira primeiro.');let blob=new Blob([JSON.stringify(c,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`SSPSKN_3.9_CANDIDATE_${c.contest}.json`;a.click();URL.revokeObjectURL(a.href)}
+function render39(){let s=state39();if(document.getElementById('d39gate'))document.getElementById('d39gate').textContent=s.gate||'NO BET';if(document.getElementById('d39winner'))document.getElementById('d39winner').textContent=s.winnerName||'—';if(document.getElementById('d39delta'))document.getElementById('d39delta').textContent=s.delta==null?'—':(s.delta>=0?'+':'')+Number(s.delta).toFixed(3);renderEconomy39();renderCandidate39()}
+
 function refresh(){
   let last=history.at(-1);
   document.getElementById('kConc').textContent=last?.numero||'—';
@@ -887,14 +1001,14 @@ function refresh(){
   document.getElementById('kSaved').textContent=saved.length;
   document.getElementById('kDate').textContent=last?fmtDate(last.data):'—';
   document.getElementById('lastResult').innerHTML=last?`<div class="row"><span class="badge">Concurso ${last.numero}</span><span class="tiny">${fmtDate(last.data)}</span></div><div style="height:9px"></div>${balls(last.dezenas)}<div style="height:7px"></div>${balls(last.trevos,'clover')}`:'Sincronize para carregar os resultados.';
-  quick();renderAnalysis();renderSaved();renderOOS37()
+  quick();renderAnalysis();renderSaved();renderOOS37();render39()
 }
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));
   document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===b.dataset.page));
-  if(b.dataset.page==='analysis')renderAnalysis();if(b.dataset.page==='backtest')renderPattern(history);if(b.dataset.page==='validation')renderBlind35();if(b.dataset.page==='evidence36')document.getElementById('evGate').textContent='NO BET';if(b.dataset.page==='oos37')renderOOS37();if(b.dataset.page==='lab38')renderIncidents38();if(b.dataset.page==='saved')renderSaved()
+  if(b.dataset.page==='analysis')renderAnalysis();if(b.dataset.page==='backtest')renderPattern(history);if(b.dataset.page==='validation')renderBlind35();if(b.dataset.page==='evidence36')document.getElementById('evGate').textContent='NO BET';if(b.dataset.page==='oos37')renderOOS37();if(b.dataset.page==='lab38')renderIncidents38();if(b.dataset.page==='lab39')render39();if(b.dataset.page==='saved')renderSaved()
 });
-refresh();renderBlind35();renderOOS37();renderIncidents38();
+refresh();renderBlind35();renderOOS37();renderIncidents38();render39();
 if(history.length)setStatus('Dados locais',true);
 </script>
 </body>

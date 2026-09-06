@@ -2,65 +2,70 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#06110d"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="SSPSKN 4.3">
-<title>SSPSKN 4.3 • Signal Existence & Causal Audit Lab</title>
+<meta name="theme-color" content="#06110d"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="SSPSKN 4.4">
+<title>SSPSKN 4.4 • Predictability Boundary Lab</title>
 <style>
 :root{--bg:#06110d;--card:#102118;--txt:#eef8f1;--muted:#9db3a6;--acc:#43e68d;--gold:#ffd66b;--danger:#ff7178;--line:#264638}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 100% 0,#123b27,transparent 34%),var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;min-height:100vh}.wrap{max-width:980px;margin:auto;padding:20px 14px 100px}header{display:flex;gap:12px;align-items:center;margin-bottom:14px}.logo{width:56px;height:56px;border-radius:17px;background:linear-gradient(145deg,var(--acc),#12834d);display:grid;place-items:center;color:#04120b;font-weight:900}.sub,.small{color:var(--muted);font-size:12px;line-height:1.45}h1{margin:0;font-size:24px}.status{margin-left:auto;color:var(--muted);font-size:12px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gold);margin-right:5px}.card{background:linear-gradient(180deg,#12271d,var(--card));border:1px solid var(--line);border-radius:18px;padding:16px;margin:12px 0}.card h2{font-size:17px;margin:0 0 12px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.kpi{background:#08170f;border:1px solid var(--line);border-radius:14px;padding:12px}.kpi b{font-size:20px;display:block}.kpi span{font-size:11px;color:var(--muted)}.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.field{flex:1;min-width:130px}.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:5px}.btn{border:0;border-radius:12px;padding:12px 14px;font-weight:800;background:var(--acc);color:#031109}.btn.secondary{background:#173728;color:var(--txt);border:1px solid #315a44}.btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}input,select,textarea{width:100%;background:#07150f;color:var(--txt);border:1px solid var(--line);border-radius:11px;padding:11px}.notice{border-left:3px solid var(--gold);background:#201d0e;color:#f4e8c0;border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.45}.notice.ok{border-left-color:var(--acc);background:#0c2217;color:#c9f6d9}.notice.err{border-left-color:var(--danger);background:#2b1416;color:#ffd6d8}.notice.info{border-left-color:#83bfff;background:#102031;color:#d7eaff}.balls{display:flex;gap:7px;flex-wrap:wrap}.ball{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#163d2a;border:1px solid #2f6b4c;font-weight:900}.clover{background:#3a3015;border-color:#806c2e;color:#ffe59e}.tabs{position:fixed;left:0;right:0;bottom:0;background:rgba(6,17,13,.96);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center}.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(6,1fr);gap:4px}.tab{border:0;background:transparent;color:var(--muted);padding:8px 3px;border-radius:11px;font-size:10px;font-weight:700}.tab.active{background:#173526;color:var(--txt)}.page{display:none}.page.active{display:block}.scrollx{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:8px 5px;text-align:left;border-bottom:1px solid var(--line)}th{color:var(--muted)}.game{background:#08150f;border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:8px}@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
 <body><div class="wrap">
-<header><div class="logo">AI</div><div><h1>SSPSKN 4.3</h1><div class="sub">Signal Existence & Causal Audit Lab • núcleo novo • +Milionária</div></div><div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div></header>
+<header><div class="logo">AI</div><div><h1>SSPSKN 4.4</h1><div class="sub">Predictability Boundary Lab • núcleo novo • +Milionária</div></div><div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div></header>
 <section id="home" class="page active">
-<div class="card"><h2>Estado da base</h2><div class="grid"><div class="kpi"><b id="kConc">—</b><span>último concurso</span></div><div class="kpi"><b id="kHist">0</b><span>concursos carregados</span></div><div class="kpi"><b id="kDate">—</b><span>última data</span></div><div class="kpi"><b id="kGate">NO BET</b><span>gate 4.3</span></div></div><div class="row" style="margin-top:12px"><button class="btn" onclick="syncLatest()">Atualizar último</button></div><div id="lastResult" class="small" style="margin-top:12px"></div></div>
-<div class="card"><h2>Baseline 4.0 preservado</h2><div class="notice info"><b>Ruptura metodológica:</b> a 4.2 mostrou que o campeão selecionado em Discovery + Selection perdeu para o Random no holdout de dezenas. A 4.3 suspende geradores e testa primeiro se existe sinal estatístico ou operacional explorável.</div></div>
+<div class="card"><h2>Estado da base</h2><div class="grid"><div class="kpi"><b id="kConc">—</b><span>último concurso</span></div><div class="kpi"><b id="kHist">0</b><span>concursos carregados</span></div><div class="kpi"><b id="kDate">—</b><span>última data</span></div><div class="kpi"><b id="kGate">NO BET</b><span>gate 4.4</span></div></div><div class="row" style="margin-top:12px"><button class="btn" onclick="syncLatest()">Atualizar último</button></div><div id="lastResult" class="small" style="margin-top:12px"></div></div>
+<div class="card"><h2>Baseline 4.0 preservado</h2><div class="notice info"><b>Resultado acumulado:</b> a 4.3 encontrou 0/12 sinais aprovados nas baterias pré-definidas de dezenas e trevos. A 4.4 abandona a caça a padrões isolados e mede diretamente se probabilidades condicionadas ao passado melhoram a previsão futura contra o Uniform.</div></div>
 </section>
+
 
 <section id="discovery" class="page">
 <div class="card">
-<h2>Signal Existence Gate</h2>
-<div class="notice info"><b>Regra 4.3:</b> nenhum gerador pode ser promovido antes de demonstrarmos que alguma característica do histórico real é rara sob sorteios uniformes. O gate procura sinal; não gera aposta.</div>
+<h2>Predictability Boundary</h2>
+<div class="notice info"><b>Missão 4.4:</b> medir se informação do passado reduz erro futuro acima de um baseline uniforme, sem escolher números depois de ver o futuro. Este laboratório não gera apostas.</div>
 <div class="row" style="margin-top:12px">
-<div class="field"><label>Domínio</label><select id="sDomain"><option value="nums" selected>dezenas</option><option value="cl">trevos</option></select></div>
-<div class="field"><label>Universos nulos</label><select id="sWorlds"><option>100</option><option selected>250</option><option>500</option></select></div>
-<div class="field"><label>Janela recente</label><select id="sRecent"><option>30</option><option selected>50</option><option>80</option></select></div>
+<div class="field"><label>Domínio</label><select id="pDomain"><option value="nums" selected>dezenas</option><option value="cl">trevos</option></select></div>
+<div class="field"><label>Blocos temporais</label><select id="pBlocks"><option>4</option><option selected>6</option><option>8</option></select></div>
+<div class="field"><label>Permutações</label><select id="pPerm"><option>100</option><option selected>250</option><option>500</option></select></div>
 </div>
-<button class="btn" style="margin-top:10px" onclick="runSignalGate()">Executar Signal Existence Gate</button>
-<div id="sProgress" class="small" style="margin-top:10px"></div><div id="sResults"></div>
+<button class="btn" style="margin-top:10px" onclick="runBoundary()">Executar Predictability Boundary</button>
+<div id="pProgress" class="small" style="margin-top:10px"></div><div id="pResults"></div>
 </div>
 
-<div class="card"><h2>Testes pré-definidos</h2>
-<div class="scrollx"><table><thead><tr><th>Teste</th><th>Pergunta</th></tr></thead><tbody>
-<tr><td>Frequency χ²</td><td>a distribuição marginal desvia do uniforme?</td></tr>
-<tr><td>Serial overlap</td><td>concursos consecutivos compartilham itens além do esperado?</td></tr>
-<tr><td>Lag-2 overlap</td><td>há dependência a dois concursos de distância?</td></tr>
-<tr><td>Recent shift</td><td>a janela recente mudou em relação ao histórico anterior?</td></tr>
-<tr><td>Gap dispersion</td><td>a dispersão dos intervalos entre ocorrências é anômala?</td></tr>
-<tr><td>Entropy deficit</td><td>a distribuição observada tem déficit de entropia?</td></tr>
-</tbody></table></div>
-<div class="small" style="margin-top:8px">O placar usa comparação empírica com universos sintéticos e correção Holm. PASS exige anomalia corrigida em mais de um teste e estabilidade temporal; um p isolado não basta.</div>
+<div class="card"><h2>Modelos cegos pré-fixados</h2>
+<div class="scrollx"><table><tr><th>Modelo</th><th>Informação permitida</th></tr>
+<tr><td>Uniform</td><td>nenhum histórico; baseline</td></tr>
+<tr><td>Long Frequency</td><td>frequência acumulada com shrinkage</td></tr>
+<tr><td>Short Residual</td><td>desvio recente contra longo prazo</td></tr>
+<tr><td>Transition</td><td>dependência do concurso imediatamente anterior</td></tr>
+<tr><td>Delay</td><td>intervalo desde a última ocorrência, regularizado</td></tr>
+<tr><td>Conservative Ensemble</td><td>média limitada dos quatro sinais anteriores</td></tr>
+</table></div>
+<div class="small" style="margin-top:8px">Métrica principal: log-loss por item no próximo concurso. Menor é melhor. A vantagem é Uniform loss − Model loss. O modelo não escolhe uma carteira; ele precisa atribuir probabilidades melhores ao próximo resultado.</div>
 </div>
 </section>
 
 <section id="falsify" class="page">
 <div class="card">
-<h2>Causal / Physical Audit Lab</h2>
-<div class="small">Analisa apenas incidentes verificáveis registrados no Audit Ledger. Incidente não é tratado como previsão. O objetivo é testar se concursos marcados diferem de controles comparáveis e detectar confundidores operacionais.</div>
+<h2>Adversarial Validation</h2>
+<div class="small">Só fica disponível se algum modelo tiver vantagem positiva no Boundary. Testa se a vantagem desaparece quando destruímos a ordem temporal ou substituímos o histórico por um universo uniforme.</div>
 <div class="row" style="margin-top:12px">
-<div class="field"><label>Mínimo de incidentes</label><select id="cMin"><option>3</option><option selected>5</option><option>10</option></select></div>
-<div class="field"><label>Permutações</label><select id="cPerm"><option>500</option><option selected>1000</option><option>2000</option></select></div>
+<div class="field"><label>Placebos</label><select id="aPlacebos"><option>100</option><option selected>250</option><option>500</option></select></div>
+<div class="field"><label>Critério</label><select id="aAlpha"><option value=".10">0,10</option><option value=".05" selected>0,05</option><option value=".01">0,01</option></select></div>
 </div>
-<button class="btn secondary" style="margin-top:10px" onclick="runCausalAudit()">Executar Causal Audit</button>
-<div id="cProgress" class="small" style="margin-top:10px"></div><div id="cResults"></div>
+<button class="btn secondary" style="margin-top:10px" onclick="runAdversarial()">Executar Adversarial Validation</button>
+<div id="aVProgress" class="small" style="margin-top:10px"></div><div id="aVResults"></div>
+</div>
+
+<div class="card"><h2>Negative Controls</h2>
+<div class="small">Controles obrigatórios: embaralhamento da ordem dos concursos, deslocamento do alvo futuro e histórico sintético uniforme. Um candidato só merece investigação se vencer o Uniform no tempo real e perder a vantagem nos controles negativos.</div>
 </div>
 </section>
 <section id="economy" class="page"><div class="card"><h2>Economic & Coverage Lab</h2><div class="row"><div class="field"><label>Orçamento R$</label><input id="eBudget" type="number" value="120" min="6" step="6" oninput="renderEconomy()"></div><div class="field"><label>Preço simples R$</label><input id="eTicket" type="number" value="6" min=".01" step=".01" oninput="renderEconomy()"></div></div><div id="eTable" style="margin-top:10px"></div></div></section>
-<section id="freeze" class="page"><div class="card"><h2>Prospective Freeze 4.3</h2><div class="notice">A 4.3 bloqueia geração de apostas. Primeiro precisa existir evidência de sinal ou uma associação operacional replicável; só uma versão posterior poderá transformar isso em hipótese preditiva pré-especificada.</div><div class="grid" style="margin-top:12px"><div class="kpi"><b id="pCandidate">—</b><span>candidato</span></div><div class="kpi"><b id="pFrozen">NÃO</b><span>congelado</span></div><div class="kpi"><b id="pEval">0</b><span>avaliados</span></div><div class="kpi"><b id="pGate">NO BET</b><span>gate</span></div></div><div class="row" style="margin-top:12px"><button class="btn" onclick="freezeNext()">Congelar próximo</button><button class="btn secondary" onclick="evaluateFrozen()">Conferir</button><button class="btn ghost" onclick="exportLedger()">Exportar ledger</button></div><div id="pResult" style="margin-top:10px"></div></div></section>
+<section id="freeze" class="page"><div class="card"><h2>Prospective Freeze 4.4</h2><div class="notice">A 4.4 mede diretamente a fronteira de previsibilidade por log-loss temporal e controles adversariais. Nenhuma aposta é liberada nesta versão.</div><div class="grid" style="margin-top:12px"><div class="kpi"><b id="pCandidate">—</b><span>candidato</span></div><div class="kpi"><b id="pFrozen">NÃO</b><span>congelado</span></div><div class="kpi"><b id="pEval">0</b><span>avaliados</span></div><div class="kpi"><b id="pGate">NO BET</b><span>gate</span></div></div><div class="row" style="margin-top:12px"><button class="btn" onclick="freezeNext()">Congelar próximo</button><button class="btn secondary" onclick="evaluateFrozen()">Conferir</button><button class="btn ghost" onclick="exportLedger()">Exportar ledger</button></div><div id="pResult" style="margin-top:10px"></div></div></section>
 <section id="audit" class="page"><div class="card"><h2>Physical / Operational Ledger</h2><div class="small">Mantido separado da previsão. Serve para futuros testes de mudança de regime e confundidores.</div><div class="row" style="margin-top:10px"><div class="field"><label>Concurso</label><input id="aContest" type="number"></div><div class="field"><label>Tipo</label><select id="aType"><option>manual_ball_release</option><option>multiple_ejection</option><option>globe_intervention</option><option>equipment_change</option><option>location_change</option><option>schedule_change</option><option>auditor_nonconfirmation</option><option>other</option></select></div></div><div class="field" style="margin-top:8px"><label>Fonte/observação verificável</label><textarea id="aNote" rows="3"></textarea></div><div class="row"><button class="btn secondary" onclick="addIncident()">Registrar</button><button class="btn ghost" onclick="exportIncidents()">Exportar</button></div><div id="aList"></div></div></section>
 </div>
-<nav class="tabs"><div class="tabsin"><button class="tab active" data-page="home">⌂<br>Início</button><button class="tab" data-page="discovery">∿<br>Sinal</button><button class="tab" data-page="falsify">⌁<br>Causal</button><button class="tab" data-page="economy">$<br>Economia</button><button class="tab" data-page="freeze">◇<br>Freeze</button><button class="tab" data-page="audit">⌁<br>Audit</button></div></nav>
+<nav class="tabs"><div class="tabsin"><button class="tab active" data-page="home">⌂<br>Início</button><button class="tab" data-page="discovery">∂<br>Boundary</button><button class="tab" data-page="falsify">⊘<br>Adversarial</button><button class="tab" data-page="economy">$<br>Economia</button><button class="tab" data-page="freeze">◇<br>Freeze</button><button class="tab" data-page="audit">⌁<br>Audit</button></div></nav>
 <script>
-const API='https://servicebus2.caixa.gov.br/portaldeloterias/api/maismilionaria',HIST='sspskn_history',STATE='sspskn_43_state',LEDGER='sspskn_43_ledger',INC='sspskn_40_incidents';
+const API='https://servicebus2.caixa.gov.br/portaldeloterias/api/maismilionaria',HIST='sspskn_history',STATE='sspskn_44_state',LEDGER='sspskn_44_ledger',INC='sspskn_40_incidents';
 let history=load(HIST,[]);function load(k,d){try{let v=JSON.parse(localStorage.getItem(k));return v??d}catch(e){return d}}function save(k,v){localStorage.setItem(k,JSON.stringify(v))}const nums=[...Array(50)].map((_,i)=>i+1),cls=[1,2,3,4,5,6],pad=n=>String(n).padStart(2,'0'),intersect=(a,b)=>a.filter(x=>b.includes(x)),avg=a=>a.length?a.reduce((s,x)=>s+x,0)/a.length:0;
 function fmtDate(s){if(!s)return'—';if(s.includes('/'))return s;let p=s.split('-');return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:s}function balls(a,c=''){return `<div class="balls">${a.map(n=>`<span class="ball ${c}">${pad(n)}</span>`).join('')}</div>`}function setStatus(t,ok=false){syncStatus.textContent=t;dot.style.background=ok?'#43e68d':'#ffd66b'}
 function sanitize(j){let d=(j.listaDezenas||j.dezenas||[]).map(Number).filter(n=>n>=1&&n<=50).sort((a,b)=>a-b),t=(j.listaTrevos||j.trevos||j.trevosSorteados||[]).map(x=>Number(String(x).replace(/\D/g,''))).filter(n=>n>=1&&n<=6).sort((a,b)=>a-b);return{numero:Number(j.numero||j.numeroConcurso||j.concurso),data:j.dataApuracao||j.data||'',dezenas:d,trevos:t}}function valid(d){return Number.isFinite(d.numero)&&d.dezenas.length===6&&d.trevos.length===2}
@@ -77,6 +82,77 @@ async function runDiscovery(){if(history.length<120){dResults.innerHTML='<div cl
 function randomDraw(R){return{dezenas:sample(nums,6,R),trevos:sample(cls,2,R)}}async function runFalsifier(){let st=load(STATE,{});if(!st.winner){fResults.innerHTML='<div class="notice err">Nenhum candidato para falsificar.</div>';return}let worlds=+fWorlds.value,draws=+fDraws.value,real=st.rows.find(r=>r.id===st.winner).delta,R=Rng(404040),ext=0;for(let w=0;w<worlds;w++){let sim=[];for(let i=0;i<130;i++)sim.push({numero:i+1,...randomDraw(R)});let ds=[];for(let i=130-draws;i<130;i++){let tr=sim.slice(0,i),tar=sim[i],seed=(w+1)*900001+i*101;ds.push(delta(flags(best(gen(st.winner,tr,20,seed),tar)),flags(best(gen('random',tr,20,seed+17),tar))))}if(avg(ds)>=real)ext++;if((w+1)%10===0){fProgress.textContent=`Universos ${w+1}/${worlds}...`;await new Promise(r=>setTimeout(r,0))}}let p=(ext+1)/(worlds+1),pass=p<=.05;st.falsifierPassed=pass;st.nullP=p;save(STATE,st);fResults.innerHTML=`<div class="notice ${pass?'ok':'err'}"><b>${pass?'SOBREVIVEU À FALSIFICAÇÃO — AINDA NO BET':'REJEITADO COMO POSSÍVEL FALSO POSITIVO'}</b><br>${ext}/${worlds} universos aleatórios igualaram ou superaram o Δ real. p≈${p.toFixed(3)}.</div>`;refresh()}
 
 
+
+function clipP(p){return Math.max(.01,Math.min(.99,p))}
+function itemProb(model,data,domain){
+  let items=domainItems(domain),k=domain==='cl'?2:6,base=k/items.length,N=data.length;
+  if(model==='uniform'||N<20)return items.map(()=>base);
+  let long=data.slice(-Math.min(160,N)),short=data.slice(-Math.min(30,N)),cl={},cs={};
+  items.forEach(x=>{cl[x]=0;cs[x]=0});long.forEach(d=>domainDraw(d,domain).forEach(x=>cl[x]++));short.forEach(d=>domainDraw(d,domain).forEach(x=>cs[x]++));
+  let prev=N?domainDraw(data[N-1],domain):[],delay={};items.forEach(x=>delay[x]=N);
+  for(let i=N-1;i>=0;i--){for(let x of domainDraw(data[i],domain))if(delay[x]===N)delay[x]=N-1-i}
+  let raw=items.map(x=>{
+    let pl=(cl[x]+8*base)/(long.length+8),ps=(cs[x]+6*base)/(short.length+6),v=base;
+    if(model==='long')v=pl;
+    if(model==='short')v=base+.45*(ps-pl);
+    if(model==='transition')v=base+(prev.includes(x)?-.015:.015*(k/(items.length-k)));
+    if(model==='delay'){let md=(items.length/k)-1;v=base+.018*((delay[x]-md)/Math.max(2,md))}
+    if(model==='ensemble'){
+      let r1=pl-base,r2=.45*(ps-pl),r3=(prev.includes(x)?-.015:.015*(k/(items.length-k))),md=(items.length/k)-1,r4=.018*((delay[x]-md)/Math.max(2,md));
+      v=base+.25*(r1+r2+r3+r4)
+    }
+    return clipP(v)
+  });
+  // rescale marginal probabilities to expected k selected items
+  let s=raw.reduce((a,b)=>a+b,0),f=k/Math.max(.001,s);return raw.map(x=>clipP(x*f))
+}
+function drawLogLoss(probs,draw,domain){
+  let items=domainItems(domain),S=new Set(domainDraw(draw,domain)),z=0;
+  items.forEach((x,i)=>{let p=clipP(probs[i]);z+=S.has(x)?-Math.log(p):-Math.log(1-p)});return z/items.length
+}
+function evalPredictor(model,data,domain,start,end){
+  let losses=[];for(let i=start;i<end;i++)losses.push(drawLogLoss(itemProb(model,data.slice(0,i),domain),data[i],domain));return avg(losses)
+}
+function boundaryOnce(data,domain,blocks){
+  let models=['uniform','long','short','transition','delay','ensemble'],minTrain=Math.max(80,Math.floor(data.length*.35)),usable=data.length-minTrain,bs=Math.floor(usable/blocks),out={};
+  models.forEach(m=>out[m]=[]);
+  for(let b=0;b<blocks;b++){let s=minTrain+b*bs,e=(b===blocks-1?data.length:s+bs);models.forEach(m=>out[m].push(evalPredictor(m,data,domain,s,e)))}
+  let u=avg(out.uniform),rows=models.filter(m=>m!=='uniform').map(m=>({model:m,loss:avg(out[m]),adv:u-avg(out[m]),blocks:out[m].map((x,i)=>out.uniform[i]-x)}));
+  return {uniform:u,rows}
+}
+async function runBoundary(){
+  if(history.length<180){pResults.innerHTML='<div class="notice err">São necessários pelo menos 180 concursos.</div>';return}
+  let domain=pDomain.value,B=+pBlocks.value,P=+pPerm.value,real=boundaryOnce(history,domain,B),R=Rng(440044),nullMax=[];
+  for(let j=0;j<P;j++){
+    let sim=syntheticHistory(history.length,R),r=boundaryOnce(sim,domain,B),mx=Math.max(...r.rows.map(x=>x.adv));nullMax.push(mx);
+    if((j+1)%10===0){pProgress.textContent=`Null ${j+1}/${P}...`;await new Promise(r=>setTimeout(r,0))}
+  }
+  real.rows.forEach(r=>{r.posBlocks=r.blocks.filter(x=>x>0).length;r.p=(nullMax.filter(x=>x>=r.adv-1e-12).length+1)/(P+1)});
+  let eligible=real.rows.filter(r=>r.adv>0&&r.posBlocks>=Math.ceil(B*.67)&&r.p<=.05).sort((a,b)=>b.adv-a.adv),best=eligible[0]||null;
+  let st=load(STATE,{});st.version='4.4';st.boundary={domain,blocks:B,permutations:P,uniform:real.uniform,rows:real.rows,best,pass:!!best,updatedAt:new Date().toISOString()};st.boundaryPass=!!best;st.adversarialPass=false;save(STATE,st);
+  let names={long:'Long Frequency',short:'Short Residual',transition:'Transition',delay:'Delay',ensemble:'Conservative Ensemble'};
+  let tr=real.rows.map(r=>`<tr><td>${names[r.model]}</td><td>${r.loss.toFixed(6)}</td><td>${r.adv.toFixed(6)}</td><td>${r.posBlocks}/${B}</td><td>${r.p.toFixed(4)}</td></tr>`).join('');
+  pResults.innerHTML=`<div class="notice ${best?'ok':'err'}"><b>${best?'CANDIDATO DE PREVISIBILIDADE — AINDA NÃO É PREVISÃO VALIDADA':'FRONTEIRA: SEM PREVISIBILIDADE DETECTÁVEL'}</b><br>Uniform log-loss = ${real.uniform.toFixed(6)}. ${best?`${names[best.model]} passou o gate inicial e deve enfrentar os controles adversariais.`:'Nenhum modelo melhorou o Uniform de forma consistente e rara nos universos nulos.'}</div><div class="scrollx"><table><tr><th>Modelo</th><th>loss</th><th>vantagem</th><th>blocos +</th><th>p max-null</th></tr>${tr}</table></div>`;
+  pProgress.textContent=`Concluído: ${B} blocos temporais + ${P} universos nulos.`;refresh()
+}
+function shiftedData(data,shift){
+  return data.map((d,i)=>{let t=data[(i+shift)%data.length];return {numero:d.numero,data:d.data,dezenas:t.dezenas.slice(),trevos:t.trevos.slice()}})
+}
+async function runAdversarial(){
+  let st=load(STATE,{});if(!st.boundaryPass||!st.boundary||!st.boundary.best){aVResults.innerHTML='<div class="notice err">Nenhum candidato aprovado no Predictability Boundary.</div>';return}
+  let model=st.boundary.best.model,domain=st.boundary.domain,B=st.boundary.blocks,P=+aPlacebos.value,alpha=+aAlpha.value,real=st.boundary.best.adv,R=Rng(441144),vals=[];
+  for(let j=0;j<P;j++){
+    let mode=j%3,d;
+    if(mode===0){let idx=sample([...Array(history.length)].map((_,i)=>i),history.length,R);d=idx.map((q,i)=>({...history[q],numero:i+1}))}
+    else if(mode===1)d=shiftedData(history,1+Math.floor(R()*Math.max(2,history.length-2)));
+    else d=syntheticHistory(history.length,R);
+    let r=boundaryOnce(d,domain,B),x=r.rows.find(z=>z.model===model);vals.push(x.adv);
+    if((j+1)%10===0){aVProgress.textContent=`Placebos ${j+1}/${P}...`;await new Promise(r=>setTimeout(r,0))}
+  }
+  let p=(vals.filter(x=>x>=real-1e-12).length+1)/(P+1),pass=p<=alpha;
+  st.adversarialPass=pass;st.adversarial={model,realAdv:real,p,placebos:P,alpha,pass,updatedAt:new Date().toISOString()};save(STATE,st);
+  aVResults.innerHTML=`<div class="notice ${pass?'ok':'err'}"><b>${pass?'VANTAGEM SOBREVIVEU AOS CONTROLES — REQUER TESTE PROSPECTIVO NOVO':'VANTAGEM EXPLICÁVEL PELOS CONTROLES NEGATIVOS'}</b><br>p placebo ≈ ${p.toFixed(4)} com ${P} controles. ${pass?'A 4.4 ainda permanece NO BET: o próximo passo seria congelar uma hipótese antes de novos concursos.':'Não há justificativa para transformar o candidato em gerador.'}</div>`;aVProgress.textContent='Adversarial Validation concluída.';refresh()
+}
 function empiricalP(real, nulls, twoSided=false){
   if(twoSided){
     let med=nulls.slice().sort((a,b)=>a-b)[Math.floor(nulls.length/2)];
@@ -236,11 +312,11 @@ async function runNullTournament(){
 }
 function C(n,k){if(k<0||k>n)return 0;let r=1;for(let i=1;i<=k;i++)r=r*(n-k+i)/i;return Math.round(r)}function renderEconomy(){let B=+eBudget.value||120,T=+eTicket.value||6,formats=[[6,2],[6,3],[7,2],[7,3],[8,2],[6,4],[9,2]],rows=formats.map(([n,t])=>{let e=C(n,6)*C(t,2),cost=e*T,q=Math.floor(B/cost);return`<tr><td>${n}+${t}</td><td>${e}</td><td>R$ ${cost.toFixed(2)}</td><td>${q}</td><td>${q*e}</td></tr>`}).join('');eTable.innerHTML=`<table><tr><th>Formato</th><th>simples eq.</th><th>custo eq.</th><th>cabem</th><th>combinações pagas</th></tr>${rows}</table>`}
 function ledger(){return load(LEDGER,[])}
-function freezeNext(){pResult.innerHTML='<div class="notice err"><b>GERAÇÃO BLOQUEADA NA 4.3.</b><br>Esta versão é um laboratório de existência de sinal e auditoria causal. Nenhuma aposta é congelada até que um sinal sobreviva ao gate e seja transformado em hipótese preditiva numa versão posterior, sem reutilizar o mesmo holdout.</div>'}
+function freezeNext(){pResult.innerHTML='<div class="notice err"><b>APOSTAS BLOQUEADAS NA 4.4.</b><br>Mesmo um PASS no Boundary + Adversarial apenas autoriza criar um protocolo prospectivo novo. Não reutilizamos estes concursos como prova de aposta.</div>'}
 function evaluateFrozen(){renderFreeze()}
-function renderFreeze(){let st=load(STATE,{});pCandidate.textContent='—';pFrozen.textContent='NÃO';pEval.textContent='0';pGate.textContent='NO BET';kGate.textContent='NO BET';let s=st.signalPass?'Signal Gate: investigação autorizada':'Signal Gate: sem PASS';let c=st.causalPass?'Causal Audit: associação detectada':'Causal Audit: sem PASS';pResult.innerHTML=`<div class="notice info"><b>4.3 = LABORATÓRIO, NÃO GERADOR</b><br>${s}. ${c}. O próximo gerador só poderá usar uma hipótese pré-especificada derivada de evidência sobrevivente.</div>`}
-function exportLedger(){let st=load(STATE,{}),b=new Blob([JSON.stringify({version:'SSPSKN 4.3',state:st,incidents:incidents()},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='SSPSKN_4.3_SIGNAL_AUDIT_LEDGER.json';a.click()}
-function incidents(){return load(INC,[])}function addIncident(){let c=+aContest.value;if(!c)return alert('Informe o concurso');let a=incidents();a.push({contest:c,type:aType.value,note:aNote.value.trim(),createdAt:new Date().toISOString()});save(INC,a);aNote.value='';renderInc()}function renderInc(){let a=incidents();aList.innerHTML=a.length?a.slice().reverse().map(x=>`<div class="game"><b>Concurso ${x.contest}</b> • ${x.type}<div class="small">${x.note||'sem observação'}</div></div>`).join(''):'<div class="small">Nenhum incidente registrado.</div>'}function exportIncidents(){let b=new Blob([JSON.stringify({version:'SSPSKN 4.3',incidents:incidents()},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='SSPSKN_4.3_INCIDENTS.json';a.click()}
+function renderFreeze(){let st=load(STATE,{});pCandidate.textContent=st.boundary&&st.boundary.best?st.boundary.best.model:'—';pFrozen.textContent='NÃO';pEval.textContent='0';pGate.textContent='NO BET';kGate.textContent='NO BET';let b=st.boundaryPass?'Boundary PASS':'Boundary sem PASS',a=st.adversarialPass?'Adversarial PASS':'Adversarial sem PASS';pResult.innerHTML=`<div class="notice info"><b>4.4 = MEDIÇÃO DA FRONTEIRA</b><br>${b}. ${a}. Aposta permanece bloqueada; PASS completo apenas permite desenhar um teste prospectivo pré-registrado.</div>`}
+function exportLedger(){let st=load(STATE,{}),b=new Blob([JSON.stringify({version:'SSPSKN 4.4',state:st,incidents:incidents()},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='SSPSKN_4.4_PREDICTABILITY_LEDGER.json';a.click()}
+function incidents(){return load(INC,[])}function addIncident(){let c=+aContest.value;if(!c)return alert('Informe o concurso');let a=incidents();a.push({contest:c,type:aType.value,note:aNote.value.trim(),createdAt:new Date().toISOString()});save(INC,a);aNote.value='';renderInc()}function renderInc(){let a=incidents();aList.innerHTML=a.length?a.slice().reverse().map(x=>`<div class="game"><b>Concurso ${x.contest}</b> • ${x.type}<div class="small">${x.note||'sem observação'}</div></div>`).join(''):'<div class="small">Nenhum incidente registrado.</div>'}function exportIncidents(){let b=new Blob([JSON.stringify({version:'SSPSKN 4.4',incidents:incidents()},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='SSPSKN_4.4_INCIDENTS.json';a.click()}
 function refresh(){let last=history.at(-1);kConc.textContent=last?.numero||'—';kHist.textContent=history.length;kDate.textContent=last?fmtDate(last.data):'—';lastResult.innerHTML=last?`<b>Concurso ${last.numero}</b> • ${fmtDate(last.data)}<div style="height:8px"></div>${balls(last.dezenas)}<div style="height:6px"></div>${balls(last.trevos,'clover')}`:'Sem histórico.';if(history.length)setStatus('Dados locais',true);renderEconomy();renderFreeze();renderInc()}
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===b.dataset.page))});refresh();
 </script></body></html>

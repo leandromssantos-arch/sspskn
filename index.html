@@ -2,166 +2,130 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#06110d"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="SSPSKN 4.6">
-<title>SSPSKN 4.6 • Multi-Budget Hybrid Coverage Lab</title>
+<meta name="theme-color" content="#06110d"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="SSPSKN 4.7">
+<title>SSPSKN 4.7 • Marginal Coverage + Swap Lab</title>
 <style>
 :root{--bg:#06110d;--card:#102118;--txt:#eef8f1;--muted:#9db3a6;--acc:#43e68d;--gold:#ffd66b;--danger:#ff7178;--line:#264638;--blue:#83bfff}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 100% 0,#123b27,transparent 34%),var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;min-height:100vh}.wrap{max-width:980px;margin:auto;padding:20px 14px 110px}header{display:flex;gap:12px;align-items:center;margin-bottom:14px}.logo{width:56px;height:56px;border-radius:17px;background:linear-gradient(145deg,var(--acc),#12834d);display:grid;place-items:center;color:#04120b;font-weight:900}.sub,.small{color:var(--muted);font-size:12px;line-height:1.45}h1{margin:0;font-size:24px}.status{margin-left:auto;color:var(--muted);font-size:12px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gold);margin-right:5px}.card{background:linear-gradient(180deg,#12271d,var(--card));border:1px solid var(--line);border-radius:18px;padding:16px;margin:12px 0}.card h2{font-size:17px;margin:0 0 12px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.kpi{background:#08170f;border:1px solid var(--line);border-radius:14px;padding:12px}.kpi b{font-size:20px;display:block}.kpi span{font-size:11px;color:var(--muted)}.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.field{flex:1;min-width:130px}.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:5px}.btn{border:0;border-radius:12px;padding:12px 14px;font-weight:800;background:var(--acc);color:#031109}.btn.secondary{background:#173728;color:var(--txt);border:1px solid #315a44}.btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}input,select,textarea{width:100%;background:#07150f;color:var(--txt);border:1px solid var(--line);border-radius:11px;padding:11px}.notice{border-left:3px solid var(--gold);background:#201d0e;color:#f4e8c0;border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.45}.notice.ok{border-left-color:var(--acc);background:#0c2217;color:#c9f6d9}.notice.err{border-left-color:var(--danger);background:#2b1416;color:#ffd6d8}.notice.info{border-left-color:var(--blue);background:#102031;color:#d7eaff}.tabs{position:fixed;left:0;right:0;bottom:0;background:rgba(6,17,13,.97);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center}.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(6,1fr);gap:4px}.tab{border:0;background:transparent;color:var(--muted);padding:8px 3px;border-radius:11px;font-size:10px;font-weight:700}.tab.active{background:#173526;color:var(--txt)}.page{display:none}.page.active{display:block}.scrollx{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:8px 5px;text-align:left;border-bottom:1px solid var(--line)}th{color:var(--muted)}.mono{font-variant-numeric:tabular-nums}.pill{display:inline-block;padding:5px 8px;border-radius:999px;background:#173526;border:1px solid var(--line);font-size:11px;margin:2px}.bar{height:8px;background:#08150f;border-radius:999px;overflow:hidden;border:1px solid var(--line)}.bar>i{display:block;height:100%;background:var(--acc)}@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 100% 0,#123b27,transparent 34%),var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;min-height:100vh}.wrap{max-width:980px;margin:auto;padding:20px 14px 110px}header{display:flex;gap:12px;align-items:center;margin-bottom:14px}.logo{width:56px;height:56px;border-radius:17px;background:linear-gradient(145deg,var(--acc),#12834d);display:grid;place-items:center;color:#04120b;font-weight:900}.sub,.small{color:var(--muted);font-size:12px;line-height:1.45}h1{margin:0;font-size:24px}.status{margin-left:auto;color:var(--muted);font-size:12px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--acc);margin-right:5px}.card{background:linear-gradient(180deg,#12271d,var(--card));border:1px solid var(--line);border-radius:18px;padding:16px;margin:12px 0}.card h2{font-size:17px;margin:0 0 12px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.kpi{background:#08170f;border:1px solid var(--line);border-radius:14px;padding:12px}.kpi b{font-size:20px;display:block}.kpi span{font-size:11px;color:var(--muted)}.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.field{flex:1;min-width:130px}.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:5px}.btn{border:0;border-radius:12px;padding:12px 14px;font-weight:800;background:var(--acc);color:#031109}.btn.secondary{background:#173728;color:var(--txt);border:1px solid #315a44}.btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}input,select{width:100%;background:#07150f;color:var(--txt);border:1px solid var(--line);border-radius:11px;padding:11px}.notice{border-left:3px solid var(--gold);background:#201d0e;color:#f4e8c0;border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.45}.notice.ok{border-left-color:var(--acc);background:#0c2217;color:#c9f6d9}.notice.err{border-left-color:var(--danger);background:#2b1416;color:#ffd6d8}.notice.info{border-left-color:var(--blue);background:#102031;color:#d7eaff}.tabs{position:fixed;left:0;right:0;bottom:0;background:rgba(6,17,13,.97);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center}.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(6,1fr);gap:4px}.tab{border:0;background:transparent;color:var(--muted);padding:8px 3px;border-radius:11px;font-size:10px;font-weight:700}.tab.active{background:#173526;color:var(--txt)}.page{display:none}.page.active{display:block}.scrollx{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:8px 5px;text-align:left;border-bottom:1px solid var(--line)}th{color:var(--muted)}.game{background:#08150f;border:1px solid var(--line);border-radius:14px;padding:10px;margin:7px 0}.bar{height:8px;background:#08150f;border-radius:999px;overflow:hidden;border:1px solid var(--line)}.bar>i{display:block;height:100%;background:var(--acc)}@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
 <body><div class="wrap">
-<header><div class="logo">AI</div><div><h1>SSPSKN 4.6</h1><div class="sub">Multi-Budget Hybrid Coverage Lab • +Milionária</div></div><div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Dados locais</span></div></header>
+<header><div class="logo">AI</div><div><h1>SSPSKN 4.7</h1><div class="sub">Marginal Coverage + Swap Lab • +Milionária</div></div><div class="status"><span class="dot"></span><span>Dados locais</span></div></header>
 
 <section id="home" class="page active">
-<div class="card"><h2>Estado da base</h2><div class="grid"><div class="kpi"><b id="kConc">—</b><span>último concurso</span></div><div class="kpi"><b id="kHist">0</b><span>concursos carregados</span></div><div class="kpi"><b id="kDate">—</b><span>última data</span></div><div class="kpi"><b>NO BET</b><span>gate científico</span></div></div></div>
-<div class="card"><h2>O que mudou na 4.6</h2><div class="notice info"><b>1.</b> Todos os candidatos usam exatamente o orçamento, preenchendo sobras com apostas simples.<br><b>2.</b> Busca híbridos de 6+3, 7+2, 7+3 e 8+2, além de simples.<br><b>3.</b> Varre vários orçamentos para encontrar a fronteira de eficiência.<br><b>4.</b> Resultado é “melhor carteira encontrada”, não alegação de ótimo global.</div></div>
+<div class="card"><h2>Missão 4.7</h2><div class="notice info">A 4.7 responde a pergunta C com mais rigor: em vez de apenas gerar carteiras balanceadas e medir depois, cada nova aposta é escolhida pela <b>maior cobertura marginal exata</b>. Depois, uma fase de <b>swap/local search</b> tenta substituir apostas que aumentem ainda mais a união de resultados ≥4+2.</div></div>
+<div class="card"><h2>Estado científico</h2><div class="grid"><div class="kpi"><b id="kHist">0</b><span>concursos locais</span></div><div class="kpi"><b id="kLast">—</b><span>último concurso</span></div><div class="kpi"><b>NO BET</b><span>sem alegação preditiva</span></div><div class="kpi"><b>EXATO</b><span>métrica principal</span></div></div></div>
+</section>
+
+<section id="build" class="page">
+<div class="card"><h2>Greedy Marginal Builder</h2>
+<div class="row"><div class="field"><label>Orçamento R$</label><input id="bBudget" value="600" type="number" step="6"></div><div class="field"><label>Preço simples R$</label><input id="bPrice" value="6" type="number" step=".01"></div></div>
+<div class="row" style="margin-top:8px"><div class="field"><label>Candidatos por passo</label><select id="bCand"><option>80</option><option selected>160</option><option>240</option></select></div><div class="field"><label>Seed</label><input id="bSeed" value="47" type="number"></div></div>
+<button class="btn" style="margin-top:10px" onclick="runGreedy()">Construir por cobertura marginal</button>
+<div id="bProg" class="small" style="margin-top:10px"></div><div id="bOut"></div></div>
+</section>
+
+<section id="swap" class="page">
+<div class="card"><h2>Swap / Local Search</h2><div class="small">Parte da carteira construída e testa substituições. Uma troca só é aceita quando aumenta a cobertura exata total.</div>
+<div class="row" style="margin-top:10px"><div class="field"><label>Passes</label><select id="sPass"><option>1</option><option selected>2</option><option>3</option></select></div><div class="field"><label>Candidatos por swap</label><select id="sCand"><option>60</option><option selected>120</option><option>200</option></select></div></div>
+<button class="btn" style="margin-top:10px" onclick="runSwap()">Executar swaps</button><div id="sProg" class="small" style="margin-top:10px"></div><div id="sOut"></div></div>
 </section>
 
 <section id="frontier" class="page">
-<div class="card"><h2>Budget Frontier</h2><div class="small">Varre vários valores e mede a melhor cobertura ≥4+2 encontrada para cada orçamento. Todos os custos são preenchidos exatamente quando múltiplos do preço simples.</div>
-<div class="field" style="margin-top:10px"><label>Orçamentos R$ (separados por vírgula)</label><input id="budgets" value="60,120,180,300,600"></div>
-<div class="row" style="margin-top:10px"><div class="field"><label>Preço simples R$</label><input id="price" type="number" value="6" step=".01"></div><div class="field"><label>Máx. candidatos exatos por orçamento</label><select id="topk"><option>6</option><option selected>10</option><option>14</option></select></div></div>
-<button class="btn" style="margin-top:10px" onclick="runFrontier()">Executar fronteira multi-orçamento</button><div id="frontProg" class="small" style="margin-top:10px"></div><div id="frontOut"></div></div>
-</section>
-
-<section id="single" class="page">
-<div class="card"><h2>Otimizador de um orçamento</h2>
-<div class="row"><div class="field"><label>Orçamento R$</label><input id="oneBudget" type="number" value="120" step="6"></div><div class="field"><label>Preço simples R$</label><input id="onePrice" type="number" value="6" step=".01"></div></div>
-<button class="btn" style="margin-top:10px" onclick="runOne()">Buscar melhores híbridos</button><div id="oneProg" class="small" style="margin-top:10px"></div><div id="oneOut"></div></div>
-</section>
-
-<section id="power" class="page">
-<div class="card"><h2>Detectability</h2><div class="small">Use a probabilidade da carteira encontrada e veja quantos concursos seriam necessários para detectar um lift real. Isso evita chamar ruído de vantagem.</div>
-<div class="row" style="margin-top:10px"><div class="field"><label>P base</label><input id="p0" type="number" value=".001" step=".000001"></div><div class="field"><label>Lift</label><select id="lift"><option value=".25">+25%</option><option value=".5" selected>+50%</option><option value="1">+100%</option></select></div></div>
-<button class="btn" style="margin-top:10px" onclick="runPower()">Calcular</button><div id="powerOut"></div></div>
+<div class="card"><h2>Fronteira refinada</h2><div class="small">Executa o construtor marginal em vários orçamentos. Para iPhone, os valores maiores podem demorar mais.</div>
+<div class="field" style="margin-top:8px"><label>Orçamentos R$</label><input id="fBudgets" value="60,120,180,300,600,1200"></div>
+<div class="row" style="margin-top:8px"><div class="field"><label>Preço simples</label><input id="fPrice" value="6" type="number"></div><div class="field"><label>Candidatos/passo</label><select id="fCand"><option>60</option><option selected>100</option><option>160</option></select></div></div>
+<button class="btn" style="margin-top:10px" onclick="runFrontier()">Executar fronteira refinada</button><div id="fProg" class="small" style="margin-top:10px"></div><div id="fOut"></div></div>
 </section>
 
 <section id="audit" class="page">
-<div class="card"><h2>Auditoria metodológica</h2><div class="notice">A 4.6 otimiza <b>cobertura combinatória</b>, não previsão. A seleção das carteiras não usa resultados históricos para escolher números. Isso impede que “boa cobertura” seja confundida com “números mais prováveis”.</div>
-<div id="auditOut" class="small" style="margin-top:10px">• Orçamento equivalente obrigatório<br>• Sobras preenchidas com simples<br>• União exata de resultados ≥4+2<br>• Sem Monte Carlo para a métrica principal<br>• Sem usar holdout para escolher carteira</div></div>
+<div class="card"><h2>Auditoria da otimização</h2>
+<div class="notice">Importante: a 4.7 produz a <b>melhor carteira encontrada pela busca</b>, não prova o ótimo global. O ganho medido é apenas redução de sobreposição e aumento de cobertura de ≥4+2.</div>
+<div id="auditText" class="small" style="margin-top:10px">• histórico não entra na escolha dos números<br>• cada candidato é avaliado contra a cobertura já conquistada<br>• métrica exata, não Monte Carlo<br>• swaps nunca são aceitos se piorarem a cobertura<br>• mesma quantidade de equivalentes simples para comparação</div></div>
 </section>
 
 <section id="freeze" class="page">
-<div class="card"><h2>Freeze do benchmark</h2><div class="notice info">Congela somente a melhor carteira combinatória encontrada para um orçamento específico. Continua <b>NO BET</b> enquanto não houver decisão externa de uso.</div><div id="freezeKpi" class="grid" style="margin-top:12px"></div><button class="btn" onclick="freezeBest()">Congelar melhor atual</button><div id="freezeOut"></div></div>
+<div class="card"><h2>Benchmark Freeze</h2><div class="grid" id="fzGrid"></div><button class="btn" onclick="freezeCurrent()" style="margin-top:10px">Congelar carteira atual</button><button class="btn ghost" onclick="exportState()" style="margin-top:10px">Exportar estado</button><div id="fzOut"></div></div>
 </section>
 
 </div>
 <nav class="tabs"><div class="tabsin">
-<button class="tab active" data-page="home">⌂<br>Início</button>
-<button class="tab" data-page="frontier">↗<br>Fronteira</button>
-<button class="tab" data-page="single">◎<br>Otimizar</button>
-<button class="tab" data-page="power">σ<br>Power</button>
-<button class="tab" data-page="audit">⌁<br>Audit</button>
-<button class="tab" data-page="freeze">◇<br>Freeze</button>
+<button class="tab active" data-page="home">⌂<br>Início</button><button class="tab" data-page="build">＋<br>Marginal</button><button class="tab" data-page="swap">↔<br>Swap</button><button class="tab" data-page="frontier">↗<br>Fronteira</button><button class="tab" data-page="audit">⌁<br>Audit</button><button class="tab" data-page="freeze">◇<br>Freeze</button>
 </div></nav>
 
 <script>
-const HIST='sspskn_history',STATE='sspskn_46_state';
-let history=load(HIST,[]), currentBest=null;
+const HIST='sspskn_history', STATE='sspskn_47_state';
+let history=load(HIST,[]), current=null;
 const nums=[...Array(50)].map((_,i)=>i+1), cls=[1,2,3,4,5,6];
 function load(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}} function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
 function C(n,k){if(k<0||k>n)return 0;k=Math.min(k,n-k);let r=1;for(let i=1;i<=k;i++)r=r*(n-k+i)/i;return Math.round(r)}
 function combos(a,k){let o=[];function r(s,c){if(c.length===k){o.push(c.slice());return}for(let i=s;i<=a.length-(k-c.length);i++){c.push(a[i]);r(i+1,c);c.pop()}}r(0,[]);return o}
 const tp=combos(cls,2), pidx=new Map(tp.map((p,i)=>[p.join('-'),i])), TOTAL=C(50,6)*15, SINGLE=C(6,4)*C(44,2)+C(6,5)*44+1;
 function rank6(c){let r=0;for(let i=0;i<6;i++)r+=C(c[i]-1,i+1);return r}
-function pct(x,d=5){return (x*100).toFixed(d)+'%'} function fn(n){return Math.round(n).toLocaleString('pt-BR')}
-function fmtDate(s){if(!s)return'—';if(s.includes('/'))return s;let p=s.split('-');return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:s}
-function refresh(){let l=history.at(-1);kConc.textContent=l?.numero||'—';kHist.textContent=history.length;kDate.textContent=l?fmtDate(l.data):'—';renderFreeze()} refresh();
-
-function makeBlock(n,t,seed,nu,tu){
-  let ns=nums.slice().sort((a,b)=>(nu[a]-nu[b])||(((a*31+seed*17)%101)-((b*31+seed*17)%101))).slice(0,n).sort((a,b)=>a-b);
-  let ts=cls.slice().sort((a,b)=>(tu[a]-tu[b])||(((a*13+seed*7)%23)-((b*13+seed*7)%23))).slice(0,t).sort((a,b)=>a-b);
-  ns.forEach(x=>nu[x]++);ts.forEach(x=>tu[x]++);return {nums:ns,cl:ts}
+function fn(n){return Math.round(n).toLocaleString('pt-BR')} function pct(x,d=5){return (x*100).toFixed(d)+'%'}
+function rng(seed){let x=seed|0;return()=>{x|=0;x=x+0x6D2B79F5|0;let t=Math.imul(x^x>>>15,1|x);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function sampleTicket(R,nu,pu){
+  let pool=nums.map(n=>({n,s:nu[n]+R()*0.35})).sort((a,b)=>a.s-b.s).slice(0,20).map(x=>x.n);
+  let ns=[];while(ns.length<6){let x=pool[Math.floor(R()*pool.length)];if(!ns.includes(x))ns.push(x)}ns.sort((a,b)=>a-b);
+  let pis=[...Array(15).keys()].sort((a,b)=>(pu[a]-pu[b])+(R()-.5)*.7),pi=pis[0];return{nums:ns,cl:tp[pi]}
 }
-function expandBlock(b){let out=[];for(let n of combos(b.nums,6))for(let t of combos(b.cl,2))out.push({nums:n,cl:t});return out}
-function makeSimple(seed,nu,pu){
-  let ns=nums.slice().sort((a,b)=>(nu[a]-nu[b])||(((a*37+seed*19)%103)-((b*37+seed*19)%103))).slice(0,6).sort((a,b)=>a-b);
-  let pi=[...Array(15).keys()].sort((a,b)=>(pu[a]-pu[b])||(((a*11+seed*5)%29)-((b*11+seed*5)%29)))[0];
-  ns.forEach(x=>nu[x]++);pu[pi]++;return{nums:ns,cl:tp[pi]}
+function ticketCoverageList(t){
+  let S=t.nums, comp=nums.filter(x=>!S.includes(x)), pi=pidx.get(t.cl.join('-')), out=[];
+  for(let k=4;k<=6;k++)for(let a of combos(S,k))for(let b of combos(comp,6-k)){let d=a.concat(b).sort((x,y)=>x-y);out.push(pi*C(50,6)+rank6(d))}
+  return out
 }
-const TYPES=[{id:'63',n:6,t:3,eq:3},{id:'72',n:7,t:2,eq:7},{id:'73',n:7,t:3,eq:21},{id:'82',n:8,t:2,eq:28}];
-
-function enumerateAlloc(Q){
-  let cand=[];
-  for(let d=0;d<=Math.floor(Q/28);d++)
-   for(let c=0;c<=Math.floor((Q-28*d)/21);c++)
-    for(let b=0;b<=Math.floor((Q-28*d-21*c)/7);b++)
-     for(let a=0;a<=Math.floor((Q-28*d-21*c-7*b)/3);a++){
-       let used=28*d+21*c+7*b+3*a, s=Q-used;
-       // Screen: penalize concentration in large blocks, reward exact spend (always exact with simples).
-       let concentration=(d*28*28+c*21*21+b*7*7+a*3*3)/(Q||1);
-       let diversity=(a+b+c+d);
-       let score=concentration-0.12*diversity+0.001*s;
-       cand.push({a,b,c,d,s,score});
-     }
-  cand.sort((x,y)=>x.score-y.score);
-  // include structural anchors explicitly
-  let anchors=[
-    {a:0,b:0,c:0,d:0,s:Q,score:-999},
-    {a:Math.floor(Q/3),b:0,c:0,d:0,s:Q%3,score:-998},
-    {a:0,b:Math.floor(Q/7),c:0,d:0,s:Q%7,score:-997},
-    {a:0,b:0,c:Math.floor(Q/21),d:0,s:Q%21,score:-996},
-    {a:0,b:0,c:0,d:Math.floor(Q/28),s:Q%28,score:-995}
-  ];
-  let m=new Map();for(let x of anchors.concat(cand)){let k=[x.a,x.b,x.c,x.d,x.s].join(',');if(!m.has(k))m.set(k,x)}
-  return [...m.values()];
+function scoreMarginal(list, covered){let g=0;for(let id of list)if(!covered.has(id))g++;return g}
+async function buildGreedy(Q,cands,seed,progress){
+  let R=rng(seed),covered=new Set(),tickets=[],nu=Array(51).fill(0),pu=Array(15).fill(0);
+  for(let step=0;step<Q;step++){
+    let best=null,bgain=-1,blist=null;
+    for(let c=0;c<cands;c++){
+      let t=sampleTicket(R,nu,pu),list=ticketCoverageList(t),g=scoreMarginal(list,covered);
+      if(g>bgain){best=t;bgain=g;blist=list}
+    }
+    tickets.push(best);for(let id of blist)covered.add(id);best.nums.forEach(n=>nu[n]++);pu[pidx.get(best.cl.join('-'))]++;
+    if(step%2===0){progress.textContent=`Marginal ${step+1}/${Q} • cobertura ${fn(covered.size)}`;await new Promise(r=>setTimeout(r,0))}
+  }
+  return summarize(tickets,covered)
 }
-function buildPortfolio(al,seed=1){
-  let nu=Array(51).fill(0),tu=Array(7).fill(0),pu=Array(15).fill(0),tickets=[],blocks=[];
-  let counts=[['63',al.a],['72',al.b],['73',al.c],['82',al.d]];
-  let z=0;
-  for(let [id,count] of counts){let T=TYPES.find(x=>x.id===id);for(let i=0;i<count;i++){let b=makeBlock(T.n,T.t,seed+z++,nu,tu);blocks.push({type:id,...b});let ex=expandBlock(b);for(let t of ex){tickets.push(t);pu[pidx.get(t.cl.join('-'))]++}}}
-  for(let i=0;i<al.s;i++)tickets.push(makeSimple(seed+z++,nu,pu));
-  return {tickets,blocks,alloc:al,eq:tickets.length}
+function summarize(tickets,covered=null){
+  if(!covered){covered=new Set();for(let t of tickets)for(let id of ticketCoverageList(t))covered.add(id)}
+  let prob=covered.size/TOTAL,red=1-covered.size/(tickets.length*SINGLE);
+  return{tickets,unique:covered.size,prob,red,odds:1/prob,eq:tickets.length}
 }
-function addCov(t,sets){
-  let S=t.nums, comp=nums.filter(x=>!S.includes(x)), set=sets[pidx.get(t.cl.join('-'))];
-  for(let k=4;k<=6;k++)for(let a of combos(S,k))for(let b of combos(comp,6-k)){let d=a.concat(b).sort((x,y)=>x-y);set.add(rank6(d))}
+async function runGreedy(){
+  let B=+bBudget.value,P=+bPrice.value,Q=Math.floor(B/P),K=+bCand.value,seed=+bSeed.value||47;
+  if(Q<1)return;
+  bProg.textContent='Iniciando...';current=await buildGreedy(Q,K,seed,bProg);save(STATE,{...(load(STATE,{})),current,budget:Q*P,updatedAt:new Date().toISOString()});renderResult(current,Q*P,bOut);bProg.textContent='Construção concluída.';renderFreeze()
 }
-async function exact(port,progress,label=''){
-  let sets=[...Array(15)].map(()=>new Set()),i=0;
-  for(let t of port.tickets){addCov(t,sets);if(++i%8===0){progress.textContent=`${label} • cobertura ${i}/${port.tickets.length}`;await new Promise(r=>setTimeout(r,0))}}
-  let unique=sets.reduce((s,x)=>s+x.size,0),prob=unique/TOTAL,red=1-unique/(port.eq*SINGLE);
-  return {...port,unique,prob,red,odds:1/prob}
+function renderResult(r,cost,el){
+  el.innerHTML=`<div class="grid" style="margin-top:10px"><div class="kpi"><b>${pct(r.prob)}</b><span>P ≥4+2</span></div><div class="kpi"><b>1/${fn(r.odds)}</b><span>odds</span></div><div class="kpi"><b>${pct(r.red,2)}</b><span>redundância</span></div><div class="kpi"><b>R$ ${cost.toFixed(2)}</b><span>custo</span></div></div><div class="small" style="margin-top:8px">${fn(r.unique)} resultados distintos cobertos com ${r.eq} equivalentes simples.</div>`
 }
-function allocName(a){
-  let p=[];if(a.a)p.push(`${a.a}×6+3`);if(a.b)p.push(`${a.b}×7+2`);if(a.c)p.push(`${a.c}×7+3`);if(a.d)p.push(`${a.d}×8+2`);if(a.s)p.push(`${a.s} simples`);return p.join(' + ')||'—'
-}
-async function optimizeBudget(B,P,K,progress){
-  let Q=Math.floor(B/P), exactBudget=Q*P;
-  if(Q<1)return null;
-  let all=enumerateAlloc(Q);
-  // cheap structural screening, then evaluate top K + anchors
-  let chosen=all.slice(0,K);
-  let anchors=all.filter(x=>x.score<=-995);
-  let mm=new Map();for(let x of anchors.concat(chosen))mm.set([x.a,x.b,x.c,x.d,x.s].join(','),x);
-  let evals=[], idx=0;
-  for(let al of mm.values()){idx++;let port=buildPortfolio(al,17+idx*31);evals.push(await exact(port,progress,`R$ ${exactBudget.toFixed(0)} cand ${idx}/${mm.size}`))}
-  evals.sort((a,b)=>b.prob-a.prob||a.red-b.red);
-  return {budget:B,spent:exactBudget,Q,best:evals[0],evals}
-}
-function rowResult(r,rank=1){return `<tr><td>${rank}</td><td>${allocName(r.alloc)}</td><td>${r.eq}</td><td>${pct(r.prob)}</td><td>1/${fn(r.odds)}</td><td>${pct(r.red,2)}</td></tr>`}
-async function runOne(){
-  let B=+oneBudget.value,P=+onePrice.value,K=10;oneProg.textContent='Gerando candidatos...';let res=await optimizeBudget(B,P,K,oneProg);if(!res)return;
-  currentBest=res.best;p0.value=res.best.prob.toFixed(10);save(STATE,{...(load(STATE,{})),lastOne:res,updatedAt:new Date().toISOString()});
-  let rows=res.evals.slice(0,8).map((r,i)=>rowResult(r,i+1)).join('');
-  oneOut.innerHTML=`<div class="notice ok"><b>Melhor encontrada:</b> ${allocName(res.best.alloc)}<br>Usa R$ ${res.spent.toFixed(2)} exatamente e cobre ${fn(res.best.unique)} resultados distintos de ≥4+2.</div><div class="grid" style="margin-top:10px"><div class="kpi"><b>${pct(res.best.prob)}</b><span>P ≥4+2</span></div><div class="kpi"><b>1/${fn(res.best.odds)}</b><span>odds</span></div><div class="kpi"><b>${pct(res.best.red,2)}</b><span>redundância</span></div><div class="kpi"><b>${res.best.eq}</b><span>equiv. simples</span></div></div><div class="scrollx"><table><tr><th>#</th><th>Composição</th><th>Eq.</th><th>P≥4+2</th><th>Odds</th><th>Red.</th></tr>${rows}</table></div>`;
-  oneProg.textContent='Otimização concluída.';
+async function runSwap(){
+  if(!current){sOut.innerHTML='<div class="notice err">Construa uma carteira primeiro.</div>';return}
+  let passes=+sPass.value,K=+sCand.value,R=rng(777),tickets=current.tickets.slice(),base=current.unique,accepted=0;
+  for(let pass=0;pass<passes;pass++){
+    for(let i=0;i<tickets.length;i++){
+      let without=tickets.slice();without.splice(i,1);let baseCov=new Set();for(let t of without)for(let id of ticketCoverageList(t))baseCov.add(id);
+      let nu=Array(51).fill(0),pu=Array(15).fill(0);for(let t of without){t.nums.forEach(n=>nu[n]++);pu[pidx.get(t.cl.join('-'))]++}
+      let best=tickets[i],bestU=base;
+      for(let c=0;c<K;c++){let cand=sampleTicket(R,nu,pu),lst=ticketCoverageList(cand),u=baseCov.size+scoreMarginal(lst,baseCov);if(u>bestU){best=cand;bestU=u}}
+      if(bestU>base){tickets[i]=best;base=bestU;accepted++}
+      if(i%3===0){sProg.textContent=`Pass ${pass+1}/${passes} • posição ${i+1}/${tickets.length} • swaps ${accepted}`;await new Promise(r=>setTimeout(r,0))}
+    }
+  }
+  current=summarize(tickets);let st=load(STATE,{});st.current=current;st.swaps=accepted;st.updatedAt=new Date().toISOString();save(STATE,st);
+  sOut.innerHTML=`<div class="notice ok"><b>${accepted} swap(s) aceito(s).</b> A cobertura só mudou quando houve ganho exato.</div>`;renderResult(current,(load(STATE,{}).budget||current.eq*6),sOut);sProg.textContent='Swap concluído.';renderFreeze()
 }
 async function runFrontier(){
-  let Bs=budgets.value.split(',').map(x=>+x.trim()).filter(x=>x>0),P=+price.value,K=+topk.value,rows=[],bestEff=null;
-  for(let i=0;i<Bs.length;i++){frontProg.textContent=`Orçamento ${i+1}/${Bs.length}: R$ ${Bs[i]}`;let r=await optimizeBudget(Bs[i],P,K,frontProg);if(r){rows.push(r);let eff=r.best.prob/r.spent;if(!bestEff||eff>bestEff.eff)bestEff={...r,eff}}}
-  if(!rows.length)return;
-  currentBest=rows.at(-1).best;save(STATE,{...(load(STATE,{})),frontier:rows,updatedAt:new Date().toISOString()});
-  let maxP=Math.max(...rows.map(x=>x.best.prob));
-  frontOut.innerHTML=`<div class="notice ok"><b>Fronteira calculada.</b> Melhor eficiência P/R$: orçamento R$ ${bestEff.spent.toFixed(2)}. Maior probabilidade absoluta entre os testados: R$ ${rows.sort((a,b)=>b.best.prob-a.best.prob)[0].spent.toFixed(2)}.</div>`+
-  rows.sort((a,b)=>a.spent-b.spent).map(r=>`<div class="card" style="padding:12px"><b>R$ ${r.spent.toFixed(2)}</b> • ${allocName(r.best.alloc)}<div class="small">P ≥4+2 ${pct(r.best.prob)} • 1/${fn(r.best.odds)} • redundância ${pct(r.best.red,2)}</div><div class="bar" style="margin-top:7px"><i style="width:${100*r.best.prob/maxP}%"></i></div></div>`).join('');
-  frontProg.textContent='Fronteira concluída.';
+  let Bs=fBudgets.value.split(',').map(x=>+x.trim()).filter(x=>x>0),P=+fPrice.value,K=+fCand.value,rows=[];
+  for(let i=0;i<Bs.length;i++){let Q=Math.floor(Bs[i]/P);fProg.textContent=`Orçamento ${i+1}/${Bs.length}`;let r=await buildGreedy(Q,K,97+i*101,fProg);rows.push({B:Q*P,r})}
+  let max=Math.max(...rows.map(x=>x.r.prob));fOut.innerHTML=rows.map(x=>`<div class="card" style="padding:12px"><b>R$ ${x.B.toFixed(2)}</b> • ${x.r.eq} simples otimizadas<div class="small">P ≥4+2 ${pct(x.r.prob)} • 1/${fn(x.r.odds)} • redundância ${pct(x.r.red,2)}</div><div class="bar" style="margin-top:6px"><i style="width:${100*x.r.prob/max}%"></i></div></div>`).join('');
+  save(STATE,{...(load(STATE,{})),frontier:rows,updatedAt:new Date().toISOString()});fProg.textContent='Fronteira refinada concluída.'
 }
-function invNorm(p){const a=[-39.6968302866538,220.946098424521,-275.928510446969,138.357751867269,-30.6647980661472,2.50662827745924],b=[-54.4760987982241,161.585836858041,-155.698979859887,66.8013118877197,-13.2806815528857],c=[-.00778489400243029,-.322396458041136,-2.40075827716184,-2.54973253934373,4.37466414146497,2.93816398269878],d=[.00778469570904146,.32246712907004,2.445134137143,3.75440866190742],pl=.02425,ph=1-pl;let q,r;if(p<pl){q=Math.sqrt(-2*Math.log(p));return (((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}if(p>ph){q=Math.sqrt(-2*Math.log(1-p));return -(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}q=p-.5;r=q*q;return (((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q/(((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1)}
-function runPower(){let P=+p0.value,L=+lift.value,p1=P*(1+L),za=invNorm(.975),zb=invNorm(.8),d=p1-P,N=Math.ceil(((za*Math.sqrt(P*(1-P))+zb*Math.sqrt(p1*(1-p1)))/d)**2);powerOut.innerHTML=`<div class="grid" style="margin-top:10px"><div class="kpi"><b>${fn(N)}</b><span>concursos aprox.</span></div><div class="kpi"><b>${(N/104.355).toFixed(1)}</b><span>anos a 2/semana</span></div></div>`}
-function freezeBest(){if(!currentBest){freezeOut.innerHTML='<div class="notice err">Execute primeiro uma otimização.</div>';return}let st=load(STATE,{});st.freeze={alloc:currentBest.alloc,prob:currentBest.prob,odds:currentBest.odds,red:currentBest.red,eq:currentBest.eq,frozenAt:new Date().toISOString(),status:'COVERAGE_BENCHMARK_ONLY_NO_BET'};save(STATE,st);renderFreeze();freezeOut.innerHTML='<div class="notice ok">Benchmark congelado.</div>'}
-function renderFreeze(){let f=load(STATE,{}).freeze;freezeKpi.innerHTML=f?`<div class="kpi"><b>${allocName(f.alloc)}</b><span>composição</span></div><div class="kpi"><b>${pct(f.prob)}</b><span>P≥4+2</span></div><div class="kpi"><b>1/${fn(f.odds)}</b><span>odds</span></div><div class="kpi"><b>${pct(f.red,2)}</b><span>redundância</span></div>`:'<div class="small">Nenhum benchmark congelado.</div>'}
+function freezeCurrent(){if(!current){fzOut.innerHTML='<div class="notice err">Nenhuma carteira atual.</div>';return}let st=load(STATE,{});st.freeze={current,frozenAt:new Date().toISOString(),status:'COVERAGE_BENCHMARK_ONLY_NO_BET'};save(STATE,st);fzOut.innerHTML='<div class="notice ok">Benchmark congelado.</div>';renderFreeze()}
+function renderFreeze(){let f=load(STATE,{}).freeze?.current;fzGrid.innerHTML=f?`<div class="kpi"><b>${pct(f.prob)}</b><span>P≥4+2</span></div><div class="kpi"><b>1/${fn(f.odds)}</b><span>odds</span></div><div class="kpi"><b>${pct(f.red,2)}</b><span>redundância</span></div><div class="kpi"><b>${f.eq}</b><span>equivalentes</span></div>`:'<div class="small">Nenhum benchmark congelado.</div>'}
+function exportState(){let b=new Blob([JSON.stringify(load(STATE,{}),null,2)],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='SSPSKN_4.7_State.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+kHist.textContent=history.length;kLast.textContent=history.at(-1)?.numero||'—';renderFreeze();
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.page).classList.add('active')});
-</script>
-</body></html>
+</script></body></html>

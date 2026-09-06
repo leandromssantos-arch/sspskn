@@ -1,30 +1,246 @@
-<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>2 Milhões 2.7 — R6 Falsification Lab</title>
-<style>body{margin:0;background:#08111f;color:#eef2ff;font-family:-apple-system,Arial}header,main{padding:18px}header{border-bottom:1px solid #29405f}h1{font-size:23px}.card{background:#101c30;border:1px solid #29405f;border-radius:18px;padding:18px;margin:14px 0}.muted{color:#a6b4c8}.bad{color:#ff6680;font-size:32px;font-weight:900}.pill{display:inline-block;border:1px solid #36517a;border-radius:20px;padding:5px 9px;margin:2px;font-size:12px}input{width:100%;box-sizing:border-box;padding:13px;margin:8px 0;background:#091321;color:white;border:1px solid #29405f;border-radius:12px}button{padding:13px;border:0;border-radius:12px;background:#3478f6;color:white;font-weight:800;margin:4px}.bar{height:15px;background:#07101d;border-radius:10px;overflow:hidden}.fill{height:100%;width:0;background:#3478f6}.log{height:210px;overflow:auto;background:#050b14;padding:10px;border-radius:10px;white-space:pre-wrap;font:11px monospace}table{width:100%;font-size:11px;border-collapse:collapse}td,th{padding:7px;border-bottom:1px solid #29405f;text-align:right}td:first-child,th:first-child{text-align:left}</style>
-<header><h1>2 Milhões 2.7 — R6 Replication & Falsification Lab</h1><div class="muted">R6 congelado • 8 seeds • 3 blocos temporais • matched random • 13+ primário • NO BET</div></header><main>
-<div class="card"><span class="pill">2.6 ALL DROP</span><span class="pill">R6 +0,757 pp • 4/4 seeds</span><p>Decisão</p><div id="status" class="bad">NO BET</div><div id="reason" class="muted">R6 é hipótese de pesquisa congelada.</div></div>
-<div class="card"><h2>Histórico</h2><b id="count">0</b> concursos • último <b id="last">—</b><input id="file" type="file" accept=".json,.csv,.txt"></div>
-<div class="card"><h2>Protocolo pré-fixado</h2><p class="muted">R6 precisa: Δ13+ &gt; 0; ≥6/8 seeds positivas; ≥2/3 blocos positivos; p&lt;0,05. PASS histórico = HOLD, nunca BET.</p>
-<label>Jogos</label><input id="games" type="number" value="20"><label>Randoms equivalentes</label><input id="randoms" type="number" value="40"><label>Seed-base</label><input id="seed" type="number" value="27092026"><button id="run">Executar falsificação</button><button id="stop" disabled>Parar</button></div>
-<div class="card"><h2>Progresso</h2><div id="phase" class="muted">Aguardando.</div><div class="bar"><div id="fill" class="fill"></div></div><div id="pct">0%</div></div>
-<div class="card"><h2>Resultado</h2><table><thead><tr><th>Teste</th><th>Cand.</th><th>Random</th><th>Δ pp</th><th>Seeds+</th><th>Blocos+</th><th>p</th></tr></thead><tbody id="res"><tr><td colspan="7">Aguardando</td></tr></tbody></table><p id="blocks" class="muted"></p></div>
-<div class="card"><h2>Evidence Ledger</h2><div id="log" class="log">2.7 iniciado. R6 congelado. NO BET preservado.\n</div><button id="export">Exportar ledger</button></div>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#06110d"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="SSPSKN 4.3">
+<title>SSPSKN 4.3 • Signal Existence & Causal Audit Lab</title>
+<style>
+:root{--bg:#06110d;--card:#102118;--txt:#eef8f1;--muted:#9db3a6;--acc:#43e68d;--gold:#ffd66b;--danger:#ff7178;--line:#264638}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 100% 0,#123b27,transparent 34%),var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;min-height:100vh}.wrap{max-width:980px;margin:auto;padding:20px 14px 100px}header{display:flex;gap:12px;align-items:center;margin-bottom:14px}.logo{width:56px;height:56px;border-radius:17px;background:linear-gradient(145deg,var(--acc),#12834d);display:grid;place-items:center;color:#04120b;font-weight:900}.sub,.small{color:var(--muted);font-size:12px;line-height:1.45}h1{margin:0;font-size:24px}.status{margin-left:auto;color:var(--muted);font-size:12px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gold);margin-right:5px}.card{background:linear-gradient(180deg,#12271d,var(--card));border:1px solid var(--line);border-radius:18px;padding:16px;margin:12px 0}.card h2{font-size:17px;margin:0 0 12px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.kpi{background:#08170f;border:1px solid var(--line);border-radius:14px;padding:12px}.kpi b{font-size:20px;display:block}.kpi span{font-size:11px;color:var(--muted)}.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.field{flex:1;min-width:130px}.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:5px}.btn{border:0;border-radius:12px;padding:12px 14px;font-weight:800;background:var(--acc);color:#031109}.btn.secondary{background:#173728;color:var(--txt);border:1px solid #315a44}.btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}input,select,textarea{width:100%;background:#07150f;color:var(--txt);border:1px solid var(--line);border-radius:11px;padding:11px}.notice{border-left:3px solid var(--gold);background:#201d0e;color:#f4e8c0;border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.45}.notice.ok{border-left-color:var(--acc);background:#0c2217;color:#c9f6d9}.notice.err{border-left-color:var(--danger);background:#2b1416;color:#ffd6d8}.notice.info{border-left-color:#83bfff;background:#102031;color:#d7eaff}.balls{display:flex;gap:7px;flex-wrap:wrap}.ball{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#163d2a;border:1px solid #2f6b4c;font-weight:900}.clover{background:#3a3015;border-color:#806c2e;color:#ffe59e}.tabs{position:fixed;left:0;right:0;bottom:0;background:rgba(6,17,13,.96);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center}.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(6,1fr);gap:4px}.tab{border:0;background:transparent;color:var(--muted);padding:8px 3px;border-radius:11px;font-size:10px;font-weight:700}.tab.active{background:#173526;color:var(--txt)}.page{display:none}.page.active{display:block}.scrollx{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:8px 5px;text-align:left;border-bottom:1px solid var(--line)}th{color:var(--muted)}.game{background:#08150f;border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:8px}@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body><div class="wrap">
+<header><div class="logo">AI</div><div><h1>SSPSKN 4.3</h1><div class="sub">Signal Existence & Causal Audit Lab • núcleo novo • +Milionária</div></div><div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div></header>
+<section id="home" class="page active">
+<div class="card"><h2>Estado da base</h2><div class="grid"><div class="kpi"><b id="kConc">—</b><span>último concurso</span></div><div class="kpi"><b id="kHist">0</b><span>concursos carregados</span></div><div class="kpi"><b id="kDate">—</b><span>última data</span></div><div class="kpi"><b id="kGate">NO BET</b><span>gate 4.3</span></div></div><div class="row" style="margin-top:12px"><button class="btn" onclick="syncLatest()">Atualizar último</button></div><div id="lastResult" class="small" style="margin-top:12px"></div></div>
+<div class="card"><h2>Baseline 4.0 preservado</h2><div class="notice info"><b>Ruptura metodológica:</b> a 4.2 mostrou que o campeão selecionado em Discovery + Selection perdeu para o Random no holdout de dezenas. A 4.3 suspende geradores e testa primeiro se existe sinal estatístico ou operacional explorável.</div></div>
+</section>
+
+<section id="discovery" class="page">
+<div class="card">
+<h2>Signal Existence Gate</h2>
+<div class="notice info"><b>Regra 4.3:</b> nenhum gerador pode ser promovido antes de demonstrarmos que alguma característica do histórico real é rara sob sorteios uniformes. O gate procura sinal; não gera aposta.</div>
+<div class="row" style="margin-top:12px">
+<div class="field"><label>Domínio</label><select id="sDomain"><option value="nums" selected>dezenas</option><option value="cl">trevos</option></select></div>
+<div class="field"><label>Universos nulos</label><select id="sWorlds"><option>100</option><option selected>250</option><option>500</option></select></div>
+<div class="field"><label>Janela recente</label><select id="sRecent"><option>30</option><option selected>50</option><option>80</option></select></div>
+</div>
+<button class="btn" style="margin-top:10px" onclick="runSignalGate()">Executar Signal Existence Gate</button>
+<div id="sProgress" class="small" style="margin-top:10px"></div><div id="sResults"></div>
+</div>
+
+<div class="card"><h2>Testes pré-definidos</h2>
+<div class="scrollx"><table><thead><tr><th>Teste</th><th>Pergunta</th></tr></thead><tbody>
+<tr><td>Frequency χ²</td><td>a distribuição marginal desvia do uniforme?</td></tr>
+<tr><td>Serial overlap</td><td>concursos consecutivos compartilham itens além do esperado?</td></tr>
+<tr><td>Lag-2 overlap</td><td>há dependência a dois concursos de distância?</td></tr>
+<tr><td>Recent shift</td><td>a janela recente mudou em relação ao histórico anterior?</td></tr>
+<tr><td>Gap dispersion</td><td>a dispersão dos intervalos entre ocorrências é anômala?</td></tr>
+<tr><td>Entropy deficit</td><td>a distribuição observada tem déficit de entropia?</td></tr>
+</tbody></table></div>
+<div class="small" style="margin-top:8px">O placar usa comparação empírica com universos sintéticos e correção Holm. PASS exige anomalia corrigida em mais de um teste e estabilidade temporal; um p isolado não basta.</div>
+</div>
+</section>
+
+<section id="falsify" class="page">
+<div class="card">
+<h2>Causal / Physical Audit Lab</h2>
+<div class="small">Analisa apenas incidentes verificáveis registrados no Audit Ledger. Incidente não é tratado como previsão. O objetivo é testar se concursos marcados diferem de controles comparáveis e detectar confundidores operacionais.</div>
+<div class="row" style="margin-top:12px">
+<div class="field"><label>Mínimo de incidentes</label><select id="cMin"><option>3</option><option selected>5</option><option>10</option></select></div>
+<div class="field"><label>Permutações</label><select id="cPerm"><option>500</option><option selected>1000</option><option>2000</option></select></div>
+</div>
+<button class="btn secondary" style="margin-top:10px" onclick="runCausalAudit()">Executar Causal Audit</button>
+<div id="cProgress" class="small" style="margin-top:10px"></div><div id="cResults"></div>
+</div>
+</section>
+<section id="economy" class="page"><div class="card"><h2>Economic & Coverage Lab</h2><div class="row"><div class="field"><label>Orçamento R$</label><input id="eBudget" type="number" value="120" min="6" step="6" oninput="renderEconomy()"></div><div class="field"><label>Preço simples R$</label><input id="eTicket" type="number" value="6" min=".01" step=".01" oninput="renderEconomy()"></div></div><div id="eTable" style="margin-top:10px"></div></div></section>
+<section id="freeze" class="page"><div class="card"><h2>Prospective Freeze 4.3</h2><div class="notice">A 4.3 bloqueia geração de apostas. Primeiro precisa existir evidência de sinal ou uma associação operacional replicável; só uma versão posterior poderá transformar isso em hipótese preditiva pré-especificada.</div><div class="grid" style="margin-top:12px"><div class="kpi"><b id="pCandidate">—</b><span>candidato</span></div><div class="kpi"><b id="pFrozen">NÃO</b><span>congelado</span></div><div class="kpi"><b id="pEval">0</b><span>avaliados</span></div><div class="kpi"><b id="pGate">NO BET</b><span>gate</span></div></div><div class="row" style="margin-top:12px"><button class="btn" onclick="freezeNext()">Congelar próximo</button><button class="btn secondary" onclick="evaluateFrozen()">Conferir</button><button class="btn ghost" onclick="exportLedger()">Exportar ledger</button></div><div id="pResult" style="margin-top:10px"></div></div></section>
+<section id="audit" class="page"><div class="card"><h2>Physical / Operational Ledger</h2><div class="small">Mantido separado da previsão. Serve para futuros testes de mudança de regime e confundidores.</div><div class="row" style="margin-top:10px"><div class="field"><label>Concurso</label><input id="aContest" type="number"></div><div class="field"><label>Tipo</label><select id="aType"><option>manual_ball_release</option><option>multiple_ejection</option><option>globe_intervention</option><option>equipment_change</option><option>location_change</option><option>schedule_change</option><option>auditor_nonconfirmation</option><option>other</option></select></div></div><div class="field" style="margin-top:8px"><label>Fonte/observação verificável</label><textarea id="aNote" rows="3"></textarea></div><div class="row"><button class="btn secondary" onclick="addIncident()">Registrar</button><button class="btn ghost" onclick="exportIncidents()">Exportar</button></div><div id="aList"></div></div></section>
+</div>
+<nav class="tabs"><div class="tabsin"><button class="tab active" data-page="home">⌂<br>Início</button><button class="tab" data-page="discovery">∿<br>Sinal</button><button class="tab" data-page="falsify">⌁<br>Causal</button><button class="tab" data-page="economy">$<br>Economia</button><button class="tab" data-page="freeze">◇<br>Freeze</button><button class="tab" data-page="audit">⌁<br>Audit</button></div></nav>
 <script>
-const $=x=>document.getElementById(x);let H=[],STOP=false,STATE=null,C=new Map();
-function L(s){$('log').textContent+='['+new Date().toISOString()+'] '+s+'\n';$('log').scrollTop=999999}function Y(){return new Promise(r=>setTimeout(r,0))}
-function U(a){return [...new Set((a||[]).map(Number).filter(n=>n>0&&n<26))].sort((a,b)=>a-b)}
-function parse(t,n){let R=[];if(n.endsWith('.json')){let d=JSON.parse(t),s=Array.isArray(d)?d:(d.history||d.concursos||[]);R=s.map((x,i)=>Array.isArray(x)?{concurso:i+1,dezenas:U(x)}:{concurso:+(x.concurso||x.numero||i+1),dezenas:U(x.dezenas||x.listaDezenas||x.numeros)})}else R=t.split(/\r?\n/).map((r,i)=>{let a=(r.match(/\d+/g)||[]).map(Number);return a.length>=16?{concurso:a[0],dezenas:U(a.slice(1,16))}:a.length>=15?{concurso:i+1,dezenas:U(a.slice(0,15))}:null}).filter(Boolean);R=R.filter(x=>x.dezenas.length===15);if(!R.length)throw Error('Nenhum concurso válido');return R.sort((a,b)=>a.concurso-b.concurso)}
-$('file').onchange=async e=>{try{let f=e.target.files[0];H=parse(await f.text(),f.name.toLowerCase());localStorage.setItem('2m27h',JSON.stringify(H));render();L('Histórico importado: '+H.length)}catch(e){alert(e.message)}};function render(){$('count').textContent=H.length;$('last').textContent=H.length?H.at(-1).concurso:'—'}
-function rng(a){return function(){let t=a+=0x6D2B79F5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}function mix(s,a,b){let x=s^Math.imul(a||1,2654435761)^Math.imul(b||1,2246822519);x^=x>>>16;return x>>>0}
-function game(r){let a=Array.from({length:25},(_,i)=>i+1);for(let i=24;i;i--){let j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a.slice(0,15).sort((a,b)=>a-b)}
-function hit(a,b){let s=new Set(a),z=0;for(let x of b)if(s.has(x))z++;return z}function ev(P,d){return P.some(g=>hit(g,d)>=13)?1:0}
-function pen(P){let q=0;for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++)q+=Math.max(0,hit(P[i],P[j])-9)**2;return q}
-function div(P,r,st=70){let s=pen(P);for(let z=0;z<st;z++){let i=Math.floor(r()*P.length),o=P[i],g=game(r);P[i]=g;let n=pen(P);if(n<=s)s=n;else P[i]=o}return P}
-function stats(i){if(C.has(i))return C.get(i);let f=[60,180,600].map(()=>Array(26).fill(0));for(let j=Math.max(0,i-600);j<i;j++)for(let n of H[j].dezenas){if(j>=i-60)f[0][n]++;if(j>=i-180)f[1][n]++;f[2][n]++}let o={f,n:[Math.min(60,i),Math.min(180,i),Math.min(600,i)]};C.set(i,o);return o}
-function wg(w,r){return Array.from({length:25},(_,i)=>[Math.log(w[i+1])-Math.log(-Math.log(Math.max(1e-9,r()))),i+1]).sort((a,b)=>b[0]-a[0]).slice(0,15).map(x=>x[1]).sort((a,b)=>a-b)}
-function sel(pool,z,r){let P=[];pool=[...pool];while(P.length<z){let bi=0,bs=-1e9;for(let i=0;i<pool.length;i++){let sc=P.reduce((s,h)=>s-Math.max(0,hit(pool[i],h)-9)*6,0);if(sc>bs){bs=sc;bi=i}}P.push(pool.splice(bi,1)[0])}return div(P,r)}
-function R6(z,i,s,c){let r=rng(mix(s,c,101)),best,bs=1e9;for(let t=0;t<12;t++){let P=Array.from({length:z},()=>game(r)),v=pen(P);if(v<bs){bs=v;best=P}}let A=div(best,r,130),S=stats(i),pool=[];for(let mode=0;mode<2;mode++){let w=Array(26).fill(1);for(let n=1;n<=25;n++){let a=S.n[0]?S.f[0][n]/S.n[0]:.6,b=S.n[1]?S.f[1][n]/S.n[1]:.6,d=S.n[2]?S.f[2][n]/S.n[2]:.6,v=mode?(.5*(a-.6)+.3*(b-.6)+.2*(d-.6)):(b-.6);w[n]=Math.exp(Math.max(-.3,Math.min(.3,v/.08*.14)))}let q=rng(mix(s,c,105+mode));pool.push(...div(Array.from({length:z},()=>wg(w,q)),q))}let C2=sel(pool,z,rng(mix(s,c,203)));return sel([...A,...C2],z,rng(mix(s,c,206)))}
-function mean(a){return a.reduce((s,x)=>s+x,0)/a.length}function ps(d,s,B=1200){let o=mean(d),r=rng(s),ge=1;for(let b=0;b<B;b++){let x=0;for(let v of d)x+=(r()<.5?-v:v);if(x/d.length>=o)ge++}return ge/(B+1)}
-async function run(){if(H.length<1000){alert('Importe o histórico completo.');return}STOP=false;$('run').disabled=true;$('stop').disabled=false;C.clear();let z=+$('games').value||20,rc=+$('randoms').value||40,b=+$('seed').value||27092026,seeds=[b,11,23,37,53,71,89,107].map((x,i)=>i?mix(b,x,i):b),N=600,start=H.length-N,all=[],per=[];L('Falsificação: 8 seeds x 600 concursos.');try{for(let si=0;si<8;si++){let D=[],ca=[],ra=[];for(let j=0;j<N;j++){if(STOP)throw Error('Interrompido');let i=start+j,d=H[i],P=R6(z,i,seeds[si],d.concurso),rv=0;for(let k=0;k<rc;k++){let q=rng(mix(seeds[si],d.concurso,1000+k));rv+=ev(Array.from({length:z},()=>game(q)),d.dezenas)}let rr=rv/rc,cc=ev(P,d.dezenas);D.push(cc-rr);all.push(cc-rr);ca.push(cc);ra.push(rr);let done=si*N+j+1,p=Math.round(done/(8*N)*100);$('fill').style.width=p+'%';$('pct').textContent=p+'%';$('phase').textContent='Seed '+(si+1)+'/8 • '+(j+1)+'/600';await Y()}per.push({c:mean(ca),r:mean(ra),d:mean(D)});L('Seed '+(si+1)+': Δ '+(mean(D)*100).toFixed(3)+' pp')}let blocks=[];for(let q=0;q<3;q++){let v=[];for(let si=0;si<8;si++)v.push(...all.slice(si*N+q*200,si*N+(q+1)*200));blocks.push(mean(v))}let ca=mean(per.map(x=>x.c)),ra=mean(per.map(x=>x.r)),dd=mean(per.map(x=>x.d)),sp=per.filter(x=>x.d>0).length,bp=blocks.filter(x=>x>0).length,pv=ps(all,mix(b,999,1)),pass=dd>0&&sp>=6&&bp>=2&&pv<.05;$('res').innerHTML=`<tr><td>R6 frozen</td><td>${(ca*100).toFixed(3)}%</td><td>${(ra*100).toFixed(3)}%</td><td>${(dd*100).toFixed(3)}</td><td>${sp}/8</td><td>${bp}/3</td><td>${pv.toFixed(4)}</td></tr>`;$('blocks').textContent=blocks.map((x,i)=>'Bloco '+(i+1)+': '+(x*100).toFixed(3)+' pp').join(' • ');STATE={ca,ra,dd,sp,bp,pv,blocks,per,pass};localStorage.setItem('2m27s',JSON.stringify(STATE));if(pass){$('status').textContent='HOLD';$('status').style.color='#f7c948';$('reason').textContent='R6 sobreviveu historicamente. Próximo passo: freeze prospectivo.';L('HOLD. Não apostar.')}else{$('reason').textContent='R6 falhou em pelo menos um critério. NO BET.';L('Falsificação não aprovada. NO BET.')}}catch(e){L(e.message)}finally{$('run').disabled=false;$('stop').disabled=true}}
-$('run').onclick=run;$('stop').onclick=()=>STOP=true;$('export').onclick=()=>{let a=document.createElement('a'),b=new Blob([JSON.stringify({app:'2 Milhões 2.7',state:STATE,ledger:$('log').textContent},null,2)],{type:'application/json'});a.href=URL.createObjectURL(b);a.download='2_MILHOES_2_7_LEDGER.json';a.click()}
-try{H=JSON.parse(localStorage.getItem('2m27h')||'[]')}catch{}render()
-</script></main>
+const API='https://servicebus2.caixa.gov.br/portaldeloterias/api/maismilionaria',HIST='sspskn_history',STATE='sspskn_43_state',LEDGER='sspskn_43_ledger',INC='sspskn_40_incidents';
+let history=load(HIST,[]);function load(k,d){try{let v=JSON.parse(localStorage.getItem(k));return v??d}catch(e){return d}}function save(k,v){localStorage.setItem(k,JSON.stringify(v))}const nums=[...Array(50)].map((_,i)=>i+1),cls=[1,2,3,4,5,6],pad=n=>String(n).padStart(2,'0'),intersect=(a,b)=>a.filter(x=>b.includes(x)),avg=a=>a.length?a.reduce((s,x)=>s+x,0)/a.length:0;
+function fmtDate(s){if(!s)return'—';if(s.includes('/'))return s;let p=s.split('-');return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:s}function balls(a,c=''){return `<div class="balls">${a.map(n=>`<span class="ball ${c}">${pad(n)}</span>`).join('')}</div>`}function setStatus(t,ok=false){syncStatus.textContent=t;dot.style.background=ok?'#43e68d':'#ffd66b'}
+function sanitize(j){let d=(j.listaDezenas||j.dezenas||[]).map(Number).filter(n=>n>=1&&n<=50).sort((a,b)=>a-b),t=(j.listaTrevos||j.trevos||j.trevosSorteados||[]).map(x=>Number(String(x).replace(/\D/g,''))).filter(n=>n>=1&&n<=6).sort((a,b)=>a-b);return{numero:Number(j.numero||j.numeroConcurso||j.concurso),data:j.dataApuracao||j.data||'',dezenas:d,trevos:t}}function valid(d){return Number.isFinite(d.numero)&&d.dezenas.length===6&&d.trevos.length===2}
+async function fetchDraw(){let r=await fetch(API,{headers:{Accept:'application/json'},cache:'no-store'});if(!r.ok)throw Error(r.status);let d=sanitize(await r.json());if(!valid(d))throw Error('formato');return d}async function syncLatest(){try{setStatus('Atualizando...');let d=await fetchDraw(),m=new Map(history.map(x=>[x.numero,x]));m.set(d.numero,d);history=[...m.values()].sort((a,b)=>a.numero-b.numero);save(HIST,history);setStatus('Atualizado',true);refresh()}catch(e){setStatus('Falha')}}
+function Rng(seed){let t=seed>>>0;return()=>{t+=0x6D2B79F5;let r=Math.imul(t^t>>>15,1|t);r^=r+Math.imul(r^r>>>7,61|r);return((r^r>>>14)>>>0)/4294967296}}function sample(a,k,R){let p=[...a],o=[];for(let i=0;i<k;i++){let j=Math.floor(R()*p.length);o.push(p[j]);p.splice(j,1)}return o.sort((x,y)=>x-y)}function weighted(a,w,k,R){let p=a.map((x,i)=>({x,w:Math.max(.001,w[i])})),o=[];while(o.length<k){let total=p.reduce((s,z)=>s+z.w,0),r=R()*total,j=0;for(;j<p.length;j++){r-=p[j].w;if(r<=0)break}j=Math.min(j,p.length-1);o.push(p[j].x);p.splice(j,1)}return o.sort((a,b)=>a-b)}
+function stats(data){let f=Array(51).fill(0),tf=Array(7).fill(0),last=Array(51).fill(-1);data.forEach((d,i)=>{d.dezenas.forEach(n=>{f[n]++;last[n]=i});d.trevos.forEach(t=>tf[t]++)});let delay=Array(51).fill(0);for(let n=1;n<=50;n++)delay[n]=last[n]<0?data.length:data.length-1-last[n];return{f,tf,delay}}function z(data){let s=stats(data),N=Math.max(1,data.length),p=6/50,sd=Math.sqrt(N*p*(1-p));return nums.map(n=>(s.f[n]-N*p)/Math.max(.001,sd))}function rec(data){let A=z(data),B=z(data.slice(-Math.min(40,data.length)));return nums.map((n,i)=>B[i]-A[i])}
+function trans(data){if(data.length<2)return nums.map(()=>1);let last=data.at(-1).dezenas,c=Array(51).fill(0),b=Array(51).fill(0);for(let i=1;i<data.length;i++){let p=data[i-1].dezenas,t=data[i].dezenas;if(intersect(p,last).length>=2)t.forEach(n=>c[n]++);t.forEach(n=>b[n]++)}let ct=c.reduce((a,x)=>a+x,0),bt=b.reduce((a,x)=>a+x,0);return nums.map(n=>.7+.3*((c[n]+1)/(ct+50))/((b[n]+1)/(bt+50)))}
+function weights(id,data){let s=stats(data),Z=z(data),Q=rec(data),T=trans(data),m=avg(nums.map(n=>s.delay[n])),w=nums.map(()=>1);if(id==='residual')w=Z.map(v=>Math.exp(Math.max(-.25,Math.min(.25,v*.08))));if(id==='recency')w=Q.map(v=>Math.exp(Math.max(-.30,Math.min(.30,v*.10))));if(id==='delay')w=nums.map(n=>Math.exp(Math.max(-.18,Math.min(.18,(s.delay[n]-m)*.018))));if(id==='transition')w=T;if(id==='ensemble')w=nums.map((n,i)=>Math.exp(Math.max(-.28,Math.min(.28,Z[i]*.04+Q[i]*.06+Math.log(T[i])*.5+(s.delay[n]-m)*.006))));let cw=cls.map(t=>{let rr=data.slice(-30),ss=stats(rr),e=Math.max(1,rr.length*2/6);return .8+.2*(ss.tf[t]/e)});return{w,cw}}
+function pairCandidate(data,R){let m=new Map();data.forEach(d=>{for(let i=0;i<6;i++)for(let j=i+1;j<6;j++){let k=`${d.dezenas[i]}-${d.dezenas[j]}`;m.set(k,(m.get(k)||0)+1)}});let pool=[];for(let q=0;q<100;q++){let n=sample(nums,6,R),g=0;for(let i=0;i<6;i++)for(let j=i+1;j<6;j++)g+=m.get(`${n[i]}-${n[j]}`)||0;pool.push({n,g})}pool.sort((a,b)=>b.g-a.g);return{nums:pool[Math.floor(R()*10)].n,cl:sample(cls,2,R)}}
+function cand(id,data,R){if(id==='random')return{nums:sample(nums,6,R),cl:sample(cls,2,R)};if(id==='pair')return pairCandidate(data,R);let q=weights(id,data);return{nums:weighted(nums,q.w,6,R),cl:weighted(cls,q.cw,2,R)}}function overlap(a,b){return intersect(a.nums,b.nums).length}function gen(id,data,count,seed){let R=Rng(seed),o=[],tries=0;while(o.length<count&&tries<count*150){tries++;let g=cand(id,data,R);if(o.every(x=>overlap(x,g)<=3))o.push(g)}while(o.length<count)o.push({nums:sample(nums,6,R),cl:sample(cls,2,R)});return o}function best(set,t){let b={a:-1,t:-1};for(let g of set){let a=intersect(g.nums,t.dezenas).length,c=intersect(g.cl,t.trevos).length;if(a>b.a||(a===b.a&&c>b.t))b={a,t:c}}return b}function flags(h){return{g4:h.a>=4?1:0,g42:h.a>=4&&h.t>=2?1:0,g5:h.a>=5?1:0}}function delta(c,r){return(c.g4-r.g4)+3*(c.g42-r.g42)+2*(c.g5-r.g5)}
+function signP(d,B,seed){let obs=avg(d),R=Rng(seed),ge=0;for(let b=0;b<B;b++){let m=avg(d.map(x=>R()<.5?x:-x));if(m>=obs)ge++}return(ge+1)/(B+1)}function holm(rows){let s=rows.map((r,i)=>({i,p:r.p})).sort((a,b)=>a.p-b.p),prev=0;for(let k=0;k<s.length;k++){let a=Math.max(prev,Math.min(1,s[k].p*(s.length-k)));rows[s[k].i].pAdj=a;prev=a}}function seg(d){let q=Math.floor(d.length/3);return q>0&&avg(d.slice(0,q))>0&&avg(d.slice(q,2*q))>0&&avg(d.slice(2*q))>0}
+const engines=[['residual','Residual Frequency'],['recency','Recency Shift'],['delay','Delay State'],['pair','Pair Graph'],['transition','Transition'],['trevo','Trevo Interaction'],['ensemble','Ensemble']];
+async function runDiscovery(){if(history.length<120){dResults.innerHTML='<div class="notice err">Carregue pelo menos 120 concursos.</div>';return}let draws=Math.min(+dDraws.value,history.length-80),games=+dGames.value,seeds=+dSeeds.value,start=history.length-draws,acc={};engines.forEach(e=>acc[e[0]]={d:[],c4:0,r4:0,c42:0,r42:0,c5:0,r5:0});let n=0,total=draws*seeds;for(let i=start;i<history.length;i++){let train=history.slice(0,i),target=history[i];for(let s=0;s<seeds;s++){let seed=target.numero*400009+s*7919+games*47,rf=flags(best(gen('random',train,games,seed),target));for(let [id] of engines){let cf=flags(best(gen(id,train,games,seed+id.length*131),target)),z=acc[id];z.d.push(delta(cf,rf));z.c4+=cf.g4;z.r4+=rf.g4;z.c42+=cf.g42;z.r42+=rf.g42;z.c5+=cf.g5;z.r5+=rf.g5}n++;if(n%5===0){dProgress.textContent=`Discovery ${n}/${total}...`;await new Promise(r=>setTimeout(r,0))}}}let rows=engines.map(([id,name],i)=>{let z=acc[id],N=z.d.length;return{id,name,N,delta:avg(z.d),p:signP(z.d,1500,4400+i*101),consistent:seg(z.d),g4:z.c4/N,r4:z.r4/N,g42:z.c42/N,r42:z.r42/N,g5:z.c5/N,r5:z.r5/N}});holm(rows);rows.sort((a,b)=>(b.g42-a.g42)||((b.g4-b.r4)-(a.g4-a.r4))||(a.pAdj-b.pAdj));let w=rows[0],pass=w.g4>w.r4&&w.g42>=w.r42&&w.delta>0&&w.pAdj<=.05&&w.consistent;save(STATE,{winner:pass?w.id:null,winnerName:pass?w.name:null,rows,pass,falsifierPassed:false,updatedAt:new Date().toISOString()});let tr=rows.map(r=>`<tr><td>${r.name}</td><td>${(r.g4*100).toFixed(1)}/${(r.r4*100).toFixed(1)}%</td><td>${(r.g42*100).toFixed(2)}/${(r.r42*100).toFixed(2)}%</td><td>${(r.g5*100).toFixed(2)}/${(r.r5*100).toFixed(2)}%</td><td>${r.delta.toFixed(3)}</td><td>${r.pAdj.toFixed(3)}</td><td>${r.consistent?'3/3':'não'}</td></tr>`).join('');dResults.innerHTML=`<div class="notice ${pass?'ok':'err'}"><b>${pass?'CANDIDATO DIAGNÓSTICO':'SEM CANDIDATO'}</b><br>${pass?w.name+' avança somente para falsificação.':'Nenhum motor passou os critérios diretos.'}</div><div class="scrollx"><table><tr><th>Motor</th><th>4+ M/R</th><th>4+2 M/R</th><th>5+ M/R</th><th>Δ</th><th>p Holm</th><th>seg.</th></tr>${tr}</table></div>`;dProgress.textContent=`Concluído: ${total} blocos por motor.`;refresh()}
+function randomDraw(R){return{dezenas:sample(nums,6,R),trevos:sample(cls,2,R)}}async function runFalsifier(){let st=load(STATE,{});if(!st.winner){fResults.innerHTML='<div class="notice err">Nenhum candidato para falsificar.</div>';return}let worlds=+fWorlds.value,draws=+fDraws.value,real=st.rows.find(r=>r.id===st.winner).delta,R=Rng(404040),ext=0;for(let w=0;w<worlds;w++){let sim=[];for(let i=0;i<130;i++)sim.push({numero:i+1,...randomDraw(R)});let ds=[];for(let i=130-draws;i<130;i++){let tr=sim.slice(0,i),tar=sim[i],seed=(w+1)*900001+i*101;ds.push(delta(flags(best(gen(st.winner,tr,20,seed),tar)),flags(best(gen('random',tr,20,seed+17),tar))))}if(avg(ds)>=real)ext++;if((w+1)%10===0){fProgress.textContent=`Universos ${w+1}/${worlds}...`;await new Promise(r=>setTimeout(r,0))}}let p=(ext+1)/(worlds+1),pass=p<=.05;st.falsifierPassed=pass;st.nullP=p;save(STATE,st);fResults.innerHTML=`<div class="notice ${pass?'ok':'err'}"><b>${pass?'SOBREVIVEU À FALSIFICAÇÃO — AINDA NO BET':'REJEITADO COMO POSSÍVEL FALSO POSITIVO'}</b><br>${ext}/${worlds} universos aleatórios igualaram ou superaram o Δ real. p≈${p.toFixed(3)}.</div>`;refresh()}
+
+
+function empiricalP(real, nulls, twoSided=false){
+  if(twoSided){
+    let med=nulls.slice().sort((a,b)=>a-b)[Math.floor(nulls.length/2)];
+    let d=Math.abs(real-med),n=nulls.filter(x=>Math.abs(x-med)>=d-1e-12).length;
+    return (n+1)/(nulls.length+1)
+  }
+  let n=nulls.filter(x=>x>=real-1e-12).length;return(n+1)/(nulls.length+1)
+}
+function holmPs(rows){
+  let s=rows.map((r,i)=>({i,p:r.p})).sort((a,b)=>a.p-b.p),prev=0;
+  s.forEach((x,k)=>{let q=Math.max(prev,Math.min(1,x.p*(s.length-k)));rows[x.i].pAdj=q;prev=q})
+}
+function domainItems(domain){return domain==='cl'?cls:nums}
+function domainDraw(d,domain){return domain==='cl'?d.trevos:d.dezenas}
+function freqChi(data,domain){
+  let items=domainItems(domain),k=domain==='cl'?2:6,N=data.length,exp=N*k/items.length,c={};
+  items.forEach(x=>c[x]=0);data.forEach(d=>domainDraw(d,domain).forEach(x=>c[x]++));
+  return items.reduce((s,x)=>s+(c[x]-exp)*(c[x]-exp)/Math.max(.001,exp),0)
+}
+function meanOverlapLag(data,domain,lag){
+  if(data.length<=lag)return 0;let z=[];for(let i=lag;i<data.length;i++)z.push(intersect(domainDraw(data[i],domain),domainDraw(data[i-lag],domain)).length);return avg(z)
+}
+function recentShiftStat(data,domain,w){
+  w=Math.min(w,Math.floor(data.length/3));let a=data.slice(0,-w),b=data.slice(-w),items=domainItems(domain),ca={},cb={};
+  items.forEach(x=>{ca[x]=0;cb[x]=0});a.forEach(d=>domainDraw(d,domain).forEach(x=>ca[x]++));b.forEach(d=>domainDraw(d,domain).forEach(x=>cb[x]++));
+  let ka=domain==='cl'?2:6,pa=ka/items.length;
+  return items.reduce((s,x)=>{let p1=ca[x]/Math.max(1,a.length),p2=cb[x]/Math.max(1,b.length);return s+(p2-p1)*(p2-p1)},0)
+}
+function gapDispersion(data,domain){
+  let items=domainItems(domain),vals=[];
+  for(let x of items){let last=null,g=[];data.forEach((d,i)=>{if(domainDraw(d,domain).includes(x)){if(last!==null)g.push(i-last);last=i}});if(g.length>2){let m=avg(g),v=avg(g.map(y=>(y-m)*(y-m)));vals.push(v/Math.max(.001,m*m))}}
+  return avg(vals)
+}
+function entropyDeficit(data,domain){
+  let items=domainItems(domain),c={},tot=0;items.forEach(x=>c[x]=0);data.forEach(d=>domainDraw(d,domain).forEach(x=>{c[x]++;tot++}));
+  let H=0;items.forEach(x=>{let p=c[x]/Math.max(1,tot);if(p>0)H-=p*Math.log(p)});return Math.log(items.length)-H
+}
+function signalVector(data,domain,w){
+  return [
+    {name:'Frequency χ²',v:freqChi(data,domain)},
+    {name:'Serial overlap',v:meanOverlapLag(data,domain,1)},
+    {name:'Lag-2 overlap',v:meanOverlapLag(data,domain,2)},
+    {name:'Recent shift',v:recentShiftStat(data,domain,w)},
+    {name:'Gap dispersion',v:gapDispersion(data,domain)},
+    {name:'Entropy deficit',v:entropyDeficit(data,domain)}
+  ]
+}
+async function runSignalGate(){
+  if(history.length<150){sResults.innerHTML='<div class="notice err">São necessários pelo menos 150 concursos.</div>';return}
+  let domain=sDomain.value,W=+sWorlds.value,w=+sRecent.value,real=signalVector(history,domain,w),nulls=real.map(()=>[]),R=Rng(430043);
+  for(let j=0;j<W;j++){
+    let sim=syntheticHistory(history.length,R),v=signalVector(sim,domain,w);v.forEach((x,i)=>nulls[i].push(x.v));
+    if((j+1)%10===0){sProgress.textContent=`Universos ${j+1}/${W}...`;await new Promise(r=>setTimeout(r,0))}
+  }
+  let rows=real.map((x,i)=>({name:x.name,value:x.v,p:empiricalP(x.v,nulls[i])}));holmPs(rows);
+  // stability: anomaly must point same way in two historical halves
+  let mid=Math.floor(history.length/2),A=signalVector(history.slice(0,mid),domain,Math.min(w,30)),B=signalVector(history.slice(mid),domain,Math.min(w,30));
+  rows.forEach((r,i)=>{let ma=avg(nulls[i]);r.stable=(A[i].v>0&&B[i].v>0&&((A[i].v>=ma&&B[i].v>=ma)||(r.name.includes('overlap')&&Math.abs(A[i].v-B[i].v)<1)))});
+  let sig=rows.filter(r=>r.pAdj<=.05),stable=sig.filter(r=>r.stable),pass=stable.length>=2;
+  let st=load(STATE,{});st.version='4.3';st.signal={domain,rows,pass,stableCount:stable.length,worlds:W,updatedAt:new Date().toISOString()};st.signalPass=pass;save(STATE,st);
+  let tr=rows.map(r=>`<tr><td>${r.name}</td><td>${r.value.toFixed(5)}</td><td>${r.p.toFixed(4)}</td><td>${r.pAdj.toFixed(4)}</td><td>${r.stable?'sim':'não'}</td></tr>`).join('');
+  sResults.innerHTML=`<div class="notice ${pass?'ok':'err'}"><b>${pass?'SINAL ESTATÍSTICO MERECE INVESTIGAÇÃO — NÃO É PREVISÃO':'SEM EVIDÊNCIA SUFICIENTE DE SINAL EXPLORÁVEL'}</b><br>${stable.length} teste(s) sobreviveram à correção e ao critério de estabilidade. ${pass?'Isso autoriza pesquisa causal/preditiva adicional, não aposta.':'Geradores permanecem bloqueados.'}</div><div class="scrollx"><table><tr><th>Teste</th><th>estatística</th><th>p</th><th>p Holm</th><th>estável</th></tr>${tr}</table></div>`;
+  sProgress.textContent=`Concluído: histórico real vs ${W} universos uniformes.`;refresh()
+}
+function incidentFeature(draw){
+  let sum=draw.dezenas.reduce((a,b)=>a+b,0),odd=draw.dezenas.filter(x=>x%2).length,low=draw.dezenas.filter(x=>x<=25).length;
+  return [sum,odd,low,draw.trevos.reduce((a,b)=>a+b,0)]
+}
+async function runCausalAudit(){
+  let I=incidents(),min=+cMin.value,P=+cPerm.value;
+  let valid=I.map(x=>history.find(d=>d.numero===x.contest)).filter(Boolean);
+  if(valid.length<min){cResults.innerHTML=`<div class="notice err">Há ${valid.length} incidente(s) com concurso correspondente. O mínimo selecionado é ${min}. Registre somente eventos verificáveis; não invente incidentes para atingir o mínimo.</div>`;return}
+  let marked=new Set(I.map(x=>x.contest)),controls=history.filter(d=>!marked.has(d.numero));
+  let obs=incidentFeature(valid[0]).map((_,j)=>avg(valid.map(d=>incidentFeature(d)[j]))-avg(controls.map(d=>incidentFeature(d)[j])));
+  let score=obs.reduce((s,x)=>s+x*x,0),all=history.slice(),R=Rng(431143),ge=0,n=valid.length;
+  for(let p=0;p<P;p++){let idx=sample([...Array(all.length)].map((_,i)=>i),n,R),S=new Set(idx),a=all.filter((_,i)=>S.has(i)),b=all.filter((_,i)=>!S.has(i)),dif=incidentFeature(a[0]).map((_,j)=>avg(a.map(d=>incidentFeature(d)[j]))-avg(b.map(d=>incidentFeature(d)[j]))),q=dif.reduce((s,x)=>s+x*x,0);if(q>=score-1e-12)ge++;if((p+1)%100===0){cProgress.textContent=`Permutações ${p+1}/${P}...`;await new Promise(r=>setTimeout(r,0))}}
+  let p=(ge+1)/(P+1),pass=p<=.05,st=load(STATE,{});st.causal={incidents:valid.length,p,pass,updatedAt:new Date().toISOString()};st.causalPass=pass;save(STATE,st);
+  cResults.innerHTML=`<div class="notice ${pass?'ok':'err'}"><b>${pass?'DIFERENÇA ASSOCIADA A INCIDENTES — REQUER REPLICAÇÃO':'SEM DIFERENÇA DETECTÁVEL NOS INCIDENTES'}</b><br>${valid.length} concursos marcados; permutação p≈${p.toFixed(4)}. Associação não demonstra causalidade nem capacidade de prever sorteios futuros.</div>`;cProgress.textContent='Auditoria concluída.';refresh()
+}
+function modelSpec(seed){let R=Rng(seed),p=a=>a[Math.floor(R()*a.length)];return{seed,short:p([12,20,30,40,60]),mid:p([60,90,120,160]),wf:p([-.18,-.12,-.08,.08,.12,.18]),wr:p([-.20,-.12,-.06,.06,.12,.20]),wd:p([-.10,-.06,.06,.10]),wt:p([0,.04,.08,.12]),parity:p([0,.03,.06]),sum:p([0,.03,.06]),div:p([2,3,4])}}
+function autoWeights(sp,data){let L=z(data.slice(-Math.min(sp.mid,data.length))),S=z(data.slice(-Math.min(sp.short,data.length))),q=stats(data),md=avg(nums.map(n=>q.delay[n])),T=trans(data);let w=nums.map((n,i)=>{let v=sp.wf*L[i]+sp.wr*(S[i]-L[i])+sp.wd*((q.delay[n]-md)/Math.max(4,md||4))+sp.wt*Math.log(Math.max(.01,T[i]));if(sp.parity)v+=sp.parity*((n%2)?1:-1)*.15;if(sp.sum)v+=sp.sum*((n-25.5)/25)*.12;return Math.exp(Math.max(-.42,Math.min(.42,v)))});let rr=data.slice(-Math.min(30,data.length)),ss=stats(rr),e=Math.max(1,rr.length*2/6),cw=cls.map(t=>Math.exp(Math.max(-.25,Math.min(.25,(ss.tf[t]-e)/Math.sqrt(e)*.06))));return{w,cw}}
+function genAuto(sp,data,count,seed){let R=Rng(seed),q=autoWeights(sp,data),o=[],tries=0;while(o.length<count&&tries<count*120){tries++;let g={nums:weighted(nums,q.w,6,R),cl:weighted(cls,q.cw,2,R)};if(o.every(x=>overlap(x,g)<=sp.div))o.push(g)}while(o.length<count)o.push({nums:sample(nums,6,R),cl:sample(cls,2,R)});return o}
+function metric(h,t){if(t==='g42')return h.a>=4&&h.t>=2?1:0;if(t==='g5')return h.a>=5?1:0;if(t==='nums')return h.a/6;if(t==='cl')return h.t/2;return h.a>=4?1:0}
+function evalSpec(sp,data,from,to,games,target,base){let d=[];for(let i=from;i<to;i++){let tr=data.slice(0,i),tar=data[i],s=base+i*131,c=best(genAuto(sp,tr,games,s),tar),r=best(gen('random',tr,games,s+17),tar);d.push(metric(c,target)-metric(r,target))}return{delta:avg(d),diffs:d}}
+async function runAutoSearch(){
+  if(history.length<180){aResults.innerHTML='<div class="notice err">São necessários pelo menos 180 concursos.</div>';return}
+  let M=+aModels.value,games=+aGames.value,target=aTarget.value,nTr=+aTrain.value,nSel=+aSelect.value,nHo=+aHold.value,need=nTr+nSel+nHo;
+  if(need>history.length-30){aResults.innerHTML='<div class="notice err">Reduza as janelas para preservar o holdout.</div>';return}
+  let end=history.length,h0=end-nHo,s0=h0-nSel,t0=s0-nTr,specs=[],sc=[];
+  for(let m=0;m<M;m++){
+    let sp=modelSpec(420000+m*7919),r=evalSpec(sp,history,t0,s0,games,target,720000+m*31);
+    specs.push(sp);sc.push({m,train:r.delta});
+    if((m+1)%30===0){aProgress.textContent=`Discovery ${m+1}/${M}...`;await new Promise(r=>setTimeout(r,0))}
+  }
+  sc.sort((a,b)=>b.train-a.train);
+  let fin=sc.slice(0,Math.max(8,Math.ceil(M*.05)));
+  for(let x of fin)x.sel=evalSpec(specs[x.m],history,s0,h0,games,target,820000+x.m*37).delta;
+
+  // CHAMPION LOCK: ranking final determined BEFORE holdout.
+  fin.sort((a,b)=>b.sel-a.sel||b.train-a.train||a.m-b.m);
+  let champion=fin[0];
+  let runners=fin.slice(1,4);
+
+  let lockedAt=new Date().toISOString();
+  let lockedSpec=JSON.parse(JSON.stringify(specs[champion.m]));
+  let hold=evalSpec(lockedSpec,history,h0,end,games,target,920000+champion.m*41).delta;
+  champion.hold=hold;
+
+  // Holdout is evaluation only; it cannot swap champion.
+  let pass=champion.train>0&&champion.sel>0&&champion.hold>0;
+  let state={
+    version:'4.2',target,models:M,games,
+    windows:{train:nTr,selection:nSel,holdout:nHo},
+    championId:champion.m,championName:`AutoModel #${champion.m}`,
+    champion:lockedSpec,championTrain:champion.train,championSelection:champion.sel,championHoldout:champion.hold,
+    runners:runners.map(x=>({id:x.m,train:x.train,selection:x.sel})),
+    lockedAt,autoPass:pass,nullPassed:false,holdoutOpened:true,updatedAt:new Date().toISOString()
+  };
+  save(STATE,state);
+
+  let rr=runners.map(x=>`<tr><td>#${x.m}</td><td>${x.train.toFixed(4)}</td><td>${x.sel.toFixed(4)}</td><td>não aberto</td></tr>`).join('');
+  aResults.innerHTML=`<div class="notice ${pass?'ok':'err'}"><b>${pass?'CAMPEÃO BLOQUEADO SOBREVIVEU AO HOLDOUT — AINDA NO BET':'CAMPEÃO BLOQUEADO FALHOU NO HOLDOUT'}</b><br>Campeão #${champion.m} foi escolhido antes do holdout e congelado em ${lockedAt}. Holdout Δ = <b>${champion.hold.toFixed(4)}</b>. ${pass?'Agora pode enfrentar o Null Tournament.':'O protocolo proíbe trocar pelo segundo/terceiro colocado depois de ver o holdout.'}</div>
+  <div class="scrollx"><table><tr><th>Modelo</th><th>Discovery Δ</th><th>Selection Δ</th><th>Holdout Δ</th></tr>
+  <tr><td><b>#${champion.m} CAMPEÃO</b></td><td>${champion.train.toFixed(4)}</td><td>${champion.sel.toFixed(4)}</td><td><b>${champion.hold.toFixed(4)}</b></td></tr>${rr}</table></div>`;
+  aProgress.textContent=`${M} modelos → ${fin.length} seleção → 1 campeão bloqueado → 1 holdout aberto.`;
+  refresh()
+}
+function syntheticHistory(N,R){let a=[];for(let i=0;i<N;i++)a.push({numero:i+1,data:'',...randomDraw(R)});return a}
+async function runNullTournament(){
+  let st=load(STATE,{});
+  if(!st.autoPass||!st.champion){nResults.innerHTML='<div class="notice err">Nenhum campeão bloqueado aprovado no holdout para o Null Tournament.</div>';return}
+  let W=+nWorlds.value,M=+nModels.value,target=st.target,games=st.games,real=st.championHoldout,ext=0,R=Rng(422422),
+      nTr=Math.min(60,st.windows.train),nSel=Math.min(30,st.windows.selection),nHo=Math.min(20,st.windows.holdout),N=nTr+nSel+nHo+30;
+
+  for(let w=0;w<W;w++){
+    let sim=syntheticHistory(N,R),end=N,h0=end-nHo,s0=h0-nSel,t0=s0-nTr,sc=[],specs=[];
+    for(let m=0;m<M;m++){
+      let sp=modelSpec(660000+w*100003+m*7919),r=evalSpec(sp,sim,t0,s0,games,target,670000+w*1009+m*17);
+      specs.push(sp);sc.push({m,train:r.delta});
+    }
+    sc.sort((a,b)=>b.train-a.train);
+    let fin=sc.slice(0,Math.max(5,Math.ceil(M*.05)));
+    for(let x of fin)x.sel=evalSpec(specs[x.m],sim,s0,h0,games,target,680000+w*1013+x.m*19).delta;
+
+    // Same locked champion logic used on real data.
+    fin.sort((a,b)=>b.sel-a.sel||b.train-a.train||a.m-b.m);
+    let champ=fin[0];
+    let nullHold=evalSpec(specs[champ.m],sim,h0,end,games,target,690000+w*1019+champ.m*23).delta;
+
+    if(nullHold>=real-1e-12)ext++;
+    if((w+1)%5===0){nProgress.textContent=`Null ${w+1}/${W}...`;await new Promise(r=>setTimeout(r,0))}
+  }
+  let p=(ext+1)/(W+1),pass=p<=.05;
+  st.nullPassed=pass;st.nullP=p;st.nullWorlds=W;save(STATE,st);
+  nResults.innerHTML=`<div class="notice ${pass?'ok':'err'}"><b>${pass?'CAMPEÃO SOBREVIVEU AO NULL — CONTINUA NO BET':'CAMPEÃO REJEITADO PELO NULL TOURNAMENT'}</b><br>${ext}/${W} universos nulos produziram um campeão bloqueado com holdout igual ou superior ao real. p≈${p.toFixed(3)}.</div>`;
+  nProgress.textContent='Null Tournament concluído.';refresh()
+}
+function C(n,k){if(k<0||k>n)return 0;let r=1;for(let i=1;i<=k;i++)r=r*(n-k+i)/i;return Math.round(r)}function renderEconomy(){let B=+eBudget.value||120,T=+eTicket.value||6,formats=[[6,2],[6,3],[7,2],[7,3],[8,2],[6,4],[9,2]],rows=formats.map(([n,t])=>{let e=C(n,6)*C(t,2),cost=e*T,q=Math.floor(B/cost);return`<tr><td>${n}+${t}</td><td>${e}</td><td>R$ ${cost.toFixed(2)}</td><td>${q}</td><td>${q*e}</td></tr>`}).join('');eTable.innerHTML=`<table><tr><th>Formato</th><th>simples eq.</th><th>custo eq.</th><th>cabem</th><th>combinações pagas</th></tr>${rows}</table>`}
+function ledger(){return load(LEDGER,[])}
+function freezeNext(){pResult.innerHTML='<div class="notice err"><b>GERAÇÃO BLOQUEADA NA 4.3.</b><br>Esta versão é um laboratório de existência de sinal e auditoria causal. Nenhuma aposta é congelada até que um sinal sobreviva ao gate e seja transformado em hipótese preditiva numa versão posterior, sem reutilizar o mesmo holdout.</div>'}
+function evaluateFrozen(){renderFreeze()}
+function renderFreeze(){let st=load(STATE,{});pCandidate.textContent='—';pFrozen.textContent='NÃO';pEval.textContent='0';pGate.textContent='NO BET';kGate.textContent='NO BET';let s=st.signalPass?'Signal Gate: investigação autorizada':'Signal Gate: sem PASS';let c=st.causalPass?'Causal Audit: associação detectada':'Causal Audit: sem PASS';pResult.innerHTML=`<div class="notice info"><b>4.3 = LABORATÓRIO, NÃO GERADOR</b><br>${s}. ${c}. O próximo gerador só poderá usar uma hipótese pré-especificada derivada de evidência sobrevivente.</div>`}
+function exportLedger(){let st=load(STATE,{}),b=new Blob([JSON.stringify({version:'SSPSKN 4.3',state:st,incidents:incidents()},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='SSPSKN_4.3_SIGNAL_AUDIT_LEDGER.json';a.click()}
+function incidents(){return load(INC,[])}function addIncident(){let c=+aContest.value;if(!c)return alert('Informe o concurso');let a=incidents();a.push({contest:c,type:aType.value,note:aNote.value.trim(),createdAt:new Date().toISOString()});save(INC,a);aNote.value='';renderInc()}function renderInc(){let a=incidents();aList.innerHTML=a.length?a.slice().reverse().map(x=>`<div class="game"><b>Concurso ${x.contest}</b> • ${x.type}<div class="small">${x.note||'sem observação'}</div></div>`).join(''):'<div class="small">Nenhum incidente registrado.</div>'}function exportIncidents(){let b=new Blob([JSON.stringify({version:'SSPSKN 4.3',incidents:incidents()},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='SSPSKN_4.3_INCIDENTS.json';a.click()}
+function refresh(){let last=history.at(-1);kConc.textContent=last?.numero||'—';kHist.textContent=history.length;kDate.textContent=last?fmtDate(last.data):'—';lastResult.innerHTML=last?`<b>Concurso ${last.numero}</b> • ${fmtDate(last.data)}<div style="height:8px"></div>${balls(last.dezenas)}<div style="height:6px"></div>${balls(last.trevos,'clover')}`:'Sem histórico.';if(history.length)setStatus('Dados locais',true);renderEconomy();renderFreeze();renderInc()}
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===b.dataset.page))});refresh();
+</script></body></html>

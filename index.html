@@ -2,179 +2,166 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#06110d"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="SSPSKN 4.5">
-<title>SSPSKN 4.5 • Decision & Coverage Proof Lab</title>
+<meta name="theme-color" content="#06110d"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="SSPSKN 4.6">
+<title>SSPSKN 4.6 • Multi-Budget Hybrid Coverage Lab</title>
 <style>
 :root{--bg:#06110d;--card:#102118;--txt:#eef8f1;--muted:#9db3a6;--acc:#43e68d;--gold:#ffd66b;--danger:#ff7178;--line:#264638;--blue:#83bfff}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 100% 0,#123b27,transparent 34%),var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;min-height:100vh}.wrap{max-width:980px;margin:auto;padding:20px 14px 110px}header{display:flex;gap:12px;align-items:center;margin-bottom:14px}.logo{width:56px;height:56px;border-radius:17px;background:linear-gradient(145deg,var(--acc),#12834d);display:grid;place-items:center;color:#04120b;font-weight:900}.sub,.small{color:var(--muted);font-size:12px;line-height:1.45}h1{margin:0;font-size:24px}.status{margin-left:auto;color:var(--muted);font-size:12px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gold);margin-right:5px}.card{background:linear-gradient(180deg,#12271d,var(--card));border:1px solid var(--line);border-radius:18px;padding:16px;margin:12px 0}.card h2{font-size:17px;margin:0 0 12px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.kpi{background:#08170f;border:1px solid var(--line);border-radius:14px;padding:12px}.kpi b{font-size:20px;display:block}.kpi span{font-size:11px;color:var(--muted)}.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.field{flex:1;min-width:130px}.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:5px}.btn{border:0;border-radius:12px;padding:12px 14px;font-weight:800;background:var(--acc);color:#031109}.btn.secondary{background:#173728;color:var(--txt);border:1px solid #315a44}.btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}input,select,textarea{width:100%;background:#07150f;color:var(--txt);border:1px solid var(--line);border-radius:11px;padding:11px}.notice{border-left:3px solid var(--gold);background:#201d0e;color:#f4e8c0;border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.45}.notice.ok{border-left-color:var(--acc);background:#0c2217;color:#c9f6d9}.notice.err{border-left-color:var(--danger);background:#2b1416;color:#ffd6d8}.notice.info{border-left-color:var(--blue);background:#102031;color:#d7eaff}.balls{display:flex;gap:7px;flex-wrap:wrap}.ball{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#163d2a;border:1px solid #2f6b4c;font-weight:900}.clover{background:#3a3015;border-color:#806c2e;color:#ffe59e}.tabs{position:fixed;left:0;right:0;bottom:0;background:rgba(6,17,13,.97);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center}.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(6,1fr);gap:4px}.tab{border:0;background:transparent;color:var(--muted);padding:8px 3px;border-radius:11px;font-size:10px;font-weight:700}.tab.active{background:#173526;color:var(--txt)}.page{display:none}.page.active{display:block}.scrollx{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:8px 5px;text-align:left;border-bottom:1px solid var(--line)}th{color:var(--muted)}.game{background:#08150f;border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:8px}.mono{font-variant-numeric:tabular-nums}@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 100% 0,#123b27,transparent 34%),var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;min-height:100vh}.wrap{max-width:980px;margin:auto;padding:20px 14px 110px}header{display:flex;gap:12px;align-items:center;margin-bottom:14px}.logo{width:56px;height:56px;border-radius:17px;background:linear-gradient(145deg,var(--acc),#12834d);display:grid;place-items:center;color:#04120b;font-weight:900}.sub,.small{color:var(--muted);font-size:12px;line-height:1.45}h1{margin:0;font-size:24px}.status{margin-left:auto;color:var(--muted);font-size:12px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gold);margin-right:5px}.card{background:linear-gradient(180deg,#12271d,var(--card));border:1px solid var(--line);border-radius:18px;padding:16px;margin:12px 0}.card h2{font-size:17px;margin:0 0 12px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.kpi{background:#08170f;border:1px solid var(--line);border-radius:14px;padding:12px}.kpi b{font-size:20px;display:block}.kpi span{font-size:11px;color:var(--muted)}.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.field{flex:1;min-width:130px}.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:5px}.btn{border:0;border-radius:12px;padding:12px 14px;font-weight:800;background:var(--acc);color:#031109}.btn.secondary{background:#173728;color:var(--txt);border:1px solid #315a44}.btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}input,select,textarea{width:100%;background:#07150f;color:var(--txt);border:1px solid var(--line);border-radius:11px;padding:11px}.notice{border-left:3px solid var(--gold);background:#201d0e;color:#f4e8c0;border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.45}.notice.ok{border-left-color:var(--acc);background:#0c2217;color:#c9f6d9}.notice.err{border-left-color:var(--danger);background:#2b1416;color:#ffd6d8}.notice.info{border-left-color:var(--blue);background:#102031;color:#d7eaff}.tabs{position:fixed;left:0;right:0;bottom:0;background:rgba(6,17,13,.97);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center}.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(6,1fr);gap:4px}.tab{border:0;background:transparent;color:var(--muted);padding:8px 3px;border-radius:11px;font-size:10px;font-weight:700}.tab.active{background:#173526;color:var(--txt)}.page{display:none}.page.active{display:block}.scrollx{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:8px 5px;text-align:left;border-bottom:1px solid var(--line)}th{color:var(--muted)}.mono{font-variant-numeric:tabular-nums}.pill{display:inline-block;padding:5px 8px;border-radius:999px;background:#173526;border:1px solid var(--line);font-size:11px;margin:2px}.bar{height:8px;background:#08150f;border-radius:999px;overflow:hidden;border:1px solid var(--line)}.bar>i{display:block;height:100%;background:var(--acc)}@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
 <body><div class="wrap">
-<header><div class="logo">AI</div><div><h1>SSPSKN 4.5</h1><div class="sub">Decision & Coverage Proof Lab • +Milionária</div></div><div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div></header>
+<header><div class="logo">AI</div><div><h1>SSPSKN 4.6</h1><div class="sub">Multi-Budget Hybrid Coverage Lab • +Milionária</div></div><div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Dados locais</span></div></header>
 
 <section id="home" class="page active">
-<div class="card"><h2>Estado da base</h2><div class="grid"><div class="kpi"><b id="kConc">—</b><span>último concurso</span></div><div class="kpi"><b id="kHist">0</b><span>concursos carregados</span></div><div class="kpi"><b id="kDate">—</b><span>última data</span></div><div class="kpi"><b>NO BET</b><span>gate 4.5</span></div></div><div class="row" style="margin-top:12px"><button class="btn" onclick="syncLatest()">Atualizar último</button></div><div id="lastResult" class="small" style="margin-top:12px"></div></div>
-<div class="card"><h2>Decisão herdada</h2><div class="notice err"><b>4.3 + 4.4:</b> nenhum sinal histórico testado demonstrou previsibilidade robusta em dezenas ou trevos. A 4.5 não tenta ressuscitar frequência, atraso ou transição.</div></div>
-<div class="card"><h2>Missão 4.5</h2><div class="notice info">Resolver duas perguntas abertas de forma verificável: <b>(B)</b> qual tamanho de efeito seria detectável prospectivamente e <b>(C)</b> qual carteira maximiza a cobertura de <b>≥4 dezenas + 2 trevos</b> por orçamento. A frente física/operacional permanece em ledger separado, sem ser tratada como previsão.</div></div>
+<div class="card"><h2>Estado da base</h2><div class="grid"><div class="kpi"><b id="kConc">—</b><span>último concurso</span></div><div class="kpi"><b id="kHist">0</b><span>concursos carregados</span></div><div class="kpi"><b id="kDate">—</b><span>última data</span></div><div class="kpi"><b>NO BET</b><span>gate científico</span></div></div></div>
+<div class="card"><h2>O que mudou na 4.6</h2><div class="notice info"><b>1.</b> Todos os candidatos usam exatamente o orçamento, preenchendo sobras com apostas simples.<br><b>2.</b> Busca híbridos de 6+3, 7+2, 7+3 e 8+2, além de simples.<br><b>3.</b> Varre vários orçamentos para encontrar a fronteira de eficiência.<br><b>4.</b> Resultado é “melhor carteira encontrada”, não alegação de ótimo global.</div></div>
+</section>
+
+<section id="frontier" class="page">
+<div class="card"><h2>Budget Frontier</h2><div class="small">Varre vários valores e mede a melhor cobertura ≥4+2 encontrada para cada orçamento. Todos os custos são preenchidos exatamente quando múltiplos do preço simples.</div>
+<div class="field" style="margin-top:10px"><label>Orçamentos R$ (separados por vírgula)</label><input id="budgets" value="60,120,180,300,600"></div>
+<div class="row" style="margin-top:10px"><div class="field"><label>Preço simples R$</label><input id="price" type="number" value="6" step=".01"></div><div class="field"><label>Máx. candidatos exatos por orçamento</label><select id="topk"><option>6</option><option selected>10</option><option>14</option></select></div></div>
+<button class="btn" style="margin-top:10px" onclick="runFrontier()">Executar fronteira multi-orçamento</button><div id="frontProg" class="small" style="margin-top:10px"></div><div id="frontOut"></div></div>
+</section>
+
+<section id="single" class="page">
+<div class="card"><h2>Otimizador de um orçamento</h2>
+<div class="row"><div class="field"><label>Orçamento R$</label><input id="oneBudget" type="number" value="120" step="6"></div><div class="field"><label>Preço simples R$</label><input id="onePrice" type="number" value="6" step=".01"></div></div>
+<button class="btn" style="margin-top:10px" onclick="runOne()">Buscar melhores híbridos</button><div id="oneProg" class="small" style="margin-top:10px"></div><div id="oneOut"></div></div>
 </section>
 
 <section id="power" class="page">
-<div class="card"><h2>Power / Detectability Planner</h2>
-<div class="small">Planejamento estatístico transparente. Usa aproximação normal para estimar quantos concursos seriam necessários para detectar um aumento relativo na taxa de sucesso de uma carteira. Não é prova de previsibilidade.</div>
-<div class="row" style="margin-top:12px">
-<div class="field"><label>Probabilidade-base da carteira</label><input id="pwP0" type="number" value="0.001" min="0.00000001" max=".99" step=".000001"></div>
-<div class="field"><label>Lift relativo alvo</label><select id="pwLift"><option value=".25">+25%</option><option value=".5" selected>+50%</option><option value="1">+100%</option><option value="2">+200%</option></select></div>
-<div class="field"><label>α</label><select id="pwAlpha"><option value=".10">0,10</option><option value=".05" selected>0,05</option><option value=".01">0,01</option></select></div>
-<div class="field"><label>Poder</label><select id="pwPower"><option value=".80" selected>80%</option><option value=".90">90%</option><option value=".95">95%</option></select></div>
-</div><button class="btn" style="margin-top:10px" onclick="runPower()">Calcular limite de detectabilidade</button><div id="pwOut" style="margin-top:10px"></div></div>
-<div class="card"><h2>Interpretação</h2><div class="small">Quanto mais raro o objetivo, mais concursos são necessários para distinguir um pequeno ganho real do ruído. A 4.5 mostra isso explicitamente para impedir conclusões fortes a partir de poucas dezenas de concursos.</div></div>
-</section>
-
-<section id="coverage" class="page">
-<div class="card"><h2>Exact ≥4+2 Coverage Optimizer</h2>
-<div class="notice ok"><b>Exato para cobertura:</b> cada aposta simples 6+2 cobre exatamente todos os sorteios com pelo menos 4 das suas 6 dezenas e os mesmos 2 trevos. A união é calculada sem Monte Carlo, por conjuntos de resultados cobertos.</div>
-<div class="row" style="margin-top:12px">
-<div class="field"><label>Orçamento R$</label><input id="cvBudget" type="number" value="120" min="6" step="6"></div>
-<div class="field"><label>Preço simples R$</label><input id="cvPrice" type="number" value="6" min=".01" step=".01"></div>
-<div class="field"><label>Estratégia</label><select id="cvStrategy"><option value="diverse" selected>Simples diversificada</option><option value="72">Blocos 7+2</option><option value="63">Blocos 6+3</option><option value="73">Blocos 7+3</option><option value="82">Blocos 8+2</option></select></div>
-</div><button class="btn" style="margin-top:10px" onclick="runCoverage()">Construir e medir carteira</button><div id="cvProgress" class="small" style="margin-top:10px"></div><div id="cvOut"></div></div>
-<div class="card"><h2>O que é medido</h2><div class="small">Probabilidade exata de pelo menos uma ocorrência de ≥4+2, cobertura única do espaço de sorteios, equivalentes simples pagos, redundância e multiplicidade esperada de componentes vencedores. Não estima retorno financeiro porque os rateios futuros não são conhecidos previamente.</div></div>
-</section>
-
-<section id="compare" class="page">
-<div class="card"><h2>Budget-Equivalent Tournament</h2>
-<div class="small">Compara estratégias usando exatamente o mesmo teto de orçamento. O vencedor é quem cobre mais resultados distintos de ≥4+2; empate é quebrado por menor redundância.</div>
-<div class="row" style="margin-top:12px"><div class="field"><label>Orçamento R$</label><input id="tmBudget" type="number" value="120" min="6" step="6"></div><div class="field"><label>Preço simples R$</label><input id="tmPrice" type="number" value="6" min=".01" step=".01"></div></div>
-<button class="btn" style="margin-top:10px" onclick="runTournament()">Executar comparação exata</button><div id="tmProgress" class="small" style="margin-top:10px"></div><div id="tmOut"></div></div>
+<div class="card"><h2>Detectability</h2><div class="small">Use a probabilidade da carteira encontrada e veja quantos concursos seriam necessários para detectar um lift real. Isso evita chamar ruído de vantagem.</div>
+<div class="row" style="margin-top:10px"><div class="field"><label>P base</label><input id="p0" type="number" value=".001" step=".000001"></div><div class="field"><label>Lift</label><select id="lift"><option value=".25">+25%</option><option value=".5" selected>+50%</option><option value="1">+100%</option></select></div></div>
+<button class="btn" style="margin-top:10px" onclick="runPower()">Calcular</button><div id="powerOut"></div></div>
 </section>
 
 <section id="audit" class="page">
-<div class="card"><h2>Physical / Operational Evidence Ledger</h2><div class="notice">Somente fatos verificáveis. Nenhum incidente vira sinal de aposta automaticamente.</div>
-<div class="row" style="margin-top:10px"><div class="field"><label>Concurso</label><input id="aContest" type="number"></div><div class="field"><label>Tipo</label><select id="aType"><option>manual_ball_release</option><option>multiple_ejection</option><option>globe_intervention</option><option>equipment_change</option><option>location_change</option><option>schedule_change</option><option>auditor_nonconfirmation</option><option>other</option></select></div></div>
-<div class="field" style="margin-top:8px"><label>Fonte / observação verificável</label><textarea id="aNote" rows="3"></textarea></div>
-<div class="row"><button class="btn secondary" onclick="addIncident()">Registrar</button><button class="btn ghost" onclick="exportIncidents()">Exportar</button></div><div id="aList"></div></div>
+<div class="card"><h2>Auditoria metodológica</h2><div class="notice">A 4.6 otimiza <b>cobertura combinatória</b>, não previsão. A seleção das carteiras não usa resultados históricos para escolher números. Isso impede que “boa cobertura” seja confundida com “números mais prováveis”.</div>
+<div id="auditOut" class="small" style="margin-top:10px">• Orçamento equivalente obrigatório<br>• Sobras preenchidas com simples<br>• União exata de resultados ≥4+2<br>• Sem Monte Carlo para a métrica principal<br>• Sem usar holdout para escolher carteira</div></div>
 </section>
 
 <section id="freeze" class="page">
-<div class="card"><h2>Research Freeze 4.5</h2><div class="notice info">A 4.5 não libera apostas por “sinal”. Ela pode congelar uma carteira apenas como <b>benchmark de cobertura</b> para comparação futura, sem alegar previsão.</div>
-<div class="grid" style="margin-top:12px"><div class="kpi"><b id="fzType">—</b><span>carteira</span></div><div class="kpi"><b id="fzProb">—</b><span>P(≥4+2)</span></div><div class="kpi"><b id="fzCost">—</b><span>custo</span></div><div class="kpi"><b>NO BET</b><span>status científico</span></div></div>
-<div class="row" style="margin-top:12px"><button class="btn" onclick="freezeCoverage()">Congelar melhor benchmark</button><button class="btn ghost" onclick="exportState()">Exportar estado</button></div><div id="fzOut"></div></div>
+<div class="card"><h2>Freeze do benchmark</h2><div class="notice info">Congela somente a melhor carteira combinatória encontrada para um orçamento específico. Continua <b>NO BET</b> enquanto não houver decisão externa de uso.</div><div id="freezeKpi" class="grid" style="margin-top:12px"></div><button class="btn" onclick="freezeBest()">Congelar melhor atual</button><div id="freezeOut"></div></div>
 </section>
 
 </div>
-<nav class="tabs"><div class="tabsin"><button class="tab active" data-page="home">⌂<br>Início</button><button class="tab" data-page="power">σ<br>Power</button><button class="tab" data-page="coverage">◎<br>Cobertura</button><button class="tab" data-page="compare">≋<br>Comparar</button><button class="tab" data-page="audit">⌁<br>Audit</button><button class="tab" data-page="freeze">◇<br>Freeze</button></div></nav>
+<nav class="tabs"><div class="tabsin">
+<button class="tab active" data-page="home">⌂<br>Início</button>
+<button class="tab" data-page="frontier">↗<br>Fronteira</button>
+<button class="tab" data-page="single">◎<br>Otimizar</button>
+<button class="tab" data-page="power">σ<br>Power</button>
+<button class="tab" data-page="audit">⌁<br>Audit</button>
+<button class="tab" data-page="freeze">◇<br>Freeze</button>
+</div></nav>
 
 <script>
-const API='https://servicebus2.caixa.gov.br/portaldeloterias/api/maismilionaria';
-const HIST='sspskn_history',STATE='sspskn_45_state',INC='sspskn_40_incidents';
-let history=load(HIST,[]),lastCoverage=null,lastTournament=null;
-const nums=[...Array(50)].map((_,i)=>i+1), cls=[1,2,3,4,5,6], pad=n=>String(n).padStart(2,'0');
-function load(k,d){try{let v=JSON.parse(localStorage.getItem(k));return v??d}catch(e){return d}}
-function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
-function fmtDate(s){if(!s)return'—';if(s.includes('/'))return s;let p=s.split('-');return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:s}
-function balls(a,c=''){return `<div class="balls">${a.map(n=>`<span class="ball ${c}">${pad(n)}</span>`).join('')}</div>`}
-function setStatus(t,ok=false){syncStatus.textContent=t;dot.style.background=ok?'#43e68d':'#ffd66b'}
-function sanitize(j){let d=(j.listaDezenas||j.dezenas||[]).map(Number).filter(n=>n>=1&&n<=50).sort((a,b)=>a-b),t=(j.listaTrevos||j.trevos||j.trevosSorteados||[]).map(x=>Number(String(x).replace(/\D/g,''))).filter(n=>n>=1&&n<=6).sort((a,b)=>a-b);return{numero:Number(j.numero||j.numeroConcurso||j.concurso),data:j.dataApuracao||j.data||'',dezenas:d,trevos:t}}
-function valid(d){return Number.isFinite(d.numero)&&d.dezenas.length===6&&d.trevos.length===2}
-async function syncLatest(){try{setStatus('Atualizando...');let r=await fetch(API,{headers:{Accept:'application/json'},cache:'no-store'});if(!r.ok)throw Error(r.status);let d=sanitize(await r.json());if(!valid(d))throw Error('formato');let m=new Map(history.map(x=>[x.numero,x]));m.set(d.numero,d);history=[...m.values()].sort((a,b)=>a.numero-b.numero);save(HIST,history);setStatus('Atualizado',true);refresh()}catch(e){setStatus('Falha')}}
+const HIST='sspskn_history',STATE='sspskn_46_state';
+let history=load(HIST,[]), currentBest=null;
+const nums=[...Array(50)].map((_,i)=>i+1), cls=[1,2,3,4,5,6];
+function load(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}} function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
 function C(n,k){if(k<0||k>n)return 0;k=Math.min(k,n-k);let r=1;for(let i=1;i<=k;i++)r=r*(n-k+i)/i;return Math.round(r)}
-function combos(a,k){let out=[];function rec(start,cur){if(cur.length===k){out.push(cur.slice());return}for(let i=start;i<=a.length-(k-cur.length);i++){cur.push(a[i]);rec(i+1,cur);cur.pop()}}rec(0,[]);return out}
+function combos(a,k){let o=[];function r(s,c){if(c.length===k){o.push(c.slice());return}for(let i=s;i<=a.length-(k-c.length);i++){c.push(a[i]);r(i+1,c);c.pop()}}r(0,[]);return o}
+const tp=combos(cls,2), pidx=new Map(tp.map((p,i)=>[p.join('-'),i])), TOTAL=C(50,6)*15, SINGLE=C(6,4)*C(44,2)+C(6,5)*44+1;
 function rank6(c){let r=0;for(let i=0;i<6;i++)r+=C(c[i]-1,i+1);return r}
-const trevoPairs=combos(cls,2),pairIndex=new Map(trevoPairs.map((p,i)=>[p.join('-'),i]));
-const TOTAL_NUM_DRAWS=C(50,6),TOTAL_OUTCOMES=TOTAL_NUM_DRAWS*C(6,2);
-const SINGLE_COVER=C(6,4)*C(44,2)+C(6,5)*C(44,1)+1;
-function expandBlock(nset,tset){let ns=combos(nset,6),ts=combos(tset,2),out=[];ns.forEach(n=>ts.forEach(t=>out.push({nums:n,cl:t})));return out}
-function usageScore(ticket,existing){let sc=0;for(let x of existing){let ov=ticket.nums.filter(n=>x.nums.includes(n)).length;let same=ticket.cl[0]===x.cl[0]&&ticket.cl[1]===x.cl[1];sc+=(same?ov*ov*4:ov*.35)}return sc}
-function buildSimple(count){
-  let out=[],nu=Array(51).fill(0),pu=Array(15).fill(0);
-  for(let k=0;k<count;k++){
-    let best=null,bs=1e99;
-    for(let trial=0;trial<240;trial++){
-      let candNums=nums.slice().sort((a,b)=>(nu[a]-nu[b])||((a*37+k*17+trial*13)%101-(b*37+k*17+trial*13)%101)).slice(0,6).sort((a,b)=>a-b);
-      let pi=[...Array(15).keys()].sort((a,b)=>(pu[a]-pu[b])||((a*11+k*7+trial)%17-(b*11+k*7+trial)%17))[0];
-      let cand={nums:candNums,cl:trevoPairs[pi]};
-      let s=usageScore(cand,out)+candNums.reduce((z,n)=>z+nu[n]*.15,0)+pu[pi]*1.5;
-      if(s<bs){bs=s;best=cand}
-      nu[candNums[(trial+k)%6]]+=0.000001;
-    }
-    out.push(best);best.nums.forEach(n=>nu[n]++);pu[pairIndex.get(best.cl.join('-'))]++;
-  }
-  return out
+function pct(x,d=5){return (x*100).toFixed(d)+'%'} function fn(n){return Math.round(n).toLocaleString('pt-BR')}
+function fmtDate(s){if(!s)return'—';if(s.includes('/'))return s;let p=s.split('-');return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:s}
+function refresh(){let l=history.at(-1);kConc.textContent=l?.numero||'—';kHist.textContent=history.length;kDate.textContent=l?fmtDate(l.data):'—';renderFreeze()} refresh();
+
+function makeBlock(n,t,seed,nu,tu){
+  let ns=nums.slice().sort((a,b)=>(nu[a]-nu[b])||(((a*31+seed*17)%101)-((b*31+seed*17)%101))).slice(0,n).sort((a,b)=>a-b);
+  let ts=cls.slice().sort((a,b)=>(tu[a]-tu[b])||(((a*13+seed*7)%23)-((b*13+seed*7)%23))).slice(0,t).sort((a,b)=>a-b);
+  ns.forEach(x=>nu[x]++);ts.forEach(x=>tu[x]++);return {nums:ns,cl:ts}
 }
-function buildBlocks(format,countBlocks){
-  let [n,t]=format,blocks=[],nu=Array(51).fill(0),tu=Array(7).fill(0);
-  for(let b=0;b<countBlocks;b++){
-    let ns=nums.slice().sort((a,c)=>(nu[a]-nu[c])||(((a*29+b*17)%97)-((c*29+b*17)%97))).slice(0,n).sort((a,c)=>a-c);
-    let ts=cls.slice().sort((a,c)=>(tu[a]-tu[c])||(((a*13+b*7)%19)-((c*13+b*7)%19))).slice(0,t).sort((a,c)=>a-c);
-    blocks.push({nums:ns,cl:ts});ns.forEach(x=>nu[x]++);ts.forEach(x=>tu[x]++);
-  }return blocks
+function expandBlock(b){let out=[];for(let n of combos(b.nums,6))for(let t of combos(b.cl,2))out.push({nums:n,cl:t});return out}
+function makeSimple(seed,nu,pu){
+  let ns=nums.slice().sort((a,b)=>(nu[a]-nu[b])||(((a*37+seed*19)%103)-((b*37+seed*19)%103))).slice(0,6).sort((a,b)=>a-b);
+  let pi=[...Array(15).keys()].sort((a,b)=>(pu[a]-pu[b])||(((a*11+seed*5)%29)-((b*11+seed*5)%29)))[0];
+  ns.forEach(x=>nu[x]++);pu[pi]++;return{nums:ns,cl:tp[pi]}
 }
-function strategyPortfolio(strategy,budget,price){
-  if(strategy==='diverse'){let q=Math.floor(budget/price);return{label:'Simples diversificada',paid:q*price,blocks:q,eq:q,tickets:buildSimple(q),raw:null}}
-  let fm={72:[7,2],63:[6,3],73:[7,3],82:[8,2]}[strategy],eqBlock=C(fm[0],6)*C(fm[1],2),cost=eqBlock*price,q=Math.floor(budget/cost),raw=buildBlocks(fm,q),tickets=[];
-  raw.forEach(b=>tickets.push(...expandBlock(b.nums,b.cl)));
-  return{label:`Blocos ${fm[0]}+${fm[1]}`,paid:q*cost,blocks:q,eq:q*eqBlock,tickets,raw}
+const TYPES=[{id:'63',n:6,t:3,eq:3},{id:'72',n:7,t:2,eq:7},{id:'73',n:7,t:3,eq:21},{id:'82',n:8,t:2,eq:28}];
+
+function enumerateAlloc(Q){
+  let cand=[];
+  for(let d=0;d<=Math.floor(Q/28);d++)
+   for(let c=0;c<=Math.floor((Q-28*d)/21);c++)
+    for(let b=0;b<=Math.floor((Q-28*d-21*c)/7);b++)
+     for(let a=0;a<=Math.floor((Q-28*d-21*c-7*b)/3);a++){
+       let used=28*d+21*c+7*b+3*a, s=Q-used;
+       // Screen: penalize concentration in large blocks, reward exact spend (always exact with simples).
+       let concentration=(d*28*28+c*21*21+b*7*7+a*3*3)/(Q||1);
+       let diversity=(a+b+c+d);
+       let score=concentration-0.12*diversity+0.001*s;
+       cand.push({a,b,c,d,s,score});
+     }
+  cand.sort((x,y)=>x.score-y.score);
+  // include structural anchors explicitly
+  let anchors=[
+    {a:0,b:0,c:0,d:0,s:Q,score:-999},
+    {a:Math.floor(Q/3),b:0,c:0,d:0,s:Q%3,score:-998},
+    {a:0,b:Math.floor(Q/7),c:0,d:0,s:Q%7,score:-997},
+    {a:0,b:0,c:Math.floor(Q/21),d:0,s:Q%21,score:-996},
+    {a:0,b:0,c:0,d:Math.floor(Q/28),s:Q%28,score:-995}
+  ];
+  let m=new Map();for(let x of anchors.concat(cand)){let k=[x.a,x.b,x.c,x.d,x.s].join(',');if(!m.has(k))m.set(k,x)}
+  return [...m.values()];
 }
-function addTicketCoverage(ticket,sets){
-  let S=ticket.nums, comp=nums.filter(x=>!S.includes(x)),pi=pairIndex.get(ticket.cl.join('-')),set=sets[pi];
-  for(let k=4;k<=6;k++){
-    let A=combos(S,k),B=combos(comp,6-k);
-    for(let a of A)for(let b of B){let d=a.concat(b).sort((x,y)=>x-y);set.add(rank6(d))}
-  }
+function buildPortfolio(al,seed=1){
+  let nu=Array(51).fill(0),tu=Array(7).fill(0),pu=Array(15).fill(0),tickets=[],blocks=[];
+  let counts=[['63',al.a],['72',al.b],['73',al.c],['82',al.d]];
+  let z=0;
+  for(let [id,count] of counts){let T=TYPES.find(x=>x.id===id);for(let i=0;i<count;i++){let b=makeBlock(T.n,T.t,seed+z++,nu,tu);blocks.push({type:id,...b});let ex=expandBlock(b);for(let t of ex){tickets.push(t);pu[pidx.get(t.cl.join('-'))]++}}}
+  for(let i=0;i<al.s;i++)tickets.push(makeSimple(seed+z++,nu,pu));
+  return {tickets,blocks,alloc:al,eq:tickets.length}
 }
-async function exactCoverage(port,progressEl){
+function addCov(t,sets){
+  let S=t.nums, comp=nums.filter(x=>!S.includes(x)), set=sets[pidx.get(t.cl.join('-'))];
+  for(let k=4;k<=6;k++)for(let a of combos(S,k))for(let b of combos(comp,6-k)){let d=a.concat(b).sort((x,y)=>x-y);set.add(rank6(d))}
+}
+async function exact(port,progress,label=''){
   let sets=[...Array(15)].map(()=>new Set()),i=0;
-  for(let t of port.tickets){addTicketCoverage(t,sets);i++;if(i%5===0){progressEl.textContent=`Cobertura exata ${i}/${port.tickets.length} equivalentes...`;await new Promise(r=>setTimeout(r,0))}}
-  let unique=sets.reduce((s,x)=>s+x.size,0),naive=port.eq*SINGLE_COVER,prob=unique/TOTAL_OUTCOMES,red=naive?1-unique/naive:0,meanWins=port.eq*SINGLE_COVER/TOTAL_OUTCOMES;
-  return{...port,unique,prob,red,meanWins,odds:prob>0?1/prob:Infinity}
+  for(let t of port.tickets){addCov(t,sets);if(++i%8===0){progress.textContent=`${label} • cobertura ${i}/${port.tickets.length}`;await new Promise(r=>setTimeout(r,0))}}
+  let unique=sets.reduce((s,x)=>s+x.size,0),prob=unique/TOTAL,red=1-unique/(port.eq*SINGLE);
+  return {...port,unique,prob,red,odds:1/prob}
 }
-function pct(x,d=6){return (x*100).toFixed(d)+'%'}
-function fmtN(n){return Math.round(n).toLocaleString('pt-BR')}
-function strategyName(s){return {diverse:'Simples diversificada',72:'7+2',63:'6+3',73:'7+3',82:'8+2'}[s]||s}
-function renderTickets(r,max=12){
-  let arr=r.raw||r.tickets;
-  return arr.slice(0,max).map((g,i)=>`<div class="game"><b>${i+1}. ${g.nums.map(pad).join(' ')}</b><div class="small">Trevos ${g.cl.map(pad).join(' ')}</div></div>`).join('')+(arr.length>max?`<div class="small" style="margin-top:8px">+ ${arr.length-max} bloco(s)/aposta(s) não exibidos.</div>`:'')
+function allocName(a){
+  let p=[];if(a.a)p.push(`${a.a}×6+3`);if(a.b)p.push(`${a.b}×7+2`);if(a.c)p.push(`${a.c}×7+3`);if(a.d)p.push(`${a.d}×8+2`);if(a.s)p.push(`${a.s} simples`);return p.join(' + ')||'—'
 }
-async function runCoverage(){
-  let B=+cvBudget.value||120,P=+cvPrice.value||6,s=cvStrategy.value,port=strategyPortfolio(s,B,P);
-  if(!port.eq){cvOut.innerHTML='<div class="notice err">O orçamento não comporta nenhum bloco dessa estratégia.</div>';return}
-  cvProgress.textContent='Construindo cobertura...';let r=await exactCoverage(port,cvProgress);lastCoverage=r;save(STATE,{...(load(STATE,{})),lastCoverage:r,updatedAt:new Date().toISOString()});
-  pwP0.value=r.prob.toFixed(10);
-  cvOut.innerHTML=`<div class="grid" style="margin-top:10px"><div class="kpi"><b>${pct(r.prob,5)}</b><span>P exata ≥4+2</span></div><div class="kpi"><b>1 em ${fmtN(r.odds)}</b><span>odds da carteira</span></div><div class="kpi"><b>${fmtN(r.unique)}</b><span>resultados únicos cobertos</span></div><div class="kpi"><b>${pct(r.red,2)}</b><span>redundância</span></div></div><div class="small" style="margin-top:10px">Custo usado: R$ ${r.paid.toFixed(2)} • equivalentes simples: ${r.eq} • multiplicidade esperada de componentes ≥4+2 por concurso: ${r.meanWins.toExponential(4)}</div>${renderTickets(r)}`;
-  cvProgress.textContent='Cobertura exata concluída.';
+async function optimizeBudget(B,P,K,progress){
+  let Q=Math.floor(B/P), exactBudget=Q*P;
+  if(Q<1)return null;
+  let all=enumerateAlloc(Q);
+  // cheap structural screening, then evaluate top K + anchors
+  let chosen=all.slice(0,K);
+  let anchors=all.filter(x=>x.score<=-995);
+  let mm=new Map();for(let x of anchors.concat(chosen))mm.set([x.a,x.b,x.c,x.d,x.s].join(','),x);
+  let evals=[], idx=0;
+  for(let al of mm.values()){idx++;let port=buildPortfolio(al,17+idx*31);evals.push(await exact(port,progress,`R$ ${exactBudget.toFixed(0)} cand ${idx}/${mm.size}`))}
+  evals.sort((a,b)=>b.prob-a.prob||a.red-b.red);
+  return {budget:B,spent:exactBudget,Q,best:evals[0],evals}
 }
-async function runTournament(){
-  let B=+tmBudget.value||120,P=+tmPrice.value||6,strategies=['diverse','72','63','73','82'],rows=[];
-  for(let s of strategies){let port=strategyPortfolio(s,B,P);if(!port.eq)continue;tmProgress.textContent=`Calculando ${strategyName(s)}...`;rows.push(await exactCoverage(port,tmProgress))}
-  rows.sort((a,b)=>b.prob-a.prob||a.red-b.red);lastTournament=rows;save(STATE,{...(load(STATE,{})),tournament:rows,updatedAt:new Date().toISOString()});
-  let tr=rows.map((r,i)=>`<tr><td>${i+1}</td><td>${r.label}</td><td>R$ ${r.paid.toFixed(2)}</td><td>${r.eq}</td><td>${pct(r.prob,5)}</td><td>1/${fmtN(r.odds)}</td><td>${pct(r.red,2)}</td></tr>`).join('');
-  tmOut.innerHTML=`<div class="notice ok"><b>Vencedor por cobertura: ${rows[0].label}</b><br>Esta vitória é combinatória, não preditiva.</div><div class="scrollx"><table><tr><th>#</th><th>Estratégia</th><th>Custo</th><th>Eq.</th><th>P ≥4+2</th><th>Odds</th><th>Redund.</th></tr>${tr}</table></div>`;
-  tmProgress.textContent='Tournament exato concluído.';
+function rowResult(r,rank=1){return `<tr><td>${rank}</td><td>${allocName(r.alloc)}</td><td>${r.eq}</td><td>${pct(r.prob)}</td><td>1/${fn(r.odds)}</td><td>${pct(r.red,2)}</td></tr>`}
+async function runOne(){
+  let B=+oneBudget.value,P=+onePrice.value,K=10;oneProg.textContent='Gerando candidatos...';let res=await optimizeBudget(B,P,K,oneProg);if(!res)return;
+  currentBest=res.best;p0.value=res.best.prob.toFixed(10);save(STATE,{...(load(STATE,{})),lastOne:res,updatedAt:new Date().toISOString()});
+  let rows=res.evals.slice(0,8).map((r,i)=>rowResult(r,i+1)).join('');
+  oneOut.innerHTML=`<div class="notice ok"><b>Melhor encontrada:</b> ${allocName(res.best.alloc)}<br>Usa R$ ${res.spent.toFixed(2)} exatamente e cobre ${fn(res.best.unique)} resultados distintos de ≥4+2.</div><div class="grid" style="margin-top:10px"><div class="kpi"><b>${pct(res.best.prob)}</b><span>P ≥4+2</span></div><div class="kpi"><b>1/${fn(res.best.odds)}</b><span>odds</span></div><div class="kpi"><b>${pct(res.best.red,2)}</b><span>redundância</span></div><div class="kpi"><b>${res.best.eq}</b><span>equiv. simples</span></div></div><div class="scrollx"><table><tr><th>#</th><th>Composição</th><th>Eq.</th><th>P≥4+2</th><th>Odds</th><th>Red.</th></tr>${rows}</table></div>`;
+  oneProg.textContent='Otimização concluída.';
 }
-function invNorm(p){
-  const a=[-39.6968302866538,220.946098424521,-275.928510446969,138.357751867269,-30.6647980661472,2.50662827745924],b=[-54.4760987982241,161.585836858041,-155.698979859887,66.8013118877197,-13.2806815528857],c=[-.00778489400243029,-.322396458041136,-2.40075827716184,-2.54973253934373,4.37466414146497,2.93816398269878],d=[.00778469570904146,.32246712907004,2.445134137143,3.75440866190742],pl=.02425,ph=1-pl;let q,r;
-  if(p<pl){q=Math.sqrt(-2*Math.log(p));return (((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}
-  if(p>ph){q=Math.sqrt(-2*Math.log(1-p));return -(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}
-  q=p-.5;r=q*q;return (((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q/(((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1)
+async function runFrontier(){
+  let Bs=budgets.value.split(',').map(x=>+x.trim()).filter(x=>x>0),P=+price.value,K=+topk.value,rows=[],bestEff=null;
+  for(let i=0;i<Bs.length;i++){frontProg.textContent=`Orçamento ${i+1}/${Bs.length}: R$ ${Bs[i]}`;let r=await optimizeBudget(Bs[i],P,K,frontProg);if(r){rows.push(r);let eff=r.best.prob/r.spent;if(!bestEff||eff>bestEff.eff)bestEff={...r,eff}}}
+  if(!rows.length)return;
+  currentBest=rows.at(-1).best;save(STATE,{...(load(STATE,{})),frontier:rows,updatedAt:new Date().toISOString()});
+  let maxP=Math.max(...rows.map(x=>x.best.prob));
+  frontOut.innerHTML=`<div class="notice ok"><b>Fronteira calculada.</b> Melhor eficiência P/R$: orçamento R$ ${bestEff.spent.toFixed(2)}. Maior probabilidade absoluta entre os testados: R$ ${rows.sort((a,b)=>b.best.prob-a.best.prob)[0].spent.toFixed(2)}.</div>`+
+  rows.sort((a,b)=>a.spent-b.spent).map(r=>`<div class="card" style="padding:12px"><b>R$ ${r.spent.toFixed(2)}</b> • ${allocName(r.best.alloc)}<div class="small">P ≥4+2 ${pct(r.best.prob)} • 1/${fn(r.best.odds)} • redundância ${pct(r.best.red,2)}</div><div class="bar" style="margin-top:7px"><i style="width:${100*r.best.prob/maxP}%"></i></div></div>`).join('');
+  frontProg.textContent='Fronteira concluída.';
 }
-function runPower(){
-  let p0=+pwP0.value,lift=+pwLift.value,alpha=+pwAlpha.value,power=+pwPower.value;
-  if(!(p0>0&&p0<1)){pwOut.innerHTML='<div class="notice err">Informe uma probabilidade entre 0 e 1.</div>';return}
-  let p1=Math.min(.999999,p0*(1+lift)),d=p1-p0,za=invNorm(1-alpha/2),zb=invNorm(power),N=Math.ceil(((za*Math.sqrt(p0*(1-p0))+zb*Math.sqrt(p1*(1-p1)))/d)**2);
-  let years=N/2/52.1775;
-  pwOut.innerHTML=`<div class="grid"><div class="kpi"><b>${fmtN(N)}</b><span>concursos aproximados</span></div><div class="kpi"><b>${years.toFixed(1)}</b><span>anos a 2 concursos/semana</span></div><div class="kpi"><b>${pct(p0,5)}</b><span>taxa-base</span></div><div class="kpi"><b>${pct(p1,5)}</b><span>taxa alternativa</span></div></div><div class="notice" style="margin-top:10px"><b>Importante:</b> este é um cálculo de planejamento por aproximação normal para duas proporções. Eventos muito raros podem exigir análise binomial/Poisson mais específica antes de uma decisão científica final.</div>`;
-}
-function addIncident(){let c=+aContest.value,n=aNote.value.trim();if(!c||!n)return;let a=load(INC,[]);a.push({contest:c,type:aType.value,note:n,createdAt:new Date().toISOString()});save(INC,a);aNote.value='';renderInc()}
-function renderInc(){let a=load(INC,[]).sort((x,y)=>y.contest-x.contest);aList.innerHTML=a.slice(0,20).map(x=>`<div class="game"><b>Concurso ${x.contest}</b> • ${x.type}<div class="small">${x.note}</div></div>`).join('')||'<div class="small" style="margin-top:10px">Nenhum incidente registrado.</div>'}
-function download(name,obj){let b=new Blob([typeof obj==='string'?obj:JSON.stringify(obj,null,2)],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
-function exportIncidents(){download('SSPSKN_4.5_Physical_Operational_Ledger.json',load(INC,[]))}
-function exportState(){download('SSPSKN_4.5_State.json',load(STATE,{}))}
-function freezeCoverage(){
-  let best=(lastTournament&&lastTournament[0])||lastCoverage;if(!best){fzOut.innerHTML='<div class="notice err">Execute primeiro Cobertura ou Comparar.</div>';return}
-  let st=load(STATE,{});st.freeze={label:best.label,prob:best.prob,paid:best.paid,eq:best.eq,unique:best.unique,red:best.red,frozenAt:new Date().toISOString(),status:'BENCHMARK_ONLY_NO_BET'};save(STATE,st);renderFreeze();fzOut.innerHTML='<div class="notice ok">Benchmark congelado. Isso preserva a comparação, não transforma a carteira em previsão.</div>'
-}
-function renderFreeze(){let f=load(STATE,{}).freeze;fzType.textContent=f?.label||'—';fzProb.textContent=f?pct(f.prob,5):'—';fzCost.textContent=f?`R$ ${f.paid.toFixed(2)}`:'—'}
-function refresh(){let last=history.at(-1);kConc.textContent=last?.numero||'—';kHist.textContent=history.length;kDate.textContent=last?fmtDate(last.data):'—';lastResult.innerHTML=last?`<b>Concurso ${last.numero}</b> • ${fmtDate(last.data)}<div style="height:8px"></div>${balls(last.dezenas)}<div style="height:6px"></div>${balls(last.trevos,'clover')}`:'Sem histórico.';if(history.length)setStatus('Dados locais',true);renderInc();renderFreeze()}
+function invNorm(p){const a=[-39.6968302866538,220.946098424521,-275.928510446969,138.357751867269,-30.6647980661472,2.50662827745924],b=[-54.4760987982241,161.585836858041,-155.698979859887,66.8013118877197,-13.2806815528857],c=[-.00778489400243029,-.322396458041136,-2.40075827716184,-2.54973253934373,4.37466414146497,2.93816398269878],d=[.00778469570904146,.32246712907004,2.445134137143,3.75440866190742],pl=.02425,ph=1-pl;let q,r;if(p<pl){q=Math.sqrt(-2*Math.log(p));return (((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}if(p>ph){q=Math.sqrt(-2*Math.log(1-p));return -(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}q=p-.5;r=q*q;return (((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q/(((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1)}
+function runPower(){let P=+p0.value,L=+lift.value,p1=P*(1+L),za=invNorm(.975),zb=invNorm(.8),d=p1-P,N=Math.ceil(((za*Math.sqrt(P*(1-P))+zb*Math.sqrt(p1*(1-p1)))/d)**2);powerOut.innerHTML=`<div class="grid" style="margin-top:10px"><div class="kpi"><b>${fn(N)}</b><span>concursos aprox.</span></div><div class="kpi"><b>${(N/104.355).toFixed(1)}</b><span>anos a 2/semana</span></div></div>`}
+function freezeBest(){if(!currentBest){freezeOut.innerHTML='<div class="notice err">Execute primeiro uma otimização.</div>';return}let st=load(STATE,{});st.freeze={alloc:currentBest.alloc,prob:currentBest.prob,odds:currentBest.odds,red:currentBest.red,eq:currentBest.eq,frozenAt:new Date().toISOString(),status:'COVERAGE_BENCHMARK_ONLY_NO_BET'};save(STATE,st);renderFreeze();freezeOut.innerHTML='<div class="notice ok">Benchmark congelado.</div>'}
+function renderFreeze(){let f=load(STATE,{}).freeze;freezeKpi.innerHTML=f?`<div class="kpi"><b>${allocName(f.alloc)}</b><span>composição</span></div><div class="kpi"><b>${pct(f.prob)}</b><span>P≥4+2</span></div><div class="kpi"><b>1/${fn(f.odds)}</b><span>odds</span></div><div class="kpi"><b>${pct(f.red,2)}</b><span>redundância</span></div>`:'<div class="small">Nenhum benchmark congelado.</div>'}
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.page).classList.add('active')});
-refresh();
-</script></body></html>
+</script>
+</body></html>

@@ -2,22 +2,22 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#06110d"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="SSPSKN 4.1">
-<title>SSPSKN 4.1 • Autonomous AI Search & Null Tournament</title>
+<meta name="theme-color" content="#06110d"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="SSPSKN 4.2">
+<title>SSPSKN 4.2 • Locked Champion Protocol</title>
 <style>
 :root{--bg:#06110d;--card:#102118;--txt:#eef8f1;--muted:#9db3a6;--acc:#43e68d;--gold:#ffd66b;--danger:#ff7178;--line:#264638}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 100% 0,#123b27,transparent 34%),var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;min-height:100vh}.wrap{max-width:980px;margin:auto;padding:20px 14px 100px}header{display:flex;gap:12px;align-items:center;margin-bottom:14px}.logo{width:56px;height:56px;border-radius:17px;background:linear-gradient(145deg,var(--acc),#12834d);display:grid;place-items:center;color:#04120b;font-weight:900}.sub,.small{color:var(--muted);font-size:12px;line-height:1.45}h1{margin:0;font-size:24px}.status{margin-left:auto;color:var(--muted);font-size:12px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gold);margin-right:5px}.card{background:linear-gradient(180deg,#12271d,var(--card));border:1px solid var(--line);border-radius:18px;padding:16px;margin:12px 0}.card h2{font-size:17px;margin:0 0 12px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.kpi{background:#08170f;border:1px solid var(--line);border-radius:14px;padding:12px}.kpi b{font-size:20px;display:block}.kpi span{font-size:11px;color:var(--muted)}.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.field{flex:1;min-width:130px}.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:5px}.btn{border:0;border-radius:12px;padding:12px 14px;font-weight:800;background:var(--acc);color:#031109}.btn.secondary{background:#173728;color:var(--txt);border:1px solid #315a44}.btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}input,select,textarea{width:100%;background:#07150f;color:var(--txt);border:1px solid var(--line);border-radius:11px;padding:11px}.notice{border-left:3px solid var(--gold);background:#201d0e;color:#f4e8c0;border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.45}.notice.ok{border-left-color:var(--acc);background:#0c2217;color:#c9f6d9}.notice.err{border-left-color:var(--danger);background:#2b1416;color:#ffd6d8}.notice.info{border-left-color:#83bfff;background:#102031;color:#d7eaff}.balls{display:flex;gap:7px;flex-wrap:wrap}.ball{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#163d2a;border:1px solid #2f6b4c;font-weight:900}.clover{background:#3a3015;border-color:#806c2e;color:#ffe59e}.tabs{position:fixed;left:0;right:0;bottom:0;background:rgba(6,17,13,.96);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center}.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(6,1fr);gap:4px}.tab{border:0;background:transparent;color:var(--muted);padding:8px 3px;border-radius:11px;font-size:10px;font-weight:700}.tab.active{background:#173526;color:var(--txt)}.page{display:none}.page.active{display:block}.scrollx{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:8px 5px;text-align:left;border-bottom:1px solid var(--line)}th{color:var(--muted)}.game{background:#08150f;border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:8px}@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
 <body><div class="wrap">
-<header><div class="logo">AI</div><div><h1>SSPSKN 4.1</h1><div class="sub">Autonomous AI Search & Null Tournament • núcleo novo • +Milionária</div></div><div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div></header>
+<header><div class="logo">AI</div><div><h1>SSPSKN 4.2</h1><div class="sub">Locked Champion Protocol • núcleo novo • +Milionária</div></div><div class="status"><span class="dot" id="dot"></span><span id="syncStatus">Sem sincronizar</span></div></header>
 <section id="home" class="page active">
-<div class="card"><h2>Estado da base</h2><div class="grid"><div class="kpi"><b id="kConc">—</b><span>último concurso</span></div><div class="kpi"><b id="kHist">0</b><span>concursos carregados</span></div><div class="kpi"><b id="kDate">—</b><span>última data</span></div><div class="kpi"><b id="kGate">NO BET</b><span>gate 4.1</span></div></div><div class="row" style="margin-top:12px"><button class="btn" onclick="syncLatest()">Atualizar último</button></div><div id="lastResult" class="small" style="margin-top:12px"></div></div>
+<div class="card"><h2>Estado da base</h2><div class="grid"><div class="kpi"><b id="kConc">—</b><span>último concurso</span></div><div class="kpi"><b id="kHist">0</b><span>concursos carregados</span></div><div class="kpi"><b id="kDate">—</b><span>última data</span></div><div class="kpi"><b id="kGate">NO BET</b><span>gate 4.2</span></div></div><div class="row" style="margin-top:12px"><button class="btn" onclick="syncLatest()">Atualizar último</button></div><div id="lastResult" class="small" style="margin-top:12px"></div></div>
 <div class="card"><h2>Baseline 4.0 preservado</h2><div class="notice info"><b>Arquitetura nova.</b> Não herda pesos, ranking ou campeão da série 3.x. Reutiliza apenas o histórico local para não perder os 386 concursos já carregados. Primeiro procura sinal, depois tenta destruir a própria descoberta em universos aleatórios e só então permite congelamento prospectivo.</div></div>
 </section>
 <section id="discovery" class="page">
 <div class="card"><h2>Autonomous AI Search</h2>
-<div class="notice info"><b>Baseline 4.0 preservado:</b> 7/7 motores fixos não superaram o Random. A 4.1 gera modelos automaticamente e mantém um holdout temporal bloqueado.</div>
+<div class="notice info"><b>Locked Champion Protocol:</b> a identidade do campeão é decidida exclusivamente por Discovery + Selection. Depois disso, ID e parâmetros são congelados; só então o Holdout é aberto. O Holdout nunca participa da escolha do modelo.</div>
 <div class="row" style="margin-top:12px">
 <div class="field"><label>Candidatos</label><select id="aModels"><option>120</option><option selected>300</option><option>600</option></select></div>
 <div class="field"><label>Jogos/modelo</label><select id="aGames"><option>10</option><option selected>20</option><option>30</option></select></div>
@@ -26,7 +26,7 @@
 <div class="field"><label>Discovery</label><select id="aTrain"><option>60</option><option selected>80</option><option>100</option></select></div>
 <div class="field"><label>Selection</label><select id="aSelect"><option>30</option><option selected>40</option><option>60</option></select></div>
 <div class="field"><label>Holdout bloqueado</label><select id="aHold"><option>20</option><option selected>30</option><option>40</option></select></div></div>
-<button class="btn" style="margin-top:10px" onclick="runAutoSearch()">Executar Autonomous Search</button>
+<button class="btn" style="margin-top:10px" onclick="runAutoSearch()">Executar Locked Champion Search</button>
 <div id="aProgress" class="small" style="margin-top:10px"></div><div id="aResults"></div></div>
 <div class="card"><h2>Espaço de busca</h2><div class="small">Combina automaticamente frequência residual, recência, atraso, transição, paridade/faixas, soma, trevos e diversidade. O holdout só é aberto para os três finalistas.</div></div>
 </section>
@@ -35,12 +35,12 @@
 <div class="row" style="margin-top:12px"><div class="field"><label>Universos nulos</label><select id="nWorlds"><option>25</option><option selected>50</option><option>100</option></select></div><div class="field"><label>Modelos/universo</label><select id="nModels"><option>60</option><option selected>120</option><option>240</option></select></div></div>
 <button class="btn secondary" style="margin-top:10px" onclick="runNullTournament()">Executar Null Tournament</button><div id="nProgress" class="small" style="margin-top:10px"></div><div id="nResults"></div></div></section>
 <section id="economy" class="page"><div class="card"><h2>Economic & Coverage Lab</h2><div class="row"><div class="field"><label>Orçamento R$</label><input id="eBudget" type="number" value="120" min="6" step="6" oninput="renderEconomy()"></div><div class="field"><label>Preço simples R$</label><input id="eTicket" type="number" value="6" min=".01" step=".01" oninput="renderEconomy()"></div></div><div id="eTable" style="margin-top:10px"></div></div></section>
-<section id="freeze" class="page"><div class="card"><h2>Prospective Freeze 4.1</h2><div class="notice">Só congela se o candidato passar Discovery + False Discovery Killer. Mesmo assim o gate operacional permanece NO BET até evidência prospectiva suficiente.</div><div class="grid" style="margin-top:12px"><div class="kpi"><b id="pCandidate">—</b><span>candidato</span></div><div class="kpi"><b id="pFrozen">NÃO</b><span>congelado</span></div><div class="kpi"><b id="pEval">0</b><span>avaliados</span></div><div class="kpi"><b id="pGate">NO BET</b><span>gate</span></div></div><div class="row" style="margin-top:12px"><button class="btn" onclick="freezeNext()">Congelar próximo</button><button class="btn secondary" onclick="evaluateFrozen()">Conferir</button><button class="btn ghost" onclick="exportLedger()">Exportar ledger</button></div><div id="pResult" style="margin-top:10px"></div></div></section>
+<section id="freeze" class="page"><div class="card"><h2>Prospective Freeze 4.2</h2><div class="notice">Só congela se o campeão tiver sido escolhido antes do holdout, sobreviver ao holdout bloqueado e depois ao Null Tournament. O gate operacional permanece NO BET até evidência prospectiva suficiente.</div><div class="grid" style="margin-top:12px"><div class="kpi"><b id="pCandidate">—</b><span>candidato</span></div><div class="kpi"><b id="pFrozen">NÃO</b><span>congelado</span></div><div class="kpi"><b id="pEval">0</b><span>avaliados</span></div><div class="kpi"><b id="pGate">NO BET</b><span>gate</span></div></div><div class="row" style="margin-top:12px"><button class="btn" onclick="freezeNext()">Congelar próximo</button><button class="btn secondary" onclick="evaluateFrozen()">Conferir</button><button class="btn ghost" onclick="exportLedger()">Exportar ledger</button></div><div id="pResult" style="margin-top:10px"></div></div></section>
 <section id="audit" class="page"><div class="card"><h2>Physical / Operational Ledger</h2><div class="small">Mantido separado da previsão. Serve para futuros testes de mudança de regime e confundidores.</div><div class="row" style="margin-top:10px"><div class="field"><label>Concurso</label><input id="aContest" type="number"></div><div class="field"><label>Tipo</label><select id="aType"><option>manual_ball_release</option><option>multiple_ejection</option><option>globe_intervention</option><option>equipment_change</option><option>location_change</option><option>schedule_change</option><option>auditor_nonconfirmation</option><option>other</option></select></div></div><div class="field" style="margin-top:8px"><label>Fonte/observação verificável</label><textarea id="aNote" rows="3"></textarea></div><div class="row"><button class="btn secondary" onclick="addIncident()">Registrar</button><button class="btn ghost" onclick="exportIncidents()">Exportar</button></div><div id="aList"></div></div></section>
 </div>
-<nav class="tabs"><div class="tabsin"><button class="tab active" data-page="home">⌂<br>Início</button><button class="tab" data-page="discovery">✦<br>Auto AI</button><button class="tab" data-page="falsify">⚔<br>Null</button><button class="tab" data-page="economy">$<br>Economia</button><button class="tab" data-page="freeze">◇<br>Freeze</button><button class="tab" data-page="audit">⌁<br>Audit</button></div></nav>
+<nav class="tabs"><div class="tabsin"><button class="tab active" data-page="home">⌂<br>Início</button><button class="tab" data-page="discovery">✦<br>Champion</button><button class="tab" data-page="falsify">⚔<br>Null</button><button class="tab" data-page="economy">$<br>Economia</button><button class="tab" data-page="freeze">◇<br>Freeze</button><button class="tab" data-page="audit">⌁<br>Audit</button></div></nav>
 <script>
-const API='https://servicebus2.caixa.gov.br/portaldeloterias/api/maismilionaria',HIST='sspskn_history',STATE='sspskn_41_state',LEDGER='sspskn_41_ledger',INC='sspskn_40_incidents';
+const API='https://servicebus2.caixa.gov.br/portaldeloterias/api/maismilionaria',HIST='sspskn_history',STATE='sspskn_42_state',LEDGER='sspskn_42_ledger',INC='sspskn_40_incidents';
 let history=load(HIST,[]);function load(k,d){try{let v=JSON.parse(localStorage.getItem(k));return v??d}catch(e){return d}}function save(k,v){localStorage.setItem(k,JSON.stringify(v))}const nums=[...Array(50)].map((_,i)=>i+1),cls=[1,2,3,4,5,6],pad=n=>String(n).padStart(2,'0'),intersect=(a,b)=>a.filter(x=>b.includes(x)),avg=a=>a.length?a.reduce((s,x)=>s+x,0)/a.length:0;
 function fmtDate(s){if(!s)return'—';if(s.includes('/'))return s;let p=s.split('-');return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:s}function balls(a,c=''){return `<div class="balls">${a.map(n=>`<span class="ball ${c}">${pad(n)}</span>`).join('')}</div>`}function setStatus(t,ok=false){syncStatus.textContent=t;dot.style.background=ok?'#43e68d':'#ffd66b'}
 function sanitize(j){let d=(j.listaDezenas||j.dezenas||[]).map(Number).filter(n=>n>=1&&n<=50).sort((a,b)=>a-b),t=(j.listaTrevos||j.trevos||j.trevosSorteados||[]).map(x=>Number(String(x).replace(/\D/g,''))).filter(n=>n>=1&&n<=6).sort((a,b)=>a-b);return{numero:Number(j.numero||j.numeroConcurso||j.concurso),data:j.dataApuracao||j.data||'',dezenas:d,trevos:t}}function valid(d){return Number.isFinite(d.numero)&&d.dezenas.length===6&&d.trevos.length===2}
@@ -61,12 +61,101 @@ function autoWeights(sp,data){let L=z(data.slice(-Math.min(sp.mid,data.length)))
 function genAuto(sp,data,count,seed){let R=Rng(seed),q=autoWeights(sp,data),o=[],tries=0;while(o.length<count&&tries<count*120){tries++;let g={nums:weighted(nums,q.w,6,R),cl:weighted(cls,q.cw,2,R)};if(o.every(x=>overlap(x,g)<=sp.div))o.push(g)}while(o.length<count)o.push({nums:sample(nums,6,R),cl:sample(cls,2,R)});return o}
 function metric(h,t){if(t==='g42')return h.a>=4&&h.t>=2?1:0;if(t==='g5')return h.a>=5?1:0;if(t==='nums')return h.a/6;if(t==='cl')return h.t/2;return h.a>=4?1:0}
 function evalSpec(sp,data,from,to,games,target,base){let d=[];for(let i=from;i<to;i++){let tr=data.slice(0,i),tar=data[i],s=base+i*131,c=best(genAuto(sp,tr,games,s),tar),r=best(gen('random',tr,games,s+17),tar);d.push(metric(c,target)-metric(r,target))}return{delta:avg(d),diffs:d}}
-async function runAutoSearch(){if(history.length<180){aResults.innerHTML='<div class="notice err">São necessários pelo menos 180 concursos.</div>';return}let M=+aModels.value,games=+aGames.value,target=aTarget.value,nTr=+aTrain.value,nSel=+aSelect.value,nHo=+aHold.value,need=nTr+nSel+nHo;if(need>history.length-30){aResults.innerHTML='<div class="notice err">Reduza as janelas para preservar o holdout.</div>';return}let end=history.length,h0=end-nHo,s0=h0-nSel,t0=s0-nTr,specs=[],sc=[];for(let m=0;m<M;m++){let sp=modelSpec(410000+m*7919),r=evalSpec(sp,history,t0,s0,games,target,700000+m*31);specs.push(sp);sc.push({m,train:r.delta});if((m+1)%30===0){aProgress.textContent=`Discovery ${m+1}/${M}...`;await new Promise(r=>setTimeout(r,0))}}sc.sort((a,b)=>b.train-a.train);let fin=sc.slice(0,Math.max(8,Math.ceil(M*.05)));for(let x of fin)x.sel=evalSpec(specs[x.m],history,s0,h0,games,target,810000+x.m*37).delta;fin.sort((a,b)=>b.sel-a.sel);let top=fin.slice(0,3);for(let x of top)x.hold=evalSpec(specs[x.m],history,h0,end,games,target,910000+x.m*41).delta;let bx=top.slice().sort((a,b)=>b.hold-a.hold)[0],pass=bx.train>0&&bx.sel>0&&bx.hold>0,st={version:'4.1',target,models:M,games,windows:{train:nTr,selection:nSel,holdout:nHo},chosen:top.map(x=>({...x,spec:specs[x.m]})),candidate:pass?specs[bx.m]:null,candidateId:pass?bx.m:null,candidateName:pass?`AutoModel #${bx.m}`:null,holdoutDelta:bx.hold,autoPass:pass,nullPassed:false,updatedAt:new Date().toISOString()};save(STATE,st);let rows=top.map(x=>`<tr><td>#${x.m}</td><td>${x.train.toFixed(4)}</td><td>${x.sel.toFixed(4)}</td><td>${x.hold.toFixed(4)}</td></tr>`).join('');aResults.innerHTML=`<div class="notice ${pass?'ok':'err'}"><b>${pass?'SOBREVIVEU AO HOLDOUT — AINDA NO BET':'SEM SOBREVIVENTE NO HOLDOUT'}</b><br>${pass?'Agora precisa enfrentar o Null Tournament.':'A busca automática não demonstrou vantagem fora da amostra.'}</div><div class="scrollx"><table><tr><th>Finalista</th><th>Discovery Δ</th><th>Selection Δ</th><th>Holdout Δ</th></tr>${rows}</table></div>`;aProgress.textContent=`${M} modelos → ${fin.length} seleção → 3 holdout.`;refresh()}
+async function runAutoSearch(){
+  if(history.length<180){aResults.innerHTML='<div class="notice err">São necessários pelo menos 180 concursos.</div>';return}
+  let M=+aModels.value,games=+aGames.value,target=aTarget.value,nTr=+aTrain.value,nSel=+aSelect.value,nHo=+aHold.value,need=nTr+nSel+nHo;
+  if(need>history.length-30){aResults.innerHTML='<div class="notice err">Reduza as janelas para preservar o holdout.</div>';return}
+  let end=history.length,h0=end-nHo,s0=h0-nSel,t0=s0-nTr,specs=[],sc=[];
+  for(let m=0;m<M;m++){
+    let sp=modelSpec(420000+m*7919),r=evalSpec(sp,history,t0,s0,games,target,720000+m*31);
+    specs.push(sp);sc.push({m,train:r.delta});
+    if((m+1)%30===0){aProgress.textContent=`Discovery ${m+1}/${M}...`;await new Promise(r=>setTimeout(r,0))}
+  }
+  sc.sort((a,b)=>b.train-a.train);
+  let fin=sc.slice(0,Math.max(8,Math.ceil(M*.05)));
+  for(let x of fin)x.sel=evalSpec(specs[x.m],history,s0,h0,games,target,820000+x.m*37).delta;
+
+  // CHAMPION LOCK: ranking final determined BEFORE holdout.
+  fin.sort((a,b)=>b.sel-a.sel||b.train-a.train||a.m-b.m);
+  let champion=fin[0];
+  let runners=fin.slice(1,4);
+
+  let lockedAt=new Date().toISOString();
+  let lockedSpec=JSON.parse(JSON.stringify(specs[champion.m]));
+  let hold=evalSpec(lockedSpec,history,h0,end,games,target,920000+champion.m*41).delta;
+  champion.hold=hold;
+
+  // Holdout is evaluation only; it cannot swap champion.
+  let pass=champion.train>0&&champion.sel>0&&champion.hold>0;
+  let state={
+    version:'4.2',target,models:M,games,
+    windows:{train:nTr,selection:nSel,holdout:nHo},
+    championId:champion.m,championName:`AutoModel #${champion.m}`,
+    champion:lockedSpec,championTrain:champion.train,championSelection:champion.sel,championHoldout:champion.hold,
+    runners:runners.map(x=>({id:x.m,train:x.train,selection:x.sel})),
+    lockedAt,autoPass:pass,nullPassed:false,holdoutOpened:true,updatedAt:new Date().toISOString()
+  };
+  save(STATE,state);
+
+  let rr=runners.map(x=>`<tr><td>#${x.m}</td><td>${x.train.toFixed(4)}</td><td>${x.sel.toFixed(4)}</td><td>não aberto</td></tr>`).join('');
+  aResults.innerHTML=`<div class="notice ${pass?'ok':'err'}"><b>${pass?'CAMPEÃO BLOQUEADO SOBREVIVEU AO HOLDOUT — AINDA NO BET':'CAMPEÃO BLOQUEADO FALHOU NO HOLDOUT'}</b><br>Campeão #${champion.m} foi escolhido antes do holdout e congelado em ${lockedAt}. Holdout Δ = <b>${champion.hold.toFixed(4)}</b>. ${pass?'Agora pode enfrentar o Null Tournament.':'O protocolo proíbe trocar pelo segundo/terceiro colocado depois de ver o holdout.'}</div>
+  <div class="scrollx"><table><tr><th>Modelo</th><th>Discovery Δ</th><th>Selection Δ</th><th>Holdout Δ</th></tr>
+  <tr><td><b>#${champion.m} CAMPEÃO</b></td><td>${champion.train.toFixed(4)}</td><td>${champion.sel.toFixed(4)}</td><td><b>${champion.hold.toFixed(4)}</b></td></tr>${rr}</table></div>`;
+  aProgress.textContent=`${M} modelos → ${fin.length} seleção → 1 campeão bloqueado → 1 holdout aberto.`;
+  refresh()
+}
 function syntheticHistory(N,R){let a=[];for(let i=0;i<N;i++)a.push({numero:i+1,data:'',...randomDraw(R)});return a}
-async function runNullTournament(){let st=load(STATE,{});if(!st.autoPass||!st.candidate){nResults.innerHTML='<div class="notice err">Nenhum candidato para o Null Tournament.</div>';return}let W=+nWorlds.value,M=+nModels.value,target=st.target,games=st.games,real=st.holdoutDelta,ext=0,R=Rng(411411),nTr=Math.min(60,st.windows.train),nSel=Math.min(30,st.windows.selection),nHo=Math.min(20,st.windows.holdout),N=nTr+nSel+nHo+30;for(let w=0;w<W;w++){let sim=syntheticHistory(N,R),end=N,h0=end-nHo,s0=h0-nSel,t0=s0-nTr,sc=[];for(let m=0;m<M;m++){let sp=modelSpec(600000+w*100003+m*7919),r=evalSpec(sp,sim,t0,s0,games,target,620000+w*1009+m*17);sc.push({sp,tr:r.delta,m})}sc.sort((a,b)=>b.tr-a.tr);let fin=sc.slice(0,Math.max(5,Math.ceil(M*.05)));fin.forEach(x=>x.sel=evalSpec(x.sp,sim,s0,h0,games,target,630000+w*1013+x.m*19).delta);fin.sort((a,b)=>b.sel-a.sel);let nb=-Infinity;fin.slice(0,3).forEach(x=>nb=Math.max(nb,evalSpec(x.sp,sim,h0,end,games,target,640000+w*1019+x.m*23).delta));if(nb>=real-1e-12)ext++;if((w+1)%5===0){nProgress.textContent=`Null ${w+1}/${W}...`;await new Promise(r=>setTimeout(r,0))}}let p=(ext+1)/(W+1),pass=p<=.05;st.nullPassed=pass;st.nullP=p;save(STATE,st);nResults.innerHTML=`<div class="notice ${pass?'ok':'err'}"><b>${pass?'SOBREVIVEU AO NULL — CONTINUA NO BET':'REJEITADO PELO NULL TOURNAMENT'}</b><br>${ext}/${W} universos nulos igualaram/superaram o holdout real. p≈${p.toFixed(3)}.</div>`;nProgress.textContent='Concluído.';refresh()}
+async function runNullTournament(){
+  let st=load(STATE,{});
+  if(!st.autoPass||!st.champion){nResults.innerHTML='<div class="notice err">Nenhum campeão bloqueado aprovado no holdout para o Null Tournament.</div>';return}
+  let W=+nWorlds.value,M=+nModels.value,target=st.target,games=st.games,real=st.championHoldout,ext=0,R=Rng(422422),
+      nTr=Math.min(60,st.windows.train),nSel=Math.min(30,st.windows.selection),nHo=Math.min(20,st.windows.holdout),N=nTr+nSel+nHo+30;
+
+  for(let w=0;w<W;w++){
+    let sim=syntheticHistory(N,R),end=N,h0=end-nHo,s0=h0-nSel,t0=s0-nTr,sc=[],specs=[];
+    for(let m=0;m<M;m++){
+      let sp=modelSpec(660000+w*100003+m*7919),r=evalSpec(sp,sim,t0,s0,games,target,670000+w*1009+m*17);
+      specs.push(sp);sc.push({m,train:r.delta});
+    }
+    sc.sort((a,b)=>b.train-a.train);
+    let fin=sc.slice(0,Math.max(5,Math.ceil(M*.05)));
+    for(let x of fin)x.sel=evalSpec(specs[x.m],sim,s0,h0,games,target,680000+w*1013+x.m*19).delta;
+
+    // Same locked champion logic used on real data.
+    fin.sort((a,b)=>b.sel-a.sel||b.train-a.train||a.m-b.m);
+    let champ=fin[0];
+    let nullHold=evalSpec(specs[champ.m],sim,h0,end,games,target,690000+w*1019+champ.m*23).delta;
+
+    if(nullHold>=real-1e-12)ext++;
+    if((w+1)%5===0){nProgress.textContent=`Null ${w+1}/${W}...`;await new Promise(r=>setTimeout(r,0))}
+  }
+  let p=(ext+1)/(W+1),pass=p<=.05;
+  st.nullPassed=pass;st.nullP=p;st.nullWorlds=W;save(STATE,st);
+  nResults.innerHTML=`<div class="notice ${pass?'ok':'err'}"><b>${pass?'CAMPEÃO SOBREVIVEU AO NULL — CONTINUA NO BET':'CAMPEÃO REJEITADO PELO NULL TOURNAMENT'}</b><br>${ext}/${W} universos nulos produziram um campeão bloqueado com holdout igual ou superior ao real. p≈${p.toFixed(3)}.</div>`;
+  nProgress.textContent='Null Tournament concluído.';refresh()
+}
 function C(n,k){if(k<0||k>n)return 0;let r=1;for(let i=1;i<=k;i++)r=r*(n-k+i)/i;return Math.round(r)}function renderEconomy(){let B=+eBudget.value||120,T=+eTicket.value||6,formats=[[6,2],[6,3],[7,2],[7,3],[8,2],[6,4],[9,2]],rows=formats.map(([n,t])=>{let e=C(n,6)*C(t,2),cost=e*T,q=Math.floor(B/cost);return`<tr><td>${n}+${t}</td><td>${e}</td><td>R$ ${cost.toFixed(2)}</td><td>${q}</td><td>${q*e}</td></tr>`}).join('');eTable.innerHTML=`<table><tr><th>Formato</th><th>simples eq.</th><th>custo eq.</th><th>cabem</th><th>combinações pagas</th></tr>${rows}</table>`}
-function ledger(){return load(LEDGER,[])}function freezeNext(){let st=load(STATE,{});if(!st.autoPass||!st.nullPassed||!st.candidate){pResult.innerHTML='<div class="notice err">Precisa passar Autonomous Search + Holdout + Null Tournament.</div>';return}let last=history.at(-1),contest=last.numero+1,a=ledger();if(a.some(x=>x.contest===contest)){pResult.innerHTML='<div class="notice ok">Já congelado.</div>';return}let seed=contest*400009+41;a.push({contest,engine:'auto',engineName:st.candidateName,spec:st.candidate,createdAt:new Date().toISOString(),games:genAuto(st.candidate,history,st.games||20,seed),randomGames:gen('random',history,st.games||20,seed+17),result:null,randomResult:null});save(LEDGER,a);renderFreeze()}function evaluateFrozen(){let a=ledger(),ch=false;for(let e of a){if(e.result)continue;let d=history.find(x=>x.numero===e.contest);if(!d)continue;e.result=best(e.games,d);e.randomResult=best(e.randomGames,d);ch=true}if(ch)save(LEDGER,a);renderFreeze()}function renderFreeze(){let st=load(STATE,{}),a=ledger(),ev=a.filter(x=>x.result),C4=0,R4=0,C42=0,R42=0;ev.forEach(e=>{let c=flags(e.result),r=flags(e.randomResult);C4+=c.g4;R4+=r.g4;C42+=c.g42;R42+=r.g42});let gate=ev.length>=20&&C4>R4&&C42>R42?'PROMISSOR':'NO BET';pCandidate.textContent=st.candidateName||'—';pFrozen.textContent=a.length?'SIM':'NÃO';pEval.textContent=ev.length;pGate.textContent=gate;kGate.textContent=gate;pResult.innerHTML=`<div class="notice ${gate==='PROMISSOR'?'ok':'err'}"><b>${gate}</b><br>Prospectivos: ${ev.length}. 4+ ${C4}/${ev.length} vs ${R4}/${ev.length}. 4+2 ${C42}/${ev.length} vs ${R42}/${ev.length}.</div>`}function exportLedger(){let b=new Blob([JSON.stringify({version:'SSPSKN 4.1',ledger:ledger()},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='SSPSKN_4.1_PROSPECTIVE_LEDGER.json';a.click()}
-function incidents(){return load(INC,[])}function addIncident(){let c=+aContest.value;if(!c)return alert('Informe o concurso');let a=incidents();a.push({contest:c,type:aType.value,note:aNote.value.trim(),createdAt:new Date().toISOString()});save(INC,a);aNote.value='';renderInc()}function renderInc(){let a=incidents();aList.innerHTML=a.length?a.slice().reverse().map(x=>`<div class="game"><b>Concurso ${x.contest}</b> • ${x.type}<div class="small">${x.note||'sem observação'}</div></div>`).join(''):'<div class="small">Nenhum incidente registrado.</div>'}function exportIncidents(){let b=new Blob([JSON.stringify({version:'SSPSKN 4.1',incidents:incidents()},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='SSPSKN_4.1_INCIDENTS.json';a.click()}
+function ledger(){return load(LEDGER,[])}
+function freezeNext(){
+  let st=load(STATE,{});
+  if(!st.autoPass||!st.nullPassed||!st.champion){pResult.innerHTML='<div class="notice err">Precisa passar Locked Champion Holdout + Null Tournament.</div>';return}
+  let last=history.at(-1),contest=last.numero+1,a=ledger();
+  if(a.some(x=>x.contest===contest)){pResult.innerHTML='<div class="notice ok">Já congelado.</div>';return}
+  let seed=contest*420009+42;
+  a.push({contest,engine:'locked_auto',engineName:st.championName,spec:st.champion,createdAt:new Date().toISOString(),
+    games:genAuto(st.champion,history,st.games||20,seed),randomGames:gen('random',history,st.games||20,seed+17),result:null,randomResult:null});
+  save(LEDGER,a);renderFreeze()
+}
+function evaluateFrozen(){let a=ledger(),ch=false;for(let e of a){if(e.result)continue;let d=history.find(x=>x.numero===e.contest);if(!d)continue;e.result=best(e.games,d);e.randomResult=best(e.randomGames,d);ch=true}if(ch)save(LEDGER,a);renderFreeze()}
+function renderFreeze(){
+  let st=load(STATE,{}),a=ledger(),ev=a.filter(x=>x.result),C4=0,R4=0,C42=0,R42=0;
+  ev.forEach(e=>{let c=flags(e.result),r=flags(e.randomResult);C4+=c.g4;R4+=r.g4;C42+=c.g42;R42+=r.g42});
+  let gate=ev.length>=20&&C4>R4&&C42>R42?'PROMISSOR':'NO BET';
+  pCandidate.textContent=st.championName||'—';pFrozen.textContent=a.length?'SIM':'NÃO';pEval.textContent=ev.length;pGate.textContent=gate;kGate.textContent=gate;
+  pResult.innerHTML=`<div class="notice ${gate==='PROMISSOR'?'ok':'err'}"><b>${gate}</b><br>Prospectivos: ${ev.length}. 4+ ${C4}/${ev.length} vs ${R4}/${ev.length}. 4+2 ${C42}/${ev.length} vs ${R42}/${ev.length}.</div>`
+}
+function exportLedger(){let b=new Blob([JSON.stringify({version:'SSPSKN 4.2',ledger:ledger()},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='SSPSKN_4.2_PROSPECTIVE_LEDGER.json';a.click()}
+function incidents(){return load(INC,[])}function addIncident(){let c=+aContest.value;if(!c)return alert('Informe o concurso');let a=incidents();a.push({contest:c,type:aType.value,note:aNote.value.trim(),createdAt:new Date().toISOString()});save(INC,a);aNote.value='';renderInc()}function renderInc(){let a=incidents();aList.innerHTML=a.length?a.slice().reverse().map(x=>`<div class="game"><b>Concurso ${x.contest}</b> • ${x.type}<div class="small">${x.note||'sem observação'}</div></div>`).join(''):'<div class="small">Nenhum incidente registrado.</div>'}function exportIncidents(){let b=new Blob([JSON.stringify({version:'SSPSKN 4.2',incidents:incidents()},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='SSPSKN_4.2_INCIDENTS.json';a.click()}
 function refresh(){let last=history.at(-1);kConc.textContent=last?.numero||'—';kHist.textContent=history.length;kDate.textContent=last?fmtDate(last.data):'—';lastResult.innerHTML=last?`<b>Concurso ${last.numero}</b> • ${fmtDate(last.data)}<div style="height:8px"></div>${balls(last.dezenas)}<div style="height:6px"></div>${balls(last.trevos,'clover')}`:'Sem histórico.';if(history.length)setStatus('Dados locais',true);renderEconomy();renderFreeze();renderInc()}
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===b.dataset.page))});refresh();
 </script></body></html>

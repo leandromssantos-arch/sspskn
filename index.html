@@ -1,92 +1,30 @@
-<!doctype html>
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#06110d"><meta name="apple-mobile-web-app-capable" content="yes">
-<title>SSPSKN 5.0.1 • Crowding OOS Lab</title>
-<style>
-:root{--b:#06110d;--c:#102219;--l:#28503c;--t:#f1faf4;--m:#9db5a6;--a:#3fe38a;--g:#ffd15c;--r:#ff7379;--bl:#78bfff}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 100% 0,#123d29,transparent 31%),var(--b);color:var(--t);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.w{max-width:920px;margin:auto;padding:18px 14px 105px}header{display:flex;gap:12px;align-items:center}.logo{width:60px;height:60px;border-radius:18px;background:var(--a);color:#04130b;display:grid;place-items:center;font-weight:900}.logo small{font-size:13px}.ttl{font-size:25px;font-weight:850}.mut,.sm{color:var(--m);font-size:12px;line-height:1.5}.card{background:linear-gradient(180deg,#12281e,var(--c));border:1px solid var(--l);border-radius:19px;padding:16px;margin:13px 0}h2{font-size:18px;margin:0 0 12px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.k{background:#07170f;border:1px solid var(--l);border-radius:14px;padding:12px}.k b{font-size:20px;display:block}.k span{font-size:11px;color:var(--m)}.note{border-left:4px solid var(--g);background:#241f0d;padding:11px 12px;border-radius:11px;font-size:12px;line-height:1.5}.info{border-color:var(--bl);background:#102236}.ok{border-color:var(--a);background:#0a2517}.bad{border-color:var(--r);background:#2a1215}.row{display:flex;gap:8px;flex-wrap:wrap}.f{flex:1;min-width:125px}.f label{display:block;font-size:11px;color:var(--m);margin-bottom:5px}input,select,textarea{width:100%;padding:11px;border:1px solid var(--l);border-radius:11px;background:#07150f;color:var(--t)}button{padding:12px 14px;border:0;border-radius:12px;background:var(--a);color:#04130b;font-weight:850}.sec{background:#193b2b;color:var(--t);border:1px solid var(--l)}.page{display:none}.page.on{display:block}.tabs{position:fixed;left:0;right:0;bottom:0;background:#05100b;border-top:1px solid var(--l);padding:7px 5px calc(7px + env(safe-area-inset-bottom));z-index:10}.ti{max-width:920px;margin:auto;display:grid;grid-template-columns:repeat(6,1fr)}.tab{background:transparent;color:var(--m);font-size:10px;padding:8px 2px}.tab.on{background:#173a29;color:var(--t)}.pill{display:inline-block;border:1px solid var(--l);border-radius:999px;padding:3px 7px;font-size:10px;color:var(--m)}table{width:100%;border-collapse:collapse;font-size:11px}th,td{padding:7px 4px;border-bottom:1px solid var(--l);text-align:left}th{color:var(--m)}
-</style></head>
-<body><div class="w">
-<header><div class="logo">5.0<small>.1</small></div><div><div class="ttl">SSPSKN 5.0.1</div><div class="mut">Crowding OOS + Sync Lab • +Milionária</div></div></header>
-
-<section id="home" class="page on">
-<div class="card"><h2>Correção da 5.0</h2><div class="note info"><b>Dois objetivos:</b> atualizar a base local até o último concurso confirmado e transformar o Crowding de “TEST” em um teste OOS real. Se os dados econômicos forem insuficientes, o sistema bloqueia a conclusão em vez de inventar PASS.</div></div>
-<div class="card"><h2>Estado</h2><div class="grid"><div class="k"><b id="hn">0</b><span>concursos locais</span></div><div class="k"><b id="hl">—</b><span>último concurso</span></div><div class="k"><b id="he">0</b><span>registros econômicos</span></div><div class="k"><b id="hs">TEST</b><span>Crowding OOS</span></div></div></div>
-</section>
-
-<section id="sync" class="page">
-<div class="card"><h2>Sincronização verificada</h2><div class="sm">Pacote embutido nesta versão: concursos 387 e 388, que faltavam na sua base 386. A sincronização não apaga concursos existentes.</div>
-<button style="margin-top:10px" onclick="syncNow()">Sincronizar 387–388</button><div id="syOut"></div>
-<div style="overflow:auto;margin-top:10px"><table><thead><tr><th>Conc.</th><th>Data</th><th>Dezenas</th><th>Trevos</th></tr></thead><tbody><tr><td>387</td><td>06/09/2026</td><td>14 26 27 28 43 46</td><td>2 6</td></tr><tr><td>388</td><td>09/09/2026</td><td>11 17 21 23 34 41</td><td>3 5</td></tr></tbody></table></div></div>
-</section>
-
-<section id="econ" class="page">
-<div class="card"><h2>Economic Ledger</h2><div class="note">Para testar crowding precisamos de <b>arrecadação e quantidade de ganhadores 4+2</b> por concurso. Esta versão já inclui dados verificados de 387 e 388. Isso ainda é insuficiente para um OOS sério.</div>
-<div class="row" style="margin-top:10px"><div class="f"><label>Concurso</label><input id="ec" type="number"></div><div class="f"><label>Arrecadação R$</label><input id="er" type="number"></div><div class="f"><label>Ganhadores 4+2</label><input id="ew" type="number"></div></div>
-<button class="sec" style="margin-top:10px" onclick="addEconomic()">Adicionar/atualizar</button><div id="ecoOut"></div>
-<div id="ecoList"></div></div>
-</section>
-
-<section id="oos" class="page">
-<div class="card"><h2>Crowding OOS Tournament</h2>
-<div class="row"><div class="f"><label>Mínimo de concursos</label><select id="minN"><option>30</option><option selected>40</option><option>60</option><option>80</option></select></div><div class="f"><label>Holdout final</label><select id="hold"><option value=".20">20%</option><option value=".25" selected>25%</option><option value=".30">30%</option></select></div></div>
-<button style="margin-top:10px" onclick="runOOS()">Executar OOS</button><div id="oosOut"></div></div>
-</section>
-
-<section id="method" class="page">
-<div class="card"><h2>Definição pré-fixada</h2><div class="sm">
-<b>Crowding score do resultado:</b> nº de dezenas 1–31 + penalidades por sequência longa e excesso de múltiplos de 5.<br>
-<b>Resposta econômica:</b> ganhadores 4+2 por R$ 1 milhão arrecadado.<br>
-<b>Hipótese:</b> resultados de maior crowding produzem mais co-ganhadores por unidade de arrecadação.<br>
-<b>Teste:</b> ajuste linear no período Discovery; sinal e tamanho do efeito são então medidos no Holdout cronológico sem refit.<br>
-<b>Promoção:</b> slope positivo no Discovery e Holdout, redução relativa ≥10% entre quartis baixo/alto no Holdout e n suficiente. Caso contrário: DROP/INCONCLUSIVO.
-</div></div>
-</section>
-
-<section id="freeze" class="page">
-<div class="card"><h2>Freeze 5.0.1</h2><button onclick="freeze()">Congelar estado</button><div id="fz"></div></div>
-</section>
-</div>
-
-<nav class="tabs"><div class="ti">
-<button class="tab on" data-p="home">⌂<br>Início</button><button class="tab" data-p="sync">↻<br>Sync</button><button class="tab" data-p="econ">$<br>Ledger</button><button class="tab" data-p="oos">✓<br>OOS</button><button class="tab" data-p="method">ƒ<br>Método</button><button class="tab" data-p="freeze">▣<br>Freeze</button>
-</div></nav>
-
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>2 Milhões 2.7 — R6 Falsification Lab</title>
+<style>body{margin:0;background:#08111f;color:#eef2ff;font-family:-apple-system,Arial}header,main{padding:18px}header{border-bottom:1px solid #29405f}h1{font-size:23px}.card{background:#101c30;border:1px solid #29405f;border-radius:18px;padding:18px;margin:14px 0}.muted{color:#a6b4c8}.bad{color:#ff6680;font-size:32px;font-weight:900}.pill{display:inline-block;border:1px solid #36517a;border-radius:20px;padding:5px 9px;margin:2px;font-size:12px}input{width:100%;box-sizing:border-box;padding:13px;margin:8px 0;background:#091321;color:white;border:1px solid #29405f;border-radius:12px}button{padding:13px;border:0;border-radius:12px;background:#3478f6;color:white;font-weight:800;margin:4px}.bar{height:15px;background:#07101d;border-radius:10px;overflow:hidden}.fill{height:100%;width:0;background:#3478f6}.log{height:210px;overflow:auto;background:#050b14;padding:10px;border-radius:10px;white-space:pre-wrap;font:11px monospace}table{width:100%;font-size:11px;border-collapse:collapse}td,th{padding:7px;border-bottom:1px solid #29405f;text-align:right}td:first-child,th:first-child{text-align:left}</style>
+<header><h1>2 Milhões 2.7 — R6 Replication & Falsification Lab</h1><div class="muted">R6 congelado • 8 seeds • 3 blocos temporais • matched random • 13+ primário • NO BET</div></header><main>
+<div class="card"><span class="pill">2.6 ALL DROP</span><span class="pill">R6 +0,757 pp • 4/4 seeds</span><p>Decisão</p><div id="status" class="bad">NO BET</div><div id="reason" class="muted">R6 é hipótese de pesquisa congelada.</div></div>
+<div class="card"><h2>Histórico</h2><b id="count">0</b> concursos • último <b id="last">—</b><input id="file" type="file" accept=".json,.csv,.txt"></div>
+<div class="card"><h2>Protocolo pré-fixado</h2><p class="muted">R6 precisa: Δ13+ &gt; 0; ≥6/8 seeds positivas; ≥2/3 blocos positivos; p&lt;0,05. PASS histórico = HOLD, nunca BET.</p>
+<label>Jogos</label><input id="games" type="number" value="20"><label>Randoms equivalentes</label><input id="randoms" type="number" value="40"><label>Seed-base</label><input id="seed" type="number" value="27092026"><button id="run">Executar falsificação</button><button id="stop" disabled>Parar</button></div>
+<div class="card"><h2>Progresso</h2><div id="phase" class="muted">Aguardando.</div><div class="bar"><div id="fill" class="fill"></div></div><div id="pct">0%</div></div>
+<div class="card"><h2>Resultado</h2><table><thead><tr><th>Teste</th><th>Cand.</th><th>Random</th><th>Δ pp</th><th>Seeds+</th><th>Blocos+</th><th>p</th></tr></thead><tbody id="res"><tr><td colspan="7">Aguardando</td></tr></tbody></table><p id="blocks" class="muted"></p></div>
+<div class="card"><h2>Evidence Ledger</h2><div id="log" class="log">2.7 iniciado. R6 congelado. NO BET preservado.\n</div><button id="export">Exportar ledger</button></div>
 <script>
-const H='sspskn_history',E='sspskn_501_economic',S='sspskn_501_state';
-const pack=[
- {numero:387,data:'06/09/2026',dezenas:[14,26,27,28,43,46],trevos:[2,6]},
- {numero:388,data:'09/09/2026',dezenas:[11,17,21,23,34,41],trevos:[3,5]}
-];
-const epack=[
- {numero:387,receita:10725078,ganh42:100,fonte:'verificado'},
- {numero:388,receita:8576856,ganh42:113,fonte:'verificado'}
-];
-function load(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}}function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
-function hist(){return load(H,[])}function eco(){return load(E,[])}
-function crowdScore(n){let low=n.filter(x=>x<=31).length,mx=1,q=1;let a=n.slice().sort((x,y)=>x-y);for(let i=1;i<a.length;i++){q=a[i]===a[i-1]+1?q+1:1;mx=Math.max(mx,q)}let round=n.filter(x=>x%5===0).length;return low+Math.max(0,mx-2)*1.4+Math.max(0,round-2)*.7}
-function refresh(){let h=hist(),e=eco();hn.textContent=h.length;hl.textContent=h.at(-1)?.numero||'—';he.textContent=e.length;let st=load(S,{});hs.textContent=st.oos?.status||'TEST';renderEco()}
-function syncNow(){
- let h=hist(),map=new Map(h.map(x=>[Number(x.numero),x]));for(let x of pack)if(!map.has(x.numero))h.push(x);h.sort((a,b)=>Number(a.numero)-Number(b.numero));save(H,h);
- let e=eco(),em=new Map(e.map(x=>[Number(x.numero),x]));for(let x of epack)if(!em.has(x.numero))e.push(x);e.sort((a,b)=>a.numero-b.numero);save(E,e);
- syOut.innerHTML='<div class="note ok" style="margin-top:10px">Sincronização concluída. Base local preservada e acrescida de 387–388.</div>';refresh()
-}
-function addEconomic(){let c=+ec.value,r=+er.value,w=+ew.value;if(!c||!r||w<0){ecoOut.innerHTML='<div class="note bad" style="margin-top:10px">Preencha concurso, arrecadação e ganhadores 4+2.</div>';return}
- let e=eco(),i=e.findIndex(x=>x.numero===c),o={numero:c,receita:r,ganh42:w,fonte:'manual'};if(i>=0)e[i]=o;else e.push(o);e.sort((a,b)=>a.numero-b.numero);save(E,e);ecoOut.innerHTML='<div class="note ok" style="margin-top:10px">Registro salvo.</div>';refresh()
-}
-function renderEco(){let e=eco();ecoList.innerHTML=e.slice().reverse().slice(0,20).map(x=>`<div class="k" style="margin-top:7px"><b>Concurso ${x.numero}</b><span>R$ ${x.receita.toLocaleString('pt-BR')} • 4+2: ${x.ganh42} • ${(x.ganh42/(x.receita/1e6)).toFixed(2)} ganh./R$1 mi</span></div>`).join('')}
-function fit(rows){let n=rows.length,mx=rows.reduce((s,r)=>s+r.x,0)/n,my=rows.reduce((s,r)=>s+r.y,0)/n,num=0,den=0;for(let r of rows){num+=(r.x-mx)*(r.y-my);den+=(r.x-mx)**2}return den?num/den:0}
-function quartileEffect(rows){let a=rows.slice().sort((x,y)=>x.x-y.x),q=Math.max(1,Math.floor(a.length/4)),lo=a.slice(0,q),hi=a.slice(-q);let ml=lo.reduce((s,r)=>s+r.y,0)/lo.length,mh=hi.reduce((s,r)=>s+r.y,0)/hi.length;return {low:ml,high:mh,rel:mh?((mh-ml)/mh):0}}
-function runOOS(){
- let hmap=new Map(hist().map(x=>[Number(x.numero),x])),rows=[];
- for(let z of eco()){let h=hmap.get(Number(z.numero));if(!h||!h.dezenas||z.receita<=0)continue;rows.push({numero:z.numero,x:crowdScore(h.dezenas),y:z.ganh42/(z.receita/1e6)})}
- rows.sort((a,b)=>a.numero-b.numero);let mn=+minN.value;if(rows.length<mn){let st=load(S,{});st.oos={status:'INCONCLUSIVO',n:rows.length,required:mn,at:new Date().toISOString()};save(S,st);hs.textContent='INCONCLUSIVO';oosOut.innerHTML=`<div class="note bad" style="margin-top:10px"><b>INCONCLUSIVO.</b> Há ${rows.length} concursos econômicos válidos; o protocolo exige pelo menos ${mn}. Não existe base suficiente para promover ou derrubar o Crowding Engine.</div>`;return}
- let cut=Math.floor(rows.length*(1-parseFloat(hold.value))),d=rows.slice(0,cut),o=rows.slice(cut),sd=fit(d),so=fit(o),q=quartileEffect(o);
- let pass=sd>0&&so>0&&q.rel>=.10,status=pass?'PASS':'DROP';let st=load(S,{});st.oos={status,n:rows.length,discovery:d.length,holdout:o.length,slopeDiscovery:sd,slopeHoldout:so,quartile:q,at:new Date().toISOString()};save(S,st);hs.textContent=status;
- oosOut.innerHTML=`<div class="grid" style="margin-top:10px"><div class="k"><b>${rows.length}</b><span>concursos</span></div><div class="k"><b>${sd.toFixed(3)}</b><span>slope discovery</span></div><div class="k"><b>${so.toFixed(3)}</b><span>slope holdout</span></div><div class="k"><b>${status}</b><span>resultado</span></div></div><div class="note ${pass?'ok':'bad'}" style="margin-top:10px">Holdout: crowd baixo ${q.low.toFixed(2)} vs alto ${q.high.toFixed(2)} ganhadores 4+2/R$1 mi; redução relativa ${(q.rel*100).toFixed(1)}%. ${pass?'Critério mínimo atendido; ainda requer replicação prospectiva antes de uso econômico.':'Crowding não passou o protocolo pré-fixado.'}</div>`
-}
-function freeze(){let st=load(S,{});st.freeze={at:new Date().toISOString(),historyLast:hist().at(-1)?.numero||null,economicN:eco().length,oos:st.oos||null,predictive:'LOCKED_NO_VERIFIED_EDGE'};save(S,st);fz.innerHTML='<div class="note ok" style="margin-top:10px">Estado 5.0.1 congelado.</div>'}
-refresh();document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab,.page').forEach(x=>x.classList.remove('on'));b.classList.add('on');document.getElementById(b.dataset.p).classList.add('on')})
-</script></body></html>
+const $=x=>document.getElementById(x);let H=[],STOP=false,STATE=null,C=new Map();
+function L(s){$('log').textContent+='['+new Date().toISOString()+'] '+s+'\n';$('log').scrollTop=999999}function Y(){return new Promise(r=>setTimeout(r,0))}
+function U(a){return [...new Set((a||[]).map(Number).filter(n=>n>0&&n<26))].sort((a,b)=>a-b)}
+function parse(t,n){let R=[];if(n.endsWith('.json')){let d=JSON.parse(t),s=Array.isArray(d)?d:(d.history||d.concursos||[]);R=s.map((x,i)=>Array.isArray(x)?{concurso:i+1,dezenas:U(x)}:{concurso:+(x.concurso||x.numero||i+1),dezenas:U(x.dezenas||x.listaDezenas||x.numeros)})}else R=t.split(/\r?\n/).map((r,i)=>{let a=(r.match(/\d+/g)||[]).map(Number);return a.length>=16?{concurso:a[0],dezenas:U(a.slice(1,16))}:a.length>=15?{concurso:i+1,dezenas:U(a.slice(0,15))}:null}).filter(Boolean);R=R.filter(x=>x.dezenas.length===15);if(!R.length)throw Error('Nenhum concurso válido');return R.sort((a,b)=>a.concurso-b.concurso)}
+$('file').onchange=async e=>{try{let f=e.target.files[0];H=parse(await f.text(),f.name.toLowerCase());localStorage.setItem('2m27h',JSON.stringify(H));render();L('Histórico importado: '+H.length)}catch(e){alert(e.message)}};function render(){$('count').textContent=H.length;$('last').textContent=H.length?H.at(-1).concurso:'—'}
+function rng(a){return function(){let t=a+=0x6D2B79F5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}function mix(s,a,b){let x=s^Math.imul(a||1,2654435761)^Math.imul(b||1,2246822519);x^=x>>>16;return x>>>0}
+function game(r){let a=Array.from({length:25},(_,i)=>i+1);for(let i=24;i;i--){let j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a.slice(0,15).sort((a,b)=>a-b)}
+function hit(a,b){let s=new Set(a),z=0;for(let x of b)if(s.has(x))z++;return z}function ev(P,d){return P.some(g=>hit(g,d)>=13)?1:0}
+function pen(P){let q=0;for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++)q+=Math.max(0,hit(P[i],P[j])-9)**2;return q}
+function div(P,r,st=70){let s=pen(P);for(let z=0;z<st;z++){let i=Math.floor(r()*P.length),o=P[i],g=game(r);P[i]=g;let n=pen(P);if(n<=s)s=n;else P[i]=o}return P}
+function stats(i){if(C.has(i))return C.get(i);let f=[60,180,600].map(()=>Array(26).fill(0));for(let j=Math.max(0,i-600);j<i;j++)for(let n of H[j].dezenas){if(j>=i-60)f[0][n]++;if(j>=i-180)f[1][n]++;f[2][n]++}let o={f,n:[Math.min(60,i),Math.min(180,i),Math.min(600,i)]};C.set(i,o);return o}
+function wg(w,r){return Array.from({length:25},(_,i)=>[Math.log(w[i+1])-Math.log(-Math.log(Math.max(1e-9,r()))),i+1]).sort((a,b)=>b[0]-a[0]).slice(0,15).map(x=>x[1]).sort((a,b)=>a-b)}
+function sel(pool,z,r){let P=[];pool=[...pool];while(P.length<z){let bi=0,bs=-1e9;for(let i=0;i<pool.length;i++){let sc=P.reduce((s,h)=>s-Math.max(0,hit(pool[i],h)-9)*6,0);if(sc>bs){bs=sc;bi=i}}P.push(pool.splice(bi,1)[0])}return div(P,r)}
+function R6(z,i,s,c){let r=rng(mix(s,c,101)),best,bs=1e9;for(let t=0;t<12;t++){let P=Array.from({length:z},()=>game(r)),v=pen(P);if(v<bs){bs=v;best=P}}let A=div(best,r,130),S=stats(i),pool=[];for(let mode=0;mode<2;mode++){let w=Array(26).fill(1);for(let n=1;n<=25;n++){let a=S.n[0]?S.f[0][n]/S.n[0]:.6,b=S.n[1]?S.f[1][n]/S.n[1]:.6,d=S.n[2]?S.f[2][n]/S.n[2]:.6,v=mode?(.5*(a-.6)+.3*(b-.6)+.2*(d-.6)):(b-.6);w[n]=Math.exp(Math.max(-.3,Math.min(.3,v/.08*.14)))}let q=rng(mix(s,c,105+mode));pool.push(...div(Array.from({length:z},()=>wg(w,q)),q))}let C2=sel(pool,z,rng(mix(s,c,203)));return sel([...A,...C2],z,rng(mix(s,c,206)))}
+function mean(a){return a.reduce((s,x)=>s+x,0)/a.length}function ps(d,s,B=1200){let o=mean(d),r=rng(s),ge=1;for(let b=0;b<B;b++){let x=0;for(let v of d)x+=(r()<.5?-v:v);if(x/d.length>=o)ge++}return ge/(B+1)}
+async function run(){if(H.length<1000){alert('Importe o histórico completo.');return}STOP=false;$('run').disabled=true;$('stop').disabled=false;C.clear();let z=+$('games').value||20,rc=+$('randoms').value||40,b=+$('seed').value||27092026,seeds=[b,11,23,37,53,71,89,107].map((x,i)=>i?mix(b,x,i):b),N=600,start=H.length-N,all=[],per=[];L('Falsificação: 8 seeds x 600 concursos.');try{for(let si=0;si<8;si++){let D=[],ca=[],ra=[];for(let j=0;j<N;j++){if(STOP)throw Error('Interrompido');let i=start+j,d=H[i],P=R6(z,i,seeds[si],d.concurso),rv=0;for(let k=0;k<rc;k++){let q=rng(mix(seeds[si],d.concurso,1000+k));rv+=ev(Array.from({length:z},()=>game(q)),d.dezenas)}let rr=rv/rc,cc=ev(P,d.dezenas);D.push(cc-rr);all.push(cc-rr);ca.push(cc);ra.push(rr);let done=si*N+j+1,p=Math.round(done/(8*N)*100);$('fill').style.width=p+'%';$('pct').textContent=p+'%';$('phase').textContent='Seed '+(si+1)+'/8 • '+(j+1)+'/600';await Y()}per.push({c:mean(ca),r:mean(ra),d:mean(D)});L('Seed '+(si+1)+': Δ '+(mean(D)*100).toFixed(3)+' pp')}let blocks=[];for(let q=0;q<3;q++){let v=[];for(let si=0;si<8;si++)v.push(...all.slice(si*N+q*200,si*N+(q+1)*200));blocks.push(mean(v))}let ca=mean(per.map(x=>x.c)),ra=mean(per.map(x=>x.r)),dd=mean(per.map(x=>x.d)),sp=per.filter(x=>x.d>0).length,bp=blocks.filter(x=>x>0).length,pv=ps(all,mix(b,999,1)),pass=dd>0&&sp>=6&&bp>=2&&pv<.05;$('res').innerHTML=`<tr><td>R6 frozen</td><td>${(ca*100).toFixed(3)}%</td><td>${(ra*100).toFixed(3)}%</td><td>${(dd*100).toFixed(3)}</td><td>${sp}/8</td><td>${bp}/3</td><td>${pv.toFixed(4)}</td></tr>`;$('blocks').textContent=blocks.map((x,i)=>'Bloco '+(i+1)+': '+(x*100).toFixed(3)+' pp').join(' • ');STATE={ca,ra,dd,sp,bp,pv,blocks,per,pass};localStorage.setItem('2m27s',JSON.stringify(STATE));if(pass){$('status').textContent='HOLD';$('status').style.color='#f7c948';$('reason').textContent='R6 sobreviveu historicamente. Próximo passo: freeze prospectivo.';L('HOLD. Não apostar.')}else{$('reason').textContent='R6 falhou em pelo menos um critério. NO BET.';L('Falsificação não aprovada. NO BET.')}}catch(e){L(e.message)}finally{$('run').disabled=false;$('stop').disabled=true}}
+$('run').onclick=run;$('stop').onclick=()=>STOP=true;$('export').onclick=()=>{let a=document.createElement('a'),b=new Blob([JSON.stringify({app:'2 Milhões 2.7',state:STATE,ledger:$('log').textContent},null,2)],{type:'application/json'});a.href=URL.createObjectURL(b);a.download='2_MILHOES_2_7_LEDGER.json';a.click()}
+try{H=JSON.parse(localStorage.getItem('2m27h')||'[]')}catch{}render()
+</script></main>

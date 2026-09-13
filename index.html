@@ -1,115 +1,30 @@
-<!doctype html>
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#06110d"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="SSPSKN 4.9">
-<title>SSPSKN 4.9 • Physical & Operational Evidence Lab</title>
-<style>
-:root{--bg:#06110d;--card:#102118;--txt:#eef8f1;--muted:#9db3a6;--acc:#43e68d;--gold:#ffd66b;--danger:#ff7178;--line:#264638;--blue:#83bfff}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 100% 0,#123b27,transparent 34%),var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;min-height:100vh}.wrap{max-width:980px;margin:auto;padding:20px 14px 110px}header{display:flex;gap:12px;align-items:center;margin-bottom:14px}.logo{width:56px;height:56px;border-radius:17px;background:linear-gradient(145deg,var(--acc),#12834d);display:grid;place-items:center;color:#04120b;font-weight:900}.sub,.small{color:var(--muted);font-size:12px;line-height:1.45}h1{margin:0;font-size:24px}.status{margin-left:auto;color:var(--muted);font-size:12px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--acc);margin-right:5px}.card{background:linear-gradient(180deg,#12271d,var(--card));border:1px solid var(--line);border-radius:18px;padding:16px;margin:12px 0}.card h2{font-size:17px;margin:0 0 12px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.kpi{background:#08170f;border:1px solid var(--line);border-radius:14px;padding:12px}.kpi b{font-size:20px;display:block}.kpi span{font-size:11px;color:var(--muted)}.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.field{flex:1;min-width:130px}.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:5px}.btn{border:0;border-radius:12px;padding:12px 14px;font-weight:800;background:var(--acc);color:#031109}.btn.secondary{background:#173728;color:var(--txt);border:1px solid #315a44}.btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}input,select,textarea{width:100%;background:#07150f;color:var(--txt);border:1px solid var(--line);border-radius:11px;padding:11px}.notice{border-left:3px solid var(--gold);background:#201d0e;color:#f4e8c0;border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.45}.notice.ok{border-left-color:var(--acc);background:#0c2217;color:#c9f6d9}.notice.err{border-left-color:var(--danger);background:#2b1416;color:#ffd6d8}.notice.info{border-left-color:var(--blue);background:#102031;color:#d7eaff}.tabs{position:fixed;left:0;right:0;bottom:0;background:rgba(6,17,13,.97);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center}.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(6,1fr);gap:4px}.tab{border:0;background:transparent;color:var(--muted);padding:8px 3px;border-radius:11px;font-size:10px;font-weight:700}.tab.active{background:#173526;color:var(--txt)}.page{display:none}.page.active{display:block}.scrollx{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:8px 5px;text-align:left;border-bottom:1px solid var(--line)}th{color:var(--muted)}.badge{display:inline-block;padding:4px 7px;border-radius:999px;background:#173526;border:1px solid var(--line);font-size:10px}.game{background:#08150f;border:1px solid var(--line);border-radius:14px;padding:10px;margin:7px 0}@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}}
-</style>
-</head>
-<body><div class="wrap">
-<header><div class="logo">AI</div><div><h1>SSPSKN 4.9</h1><div class="sub">Physical & Operational Evidence Lab • +Milionária</div></div><div class="status"><span class="dot"></span><span>Dados locais</span></div></header>
-
-<section id="home" class="page active">
-<div class="card"><h2>Pergunta A</h2><div class="notice info"><b>Existe informação física ou operacional disponível antes do sorteio com poder preditivo real?</b><br>A 4.9 não presume que exista. Ela constrói a base de evidências necessária para testar a hipótese sem usar incidentes como previsão por definição.</div></div>
-<div class="card"><h2>Estado científico</h2><div class="grid"><div class="kpi"><b id="kHist">0</b><span>concursos locais</span></div><div class="kpi"><b id="kLast">—</b><span>último concurso</span></div><div class="kpi"><b id="kInc">0</b><span>eventos registrados</span></div><div class="kpi"><b>NO BET</b><span>nenhum preditor liberado</span></div></div></div>
-<div class="card"><h2>Regra de ouro</h2><div class="notice">Um evento operacional só pode avançar para teste preditivo se tiver <b>fonte verificável</b>, ocorrer <b>antes ou durante o sorteio de forma observável</b>, tiver definição pré-fixada e sobreviver a controles/permutação. Associação retrospectiva isolada não basta.</div></div>
-</section>
-
-<section id="ledger" class="page">
-<div class="card"><h2>Evidence Ledger</h2>
-<div class="row"><div class="field"><label>Concurso</label><input id="lContest" type="number"></div><div class="field"><label>Data</label><input id="lDate" type="date"></div></div>
-<div class="row" style="margin-top:8px"><div class="field"><label>Tipo</label><select id="lType">
-<option value="manual_ball_release">liberação manual de bola</option>
-<option value="multiple_ejection">ejeção múltipla</option>
-<option value="globe_intervention">intervenção no globo</option>
-<option value="equipment_change">troca de equipamento</option>
-<option value="location_change">mudança de local</option>
-<option value="schedule_change">mudança de horário</option>
-<option value="audit_exception">exceção/auditoria</option>
-<option value="other">outro</option>
-</select></div><div class="field"><label>Momento</label><select id="lMoment"><option value="pre">pré-sorteio</option><option value="during">durante</option><option value="post">pós-sorteio</option></select></div></div>
-<div class="row" style="margin-top:8px"><div class="field"><label>Fonte</label><input id="lSource" placeholder="URL, vídeo, documento, transmissão..."></div><div class="field"><label>Força da evidência</label><select id="lStrength"><option value="A">A — oficial/primária</option><option value="B">B — registro audiovisual claro</option><option value="C">C — secundária</option></select></div></div>
-<div class="field" style="margin-top:8px"><label>Observação objetiva</label><textarea id="lNote" rows="3" placeholder="Descreva apenas o que foi observado, sem interpretar como previsão."></textarea></div>
-<button class="btn" style="margin-top:10px" onclick="addIncident()">Registrar evento</button><div id="lOut"></div><div id="ledgerList"></div></div>
-</section>
-
-<section id="quality" class="page">
-<div class="card"><h2>Data Quality Gate</h2><div class="small">A 4.9 mede se a base já tem qualidade suficiente para qualquer teste causal/associativo.</div>
-<button class="btn" onclick="runQuality()" style="margin-top:10px">Avaliar qualidade da base</button><div id="qOut"></div></div>
-</section>
-
-<section id="audit" class="page">
-<div class="card"><h2>Association Audit</h2><div class="small">Teste exploratório apenas para eventos com evidência A/B. Compara métricas simples entre concursos com evento e controles. Não libera previsão.</div>
-<div class="row" style="margin-top:10px"><div class="field"><label>Tipo de evento</label><select id="aType"></select></div><div class="field"><label>Permutações</label><select id="aPerm"><option>250</option><option selected>1000</option><option>5000</option></select></div></div>
-<button class="btn" style="margin-top:10px" onclick="runAudit()">Executar audit de associação</button><div id="aOut"></div></div>
-</section>
-
-<section id="matrix" class="page">
-<div class="card"><h2>Status da Pergunta A</h2><div id="aStatus" class="notice">Ainda aberta.</div><div class="small" style="margin-top:10px">Para responder A de forma séria precisamos de volume, qualidade e temporalidade dos metadados. Se não houver base suficiente, a resposta correta será “não demonstrável com os dados disponíveis”, e não uma invenção.</div></div>
-</section>
-
-<section id="freeze" class="page">
-<div class="card"><h2>Evidence Freeze</h2><div class="notice info">Congela a base e o status metodológico. Não congela apostas nem preditores.</div><button class="btn" onclick="freezeEvidence()">Congelar evidência atual</button><button class="btn ghost" onclick="exportState()" style="margin-left:6px">Exportar</button><div id="fzOut"></div></div>
-</section>
-</div>
-
-<nav class="tabs"><div class="tabsin">
-<button class="tab active" data-page="home">⌂<br>Início</button><button class="tab" data-page="ledger">＋<br>Ledger</button><button class="tab" data-page="quality">✓<br>Qualidade</button><button class="tab" data-page="audit">σ<br>Audit</button><button class="tab" data-page="matrix">A<br>Status A</button><button class="tab" data-page="freeze">◇<br>Freeze</button>
-</div></nav>
-
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>2 Milhões 2.7 — R6 Falsification Lab</title>
+<style>body{margin:0;background:#08111f;color:#eef2ff;font-family:-apple-system,Arial}header,main{padding:18px}header{border-bottom:1px solid #29405f}h1{font-size:23px}.card{background:#101c30;border:1px solid #29405f;border-radius:18px;padding:18px;margin:14px 0}.muted{color:#a6b4c8}.bad{color:#ff6680;font-size:32px;font-weight:900}.pill{display:inline-block;border:1px solid #36517a;border-radius:20px;padding:5px 9px;margin:2px;font-size:12px}input{width:100%;box-sizing:border-box;padding:13px;margin:8px 0;background:#091321;color:white;border:1px solid #29405f;border-radius:12px}button{padding:13px;border:0;border-radius:12px;background:#3478f6;color:white;font-weight:800;margin:4px}.bar{height:15px;background:#07101d;border-radius:10px;overflow:hidden}.fill{height:100%;width:0;background:#3478f6}.log{height:210px;overflow:auto;background:#050b14;padding:10px;border-radius:10px;white-space:pre-wrap;font:11px monospace}table{width:100%;font-size:11px;border-collapse:collapse}td,th{padding:7px;border-bottom:1px solid #29405f;text-align:right}td:first-child,th:first-child{text-align:left}</style>
+<header><h1>2 Milhões 2.7 — R6 Replication & Falsification Lab</h1><div class="muted">R6 congelado • 8 seeds • 3 blocos temporais • matched random • 13+ primário • NO BET</div></header><main>
+<div class="card"><span class="pill">2.6 ALL DROP</span><span class="pill">R6 +0,757 pp • 4/4 seeds</span><p>Decisão</p><div id="status" class="bad">NO BET</div><div id="reason" class="muted">R6 é hipótese de pesquisa congelada.</div></div>
+<div class="card"><h2>Histórico</h2><b id="count">0</b> concursos • último <b id="last">—</b><input id="file" type="file" accept=".json,.csv,.txt"></div>
+<div class="card"><h2>Protocolo pré-fixado</h2><p class="muted">R6 precisa: Δ13+ &gt; 0; ≥6/8 seeds positivas; ≥2/3 blocos positivos; p&lt;0,05. PASS histórico = HOLD, nunca BET.</p>
+<label>Jogos</label><input id="games" type="number" value="20"><label>Randoms equivalentes</label><input id="randoms" type="number" value="40"><label>Seed-base</label><input id="seed" type="number" value="27092026"><button id="run">Executar falsificação</button><button id="stop" disabled>Parar</button></div>
+<div class="card"><h2>Progresso</h2><div id="phase" class="muted">Aguardando.</div><div class="bar"><div id="fill" class="fill"></div></div><div id="pct">0%</div></div>
+<div class="card"><h2>Resultado</h2><table><thead><tr><th>Teste</th><th>Cand.</th><th>Random</th><th>Δ pp</th><th>Seeds+</th><th>Blocos+</th><th>p</th></tr></thead><tbody id="res"><tr><td colspan="7">Aguardando</td></tr></tbody></table><p id="blocks" class="muted"></p></div>
+<div class="card"><h2>Evidence Ledger</h2><div id="log" class="log">2.7 iniciado. R6 congelado. NO BET preservado.\n</div><button id="export">Exportar ledger</button></div>
 <script>
-const HIST='sspskn_history', INC='sspskn_49_incidents', STATE='sspskn_49_state';
-let history=load(HIST,[]);
-function load(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}} function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
-function fmtDate(s){if(!s)return'—';if(s.includes('/'))return s;let p=s.split('-');return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:s}
-function fn(n){return Number(n).toLocaleString('pt-BR')} function pct(x,d=1){return (x*100).toFixed(d)+'%'}
-function incidents(){return load(INC,[])}
-function render(){
- let a=incidents(),last=history.at(-1);kHist.textContent=history.length;kLast.textContent=last?.numero||'—';kInc.textContent=a.length;
- ledgerList.innerHTML=a.slice().reverse().slice(0,30).map((x,i)=>`<div class="game"><b>Concurso ${x.contest}</b> • <span class="badge">${x.type}</span> <span class="badge">${x.strength}</span><div class="small">${x.date||''} • ${x.moment}<br>${x.note}<br>${x.source}</div></div>`).join('')||'<div class="small" style="margin-top:10px">Nenhum evento registrado.</div>';
- let types=[...new Set(a.map(x=>x.type))];aType.innerHTML=types.map(t=>`<option value="${t}">${t}</option>`).join('')||'<option value="">sem eventos</option>';
- updateStatus()
-}
-function addIncident(){
- let c=+lContest.value,n=lNote.value.trim(),s=lSource.value.trim();if(!c||!n||!s){lOut.innerHTML='<div class="notice err">Concurso, fonte e observação são obrigatórios.</div>';return}
- let a=incidents();a.push({contest:c,date:lDate.value,type:lType.value,moment:lMoment.value,source:s,strength:lStrength.value,note:n,createdAt:new Date().toISOString()});save(INC,a);lNote.value='';lSource.value='';lOut.innerHTML='<div class="notice ok">Evento registrado como evidência, não como preditor.</div>';render()
-}
-function runQuality(){
- let a=incidents(),strong=a.filter(x=>x.strength==='A'||x.strength==='B'),pre=a.filter(x=>x.moment==='pre'||x.moment==='during'),withDate=a.filter(x=>x.date),uniq=new Set(a.map(x=>x.contest)).size;
- let score=0;if(a.length>=20)score++;if(strong.length/a.length>=.8)score++;if(pre.length/a.length>=.8)score++;if(withDate.length/a.length>=.9)score++;if(uniq>=15)score++;
- let grade=score>=5?'PRONTA PARA AUDIT EXPLORATÓRIO':score>=3?'PARCIAL':'INSUFICIENTE';
- qOut.innerHTML=`<div class="grid" style="margin-top:10px"><div class="kpi"><b>${a.length}</b><span>eventos</span></div><div class="kpi"><b>${strong.length}</b><span>evidência A/B</span></div><div class="kpi"><b>${uniq}</b><span>concursos únicos</span></div><div class="kpi"><b>${grade}</b><span>quality gate</span></div></div>`;
- let st=load(STATE,{});st.quality={score,grade,total:a.length,strong:strong.length,unique:uniq,at:new Date().toISOString()};save(STATE,st);updateStatus()
-}
-function hash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
-function rng(seed){let x=seed|0;return()=>{x|=0;x=x+0x6D2B79F5|0;let t=Math.imul(x^x>>>15,1|x);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
-function metric(contests){
- let map=new Map(history.map(h=>[Number(h.numero),h])),vals=[];
- for(let c of contests){let h=map.get(Number(c));if(!h||!h.dezenas||h.dezenas.length!==6)continue;vals.push(h.dezenas.reduce((a,b)=>a+b,0))}
- if(!vals.length)return null;return vals.reduce((a,b)=>a+b,0)/vals.length
-}
-async function runAudit(){
- let t=aType.value,P=+aPerm.value,a=incidents().filter(x=>x.type===t&&(x.strength==='A'||x.strength==='B')&&(x.moment==='pre'||x.moment==='during'));
- let eventCont=[...new Set(a.map(x=>x.contest))];if(eventCont.length<5){aOut.innerHTML='<div class="notice err">Precisamos de pelo menos 5 concursos com esse evento em evidência A/B para um audit exploratório mínimo.</div>';return}
- let obs=metric(eventCont);if(obs==null)return;
- let all=history.map(h=>Number(h.numero)).filter(Number.isFinite),R=rng(hash(t+P)),ext=0,means=[];
- for(let p=0;p<P;p++){let samp=all.slice().sort(()=>R()-.5).slice(0,eventCont.length),m=metric(samp);means.push(m);if(Math.abs(m-150)>=Math.abs(obs-150))ext++;if(p%200===0)await new Promise(r=>setTimeout(r,0))}
- let pv=(ext+1)/(P+1),mu=means.reduce((a,b)=>a+b,0)/means.length;
- aOut.innerHTML=`<div class="grid" style="margin-top:10px"><div class="kpi"><b>${eventCont.length}</b><span>concursos com evento</span></div><div class="kpi"><b>${obs.toFixed(2)}</b><span>soma média das dezenas</span></div><div class="kpi"><b>${mu.toFixed(2)}</b><span>média nula</span></div><div class="kpi"><b>${pv.toFixed(4)}</b><span>p permutação</span></div></div><div class="notice" style="margin-top:10px">Este audit é exploratório e usa uma métrica simples. Mesmo p baixo não libera preditor sem definição prévia, replicação e validação fora da amostra.</div>`;
- let st=load(STATE,{});st.lastAudit={type:t,eventN:eventCont.length,obs,nullMean:mu,p:pv,permutations:P,at:new Date().toISOString()};save(STATE,st);updateStatus()
-}
-function updateStatus(){
- let st=load(STATE,{}),q=st.quality,a=st.lastAudit;
- if(q?.grade==='INSUFICIENTE'||!q){aStatus.className='notice';aStatus.innerHTML='<b>A = ABERTA.</b><br>A base operacional ainda não tem qualidade/volume suficiente para qualquer conclusão.'}
- else if(q?.grade==='PARCIAL'){aStatus.className='notice';aStatus.innerHTML='<b>A = PARCIAL.</b><br>Há evidência operacional registrada, mas ainda insuficiente para responder se existe poder preditivo real.'}
- else if(q?.grade==='PRONTA PARA AUDIT EXPLORATÓRIO'&&!a){aStatus.className='notice info';aStatus.innerHTML='<b>A = PRONTA PARA AUDIT EXPLORATÓRIO.</b><br>Agora precisamos testar associações e depois replicar fora da amostra.'}
- else {aStatus.className='notice info';aStatus.innerHTML='<b>A = AINDA NÃO RESPONDIDA.</b><br>Audit exploratório executado. Nenhum resultado desta etapa autoriza previsão; ainda falta replicação/validação prospectiva.'}
-}
-function freezeEvidence(){let st=load(STATE,{});st.freeze={incidents:incidents(),quality:st.quality||null,lastAudit:st.lastAudit||null,frozenAt:new Date().toISOString(),status:'EVIDENCE_ONLY_NO_BET'};save(STATE,st);fzOut.innerHTML='<div class="notice ok">Evidência congelada. Nenhum preditor foi liberado.</div>'}
-function exportState(){let obj={incidents:incidents(),state:load(STATE,{})},b=new Blob([JSON.stringify(obj,null,2)],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='SSPSKN_4.9_Physical_Operational_Evidence.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
-render();
-document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.page).classList.add('active')});
-</script></body></html>
+const $=x=>document.getElementById(x);let H=[],STOP=false,STATE=null,C=new Map();
+function L(s){$('log').textContent+='['+new Date().toISOString()+'] '+s+'\n';$('log').scrollTop=999999}function Y(){return new Promise(r=>setTimeout(r,0))}
+function U(a){return [...new Set((a||[]).map(Number).filter(n=>n>0&&n<26))].sort((a,b)=>a-b)}
+function parse(t,n){let R=[];if(n.endsWith('.json')){let d=JSON.parse(t),s=Array.isArray(d)?d:(d.history||d.concursos||[]);R=s.map((x,i)=>Array.isArray(x)?{concurso:i+1,dezenas:U(x)}:{concurso:+(x.concurso||x.numero||i+1),dezenas:U(x.dezenas||x.listaDezenas||x.numeros)})}else R=t.split(/\r?\n/).map((r,i)=>{let a=(r.match(/\d+/g)||[]).map(Number);return a.length>=16?{concurso:a[0],dezenas:U(a.slice(1,16))}:a.length>=15?{concurso:i+1,dezenas:U(a.slice(0,15))}:null}).filter(Boolean);R=R.filter(x=>x.dezenas.length===15);if(!R.length)throw Error('Nenhum concurso válido');return R.sort((a,b)=>a.concurso-b.concurso)}
+$('file').onchange=async e=>{try{let f=e.target.files[0];H=parse(await f.text(),f.name.toLowerCase());localStorage.setItem('2m27h',JSON.stringify(H));render();L('Histórico importado: '+H.length)}catch(e){alert(e.message)}};function render(){$('count').textContent=H.length;$('last').textContent=H.length?H.at(-1).concurso:'—'}
+function rng(a){return function(){let t=a+=0x6D2B79F5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}function mix(s,a,b){let x=s^Math.imul(a||1,2654435761)^Math.imul(b||1,2246822519);x^=x>>>16;return x>>>0}
+function game(r){let a=Array.from({length:25},(_,i)=>i+1);for(let i=24;i;i--){let j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a.slice(0,15).sort((a,b)=>a-b)}
+function hit(a,b){let s=new Set(a),z=0;for(let x of b)if(s.has(x))z++;return z}function ev(P,d){return P.some(g=>hit(g,d)>=13)?1:0}
+function pen(P){let q=0;for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++)q+=Math.max(0,hit(P[i],P[j])-9)**2;return q}
+function div(P,r,st=70){let s=pen(P);for(let z=0;z<st;z++){let i=Math.floor(r()*P.length),o=P[i],g=game(r);P[i]=g;let n=pen(P);if(n<=s)s=n;else P[i]=o}return P}
+function stats(i){if(C.has(i))return C.get(i);let f=[60,180,600].map(()=>Array(26).fill(0));for(let j=Math.max(0,i-600);j<i;j++)for(let n of H[j].dezenas){if(j>=i-60)f[0][n]++;if(j>=i-180)f[1][n]++;f[2][n]++}let o={f,n:[Math.min(60,i),Math.min(180,i),Math.min(600,i)]};C.set(i,o);return o}
+function wg(w,r){return Array.from({length:25},(_,i)=>[Math.log(w[i+1])-Math.log(-Math.log(Math.max(1e-9,r()))),i+1]).sort((a,b)=>b[0]-a[0]).slice(0,15).map(x=>x[1]).sort((a,b)=>a-b)}
+function sel(pool,z,r){let P=[];pool=[...pool];while(P.length<z){let bi=0,bs=-1e9;for(let i=0;i<pool.length;i++){let sc=P.reduce((s,h)=>s-Math.max(0,hit(pool[i],h)-9)*6,0);if(sc>bs){bs=sc;bi=i}}P.push(pool.splice(bi,1)[0])}return div(P,r)}
+function R6(z,i,s,c){let r=rng(mix(s,c,101)),best,bs=1e9;for(let t=0;t<12;t++){let P=Array.from({length:z},()=>game(r)),v=pen(P);if(v<bs){bs=v;best=P}}let A=div(best,r,130),S=stats(i),pool=[];for(let mode=0;mode<2;mode++){let w=Array(26).fill(1);for(let n=1;n<=25;n++){let a=S.n[0]?S.f[0][n]/S.n[0]:.6,b=S.n[1]?S.f[1][n]/S.n[1]:.6,d=S.n[2]?S.f[2][n]/S.n[2]:.6,v=mode?(.5*(a-.6)+.3*(b-.6)+.2*(d-.6)):(b-.6);w[n]=Math.exp(Math.max(-.3,Math.min(.3,v/.08*.14)))}let q=rng(mix(s,c,105+mode));pool.push(...div(Array.from({length:z},()=>wg(w,q)),q))}let C2=sel(pool,z,rng(mix(s,c,203)));return sel([...A,...C2],z,rng(mix(s,c,206)))}
+function mean(a){return a.reduce((s,x)=>s+x,0)/a.length}function ps(d,s,B=1200){let o=mean(d),r=rng(s),ge=1;for(let b=0;b<B;b++){let x=0;for(let v of d)x+=(r()<.5?-v:v);if(x/d.length>=o)ge++}return ge/(B+1)}
+async function run(){if(H.length<1000){alert('Importe o histórico completo.');return}STOP=false;$('run').disabled=true;$('stop').disabled=false;C.clear();let z=+$('games').value||20,rc=+$('randoms').value||40,b=+$('seed').value||27092026,seeds=[b,11,23,37,53,71,89,107].map((x,i)=>i?mix(b,x,i):b),N=600,start=H.length-N,all=[],per=[];L('Falsificação: 8 seeds x 600 concursos.');try{for(let si=0;si<8;si++){let D=[],ca=[],ra=[];for(let j=0;j<N;j++){if(STOP)throw Error('Interrompido');let i=start+j,d=H[i],P=R6(z,i,seeds[si],d.concurso),rv=0;for(let k=0;k<rc;k++){let q=rng(mix(seeds[si],d.concurso,1000+k));rv+=ev(Array.from({length:z},()=>game(q)),d.dezenas)}let rr=rv/rc,cc=ev(P,d.dezenas);D.push(cc-rr);all.push(cc-rr);ca.push(cc);ra.push(rr);let done=si*N+j+1,p=Math.round(done/(8*N)*100);$('fill').style.width=p+'%';$('pct').textContent=p+'%';$('phase').textContent='Seed '+(si+1)+'/8 • '+(j+1)+'/600';await Y()}per.push({c:mean(ca),r:mean(ra),d:mean(D)});L('Seed '+(si+1)+': Δ '+(mean(D)*100).toFixed(3)+' pp')}let blocks=[];for(let q=0;q<3;q++){let v=[];for(let si=0;si<8;si++)v.push(...all.slice(si*N+q*200,si*N+(q+1)*200));blocks.push(mean(v))}let ca=mean(per.map(x=>x.c)),ra=mean(per.map(x=>x.r)),dd=mean(per.map(x=>x.d)),sp=per.filter(x=>x.d>0).length,bp=blocks.filter(x=>x>0).length,pv=ps(all,mix(b,999,1)),pass=dd>0&&sp>=6&&bp>=2&&pv<.05;$('res').innerHTML=`<tr><td>R6 frozen</td><td>${(ca*100).toFixed(3)}%</td><td>${(ra*100).toFixed(3)}%</td><td>${(dd*100).toFixed(3)}</td><td>${sp}/8</td><td>${bp}/3</td><td>${pv.toFixed(4)}</td></tr>`;$('blocks').textContent=blocks.map((x,i)=>'Bloco '+(i+1)+': '+(x*100).toFixed(3)+' pp').join(' • ');STATE={ca,ra,dd,sp,bp,pv,blocks,per,pass};localStorage.setItem('2m27s',JSON.stringify(STATE));if(pass){$('status').textContent='HOLD';$('status').style.color='#f7c948';$('reason').textContent='R6 sobreviveu historicamente. Próximo passo: freeze prospectivo.';L('HOLD. Não apostar.')}else{$('reason').textContent='R6 falhou em pelo menos um critério. NO BET.';L('Falsificação não aprovada. NO BET.')}}catch(e){L(e.message)}finally{$('run').disabled=false;$('stop').disabled=true}}
+$('run').onclick=run;$('stop').onclick=()=>STOP=true;$('export').onclick=()=>{let a=document.createElement('a'),b=new Blob([JSON.stringify({app:'2 Milhões 2.7',state:STATE,ledger:$('log').textContent},null,2)],{type:'application/json'});a.href=URL.createObjectURL(b);a.download='2_MILHOES_2_7_LEDGER.json';a.click()}
+try{H=JSON.parse(localStorage.getItem('2m27h')||'[]')}catch{}render()
+</script></main>

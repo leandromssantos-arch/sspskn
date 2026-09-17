@@ -1,118 +1,166 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<title>2 Milhões 2.8 — Combinatorial Portfolio Lab</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#06110d"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="SSPSKN 4.9">
+<title>SSPSKN 4.9 • ORION Tail Engine</title>
 <style>
-:root{--bg:#07111f;--card:#0d1b2e;--line:#294768;--txt:#f4f7fb;--muted:#9fb0c6;--ok:#29d17d;--warn:#ffd166;--bad:#ff667f}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
-header{padding:34px 22px 24px;background:linear-gradient(180deg,#0b1830,#081321);border-bottom:1px solid var(--line)}
-h1{font-size:31px;line-height:1.12;margin:0 0 14px;font-weight:800}.sub{font-size:18px;line-height:1.45;color:var(--muted)}
-.wrap{max-width:860px;margin:auto;padding:18px 14px 80px}.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px;margin:14px 0}
-h2{font-size:26px;margin:0 0 14px}.badge{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:8px 11px;margin:3px 5px 3px 0;color:#d8e6f8;background:#0a1627;font-size:13px}
-.status{font-size:42px;font-weight:900;color:var(--bad);margin:8px 0}.ok{color:var(--ok)}.warn{color:var(--warn)}.bad{color:var(--bad)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.kpi{padding:15px;border:1px solid #244363;border-radius:17px;background:#091728}.kpi b{display:block;font-size:24px;margin-bottom:6px}.kpi span{font-size:13px;color:var(--muted)}
-label{display:block;font-size:14px;color:#cbd8e8;margin:10px 0 6px}input,select{width:100%;font-size:17px;color:var(--txt);background:#071321;border:1px solid #355879;border-radius:14px;padding:13px}
-button{width:100%;border:0;border-radius:16px;padding:15px 16px;font-size:18px;font-weight:800;margin-top:10px;background:#117a49;color:#fff}button.danger{background:#8e3042}button:disabled{opacity:.45}
-.note{color:var(--muted);line-height:1.45;font-size:14px}.progress{height:14px;background:#071321;border:1px solid #27486a;border-radius:999px;overflow:hidden;margin-top:12px}.progress>div{height:100%;width:0%;background:linear-gradient(90deg,#1d7eea,#2cd48a)}
-table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px 7px;border-bottom:1px solid #223a56;text-align:right}th:first-child,td:first-child{text-align:left}.best{background:#102842}
-.ticket{display:block;padding:8px 10px;margin:6px 0;border:1px solid #2d5074;border-radius:10px;font-variant-numeric:tabular-nums;background:#081522}
-.footer{color:#8093aa;text-align:center;font-size:12px;padding:12px 0 30px}
+:root{--bg:#06110d;--card:#102118;--txt:#eef8f1;--muted:#9db3a6;--acc:#43e68d;--gold:#ffd66b;--danger:#ff7178;--line:#264638;--blue:#83bfff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 100% 0,#123b27,transparent 34%),var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;min-height:100vh}.wrap{max-width:980px;margin:auto;padding:20px 14px 110px}header{display:flex;gap:12px;align-items:center;margin-bottom:14px}.logo{width:56px;height:56px;border-radius:17px;background:linear-gradient(145deg,var(--acc),#12834d);display:grid;place-items:center;color:#04120b;font-weight:900}.sub,.small{color:var(--muted);font-size:12px;line-height:1.45}h1{margin:0;font-size:24px}.status{margin-left:auto;color:var(--muted);font-size:12px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--acc);margin-right:5px}.card{background:linear-gradient(180deg,#12271d,var(--card));border:1px solid var(--line);border-radius:18px;padding:16px;margin:12px 0}.card h2{font-size:17px;margin:0 0 12px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.kpi{background:#08170f;border:1px solid var(--line);border-radius:14px;padding:12px}.kpi b{font-size:20px;display:block}.kpi span{font-size:11px;color:var(--muted)}.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.field{flex:1;min-width:130px}.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:5px}.btn{border:0;border-radius:12px;padding:12px 14px;font-weight:800;background:var(--acc);color:#031109}.btn.secondary{background:#173728;color:var(--txt);border:1px solid #315a44}.btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}input,select{width:100%;background:#07150f;color:var(--txt);border:1px solid var(--line);border-radius:11px;padding:11px}.notice{border-left:3px solid var(--gold);background:#201d0e;color:#f4e8c0;border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.45}.notice.ok{border-left-color:var(--acc);background:#0c2217;color:#c9f6d9}.notice.err{border-left-color:var(--danger);background:#2b1416;color:#ffd6d8}.notice.info{border-left-color:var(--blue);background:#102031;color:#d7eaff}.tabs{position:fixed;left:0;right:0;bottom:0;background:rgba(6,17,13,.97);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center}.tabsin{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(7,1fr);gap:4px}.tab{border:0;background:transparent;color:var(--muted);padding:8px 3px;border-radius:11px;font-size:10px;font-weight:700}.tab.active{background:#173526;color:var(--txt)}.page{display:none}.page.active{display:block}.scrollx{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:8px 5px;text-align:left;border-bottom:1px solid var(--line)}th{color:var(--muted)}@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
-<body>
-<header>
-<h1>2 Milhões 2.8 — Combinatorial Portfolio Lab</h1>
-<div class="sub">Geometria exata 15/25 • cobertura 13+/14+/15 • overlap otimizado • Random de mesmo orçamento • sem previsão de dezenas • NO BET</div>
-</header>
-<div class="wrap">
-<section class="card">
-<div class="badge">2.7 R6 FALSIFICADO</div><div class="badge">R6/M10/C2 ENCERRADOS</div><div class="badge">NOVA LINHA INDEPENDENTE</div>
-<h2 style="margin-top:14px">Decisão</h2><div class="status">NO BET</div>
-<p class="note">A 2.8 não tenta prever o próximo sorteio. Ela mede como distribuir um orçamento entre jogos distintos para maximizar a cobertura exata de resultados 13+, 14+ e 15.</p>
+<body><div class="wrap">
+<header><div class="logo">AI</div><div><h1>SSPSKN 4.9</h1><div class="sub">ORION Tail Engine • +Milionária</div></div><div class="status"><span class="dot"></span><span>Dados locais</span></div></header>
+
+<section id="home" class="page active">
+<div class="card"><h2>Pergunta B</h2><div class="notice info"><b>Qual vantagem seria detectável com os dados disponíveis?</b><br>A 4.8 não procura números. Ela mede o limite estatístico: com N concursos, uma probabilidade-base e um nível de poder, qual é o menor lift plausivelmente detectável?</div></div>
+<div class="card"><h2>Estado atual</h2><div class="grid"><div class="kpi"><b id="kHist">0</b><span>concursos locais</span></div><div class="kpi"><b id="kLast">—</b><span>último concurso</span></div><div class="kpi"><b>NO BET</b><span>status</span></div><div class="kpi"><b>B</b><span>pergunta em fechamento</span></div></div></div>
+<div class="card"><h2>Interpretação</h2><div class="notice">Se a vantagem real for menor que o limite detectável, 386 concursos podem ser insuficientes para separá-la do ruído. Isso não prova ausência absoluta de efeito; prova apenas que efeitos pequenos não podem ser estabelecidos com força usando essa amostra.</div></div>
 </section>
 
-<section class="card">
-<h2>Base histórica</h2>
-<div class="grid">
-<div class="kpi"><b id="histCount">0</b><span>concursos importados</span></div>
-<div class="kpi"><b id="histLast">—</b><span>último concurso</span></div>
+<section id="mde" class="page">
+<div class="card"><h2>Minimum Detectable Effect</h2>
+<div class="row"><div class="field"><label>N concursos</label><input id="mN" type="number" value="386"></div><div class="field"><label>Probabilidade-base p₀</label><input id="mP0" type="number" value="0.0060643" step="0.0000001"></div></div>
+<div class="row" style="margin-top:8px"><div class="field"><label>α (bicaudal)</label><select id="mA"><option value=".10">0,10</option><option value=".05" selected>0,05</option><option value=".01">0,01</option></select></div><div class="field"><label>Poder</label><select id="mPow"><option value=".80" selected>80%</option><option value=".90">90%</option><option value=".95">95%</option></select></div></div>
+<button class="btn" style="margin-top:10px" onclick="runMDE()">Calcular menor lift detectável</button><div id="mOut"></div></div>
+</section>
+
+<section id="required" class="page">
+<div class="card"><h2>Concursos necessários por lift</h2>
+<div class="row"><div class="field"><label>Probabilidade-base p₀</label><input id="rP0" type="number" value="0.0060643" step="0.0000001"></div><div class="field"><label>α</label><select id="rA"><option value=".10">0,10</option><option value=".05" selected>0,05</option><option value=".01">0,01</option></select></div><div class="field"><label>Poder</label><select id="rPow"><option value=".80" selected>80%</option><option value=".90">90%</option></select></div></div>
+<button class="btn" style="margin-top:10px" onclick="runTable()">Gerar tabela</button><div id="rOut"></div></div>
+</section>
+
+<section id="evidence" class="page">
+<div class="card"><h2>Evidence Reality Check</h2>
+<div class="small">Compara a quantidade esperada de sucessos sob o baseline com a quantidade esperada sob um lift. Útil para perceber quando estamos tentando concluir demais a partir de poucos eventos raros.</div>
+<div class="row" style="margin-top:10px"><div class="field"><label>N</label><input id="eN" type="number" value="386"></div><div class="field"><label>p₀</label><input id="eP0" type="number" value="0.0060643" step="0.0000001"></div><div class="field"><label>Lift relativo</label><select id="eLift"><option value=".1">+10%</option><option value=".25">+25%</option><option value=".5" selected>+50%</option><option value="1">+100%</option></select></div></div>
+<button class="btn" style="margin-top:10px" onclick="runReality()">Calcular eventos esperados</button><div id="eOut"></div></div>
+</section>
+
+<section id="matrix" class="page">
+<div class="card"><h2>Status da pergunta B</h2><div id="bStatus" class="notice">Ainda não calculado.</div>
+<div class="small" style="margin-top:10px">Critério de fechamento: registrar, para a amostra atual, o menor lift detectável e a quantidade de concursos necessária para lifts pré-fixados (+10%, +25%, +50%, +100%).</div></div>
+</section>
+
+<section id="freeze" class="page">
+<div class="card"><h2>Evidence Freeze</h2><div class="notice info">Congela apenas os parâmetros e resultados do cálculo de detectabilidade. Não congela apostas.</div><button class="btn" onclick="freezeB()">Congelar resposta B</button><button class="btn ghost" onclick="exportState()" style="margin-left:6px">Exportar</button><div id="fzOut"></div></div>
+</section>
 </div>
-<label>Importar 2_MILHOES_HISTORY.json</label><input id="file" type="file" accept=".json,application/json"/>
-<div id="histMsg" class="note" style="margin-top:10px">A geometria exata funciona sem histórico. O histórico é mantido para continuidade e auditoria.</div>
-</section>
 
-<section class="card">
-<h2>Configuração</h2>
-<div class="grid">
-<div><label>Jogos no portfólio</label><select id="nGames"><option>10</option><option selected>20</option><option>40</option><option>80</option></select></div>
-<div><label>Controles Random</label><select id="nControls"><option>50</option><option selected>100</option><option>250</option></select></div>
-<div><label>Seed</label><input id="seed" type="number" value="28092026"/></div>
-<div><label>Preço por jogo (R$)</label><input id="price" type="number" step="0.01" value="3.50"/></div>
-</div>
-<p class="note">Universo exato: C(25,15) = <b>3.268.760</b> resultados. Cada jogo cobre 4.876 resultados na faixa 13+ (13, 14 ou 15 pontos). A união dessas vizinhanças é calculada exatamente.</p>
-<button id="run">Executar Discovery 2.8</button><button id="stop" class="danger" disabled>Parar</button>
-<div class="progress"><div id="bar"></div></div><div id="prog" class="note" style="margin-top:8px">Pronto.</div>
-</section>
-
-<section class="card">
-<h2>Famílias pré-fixadas</h2>
-<div class="badge">G1 Maximin</div><div class="badge">G2 Balance</div><div class="badge">G3 Pair-Balance</div><div class="badge">G4 Hybrid</div>
-<p class="note">Nenhuma usa frequência, atraso, quente/frio ou resultado futuro. O melhor candidato é escolhido somente pela cobertura combinatória exata.</p>
-</section>
-
-<section class="card" id="resultCard" style="display:none">
-<h2>Resultado exato</h2>
-<div class="grid">
-<div class="kpi"><b id="bestName">—</b><span>melhor família</span></div>
-<div class="kpi"><b id="decision">—</b><span>gate geométrico</span></div>
-<div class="kpi"><b id="p13">—</b><span>P(≥1 jogo com 13+)</span></div>
-<div class="kpi"><b id="gain">—</b><span>ganho vs mediana Random</span></div>
-</div>
-<h3>Leaderboard</h3>
-<div style="overflow:auto"><table><thead><tr><th>Família</th><th>13+ exato</th><th>14+ exato</th><th>15</th><th>Δ vs Random</th><th>Percentil</th></tr></thead><tbody id="tbody"></tbody></table></div>
-<h3>Portfólio vencedor</h3><div id="tickets"></div><p class="note" id="explain"></p>
-</section>
-
-<section class="card">
-<h2>Gate da 2.8</h2>
-<p class="note"><b>DISCOVERY PASS</b> significa apenas que uma geometria possui cobertura exata 13+ materialmente maior que portfólios Random do mesmo tamanho e está na cauda superior dos controles. Não significa vantagem econômica nem autorização para apostar.</p>
-<p class="note">Se houver PASS, o próximo estágio será Economic & Anti-Crowd Validation. Se não houver, a linha geométrica é encerrada sem remendos.</p>
-</section>
-
-<section class="card">
-<h2>Anti-Crowd</h2><div class="status warn" style="font-size:27px">AGUARDANDO DADOS</div>
-<p class="note">O módulo de popularidade das combinações não é ativado sem dados brasileiros confiáveis sobre comportamento real das apostas. A 2.8 não inventa probabilidades de divisão de prêmio.</p>
-</section>
-<div class="footer">2 Milhões 2.8 • protocolo independente • NO BET</div>
-</div>
+<nav class="tabs"><div class="tabsin">
+<button class="tab active" data-page="home">⌂<br>Início</button><button class="tab" data-page="mde">Δ<br>MDE</button><button class="tab" data-page="required">N<br>Amostra</button><button class="tab" data-page="evidence">◎<br>Eventos</button><button class="tab" data-page="matrix">✓<br>Status B</button><button class="tab" data-page="freeze">◇<br>Freeze</button>
+</div></nav>
 
 <script>
-const TOTAL=3268760; let stopped=false,history=[];
-function mulberry32(a){return function(){let t=a+=0x6D2B79F5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}
-function bitCount(x){x=x-((x>>>1)&0x55555555);x=(x&0x33333333)+((x>>>2)&0x33333333);return (((x+(x>>>4))&0x0F0F0F0F)*0x01010101)>>>24}
-function arrToMask(a){let m=0;for(const n of a)m|=(1<<(n-1));return m>>>0}
-function maskToArr(m){let a=[];for(let i=0;i<25;i++)if(m&(1<<i))a.push(i+1);return a}
-function randomTicket(rng){let a=Array.from({length:25},(_,i)=>i+1);for(let i=a.length-1;i>0;i--){let j=Math.floor(rng()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return arrToMask(a.slice(0,15))}
-function overlap(a,b){return bitCount(a&b)} function yieldUI(){return new Promise(r=>setTimeout(r,0))}
-function fmtPct(x){return (100*x).toFixed(4)+"%"} function percentile(arr,x){let c=0;for(const v of arr)if(v<=x)c++;return 100*c/arr.length}
-function median(a){let b=[...a].sort((x,y)=>x-y),n=b.length;return n%2?b[(n-1)/2]:(b[n/2-1]+b[n/2])/2}
-function countsScore(port,m){let nums=new Array(25).fill(0);for(const t of port)for(let i=0;i<25;i++)if(t&(1<<i))nums[i]++;for(let i=0;i<25;i++)if(m&(1<<i))nums[i]++;const mean=(port.length+1)*15/25;let s=0;for(const c of nums)s+=(c-mean)*(c-mean);return -s}
-function pairBalanceScore(port,m){let pc=new Uint16Array(625),all=[...port,m];for(const t of all){let a=maskToArr(t);for(let i=0;i<a.length;i++)for(let j=i+1;j<a.length;j++){let x=a[i]-1,y=a[j]-1;pc[x*25+y]++}}let sum=0,n=0;for(let i=0;i<25;i++)for(let j=i+1;j<25;j++){sum+=pc[i*25+j];n++}const mean=sum/n;let v=0;for(let i=0;i<25;i++)for(let j=i+1;j<25;j++){let d=pc[i*25+j]-mean;v+=d*d}return -v}
-function minDistScore(port,m){if(!port.length)return 99;let min=99,sum=0;for(const t of port){let ov=overlap(t,m),d=30-2*ov;min=Math.min(min,d);sum+=d}return min*100+sum/port.length}
-async function buildFamily(kind,n,rng){let port=[],used=new Set();while(port.length<n&&!stopped){let best=null,bestS=-Infinity,pool=kind==="G1"?220:kind==="G4"?180:120;for(let k=0;k<pool;k++){let m=randomTicket(rng);if(used.has(m))continue;let s=0;if(kind==="G1")s=minDistScore(port,m);if(kind==="G2")s=countsScore(port,m);if(kind==="G3")s=pairBalanceScore(port,m);if(kind==="G4")s=.55*minDistScore(port,m)+.02*countsScore(port,m)+.0008*pairBalanceScore(port,m);s+=rng()*1e-6;if(s>bestS){bestS=s;best=m}}if(best==null)best=randomTicket(rng);used.add(best);port.push(best);if(port.length%5===0)await yieldUI()}return port}
-function neighborhoodKeys(ticket,minHits){const chosen=maskToArr(ticket),comp=[];for(let i=1;i<=25;i++)if(!(ticket&(1<<(i-1))))comp.push(i);let out=[];out.push(ticket);if(minHits<=14){for(let i=0;i<15;i++)for(let a=0;a<10;a++){let m=ticket&~(1<<(chosen[i]-1));m|=(1<<(comp[a]-1));out.push(m>>>0)}}if(minHits<=13){for(let i=0;i<15;i++)for(let j=i+1;j<15;j++)for(let a=0;a<10;a++)for(let b=a+1;b<10;b++){let m=ticket&~(1<<(chosen[i]-1))&~(1<<(chosen[j]-1));m|=(1<<(comp[a]-1))|(1<<(comp[b]-1));out.push(m>>>0)}}return out}
-async function exactCoverage(port,minHits){if(minHits===15)return new Set(port).size/TOTAL;let s=new Set();for(let i=0;i<port.length;i++){for(const x of neighborhoodKeys(port[i],minHits))s.add(x);if(i%4===3)await yieldUI();if(stopped)break}return s.size/TOTAL}
-async function evalPort(port){return{p13:await exactCoverage(port,13),p14:await exactCoverage(port,14),p15:new Set(port).size/TOTAL}}
-function randomPortfolio(n,rng){let s=new Set();while(s.size<n)s.add(randomTicket(rng));return[...s]}
-function updateProgress(p,msg){document.getElementById("bar").style.width=(100*p)+"%";document.getElementById("prog").textContent=msg}
-async function run(){stopped=false;runBtn.disabled=true;stopBtn.disabled=false;resultCard.style.display="none";const n=+nGames.value,nc=+nControls.value,seedv=+seed.value>>>0,rng=mulberry32(seedv);let fams=[],names=[["G1","Maximin"],["G2","Balance"],["G3","Pair-Balance"],["G4","Hybrid"]];for(let i=0;i<names.length;i++){updateProgress(.05+i*.08,"Construindo "+names[i][1]+"...");let port=await buildFamily(names[i][0],n,rng);if(stopped)return finishStop();let ev=await evalPort(port);fams.push({code:names[i][0],name:names[i][1],port,...ev})}let controls=[];for(let i=0;i<nc;i++){if(stopped)return finishStop();let p=randomPortfolio(n,rng),ev=await exactCoverage(p,13);controls.push(ev);if(i%5===0){updateProgress(.38+.55*(i/nc),`Random ${i+1}/${nc} • cobertura exata 13+`);await yieldUI()}}let med=median(controls);fams.forEach(f=>{f.delta=f.p13-med;f.perc=percentile(controls,f.p13)});fams.sort((a,b)=>b.p13-a.p13);let best=fams[0],rel=best.p13/med-1,pass=best.perc>=99&&rel>=.01;render(fams,best,med,pass,rel);updateProgress(1,"Concluído.");runBtn.disabled=false;stopBtn.disabled=true}
-function finishStop(){updateProgress(0,"Execução interrompida.");runBtn.disabled=false;stopBtn.disabled=true}
-function render(fams,best,med,pass,rel){resultCard.style.display="block";bestName.textContent=best.code+" "+best.name;decision.textContent=pass?"DISCOVERY PASS":"DROP";decision.className=pass?"ok":"bad";p13.textContent=fmtPct(best.p13);gain.textContent=(100*best.delta).toFixed(4)+" pp";tbody.innerHTML=fams.map(f=>`<tr class="${f===best?"best":""}"><td>${f.code} ${f.name}</td><td>${fmtPct(f.p13)}</td><td>${fmtPct(f.p14)}</td><td>${fmtPct(f.p15)}</td><td>${(100*f.delta).toFixed(4)} pp</td><td>${f.perc.toFixed(1)}%</td></tr>`).join("");tickets.innerHTML=best.port.map((m,i)=>`<span class="ticket">${String(i+1).padStart(2,"0")}: ${maskToArr(m).map(x=>String(x).padStart(2,"0")).join(" ")}</span>`).join("");let cost=(+price.value)*best.port.length;explain.innerHTML=`Mediana Random 13+: <b>${fmtPct(med)}</b>. Ganho relativo: <b>${(100*rel).toFixed(2)}%</b>. Percentil Random: <b>${best.perc.toFixed(1)}%</b>. Orçamento informado: <b>R$ ${cost.toFixed(2)}</b>. ${pass?"Passou apenas o gate geométrico de descoberta. Próximo passo: validação independente e econômica. Continua NO BET.":"Resultado tratado como DROP geométrico. Continua NO BET."}`}
-const runBtn=document.getElementById("run"),stopBtn=document.getElementById("stop"),resultCard=document.getElementById("resultCard"),nGames=document.getElementById("nGames"),nControls=document.getElementById("nControls"),seed=document.getElementById("seed"),price=document.getElementById("price"),bestName=document.getElementById("bestName"),decision=document.getElementById("decision"),p13=document.getElementById("p13"),gain=document.getElementById("gain"),tbody=document.getElementById("tbody"),tickets=document.getElementById("tickets"),explain=document.getElementById("explain");
-runBtn.onclick=run;stopBtn.onclick=()=>{stopped=true};
-file.addEventListener("change",async e=>{let f=e.target.files[0];if(!f)return;try{let d=JSON.parse(await f.text()),h=Array.isArray(d)?d:(Array.isArray(d.history)?d.history:(Array.isArray(d.concursos)?d.concursos:null));if(!h)throw new Error("Formato não reconhecido");history=h;localStorage.setItem("2milhoes_history_28",JSON.stringify(h));let last=h[h.length-1]||{},num=last.concurso??last.numero??last.id??"—";histCount.textContent=h.length;histLast.textContent=num;histMsg.textContent="Histórico importado e preservado para auditoria."}catch(err){histMsg.textContent="Erro ao importar: "+err.message}});
-try{let s=localStorage.getItem("2milhoes_history_28");if(s){history=JSON.parse(s);histCount.textContent=history.length;let last=history[history.length-1]||{};histLast.textContent=last.concurso??last.numero??last.id??"—";histMsg.textContent="Histórico recuperado do aparelho."}}catch(e){}
-</script>
-</body></html>
+const HIST='sspskn_history',STATE='sspskn_48_state';
+let history=load(HIST,[]),lastCalc=null;
+function load(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}} function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
+function fn(n){return Math.round(n).toLocaleString('pt-BR')} function pct(x,d=3){return (x*100).toFixed(d)+'%'}
+function invNorm(p){const a=[-39.6968302866538,220.946098424521,-275.928510446969,138.357751867269,-30.6647980661472,2.50662827745924],b=[-54.4760987982241,161.585836858041,-155.698979859887,66.8013118877197,-13.2806815528857],c=[-.00778489400243029,-.322396458041136,-2.40075827716184,-2.54973253934373,4.37466414146497,2.93816398269878],d=[.00778469570904146,.32246712907004,2.445134137143,3.75440866190742],pl=.02425,ph=1-pl;let q,r;if(p<pl){q=Math.sqrt(-2*Math.log(p));return (((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}if(p>ph){q=Math.sqrt(-2*Math.log(1-p));return -(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}q=p-.5;r=q*q;return (((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q/(((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1)}
+function reqN(p0,p1,a,pow){let za=invNorm(1-a/2),zb=invNorm(pow),d=Math.abs(p1-p0);if(d<=0)return Infinity;return Math.ceil(((za*Math.sqrt(p0*(1-p0))+zb*Math.sqrt(p1*(1-p1)))/d)**2)}
+function powerAtN(N,p0,p1,a){let za=invNorm(1-a/2),d=Math.abs(p1-p0),se=(Math.sqrt(p0*(1-p0))+Math.sqrt(p1*(1-p1)))/Math.sqrt(N);let z=d/se-za;function cdf(x){return 0.5*(1+erf(x/Math.sqrt(2)))}return cdf(z)}
+function erf(x){let s=x<0?-1:1;x=Math.abs(x);let a1=.254829592,a2=-.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=.3275911,t=1/(1+p*x);let y=1-(((((a5*t+a4)*t)+a3)*t+a2)*t+a1)*t*Math.exp(-x*x);return s*y}
+function runMDE(){
+ let N=+mN.value,p0=+mP0.value,a=+mA.value,pow=+mPow.value;if(!(N>0&&p0>0&&p0<1))return;
+ let lo=0,hi=20;while(reqN(p0,Math.min(.999999,p0*(1+hi)),a,pow)>N&&hi<1e6)hi*=2;
+ for(let i=0;i<70;i++){let mid=(lo+hi)/2,p1=Math.min(.999999,p0*(1+mid));if(reqN(p0,p1,a,pow)<=N)hi=mid;else lo=mid}
+ let lift=hi,p1=Math.min(.999999,p0*(1+lift)),nreq=reqN(p0,p1,a,pow);
+ lastCalc={type:'MDE',N,p0,a,pow,lift,p1,nreq,at:new Date().toISOString()};save(STATE,{...(load(STATE,{})),lastCalc});
+ mOut.innerHTML=`<div class="grid" style="margin-top:10px"><div class="kpi"><b>+${(lift*100).toFixed(1)}%</b><span>menor lift detectável aprox.</span></div><div class="kpi"><b>${pct(p1,4)}</b><span>taxa alternativa</span></div><div class="kpi"><b>${(N*p0).toFixed(2)}</b><span>eventos esperados baseline</span></div><div class="kpi"><b>${(N*p1).toFixed(2)}</b><span>eventos esperados com lift</span></div></div><div class="notice" style="margin-top:10px">Aproximação normal de planejamento. Para eventos muito raros, a interpretação deve ser conservadora e confirmada prospectivamente.</div>`;
+ updateB();
+}
+function runTable(){
+ let p0=+rP0.value,a=+rA.value,pow=+rPow.value,lifts=[.10,.25,.50,1.0],rows=lifts.map(L=>{let p1=p0*(1+L),N=reqN(p0,p1,a,pow);return{L,p1,N,years:N/104.355}});let st=load(STATE,{});st.table={p0,a,pow,rows,at:new Date().toISOString()};save(STATE,st);
+ rOut.innerHTML=`<div class="scrollx" style="margin-top:10px"><table><tr><th>Lift</th><th>p₁</th><th>N aprox.</th><th>Anos a 2/sem.</th></tr>${rows.map(x=>`<tr><td>+${x.L*100}%</td><td>${pct(x.p1,4)}</td><td>${fn(x.N)}</td><td>${x.years.toFixed(1)}</td></tr>`).join('')}</table></div>`;updateB()
+}
+function runReality(){
+ let N=+eN.value,p0=+eP0.value,L=+eLift.value,p1=p0*(1+L),e0=N*p0,e1=N*p1,d=e1-e0;
+ eOut.innerHTML=`<div class="grid" style="margin-top:10px"><div class="kpi"><b>${e0.toFixed(2)}</b><span>sucessos esperados baseline</span></div><div class="kpi"><b>${e1.toFixed(2)}</b><span>sucessos esperados com lift</span></div><div class="kpi"><b>${d.toFixed(2)}</b><span>diferença média</span></div><div class="kpi"><b>${Math.sqrt(N*p0*(1-p0)).toFixed(2)}</b><span>desvio padrão baseline</span></div></div>`
+}
+function updateB(){let st=load(STATE,{}),m=st.lastCalc,t=st.table;if(m&&t){bStatus.className='notice ok';bStatus.innerHTML=`<b>Resposta B quantificada.</b><br>Com N=${m.N} e p₀=${pct(m.p0,4)}, o menor lift detectável aproximado a α=${m.a} e poder ${(m.pow*100).toFixed(0)}% é <b>+${(m.lift*100).toFixed(1)}%</b>. A tabela de amostra necessária também foi calculada para lifts pré-fixados.`}else{bStatus.className='notice';bStatus.textContent='Calcule MDE e Amostra para fechar a resposta B.'}}
+function freezeB(){let st=load(STATE,{});if(!st.lastCalc||!st.table){fzOut.innerHTML='<div class="notice err">Calcule primeiro MDE e Amostra.</div>';return}st.freeze={lastCalc:st.lastCalc,table:st.table,frozenAt:new Date().toISOString(),status:'EVIDENCE_LIMIT_ONLY_NO_BET'};save(STATE,st);fzOut.innerHTML='<div class="notice ok">Resposta B congelada como limite de evidência.</div>';updateB()}
+function exportState(){let b=new Blob([JSON.stringify(load(STATE,{}),null,2)],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='SSPSKN_4.8_Evidence_Limit_State.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+kHist.textContent=history.length;kLast.textContent=history.at(-1)?.numero||'—';updateB();
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.page).classList.add('active')});
+
+// ---- SSPSKN 4.9 ORION Tail Engine ----
+const ORION_STATE='sspskn_49_orion';
+const C=(n,k)=>{if(k<0||k>n)return 0;k=Math.min(k,n-k);let r=1;for(let i=1;i<=k;i++)r=r*(n-k+i)/i;return Math.round(r)};
+const TOTAL_OUT=C(50,6)*C(6,2);
+const SINGLE_42=C(6,4)*C(44,2); // outcomes where one exact 6+2 ticket hits exactly 4+2
+
+function sample(n,k){let a=Array.from({length:n},(_,i)=>i+1);for(let i=0;i<k;i++){let j=i+Math.floor(Math.random()*(n-i));[a[i],a[j]]=[a[j],a[i]]}return a.slice(0,k).sort((x,y)=>x-y)}
+function randGame(){return {d:sample(50,6),t:sample(6,2)}}
+function keyGame(g){return g.d.join('-')+'|'+g.t.join('-')}
+function overlap(a,b){let s=new Set(a);return b.reduce((z,x)=>z+s.has(x),0)}
+function inter42(g,h){
+  if(g.t[0]!==h.t[0]||g.t[1]!==h.t[1]) return 0;
+  const r=overlap(g.d,h.d), u=12-r;
+  let z=0;
+  // Result has exactly 4 hits with each ticket.
+  for(let x=0;x<=r;x++){
+    let y=4-x, zz=4-x;
+    let outside=6-(x+y+zz);
+    if(x<=r && y>=0 && y<=6-r && zz>=0 && zz<=6-r && outside>=0 && outside<=50-u)
+      z += C(r,x)*C(6-r,y)*C(6-r,zz)*C(50-u,outside);
+  }
+  return z;
+}
+function approxUnion42(P){
+  let u=P.length*SINGLE_42;
+  for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++)u-=inter42(P[i],P[j]);
+  return Math.max(0,u); // exact through pairwise IE; higher intersections handled by MC benchmark below
+}
+function redundancy(P){
+  let pair=0; for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++)pair+=inter42(P[i],P[j]);
+  return pair/(P.length*SINGLE_42||1);
+}
+function score(P){return approxUnion42(P)-0.15*redundancy(P)*SINGLE_42}
+function mutate(P){
+  let q=P.map(g=>({d:[...g.d],t:[...g.t]})), i=Math.floor(Math.random()*q.length);
+  if(Math.random()<0.72){q[i].d=sample(50,6)}else q[i].t=sample(6,2);
+  let seen=new Set(); for(let g of q){let k=keyGame(g);if(seen.has(k))return P;seen.add(k)}
+  return q;
+}
+function runORION(){
+  const B=Math.max(2,Math.min(200,+document.getElementById('oBudget').value||20));
+  const R=Math.max(1,Math.min(30,+document.getElementById('oRestarts').value||8));
+  const I=Math.max(100,Math.min(20000,+document.getElementById('oIters').value||2500));
+  let best=null,bestS=-Infinity;
+  for(let r=0;r<R;r++){
+    let P=Array.from({length:B},randGame), s=score(P);
+    for(let it=0;it<I;it++){let q=mutate(P), qs=score(q); if(qs>s){P=q;s=qs}}
+    if(s>bestS){best=P;bestS=s}
+  }
+  const cov=approxUnion42(best), prob=cov/TOTAL_OUT, red=redundancy(best);
+  window._orion=best;
+  document.getElementById('oCov').textContent=Math.round(cov).toLocaleString('pt-BR');
+  document.getElementById('oProb').textContent=(100*prob).toFixed(5)+'%';
+  document.getElementById('oRed').textContent=(100*red).toFixed(3)+'%';
+  document.getElementById('oLift').textContent='aguarda';
+  document.getElementById('oGames').innerHTML=best.map((g,i)=>`<div style="padding:7px 0;border-bottom:1px solid var(--line)"><b>${String(i+1).padStart(2,'0')}</b> • ${g.d.map(x=>String(x).padStart(2,'0')).join(' ')} | Trevos ${g.t.join(' ')}</div>`).join('');
+  document.getElementById('oStatus').className='notice';
+  document.getElementById('oStatus').innerHTML='<b>CHALLENGER CONSTRUÍDO • NO BET</b><br>Precisa vencer o Random de mesmo orçamento e depois passar por validação prospectiva.';
+}
+function benchmarkORION(){
+  if(!window._orion){document.getElementById('oBench').textContent='Construa a carteira primeiro.';return}
+  const P=window._orion, B=P.length, target=approxUnion42(P);
+  const reps=2000; let sum=0,ge=0,vals=[];
+  for(let r=0;r<reps;r++){let q=Array.from({length:B},randGame),v=approxUnion42(q);sum+=v;vals.push(v);if(v>=target)ge++}
+  const mean=sum/reps,lift=target/mean-1,p=(ge+1)/(reps+1);
+  document.getElementById('oLift').textContent=(100*lift).toFixed(3)+'%';
+  document.getElementById('oBench').className='notice '+(p<0.05?'ok':'');
+  document.getElementById('oBench').innerHTML=`Random same-budget: ${reps.toLocaleString('pt-BR')} carteiras • cobertura média ${Math.round(mean).toLocaleString('pt-BR')} • lift ORION ${(100*lift).toFixed(3)}% • p empírico ${(p).toFixed(4)}.<br><b>${p<0.05?'PASSA TRIAGEM GEOMÉTRICA':'SEM EVIDÊNCIA SUFICIENTE'}</b>. Isto mede arquitetura de cobertura, não previsão.`;
+  document.getElementById('oStatus').innerHTML=p<0.05?'<b>GEOMETRIC GATE: PASS</b><br>Ainda NO BET. Próximo gate: cálculo exato/MC de alta precisão + OOS/prospectivo para qualquer componente preditivo.':'<b>GEOMETRIC GATE: FAIL</b><br>NO BET. Não promover.';
+}
+function freezeORION(){
+  if(!window._orion){alert('Construa a carteira primeiro.');return}
+  const obj={version:'4.9',engine:'ORION-Tail',created:new Date().toISOString(),budget:window._orion.length,games:window._orion,status:'FROZEN_CHALLENGER_NO_BET'};
+  localStorage.setItem(ORION_STATE,JSON.stringify(obj));
+  document.getElementById('oStatus').className='notice ok';
+  document.getElementById('oStatus').innerHTML='<b>FROZEN CHALLENGER • NO BET</b><br>Carteira ORION congelada localmente para auditoria.';
+}
+try{let z=JSON.parse(localStorage.getItem(ORION_STATE)||'null');if(z&&z.games){window._orion=z.games}}catch(e){}
+
+</script></body></html>

@@ -1,7 +1,7 @@
 <!doctype html><html lang="pt-BR"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#06130d"><link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icon.svg"><title>SSPSKN 6.0.1</title>
+<meta name="theme-color" content="#06130d">
+<title>SSPSKN 6.0.2</title>
 <style>
 :root{--bg:#06130d;--card:#10251a;--line:#28543d;--txt:#f4fbf6;--mut:#9bb5a5;--a:#42df8b;--warn:#ffd166;--bad:#ff767d}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
@@ -11,7 +11,7 @@ button,input,select,textarea{font:inherit}button{border:0;border-radius:12px;pad
 input,select,textarea{width:100%;background:#071910;color:var(--txt);border:1px solid var(--line);border-radius:11px;padding:11px;margin:5px 0}.note{border-left:4px solid var(--warn);padding:11px;background:#28220e;border-radius:10px;font-size:12px;line-height:1.5}.ok{border-color:var(--a);background:#0b2919}.bad{border-color:var(--bad);background:#2b1316}.game{padding:9px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}.page{display:none}.page.on{display:block}.tabs{position:fixed;left:0;right:0;bottom:0;background:#041009;border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom));z-index:5}.tabs div{max-width:920px;margin:auto;display:grid;grid-template-columns:repeat(6,1fr)}.tab{background:transparent;color:var(--mut);font-size:9px;padding:8px 2px}.tab.on{background:#173d2a;color:#fff}
 pre{white-space:pre-wrap;font-size:11px;max-height:320px;overflow:auto}.badge{display:inline-block;padding:5px 8px;border-radius:9px;background:#173d2a;font-size:11px}
 </style></head><body><main>
-<header><div class="logo">6.0.1</div><div><h1>SSPSKN 6.0.1</h1><div class="mut">Evidence-Gated Portfolio Lab • iPhone Fix</div></div></header>
+<header><div class="logo">6.0.2</div><div><h1>SSPSKN 6.0.2</h1><div class="mut">Evidence-Gated Portfolio Lab • Single-File iPhone Build</div><div style="font-size:11px;color:#42df8b;margin-top:4px">BUILD 6.0.2-SF</div></div></header>
 
 <section id="home" class="page on">
 <div class="card"><h2>Estado científico</h2><div class="note">O sistema começa em <b>NO BET</b>. Nenhum motor histórico é tratado como preditivo até superar controles de mesmo orçamento, multiplicidade, holdout intocado e desafio prospectivo.</div></div>
@@ -34,4 +34,63 @@ pre{white-space:pre-wrap;font-size:11px;max-height:320px;overflow:auto}.badge{di
 <div class="card"><h2>Instalação iPhone</h2><small>Hospede esta pasta em HTTPS (por exemplo GitHub Pages), abra <b>index.html</b> no Safari → Compartilhar → Adicionar à Tela de Início. O service worker mantém a interface disponível offline após a primeira carga. Atualização oficial requer internet.</small></div></section>
 </main>
 <nav class="tabs"><div><button class="tab on" data-p="home">⌂<br>Início</button><button class="tab" data-p="data">▤<br>Dados</button><button class="tab" data-p="lab">◈<br>Lab</button><button class="tab" data-p="check">✓<br>Conferir</button><button class="tab" data-p="audit">◎<br>Auditoria</button><button class="tab" data-p="backup">⇩<br>Backup</button></div></nav>
-<script src="app.js"></script></body></html>
+<script>
+
+async function clearOldAppCache(){
+  try{
+    if('serviceWorker' in navigator){
+      const regs=await navigator.serviceWorker.getRegistrations();
+      for(const r of regs) await r.unregister();
+    }
+    if('caches' in window){
+      const ks=await caches.keys();
+      for(const k of ks) if(k.startsWith('sspskn')) await caches.delete(k);
+    }
+  }catch(e){}
+}
+clearOldAppCache();
+
+'use strict';
+const $ = id => document.getElementById(id);
+const API='https://servicebus2.caixa.gov.br/portaldeloterias/api/maismilionaria';
+const K={hist:'sspskn60_history',frozen:'sspskn60_frozen',exp:'sspskn60_experiments',state:'sspskn60_state'};
+const L=(k,d=[])=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}}, S=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+const comb=(n,k)=>{let x=1;for(let i=1;i<=k;i++)x=x*(n-k+i)/i;return x};
+function norm(j){let rate=j.listaRateioPremio||[];return {numero:+j.numero,data:j.dataApuracao,dezenas:(j.listaDezenas||[]).map(Number).sort((a,b)=>a-b),trevos:(j.trevosSorteados||[]).map(Number).sort((a,b)=>a-b),arrecadacao:+j.valorArrecadado||null,rateio:rate.map(x=>({faixa:+x.faixa,ganhadores:+x.numeroDeGanhadores,premio:+x.valorPremio}))}}
+function valid(r){return Number.isInteger(r.numero)&&r.dezenas.length===6&&new Set(r.dezenas).size===6&&r.dezenas.every(x=>x>=1&&x<=50)&&r.trevos.length===2&&new Set(r.trevos).size===2&&r.trevos.every(x=>x>=1&&x<=6)}
+async function syncOfficial(){$('syncOut').innerHTML='<p>Consultando CAIXA…</p>';try{let latest=await (await fetch(API,{cache:'no-store'})).json(), N=+latest.numero, old=L(K.hist), map=new Map(old.map(x=>[x.numero,x])); for(let n=1;n<=N;n++){if(map.has(n))continue; try{let r=await fetch(API+'/'+n,{cache:'no-store'});if(!r.ok)continue;let x=norm(await r.json());if(valid(x))map.set(n,x)}catch{} if(n%20===0)$('syncOut').innerHTML=`<p>Sincronizando ${n}/${N}…</p>`} map.set(N,norm(latest));let h=[...map.values()].filter(valid).sort((a,b)=>a.numero-b.numero);S(K.hist,h);refresh();let miss=[];for(let n=1;n<=N;n++)if(!map.has(n))miss.push(n);$('syncOut').innerHTML=`<div class="note ${miss.length?'bad':'ok'}"><b>${h.length}</b> concursos válidos até ${N}. Faltantes: ${miss.length?miss.join(', '):'nenhum'}.</div>`}catch(e){$('syncOut').innerHTML='<div class="note bad">Falha de rede/CORS. Exporte dados oficiais em outro navegador ou tente novamente com internet.</div>'}}
+function auditHistory(){let h=L(K.hist),dup=[],seen=new Set(),bad=[];for(let x of h){if(seen.has(x.numero))dup.push(x.numero);seen.add(x.numero);if(!valid(x))bad.push(x.numero)}let miss=[];if(h.length)for(let n=h[0].numero;n<=h.at(-1).numero;n++)if(!seen.has(n))miss.push(n);$('syncOut').innerHTML=`<div class="note ${dup.length||bad.length||miss.length?'bad':'ok'}">N=${h.length}; duplicados=${dup.length}; inválidos=${bad.length}; lacunas=${miss.length}. ${miss.length?'Faltantes: '+miss.join(', '):'Estrutura íntegra.'}</div>`}
+function sample(a,k){let z=a.slice();for(let i=z.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[z[i],z[j]]=[z[j],z[i]]}return z.slice(0,k).sort((a,b)=>a-b)}
+const ov=(a,b)=>a.filter(x=>b.includes(x)).length;
+function conflict(g,c){return g.reduce((s,x)=>s+(Math.max(0,ov(x.d,c.d)-3)**2*8)+(Math.max(0,ov(x.t,c.t)-1)*12),0)}
+function candidate(){return {d:sample([...Array(50)].map((_,i)=>i+1),6),t:sample([1,2,3,4,5,6],2)}}
+function generate(){let b=Math.max(6,Math.floor(+$('budget').value/6)*6),n=Math.floor(b/6),m=$('motor')?.value||'joint',g=[];for(let i=0;i<n;i++){if(m==='random'){g.push(candidate());continue}let best=null,bs=1e99;for(let q=0;q<220;q++){let c=candidate(),sc=conflict(g,c);if(sc<bs){best=c;bs=sc}}g.push(best)}let st={contest:(L(K.hist).at(-1)?.numero||0)+1,budget:b,motor:m,games:g,created:new Date().toISOString(),status:'UNFROZEN'};S('sspskn60_current',st);renderGames(g)}
+function renderGames(g){$('games').innerHTML=g.map((x,i)=>`<div class=game>${String(i+1).padStart(2,'0')} • ${x.d.map(n=>String(n).padStart(2,'0')).join(' ')} + 🍀 ${x.t.join(' ')}</div>`).join('')}
+async function sha(s){let b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+async function freeze(){let c=L('sspskn60_current',null);if(!c)return alert('Gere a carteira primeiro.');c.status='FROZEN';c.frozenAt=new Date().toISOString();c.hash=await sha(JSON.stringify({contest:c.contest,budget:c.budget,motor:c.motor,games:c.games,created:c.created}));let f=L(K.frozen);f.push(c);S(K.frozen,f);S('sspskn60_current',c);alert('Carteira congelada. Hash: '+c.hash.slice(0,16)+'…')}
+function hits(g,r){return [ov(g.d,r.dezenas),ov(g.t,r.trevos)]}
+function checkFrozen(){let n=+$('contest').value,h=L(K.hist),r=h.find(x=>x.numero===n);if(!r){$('checkOut').innerHTML='<div class="note bad">Concurso não encontrado na base. Atualize os dados.</div>';return}let f=L(K.frozen).filter(x=>x.contest===n);if(!f.length){$('checkOut').innerHTML='<div class="note">Nenhuma carteira congelada para esse concurso.</div>';return}$('checkOut').innerHTML=f.map(x=>`<div class=card><b>${x.motor} • ${x.hash.slice(0,12)}…</b>`+x.games.map((g,i)=>{let z=hits(g,r);return `<div class=game>${i+1}: ${z[0]}+${z[1]}</div>`}).join('')+'</div>').join('')}
+function scorePortfolio(g,r){let best=[0,0],event=0;for(let x of g){let z=hits(x,r);if(z[1]===2&&z[0]>=4)event++;if(z[0]*10+z[1]>best[0]*10+best[1])best=z}return {event,best}}
+function genN(n,mode){let g=[];for(let i=0;i<n;i++){if(mode==='random'){g.push(candidate());continue}let best,bs=1e99;for(let q=0;q<80;q++){let c=candidate(),sc=conflict(g,c);if(sc<bs){best=c;bs=sc}}g.push(best)}return g}
+function runWF(){let h=L(K.hist);if(h.length<80){$('labOut').innerHTML='<div class="note bad">São necessários pelo menos 80 concursos oficiais para o laboratório.</div>';return}let n=Math.max(1,Math.floor((+$('budget').value||120)/6)),start=Math.max(40,Math.floor(h.length*.55)),end=Math.floor(h.length*.80),motorName=$('motor').value,sys=0,base=0,R=80;for(let i=start;i<end;i++){let r=h[i],g=genN(n,motorName==='random'?'random':'joint');sys+=scorePortfolio(g,r).event>0;for(let k=0;k<R;k++)base+=scorePortfolio(genN(n,'random'),r).event>0}let trials=end-start,p0=base/(trials*R),p1=sys/trials,lift=p0? p1/p0:null;let exp={id:crypto.randomUUID(),at:new Date().toISOString(),motor:motorName,budget:n*6,range:[h[start].numero,h[end-1].numero],trials,randomRep:R,systemRate:p1,randomRate:p0,lift,status:'RESEARCH',holdoutOpened:false};let es=L(K.exp);es.push(exp);S(K.exp,es);$('labOut').innerHTML=`<div class="note">Walk-forward DEV/VAL: ${trials} concursos. Sistema ${(100*p1).toFixed(2)}%; Random ${(100*p0).toFixed(2)}%; lift ${lift?lift.toFixed(2):'—'}. <b>Não promove status:</b> ainda faltam multiplicidade formal, teste final intocado e prospectivo.</div>`;refresh()}
+function adversarial(){let h=L(K.hist),e=L(K.exp),f=L(K.frozen),issues=[];if(h.length<100)issues.push('Amostra histórica pequena para eventos raros.');if(!e.length)issues.push('Nenhum walk-forward registrado.');if(e.some(x=>x.holdoutOpened))issues.push('Holdout já aberto em algum experimento.');if(f.length<20)issues.push('Desafio prospectivo ainda curto (<20 carteiras congeladas).');issues.push('Motores históricos não têm vantagem demonstrada por padrão.');issues.push('Cobertura/diversidade altera a geometria da carteira, não a probabilidade de cada combinação individual.');$('auditOut').textContent=(issues.length?issues:['Nenhuma falha detectada']).map((x,i)=>`${i+1}. ${x}`).join('\n');$('expOut').textContent=JSON.stringify(e.slice(-10),null,2)}
+function exportBackup(){let o={version:'6.0',exported:new Date().toISOString(),history:L(K.hist),frozen:L(K.frozen),experiments:L(K.exp),state:L(K.state,{status:'NO BET'})};let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(o,null,2)],{type:'application/json'}));a.download='SSPSKN_6_0_backup.json';a.click()}
+async function importBackup(){let f=$('imp').files[0];if(!f)return;try{let o=JSON.parse(await f.text());if(!Array.isArray(o.history))throw 0;S(K.hist,o.history.filter(valid));S(K.frozen,o.frozen||[]);S(K.exp,o.experiments||[]);S(K.state,o.state||{status:'NO BET'});refresh();$('backupOut').innerHTML='<div class="note ok">Backup importado.</div>'}catch{$('backupOut').innerHTML='<div class="note bad">Backup inválido.</div>'}}
+function resetResearch(){if(confirm('Apagar experimentos e carteiras? O histórico oficial será preservado.')){S(K.exp,[]);S(K.frozen,[]);S(K.state,{status:'NO BET'});refresh()}}
+function refresh(){let h=L(K.hist),s=L(K.state,{status:'NO BET'});$('hn').textContent=h.length;$('next').textContent=h.length?(h.at(-1).numero+1):'—';$('status').textContent=s.status||'NO BET';let c=L('sspskn60_current',null);if(c)renderGames(c.games)}
+function initUI(){
+  document.querySelectorAll('.tab').forEach(b=>{
+    b.addEventListener('click',()=>{
+      document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+      document.querySelectorAll('.page').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+      const p=$(b.dataset.p);
+      if(p) p.classList.add('on');
+    });
+  });
+  refresh();
+  
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initUI);
+else initUI();
+</script></body></html>
